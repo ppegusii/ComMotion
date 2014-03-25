@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+<meta charset=”utf-8”> 
+
+<title><%= title %></title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<link rel = "stylesheet" type ="text/css" href = "stylesheets/bootstrap/css/bootstrap.css" >
+
+</head>
+
+<body>
+
+<% include header %>
+
+<div class="container">
+
+	<div style="margin-top:20px" class="row">
+
+	
+		<div class="col-md-3 col-sm-3 col-xs-3">
+		<center>
+		<media>
+		<img src="images/generic_person.jpg" width="150" height="150"></img>
+		</media>
+
+		<div style="margin-top:20px">
+		  <a id="btn-edit_profile" href="edit_profile" class="btn btn-default">Edit Profile</a>
+		</div>
+
+		<div style="margin-top:20px">
+		  <a id="btn-my_posts" href="my_posts" class="btn btn-default">Posts</a>
+		</div>
+
+		<div style="margin-top:20px">
+		  <a id="btn-my_workouts" href="my_workouts" class="btn btn-default">My Workouts</a>
+		</div>
+
+		<div style="margin-top:20px">
+		  <a id="btn-my_followers" href="my_followers" class="btn btn-default">Followers</a>
+		</div>
+		</center>
+
+		
+		</div>
+
+		<div class="col-md-9 col-sm-9 col-xs-9">
+		ipsum dolor sit amet, consectetur adipiscing elit. Nunc leo quam, sollicitudin venenatis euismod eget, molestie sit amet arcu. Etiam pellentesque sapien eget lorem vulputate bibendum. Integer rhoncus auctor volutpat. Nulla facilisi. Nulla sed cursus risus. Praesent ornare nulla non feugiat gravida. Vestibulum varius dolor at turpis semper, ac dapibus eros cursus. Donec eu eleifend odio. Cras id augue interdum, accumsan ipsum quis, pulvinar erat. 
+
+		</div>
+
+
+	</div>
+
+</div>
+
+
+<script src="http//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+<script src = "javascripts/bootstrap.js"></script>
+
+
+</body>
+
+
+</html>
+

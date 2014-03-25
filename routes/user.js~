@@ -13,3 +13,8 @@ exports.signup = function(req, res){
 };
 
 
+/*
+exports.login = function(req, res){
+  res.sendfile('../public/login.html');
+}
+*/

@@ -8,6 +8,10 @@ exports.index = function(req, res){
   res.render('index', { title: 'ComMotion' });
 };
 
+exports.encyclopedia = function(req,res){
+  res.render('encyclopedia', { title: 'Encyclopedia' });
+};
+
 exports.getExercises = function(req,res){
 	var n = parseInt(req.body.n);
 	if(n <= 0){
