@@ -1,0 +1,12 @@
+//To install postgresql, create a vagrant user, and create ComMotion DB
+sudo apt-get install postgresql
+sudo su postgres
+createuser -P vagrant //Answer no to all questions
+createdb -O vagrant commotion
+exit
+
+//To login to postgresql when shell user is vagrant
+psql -d commotion
+
+//To run SQL script
+psql -d commotion -a -f CreateDb.sql
