@@ -1,4 +1,5 @@
 -- drop tables
+DROP TABLE IF EXISTS names;
 DROP TABLE IF EXISTS videos;
 DROP TABLE IF EXISTS photos;
 DROP TABLE IF EXISTS workouts;
@@ -41,6 +42,13 @@ CREATE TABLE videos(
 	exercise_id integer references exercises(id),
 	workout_id integer references workouts(id)
 );
+CREATE TABLE names(
+	id SERIAL PRIMARY KEY,
+	name VARCHAR(255) NOT NULL,
+  votes integer DEFAULT 0,
+	exercise_id integer references exercises(id),
+	workout_id integer references workouts(id)
+);
 
 -- load tables
 INSERT INTO difficulties (name) VALUES
@@ -50,3 +58,10 @@ INSERT INTO musclegroups (name) VALUES
 	('legs');
 INSERT INTO exercises (description,difficulty_id,musclegroup_id) VALUES
 	('A short description.',1,1);
+INSERT INTO names (name,exercise_id,votes) VALUES
+	('squats',1,5),
+	('knee bends',1,2);
+INSERT INTO photos (filename,exercise_id) VALUES
+  ('pic.jpg',1);
+INSERT INTO videos (url,exercise_id) VALUES
+  ('http://youtube.com/squat',1);

@@ -4,8 +4,7 @@ var appDir = path.dirname(require.main.filename);
 process.env['APP_DIR'] = appDir;
 
 //database
-var dbDir = path.join(appDir,'./db');
-process.env['DB_COMMOTION'] = path.join(dbDir,'./ComMotion.db');
+process.env['DB_CON_PG'] = 'postgres://vagrant:vagrant@localhost/commotion';
 
 //datalayer
 var dataDir = path.join(appDir,'./data');
