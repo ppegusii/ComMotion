@@ -51,17 +51,17 @@ CREATE TABLE names(
 );
 
 -- load tables
-INSERT INTO difficulties (name) VALUES
-	('beginner'),
-	('intermediate');
-INSERT INTO musclegroups (name) VALUES
-	('legs');
-INSERT INTO exercises (description,difficulty_id,musclegroup_id) VALUES
-	('A short description.',1,1);
-INSERT INTO names (name,exercise_id,votes) VALUES
-	('squats',1,5),
-	('knee bends',1,2);
-INSERT INTO photos (filename,exercise_id) VALUES
-  ('pic.jpg',1);
-INSERT INTO videos (url,exercise_id) VALUES
-  ('http://youtube.com/squat',1);
+INSERT INTO difficulties (id,name) VALUES
+	(1,'beginner'),
+	(2,'intermediate');
+INSERT INTO musclegroups (id,name) VALUES
+	(1,'legs');
+INSERT INTO exercises (id,description,difficulty_id,musclegroup_id) VALUES
+	(1,'A short description.',1,1);
+INSERT INTO names (id,name,exercise_id,votes) VALUES
+	(1,'squats',1,5),
+	(2,'knee bends',1,2);
+INSERT INTO photos (id,filename,exercise_id) VALUES
+	(1,'pic.jpg',1);
+INSERT INTO videos (id,url,exercise_id) VALUES
+	(1,'http://youtube.com/squat',1);
