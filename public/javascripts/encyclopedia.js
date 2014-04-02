@@ -40,7 +40,7 @@ Controller.prototype.__renderList__ = function(entries){
 	var list = $('<ul />');
 	this.model.entries.forEach(function(e,i,es){
 		var item = $('<li id="'+e.id+'">'+
-			'id='+e.id+' name='+e.name+
+      JSON.stringify(e)+
 			'</li>');
 		list.append(item);
 	});
