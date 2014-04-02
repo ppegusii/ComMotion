@@ -45,8 +45,12 @@ CREATE TABLE videos(
 -- load tables
 INSERT INTO difficulties (name) VALUES
 	('beginner'),
-	('intermediate');
+	('intermediate'),
+	('advanced');
 INSERT INTO musclegroups (name) VALUES
-	('legs');
+	('whole body'),
+	('upper body'),
+	('lower body'),
+	('core');
 INSERT INTO exercises (description,difficulty_id,musclegroup_id) VALUES
 	('A short description.',1,1);
