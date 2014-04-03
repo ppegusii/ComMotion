@@ -33,7 +33,7 @@ if ('development' == app.get('env')) {
 app.get('/', user.landing);
 app.get('/signup', user.signup);
 app.get('/home', nav.home);
-app.get('/profile', nav.profile);
+
 app.get('/create', nav.create);
 app.get('/workoutplayer', nav.workoutplayer);
 app.get('/encyclopedia', nav.encyclopedia);
@@ -41,6 +41,16 @@ app.get('/workoutcreator', nav.workoutcreator);
 app.get('/myfavorites', nav.myfavorites);
 app.post('/encyclopedia',routes.getExercises);
 
+app.get('/profile/editprofile', nav.profile_edit);
+app.get('/profile/about', nav.profile_about);
+app.get('/profile/myposts', nav.profile_posts);
+app.get('/profile/mycreations', nav.profile_creations);
+app.get('/profile/followers', nav.profile_followers);
+
+app.get('/encyclopediaresults', nav.encyclopedia_results);
+app.get('/exercise', nav.exercise);
+
+app.get('/graph', nav.graph);
 
 http.createServer(app).listen(app.get('port'), function(){
   console.log('Express server listening on port ' + app.get('port'));
