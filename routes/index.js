@@ -1,4 +1,4 @@
-var exerciseData = require(process.env.DATA_EXERCISE);
+var data = require(process.env.DATA);
 
 /*
  * GET home page.
@@ -14,7 +14,8 @@ exports.getExercises = function(req,res){
 		res.send('invalid limit');
 		return;
 	}
-	exerciseData.getExercises(n,function(err,exercises){
+	//exerciseData.getExercises(n,function(err,exercises){
+	data.getExercisesN(n,function(err,exercises){
 		if(err){
 			res.send(err.msg);
 		}

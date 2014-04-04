@@ -1,9 +1,9 @@
-exports.Exercise = function(id,description,difficulty,musclegroup,modDate,names,videos,photos){
+exports.Exercise = function(id,description,difficulty,musclegroup,modified,names,videos,photos){
 	this.id = id;
 	this.description = description;
   this.difficulty = difficulty;
   this.musclegroup = musclegroup;
-  this.modDate = modDate;
+  this.modified = modified;
   this.names = names;
   this.videos = videos;
   this.photos = photos;
