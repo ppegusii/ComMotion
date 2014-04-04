@@ -8,8 +8,13 @@ var name = require(process.env.DATA_NAME);
 var video = require(process.env.DATA_VIDEO);
 var photo = require(process.env.DATA_PHOTO);
 
-exports.getN = getN;
-function getN(n,cb){
+exports.getLimitN = getLimitN;
+function getLimitN(query,cb){
+  var n = parseInt(query.n,10);
+  if(n<=0){
+    cb('invalid n',undefined);
+    return;
+  }
   conn.query('SELECT * FROM exercises LIMIT $1',[n],function(err,result){
     if(err){
       cb(err,undefined);
@@ -28,19 +33,19 @@ function rowToExercise(row,cb){
   var mid = row.musclegroup_id;
   async.parallel({
     difficulty: function(callback){
-      difficulty.getById(did,callback);
+      difficulty.getById({id:did},callback);
     },
     musclegroup: function(callback){
-      musclegroup.getById(mid,callback);
+      musclegroup.getById({id:mid},callback);
     },
     names: function(callback){
-      name.getByEidWid(eid,undefined,callback);
+      name.getByEidWid({eid:eid,wid:undefined},callback);
     },
     videos: function(callback){
-      video.getByEidWid(eid,undefined,callback);
+      video.getByEidWid({eid:eid,wid:undefined},callback);
     },
     photos: function(callback){
-      photo.getByEidWid(eid,undefined,callback);
+      photo.getByEidWid({eid:eid,wid:undefined},callback);
     }
   },
   function(err,results){
@@ -54,7 +59,7 @@ function rowToExercise(row,cb){
       results.videos,
       results.photos
     );
-    console.log(JSON.stringify(exercise));
+//console.log(JSON.stringify(exercise));
     cb(err,exercise);
   });
 }

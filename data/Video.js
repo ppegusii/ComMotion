@@ -2,7 +2,13 @@ var conn = require(process.env.DATA_CONN);
 var model = require(process.env.MODELS);
 
 exports.getByEidWid = getByEidWid;
-function getByEidWid(eid,wid,cb){
+function getByEidWid(query,cb){
+  var eid = parseInt(query.eid,10);
+  var wid = parseInt(query.wid,10);
+  if((eid>0 && wid>0) || (eid<=0 && wid<=0)){
+    cb('define eid xor wid',undefined);
+    return;
+  }
   if(eid){
     var statement = 'SELECT * FROM videos WHERE exercise_id=$1';
   }else{
