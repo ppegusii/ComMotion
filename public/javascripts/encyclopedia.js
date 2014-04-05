@@ -8,13 +8,15 @@ function Model(){
 Model.prototype.getEntries = function(cnt,cb){
 	$.ajax({
 		type: 'POST',
-		url: '/encyclopedia',
-		data: {n:cnt}
+		url: '/query',
+		data: {query:'getExercisesLimitN',n:cnt}
 	}).done(this.__getAjaxCb__(cb));
 };
 Model.prototype.__getAjaxCb__ = function(cb){
 	var m = this;
 	return function(msg){
+console.log(JSON.stringify(msg));
+console.log(msg);
 		m.entries = msg;
 		cb(msg);
 	}

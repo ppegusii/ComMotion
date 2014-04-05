@@ -39,7 +39,7 @@ app.get('/workoutplayer', nav.workoutplayer);
 app.get('/encyclopedia', nav.encyclopedia);
 app.get('/workoutcreator', nav.workoutcreator);
 app.get('/myfavorites', nav.myfavorites);
-app.post('/encyclopedia',routes.getExercises);
+app.post('/query',routes.query);
 
 app.get('/profile/editprofile', nav.profile_edit);
 app.get('/profile/about', nav.profile_about);

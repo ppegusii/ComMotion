@@ -24,6 +24,7 @@ process.env['MODELS'] = modelsDir;
 //routes
 var routesDir = path.join(appDir,'./routes');
 process.env['ROUTES'] = routesDir;
+process.env['ROUTES_QUERY'] = path.join(routesDir,'./query.js');
 process.env['ROUTES_USER'] = path.join(routesDir,'./user');
 
 //test
