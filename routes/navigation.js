@@ -29,6 +29,10 @@ exports.myfavorites = function(req, res){
      res.render('myfavorites', {title: 'My favorites'});
 };
 
+exports.findusers = function(req, res){
+     res.render('findusers', {title: 'Find Users'});
+};
+
 
 
 exports.profile_edit = function(req, res){
