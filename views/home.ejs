@@ -7,16 +7,20 @@
 <title><%= title %></title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 
-<link rel = "stylesheet" type ="text/css" href = "bootstrap/css/bootstrap.css">
+<link rel = "stylesheet" type ="text/css" href = "stylesheets/bootstrap/css/bootstrap.css">
 
+<script src="javascripts/jquery-1.11.0.min.js"></script>
 
 </head>
-
-   
 
 <body>
 
     <% include header %> 
+
+   	<script>
+	$( "#locker" ).addClass("active");
+	</script>
+
 
 <div class="container">
 
@@ -25,7 +29,7 @@
 		<!--Calendar Area-->
 		<div class="col-md-3">
 		<center>
-		Calendar Area
+		<p id="test">Calendar Area</p>
 		</center>
 		</div>
 
@@ -115,7 +119,7 @@
 
 
 
-<script src="javascripts/jquery-1.11.0.min.js"></script>
+
 <script src = "javascripts/bootstrap.js"></script>
 
 
