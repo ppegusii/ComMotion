@@ -39,6 +39,7 @@ app.get('/workoutplayer', nav.workoutplayer);
 app.get('/encyclopedia', nav.encyclopedia);
 app.get('/workoutcreator', nav.workoutcreator);
 app.get('/myfavorites', nav.myfavorites);
+app.get('/findusers', nav.findusers);
 app.post('/query',routes.query);
 
 app.get('/profile/editprofile', nav.profile_edit);
@@ -46,6 +47,7 @@ app.get('/profile/about', nav.profile_about);
 app.get('/profile/myposts', nav.profile_posts);
 app.get('/profile/mycreations', nav.profile_creations);
 app.get('/profile/followers', nav.profile_followers);
+app.get('/profile/following', nav.profile_following);
 
 app.get('/encyclopediaresults', nav.encyclopedia_results);
 app.get('/exercise', nav.exercise);

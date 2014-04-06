@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+<meta charset=”utf-8”> 
+
+<title><%= title %></title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<link rel = "stylesheet" type ="text/css" href = "stylesheets/bootstrap/css/bootstrap.css" >
+
+<script src="../javascripts/jquery-1.11.0.min.js"></script>
+
+</head>
+
+<body>
+
+<% include header %>
+
+	<script>
+	$( "#findusers" ).addClass("active");
+	</script>
+
+<div class="container">
+
+<div class="row">
+	
+		<div class="col-md-8 col-md-offset-2">
+			<h4><b>Search for</b></h4>
+			<h5>Skill Level:</h5>
+				<span class="input-group">
+        			<input type="radio" name="skill_level" value="beginner"> Beginner
+					<input type="radio" name="skill_level" value="intermediate"> Intermediate
+					<input type="radio" name="skill_level" value="advanced"> Advanced
+      			</span>
+			<h5>Activities:</h5>
+				<span class="input-group">
+        			<input type="checkbox" name="activity" value="swimming"> Swimming
+					<input type="checkbox" name="activity" value="weightlifting"> Weight Lifting
+					<input type="checkbox" name="activity" value="kickboxing"> Kick Boxing
+      			</span>
+		<center>
+			<span>
+					<div style="margin-top: 30px; margin-bottom:10px" class="input-group">
+								<input id="search" type="text" class="form-control" name="query" value="">                                       
+                                 
+                            </div>
+			</span>	
+					<a id="btn-search" href="encyclopediaresults" class="btn btn-danger">Search</a>
+   
+		</center>
+		</div>
+	</div>
+
+	<div style="margin-top:30px" class="row">
+
+	<div class="col-md-8 col-md-offset-2">
+
+	
+	<h3>Popular Users</h3>
+	<hr>
+	</div>
+		
+	</div>
+
+		<div class="row">
+
+		<div class="col-md-10 col-md-offset-1">
+
+		<div class="col-md-2 col-md-offset-1">
+		<center>
+			<media>
+				<img src="images/generic_person.jpg" width="80" height="80"></img>
+			</media>
+			<h4>User 1</h4>
+		</center>
+
+		</div>
+
+		<div class="col-md-2">
+		<center>
+			<media>
+				<img src="images/generic_person.jpg" width="80" height="80"></img>
+			</media>
+			<h4>User 2</h4>
+		</center>
+
+		</div>	
+		
+		<div class="col-md-2">
+		<center>
+			<media>
+				<img src="images/generic_person.jpg" width="80" height="80"></img>
+			</media>
+			<h4>User 3</h4>
+		</center>
+
+		</div>
+
+		<div class="col-md-2">
+		<center>
+			<media>
+				<img src="images/generic_person.jpg" width="80" height="80"></img>
+			</media>
+			<h4>User 4</h4>
+		</center>
+
+		</div>
+
+		<div class="col-md-2">
+		<center>
+			<media>
+				<img src="images/generic_person.jpg" width="80" height="80"></img>
+			</media>
+			<h4>User 5</h4>
+		</center>
+
+		</div>
+
+		</div>
+
+	</div>
+
+		
+	<div style="margin-top:20px" class="row">
+
+	<div class="col-md-10 col-md-offset-1">
+
+	<div class="col-md-2 col-md-offset-1">
+		<center>
+			<media>
+				<img src="images/generic_person.jpg" width="80" height="80"></img>
+			</media>
+			<h4>User 6</h4>
+		</center>
+
+		</div>
+
+		<div class="col-md-2">
+		<center>
+			<media>
+				<img src="images/generic_person.jpg" width="80" height="80"></img>
+			</media>
+			<h4>User 7</h4>
+		</center>
+
+		</div>	
+		
+		<div class="col-md-2">
+		<center>
+			<media>
+				<img src="images/generic_person.jpg" width="80" height="80"></img>
+			</media>
+			<h4>User 8</h4>
+		</center>
+
+		</div>
+
+		<div class="col-md-2">
+		<center>
+			<media>
+				<img src="images/generic_person.jpg" width="80" height="80"></img>
+			</media>
+			<h4>User 9</h4>
+		</center>
+
+		</div>
+
+		<div class="col-md-2">
+		<center>
+			<media>
+				<img src="images/generic_person.jpg" width="80" height="80"></img>
+			</media>
+			<h4>User 10</h4>
+		</center>
+
+		</div>
+
+		</div>
+		</div>
+		<div style="margin-top:30px" class = "row">
+			<div class="col-md-8 col-md-offset-2">
+				<h3>New Users</h3>
+				<hr>
+			</div>
+		</div>
+
+		<div class="row">
+	
+		<div class="col-md-10 col-md-offset-1">
+
+		<div class="col-md-2 col-md-offset-1">
+		<center>
+			<media>
+				<img src="images/generic_person.jpg" width="80" height="80"></img>
+			</media>
+			<h4>User 1</h4>
+		</center>
+
+		</div>
+
+		<div class="col-md-2">
+		<center>
+			<media>
+				<img src="images/generic_person.jpg" width="80" height="80"></img>
+			</media>
+			<h4>User 2</h4>
+		</center>
+
+		</div>	
+		
+		<div class="col-md-2">
+		<center>
+			<media>
+				<img src="images/generic_person.jpg" width="80" height="80"></img>
+			</media>
+			<h4>User 3</h4>
+		</center>
+
+		</div>
+
+		<div class="col-md-2">
+		<center>
+			<media>
+				<img src="images/generic_person.jpg" width="80" height="80"></img>
+			</media>
+			<h4>User 4</h4>
+		</center>
+
+		</div>
+
+		<div class="col-md-2">
+		<center>
+			<media>
+				<img src="images/generic_person.jpg" width="80" height="80"></img>
+			</media>
+			<h4>User 5</h4>
+		</center>
+
+		</div>
+
+		</div>
+		
+		</div>
+
+		
+	<div style="margin-top:20px" class="row">
+
+	<div class="col-md-10 col-md-offset-1">
+
+	<div class="col-md-2 col-md-offset-1">
+		<center>
+			<media>
+				<img src="images/generic_person.jpg" width="80" height="80"></img>
+			</media>
+			<h4>User 6</h4>
+		</center>
+
+		</div>
+
+		<div class="col-md-2">
+		<center>
+			<media>
+				<img src="images/generic_person.jpg" width="80" height="80"></img>
+			</media>
+			<h4>User 7</h4>
+		</center>
+
+		</div>	
+		
+		<div class="col-md-2">
+		<center>
+			<media>
+				<img src="images/generic_person.jpg" width="80" height="80"></img>
+			</media>
+			<h4>User 8</h4>
+		</center>
+
+		</div>
+
+		<div class="col-md-2">
+		<center>
+			<media>
+				<img src="images/generic_person.jpg" width="80" height="80"></img>
+			</media>
+			<h4>User 9</h4>
+		</center>
+
+		</div>
+
+		<div class="col-md-2">
+		<center>
+			<media>
+				<img src="images/generic_person.jpg" width="80" height="80"></img>
+			</media>
+			<h4>User 10</h4>
+		</center>
+
+		</div>
+
+		</div>
+
+		</div>
+		
+</div>
+
+<% include footer %>
+
+<script src = "javascripts/bootstrap.js"></script>
+
+
+</body>
+
+
+</html>
+

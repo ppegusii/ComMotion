@@ -3,7 +3,6 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-  <title><%= title %></title>
   <link rel="stylesheet" href="stylesheets/bootstrap/css/bootstrap.css">
   <link rel="stylesheet" href="stylesheets/header.css">
 </head>
@@ -27,12 +26,13 @@
     <!-- Collect the nav links, forms, and other content for toggling -->
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
       <ul class="nav navbar-nav">
-				<li><a href="/profile/about"><span class="glyphicon glyphicon-user"></span>&nbsp; Profile</a></li>
-            	<li><a href="/home">	<span class="glyphicon glyphicon-home"></span>&nbsp; Locker</a></li>
-				<li><a href="/create">Create</a></li>
-                <li><a href="/encyclopedia">Encyclopedia</a></li>
-                <li><a href="/workoutplayer">Workout Player</a></li>
-				<li><a href="/myfavorites"><span class="glyphicon glyphicon-folder-open"></span>&nbsp;&nbsp;My Favorites</a></li>
+				<li id="profile"><a href="/profile/about"><span class="glyphicon glyphicon-user"></span>&nbsp; Profile</a></li>
+            	<li id="locker"><a href="/home">	<span class="glyphicon glyphicon-home"></span>&nbsp; Locker</a></li>
+				<li id="create"><a href="/create">Create</a></li>
+				<li id="findusers"><a href="/findusers">Find Users</a></li>
+                <li id="encyclopedia"><a href="/encyclopedia">Encyclopedia</a></li>
+                <li id="workoutplayer"><a href="/workoutplayer">Workout Player</a></li>
+				<li id="myfavorites"><a href="/myfavorites"><span class="glyphicon glyphicon-folder-open"></span>&nbsp;&nbsp;My Favorites</a></li>
       </ul>
 
       <ul class="nav navbar-nav navbar-right">

@@ -29,6 +29,10 @@ exports.myfavorites = function(req, res){
      res.render('myfavorites', {title: 'My favorites'});
 };
 
+exports.findusers = function(req, res){
+     res.render('findusers', {title: 'Find Users'});
+};
+
 
 
 exports.profile_edit = function(req, res){
@@ -51,6 +55,9 @@ exports.profile_followers = function(req, res){
      res.render('profile/followers', {title: 'Profile Followers'});
 };
 
+exports.profile_following = function(req, res){
+     res.render('profile/following', {title: 'Profile Following'});
+};
 
 exports.encyclopedia_results = function(req, res){
      res.render('encyclopediaresults', {title: 'Encyclopedia Results'});
