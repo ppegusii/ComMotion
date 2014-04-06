@@ -61,7 +61,6 @@ function rowToExercise(row,cb){
       results.videos,
       results.photos
     );
-//console.log(JSON.stringify(exercise));
     cb(err,exercise);
   });
 }
@@ -96,7 +95,6 @@ function init(query,cb){
         cb(err,undefined);
         return;
       }
-      resultToExercises(result,cb);
       exercise.id = result.rows[0].id.toString();
       exercise.modified = result.rows[0].modified;
       //TODO init child objects

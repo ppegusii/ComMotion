@@ -11,6 +11,7 @@ function query(req,res){
 		res.send('invalid query');
 		return;
 	}
+//console.log('body = '+JSON.stringify(req.body));
   queries[req.body.query](req.body,function(err,exercises){
 		if(err){
 			res.send(err.msg);
