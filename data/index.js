@@ -5,9 +5,10 @@ var name = require(process.env.DATA_NAME);
 var video = require(process.env.DATA_VIDEO);
 var photo = require(process.env.DATA_PHOTO);
 
-exports.getExercisesLimitN = exercise.getLimitN;
-exports.getDifficultyById = difficulty.getById;
-exports.getMusclegroupById = musclegroup.getById;
-exports.getNamesByEidWid = name.getByEidWid;
-exports.getVideosByEidWid = video.getByEidWid;
-exports.getPhotosByEidWid = exercise.getByEidWid;
+exports.exercisesGetLimitN = exercise.getLimitN;
+exports.exerciseInit = exercise.init;
+exports.difficultyGetById = difficulty.getById;
+exports.musclegroupGetById = musclegroup.getById;
+exports.namesGetByEidWid = name.getByEidWid;
+exports.videosGetByEidWid = video.getByEidWid;
+exports.photosGetByEidWid = photo.getByEidWid;

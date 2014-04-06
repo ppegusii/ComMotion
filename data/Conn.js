@@ -12,6 +12,9 @@ function query(statement,params,cb){
     else{
       client.query(statement,params,function(err,result){
         done();
+        if(err){
+          console.log('pg error = '+JSON.stringify(err));
+        }
         cb(err,result);
       });
     }

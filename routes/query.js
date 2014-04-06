@@ -3,7 +3,8 @@ var data = require(process.env.DATA);
 exports.query = query;
 
 var queries = Array();
-queries['getExercisesLimitN'] = data.getExercisesLimitN;
+queries['exercisesGetLimitN'] = data.exercisesGetLimitN;
+queries['exerciseInit'] = data.exerciseInit;
 
 function query(req,res){
 	if(queries[req.body.query]===undefined){

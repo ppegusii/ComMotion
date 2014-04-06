@@ -9,16 +9,30 @@ Model.prototype.getEntries = function(cnt,cb){
 	$.ajax({
 		type: 'POST',
 		url: '/query',
-		data: {query:'getExercisesLimitN',n:cnt}
+		data: {query:'exercisesGetLimitN',n:cnt}
+	}).done(this.__getAjaxCb__(cb));
+};
+Model.prototype.initEntry = function(exercise,cb){
+	$.ajax({
+		type: 'POST',
+		url: '/query',
+		data: {
+      query:'exerciseInit',
+      exercise:{
+        description:'new exercise!',
+        difficulty:{id:1},
+        musclegroup:{id:1}
+      }
+    }
 	}).done(this.__getAjaxCb__(cb));
 };
 Model.prototype.__getAjaxCb__ = function(cb){
 	var m = this;
 	return function(msg){
-console.log(JSON.stringify(msg));
-console.log(msg);
-		m.entries = msg;
-		cb(msg);
+		m.entries = msg instanceof Array
+      ? msg
+      : [msg];
+		cb(m.entries);
 	}
 };
 
@@ -34,8 +48,18 @@ Controller.prototype.__init__ = function(){
 	this.model.getEntries(this.resultCnt,function(entries){
 		c.__renderList__(entries);
 	});
+	this.model.initEntry(
+    {
+      description:'new exercise!',
+      difficulty:{id:1},
+      musclegroup:{id:1}
+    },function(entry){
+      c.__renderList__([entry]);
+    }
+  );
 };
 Controller.prototype.__renderList__ = function(entries){
+console.log('entries = '+JSON.stringify(entries));
 	var container = $('#entries');
 	container.empty();
 	var c = this;
