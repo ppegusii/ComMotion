@@ -1,0 +1,61 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <link rel="stylesheet" href="stylesheets/bootstrap/css/bootstrap.css">
+  <link rel="stylesheet" href="stylesheets/header.css">
+
+<style>
+table tr > td{
+
+padding-bottom:5px;
+}
+</style>
+
+</head>
+<body>
+
+<usersearchpanel>
+
+<div style="margin-top:30px" class="well">
+
+<h4><b>Search for User</b></h4>
+			<h5>Skill Level:</h5>
+				<span class="input-group">
+        			<input type="radio" name="skill_level" value="beginner"> Beginner
+					<input type="radio" name="skill_level" value="intermediate"> Intermediate
+					<input type="radio" name="skill_level" value="advanced"> Advanced
+      			</span>
+			<h5>Activities:</h5>
+				<span class="input-group">
+					<table>
+					<tr>
+        			<td><input type="checkbox" name="activity" value="swimming">  Swimming  </td>
+					<td><input type="checkbox" name="activity" value="weightlifting">  Weight Lifting  </td>
+					<td><input type="checkbox" name="activity" value="kickboxing">  Kick Boxing  </td>
+					</tr>
+					<tr>
+        			<td><input type="checkbox" name="activity" value="cycling">  Cycling </td>
+					<td><input type="checkbox" name="activity" value="">  Running  </td>
+					<td><input type="checkbox" name="activity" value="kickboxing">  Fill In  </td>
+					</tr>
+					<tr>
+        			<td><input type="checkbox" name="activity" value="cycling">  Fill In </td>
+					<td><input type="checkbox" name="activity" value="">  Fill In </td>
+					</tr>
+					</table>
+      			</span>
+		<center>
+			<span>
+					<div style="margin-top: 30px; margin-bottom:10px" class="input-group">
+								<input id="search" type="text" class="form-control" name="query" value="">                                       
+                                 
+                            </div>
+			</span>	
+					<a id="btn-search" href="usersearchresults" class="btn btn-danger">Search</a>
+   
+		</center>
+
+</div>
+</usersearchpanel>

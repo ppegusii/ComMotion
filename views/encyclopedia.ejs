@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 
 <head>
 <meta charset=”utf-8”> 
@@ -28,48 +28,17 @@
 <div class="container">
 
 <div class="row">
-	
-		<div class="col-md-8 col-md-offset-2">
-			<h4><b>Search for</b></h4>
-			<h5>Type of Item:</h5>
-				<span class="input-group">
-        			<input type="radio" name="item_type" value="exercise"> Exercise
-					<input type="radio" name="item_type" value="workout"> Workout
-					<input type="radio" name="item_type" value="program"> Program
-      			</span>
-			<h5>Difficulty:</h5>
-				<span class="input-group">
-        			<input type="radio" name="difficulty" value="beginner"> Beginner
-					<input type="radio" name="difficulty" value="intermediate"> Intermediate
-					<input type="radio" name="difficulty" value="advanced"> Advanced
-      			</span>
-		<center>
-			<span>
-					<div style="margin-top: 30px; margin-bottom:10px" class="input-group">
-								<input id="search" type="text" class="form-control" name="query" value="">                                       
-                                 
-                            </div>
-			</span>	
-					<a id="btn-search" href="encyclopediaresults" class="btn btn-danger">Search</a>
-   
-		</center>
+
+		<div class="col-md-4">
+			<% include itemsearchpanel %>			
 		</div>
-	</div>
 
-	<div style="margin-top:30px" class="row">
-
-	<div class="col-md-8 col-md-offset-2">
-
+	<div class="col-md-8">
 	
 	<h3>Popular Exercises</h3>
 	<hr>
-	</div>
-		
-	</div>
 
 		<div class="row">
-
-		<div class="col-md-10 col-md-offset-1">
 
 		<div class="col-md-2 col-md-offset-1">
 		<center>
@@ -123,12 +92,9 @@
 
 		</div>
 
-	</div>
-
 		
 	<div style="margin-top:20px" class="row">
 
-	<div class="col-md-10 col-md-offset-1">
 
 	<div class="col-md-2 col-md-offset-1">
 		<center>
@@ -181,17 +147,14 @@
 		</div>
 
 		</div>
-		</div>
+
+
 		<div style="margin-top:30px" class = "row">
-			<div class="col-md-8 col-md-offset-2">
 				<h3>New Exercises</h3>
 				<hr>
-			</div>
 		</div>
 
 		<div class="row">
-	
-		<div class="col-md-10 col-md-offset-1">
 
 		<div class="col-md-2 col-md-offset-1">
 		<center>
@@ -244,13 +207,9 @@
 		</div>
 
 		</div>
-		
-		</div>
 
 		
 	<div style="margin-top:20px" class="row">
-
-	<div class="col-md-10 col-md-offset-1">
 
 	<div class="col-md-2 col-md-offset-1">
 		<center>
@@ -303,20 +262,17 @@
 		</div>
 		</div>
 
-	<div style="margin-top:30px" class="row">
 
-	<div class="col-md-8 col-md-offset-2">
+
+	<div style="margin-top:30px" class="row">
 
 	
 	<h3>Popular Workouts</h3>
 	<hr>
-	</div>
 		
 	</div>
 
-		<div class="row">
-
-		<div class="col-md-10 col-md-offset-1">		
+		<div class="row">	
 
 		<div class="col-md-2 col-md-offset-1">
 		<center>
@@ -369,12 +325,9 @@
 		</div>
 
 		</div>
-	
-		</div>		
 
-	<div style="margin-top:20px" class="row">
 
-		<div class="col-md-10 col-md-offset-1">		
+	<div style="margin-top:20px" class="row">	
 
 	<div class="col-md-2 col-md-offset-1">
 		<center>
@@ -427,16 +380,13 @@
 		</div>
 
 	</div>
+
 		<div style="margin-top:30px" class = "row">
-			<div class="col-md-8 col-md-offset-2">
 				<h3>New Workouts</h3>
 				<hr>
-			</div>
 		</div>
 
 		<div class="row">
-
-		<div class="col-md-10 col-md-offset-1">
 
 		<div class="col-md-2 col-md-offset-1">
 		<center>
@@ -489,12 +439,8 @@
 		</div>
 
 		</div>
-
-		</div>
 		
-	<div style="margin-top:20px" class="row">
-
-	<div class="col-md-10 col-md-offset-1">		
+	<div style="margin-top:20px" class="row">	
 
 	<div class="col-md-2 col-md-offset-1">
 		<center>
@@ -548,12 +494,13 @@
 
 		</div>
 		
+	</div>
 </div>
 
 <% include footer %>
 
 <script src = "javascripts/bootstrap.js"></script>
-<script src="javascripts/encyclopedia.js"></script>
+<!--<script src="javascripts/encyclopedia.js"></script>-->
 
 
 </body>
