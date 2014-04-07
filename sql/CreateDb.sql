@@ -1,4 +1,8 @@
 -- drop tables
+
+DROP TABLE IF EXISTS favorite_workouts;
+DROP TABLE IF EXISTS favorite_exercises;
+DROP TABLE IF EXISTS users;
 DROP TABLE IF EXISTS names;
 DROP TABLE IF EXISTS videos;
 DROP TABLE IF EXISTS photos;
@@ -33,22 +37,38 @@ CREATE TABLE workouts(
 CREATE TABLE photos(
 	id SERIAL PRIMARY KEY,
 	filename VARCHAR(255) NOT NULL,
-	exercise_id integer references exercises(id),
-	workout_id integer references workouts(id)
+	exercise_id integer references exercises(id) ON DELETE CASCADE,
+	workout_id integer references workouts(id) ON DELETE CASCADE
 );
 CREATE TABLE videos(
 	id SERIAL PRIMARY KEY,
 	url VARCHAR(1023) NOT NULL,
-	exercise_id integer references exercises(id),
-	workout_id integer references workouts(id)
+	exercise_id integer references exercises(id) ON DELETE CASCADE,
+	workout_id integer references workouts(id) ON DELETE CASCADE
 );
 CREATE TABLE names(
 	id SERIAL PRIMARY KEY,
 	name VARCHAR(255) NOT NULL,
-  votes integer DEFAULT 0,
-	exercise_id integer references exercises(id),
-	workout_id integer references workouts(id)
+        votes integer DEFAULT 0,
+	exercise_id integer references exercises(id) ON DELETE CASCADE,
+	workout_id integer references workouts(id) ON DELETE CASCADE
 );
+CREATE TABLE users(
+	id SERIAL PRIMARY KEY,
+	username VARCHAR(255) NOT NULL,
+	password VARCHAR(255) NOT NULL
+);	
+CREATE TABLE favorite_exercises(
+	id SERIAL PRIMARY KEY,
+	user_id integer NOT NULL references users(id) ON DELETE CASCADE,
+	exercise_id integer NOT NULL references exercises(id) ON DELETE CASCADE
+);
+CREATE TABLE favorite_workouts(
+	id SERIAL PRIMARY KEY,
+	user_id integer NOT NULL references users(id) ON DELETE CASCADE,
+	workout_id integer NOT NULL references workouts(id) ON DELETE CASCADE
+);	
+
 
 -- load tables
 
@@ -99,3 +119,18 @@ ALTER SEQUENCE photos_id_seq RESTART WITH 2;
 INSERT INTO videos (id,url,exercise_id) VALUES
 	(1,'http://youtube.com/squat',1);
 ALTER SEQUENCE videos_id_seq RESTART WITH 2;
+INSERT INTO users (id, username, password) VALUES
+	(1, 'dorian', 'yates'),
+	(2, 'steve', 'reeves'),
+	(3, 'john', 'grimek'),
+	(4, 'franco', 'colombu');
+ALTER SEQUENCE users_id_seq RESTART WITH 5;
+INSERT INTO favorite_exercises (user_id, exercise_id) VALUES
+	(1, 1),
+	(1, 7),
+	(2, 10),
+	(2, 6),
+	(3, 4),
+	(3, 10),
+	(4, 2);
+
