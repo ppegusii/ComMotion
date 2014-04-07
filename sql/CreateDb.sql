@@ -50,6 +50,7 @@ CREATE TABLE names(
 	workout_id integer references workouts(id)
 );
 
+
 -- load tables
 
 INSERT INTO difficulties (id,name) VALUES
