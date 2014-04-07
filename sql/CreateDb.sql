@@ -57,11 +57,13 @@ INSERT INTO difficulties (id,name) VALUES
 	(1,'beginner'),
 	(2,'intermediate'),
 	(3,'advanced');
+ALTER SEQUENCE difficulties_id_seq RESTART WITH 4;
 INSERT INTO musclegroups (id,name) VALUES
 	(1,'whole body'),
 	(2,'upper body'),
 	(3,'lower body'),
 	(4,'core');
+ALTER SEQUENCE musclegroups_id_seq RESTART WITH 5;
 INSERT INTO exercises (id,description,difficulty_id,musclegroup_id) VALUES
 	(1,'Back squat with barbell',2,3),
 	(2,'Front squat with dumbbell',1,3),
@@ -76,6 +78,7 @@ INSERT INTO exercises (id,description,difficulty_id,musclegroup_id) VALUES
 	(11,'Row with dumbbells',1,2),
 	(12,'Sustained hold of plank position',1,4),
 	(13,'Situps focusing on thoracic spine flexion',1,4);
+ALTER SEQUENCE exercises_id_seq RESTART WITH 14;
 INSERT INTO names (id,name,exercise_id,votes) VALUES
 	(1,'squat',1,5),
 	(2,'goblet squat',2,3),
@@ -90,8 +93,10 @@ INSERT INTO names (id,name,exercise_id,votes) VALUES
 	(11,'dumbbell row',11,3),
 	(12,'planks',12,5),
 	(13,'crunches',13,1);
+ALTER SEQUENCE names_id_seq RESTART WITH 14;
 INSERT INTO photos (id,filename,exercise_id) VALUES
 	(1,'pic.jpg',1);
+ALTER SEQUENCE photos_id_seq RESTART WITH 2;
 INSERT INTO videos (id,url,exercise_id) VALUES
 	(1,'http://youtube.com/squat',1);
-
+ALTER SEQUENCE videos_id_seq RESTART WITH 2;
