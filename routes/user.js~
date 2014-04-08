@@ -4,12 +4,12 @@
  */
 
 exports.landing = function(req, res){
-  res.render('starter/landing', {title: 'Landing'});
+  res.render('landing', {title: 'Landing'});
 };
 
 
 exports.signup = function(req, res){
-  res.render('starter/signup', {title: 'Sign Up'});
+  res.render('signup', {title: 'Sign Up'});
 };
 
 

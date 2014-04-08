@@ -1,0 +1,78 @@
+<html lang="en-US">
+
+<head>
+
+<title><%= title %></title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel = "stylesheet" type ="text/css" href = "stylesheets/bootstrap/css/bootstrap.css" >
+
+<script src="javascripts/jquery-1.11.0.min.js"></script>
+
+</head>
+
+
+<body>
+
+
+<div class="container text-center">    
+	
+	<div id="loginbox" style="margin-top:50px;" class="mainbox col-md-5 col-md-offset-3 col-sm-8 col-sm-offset-2">                    
+    	<div class="panel panel-info" >
+        	<div class="panel-heading"> 
+            	<div class="panel-title">ComMotion Sign Up</div> 
+
+                <div style="padding-top:30px" class="panel-body" >
+	
+                	<div style="display:none" id="login-alert" class="alert alert-danger col-sm-12"></div>
+                            
+                   	<form id="signupform" class="form-horizontal" role="form">
+                          
+                        	<div style="margin-bottom: 0px" class="input-group col-md-offset-3">
+								<h5>User Name:</h5>
+                               	<input id="signup-username" type="text" class="form-control" name="username" value="">                                       
+							
+                            </div>
+
+							<div style="margin-bottom: 0px" class="input-group col-md-offset-3">
+								<h5>Email Address:</h5>
+                               	<input id="signup-emailaddress" type="text" class="form-control" name="emailaddress" value="">                                       
+                            </div>
+                                
+                            <div style="margin-bottom: 0px" class="input-group col-md-offset-3">
+								 <h5>Password:</h5>
+                                 <input id="signup-password" type="password" class="form-control" name="password">
+                            </div>
+
+							<div style="margin-bottom: 0px" class="input-group col-md-offset-3">
+								 <h5>Confirm Password:</h5>
+                                 <input id="signup-confirmpassword" type="password" class="form-control" name="confirmpassword">
+                            </div>                            
+
+                              <div style="margin-top:20px" class="form-group pull-right">
+                                   <div class="col-sm-12 controls">
+                                      <a id="btn-signup" href="/" class="btn btn-success">Sign Up</a>
+                                    </div>
+                              </div>
+
+
+                            </form>     
+                 
+                    </div>  
+ 
+		<!--panel-->
+		</div>
+
+	<!--login box-->
+	</div>
+
+<!--container-->
+</div>
+
+<script src = "javascripts/bootstrap.js"></script>
+
+
+
+</body>
+
+
+</html>

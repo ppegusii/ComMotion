@@ -21,10 +21,6 @@ exports.encyclopedia = function(req, res){
       res.render('encyclopedia', {title: 'Encyclopedia'});
 };
 
-exports.workoutcreator = function(req, res){
-     res.render('workoutcreator', {title: 'Workout Creator'});
-};
-
 exports.myfavorites = function(req, res){
      res.render('myfavorites', {title: 'My favorites'});
 };
@@ -68,9 +64,13 @@ exports.user_search_results = function(req, res){
 };
 
 exports.exercise = function(req, res){
-     res.render('exercise', {title: 'Exercise'});
+     res.render('create/exercise', {title: 'Exercise'});
 };
 
 exports.graph = function(req, res){
-     res.render('graph', {title: 'Graph'});
+     res.render('create/graph', {title: 'Graph'});
+};
+
+exports.workoutcreator = function(req, res){
+     res.render('create/workoutcreator', {title: 'Workout Creator'});
 };

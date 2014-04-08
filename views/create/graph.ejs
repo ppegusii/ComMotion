@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+<meta charset=”utf-8”> 
+
+<title><%= title %></title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<link rel = "stylesheet" type ="text/css" href = "stylesheets/bootstrap/css/bootstrap.css" >
+
+<script src="javascripts/jquery-1.11.0.min.js"></script>
+<!--<script src="javascripts/Chart.js"></script> -->
+
+</head>
+
+<body>
+
+<% include ../fragments/header %>
+
+<div class="container">
+
+	<div style="margin-top:20px" class="row">
+
+	<div style="margin-bottom:20px">
+    <center><h4>Create a new graph to log personal data from your workouts</h4></center>
+	</div>
+			<form id="signupform" class="form-horizontal" role="form">
+	
+				<div class="col-md-4 col-md-offset-4">
+
+                        	<div style="margin-bottom: 15px" class="input-group">
+								<h5>Name:</h5>
+                               	<input id="graph-name" type="text" class="form-control" name="name" value="">                                       
+							
+                            </div>
+
+							<div style="margin-bottom: 15px" class="input-group">
+	           					<h5>Type of Measurement:</h5>
+								<select>
+  <option value="weight">Weight</option>
+  <option value="time">Time</option>
+  <option value="distance">Distance</option>
+  <option value="reps">Reps</option>
+
+</select>
+							
+                            </div>
+                                
+								
+                              <div class="form-group pull-right">
+                                   <div class="col-sm-12 controls">
+                                      <a id="btn-save" href="create" class="btn btn-success">Save Graph</a>
+                                    </div>
+                              </div>
+
+							 
+					</div>
+
+             </form> 
+		  
+	<!--row-->
+	</div>
+<!--container-->
+</div>
+<!---
+<script>
+
+var radarOptions = {
+				
+	//Boolean - If we show the scale above the chart data			
+	scaleOverlay : false,
+	
+	//Boolean - If we want to override with a hard coded scale
+	scaleOverride : false,
+	
+	//** Required if scaleOverride is true **
+	//Number - The number of steps in a hard coded scale
+	scaleSteps : null,
+	//Number - The value jump in the hard coded scale
+	scaleStepWidth : null,
+	//Number - The centre starting value
+	scaleStartValue : null,
+	
+	//Boolean - Whether to show lines for each scale point
+	scaleShowLine : true,
+
+	//String - Colour of the scale line	
+	scaleLineColor : "#999",
+	
+	//Number - Pixel width of the scale line	
+	scaleLineWidth : 1,
+
+	//Boolean - Whether to show labels on the scale	
+	scaleShowLabels : false,
+	
+	//Interpolated JS string - can access value
+	scaleLabel : "<%=value%>",
+	
+	//String - Scale label font declaration for the scale label
+	scaleFontFamily : "'Arial'",
+	
+	//Number - Scale label font size in pixels	
+	scaleFontSize : 12,
+	
+	//String - Scale label font weight style	
+	scaleFontStyle : "normal",
+	
+	//String - Scale label font colour	
+	scaleFontColor : "#666",
+	
+	//Boolean - Show a backdrop to the scale label
+	scaleShowLabelBackdrop : true,
+	
+	//String - The colour of the label backdrop	
+	scaleBackdropColor : "rgba(255,255,255,0.75)",
+	
+	//Number - The backdrop padding above & below the label in pixels
+	scaleBackdropPaddingY : 2,
+	
+	//Number - The backdrop padding to the side of the label in pixels	
+	scaleBackdropPaddingX : 2,
+	
+	//Boolean - Whether we show the angle lines out of the radar
+	angleShowLineOut : true,
+	
+	//String - Colour of the angle line
+	angleLineColor : "rgba(255,255,255,0.3)",
+	
+	//Number - Pixel width of the angle line
+	angleLineWidth : 1,			
+	
+	//String - Point label font declaration
+	pointLabelFontFamily : "'Arial'",
+	
+	//String - Point label font weight
+	pointLabelFontStyle : "normal",
+	
+	//Number - Point label font size in pixels	
+	pointLabelFontSize : 12,
+	
+	//String - Point label font colour	
+	pointLabelFontColor : "#EFEFEF",
+	
+	//Boolean - Whether to show a dot for each point
+	pointDot : true,
+	
+	//Number - Radius of each point dot in pixels
+	pointDotRadius : 3,
+	
+	//Number - Pixel width of point dot stroke
+	pointDotStrokeWidth : 1,
+	
+	//Boolean - Whether to show a stroke for datasets
+	datasetStroke : true,
+	
+	//Number - Pixel width of dataset stroke
+	datasetStrokeWidth : 1,
+	
+	//Boolean - Whether to fill the dataset with a colour
+	datasetFill : true,
+	
+	//Boolean - Whether to animate the chart
+	animation : true,
+
+	//Number - Number of animation steps
+	animationSteps : 60,
+	
+	//String - Animation easing effect
+	animationEasing : "easeOutQuart",
+
+	//Function - Fires when the animation is complete
+	onAnimationComplete : null
+	
+}
+
+// Radar Data
+var radarData = {
+	labels : ["January","February","March","April","May","June","July"],
+	datasets : [
+		{
+			fillColor : "rgba(220,220,220,0.5)",
+			strokeColor : "rgba(220,220,220,1)",
+			data : [65,59,90,81,56,55,40]
+		},
+		{
+			fillColor : "rgba(151,187,205,0.5)",
+			strokeColor : "rgba(151,187,205,1)",
+			data : [28,48,40,19,96,27,100]
+		}
+	]
+}
+
+
+//Get the context of the Radar Chart canvas element we want to select
+var ctx = document.getElementById("radarChart").getContext("2d");
+
+// Create the Radar Chart
+var myRadarChart = new Chart(ctx).Radar(radarData, radarOptions);
+
+</script>
+
+<canvas id="radarChart" width="640" height="400"></canvas>
+-->
+<% include ../fragments/footer %>
+
+<script src = "javascripts/bootstrap.js"></script>
+
+
+</body>
+
+
+</html>
+

@@ -15,7 +15,7 @@
 
 <body>
 
-<% include header %>
+<% include fragments/header %>
 
 	<script>
 	$( "#create" ).addClass("active");
@@ -31,7 +31,7 @@
 			<div style="margin-top:30px" class="row form-group">
 			
 				<div class="col-md-3">
-				  <a style="width:100%;height:90px" href="exercise" class="btn btn-primary"><h3>Exercise</h3></a>
+				  <a style="width:100%;height:90px" href="/create/exercise" class="btn btn-primary"><h3>Exercise</h3></a>
 				
 					<div style="margin-top:15px" class="row">
 					<p>ipsum dolor sit amet, consectetur adipiscing elit. Nunc leo quam, sollicitudin venenatis euismod eget, molestie sit amet arcu. Etiam pellentesque sapien eget lorem vulputate bibendum. Integer rhoncus auctor volutpat. Nulla facilisi. Nulla sed cursus risus.</p> 
@@ -39,21 +39,21 @@
 				</div>
 
 				<div class="col-md-3">
-					  <a style="width:100%;height:90px" href="workoutcreator" class="btn btn-success"><h3>Workout</h3></a>
+					  <a style="width:100%;height:90px" href="/create/workoutcreator" class="btn btn-success"><h3>Workout</h3></a>
 					<div style="margin-top:15px" class="row">
 					<p>ipsum dolor sit amet, consectetur adipiscing elit. Nunc leo quam, sollicitudin venenatis euismod eget, molestie sit amet arcu. Etiam pellentesque sapien eget lorem vulputate bibendum. Integer rhoncus auctor volutpat. Nulla facilisi. Nulla sed cursus risus.</p> 
 					</div>
 				</div>
 
 				<div class="col-md-3">
-					  <a style="width:100%;height:90px" href="program" class="btn btn-warning"><h3>Program</h3></a>
+					  <a style="width:100%;height:90px" href="/create/program" class="btn btn-warning"><h3>Program</h3></a>
 					<div style="margin-top:15px" class="row">
 					<p>ipsum dolor sit amet, consectetur adipiscing elit. Nunc leo quam, sollicitudin venenatis euismod eget, molestie sit amet arcu. Etiam pellentesque sapien eget lorem vulputate bibendum. Integer rhoncus auctor volutpat. Nulla facilisi. Nulla sed cursus risus.</p> 
 					</div>
 				</div>
 
 				<div class="col-md-3">
-					  <a style="width:100%;height:90px" href="graph" class="btn btn-danger"><h3>Graph</h3></a>
+					  <a style="width:100%;height:90px" href="/create/graph" class="btn btn-danger"><h3>Graph</h3></a>
 					<div style="margin-top:15px" class="row">
 					<p>ipsum dolor sit amet, consectetur adipiscing elit. Nunc leo quam, sollicitudin venenatis euismod eget, molestie sit amet arcu. Etiam pellentesque sapien eget lorem vulputate bibendum. Integer rhoncus auctor volutpat. Nulla facilisi. Nulla sed cursus risus.</p> 
 					</div>
@@ -62,7 +62,7 @@
 
 </div>
 
-<% include footer %>
+<% include fragments/footer %>
 
 <script src = "javascripts/bootstrap.js"></script>
 
