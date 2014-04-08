@@ -49,6 +49,7 @@ app.get('/profile/mycreations', nav.profile_creations);
 app.get('/profile/followers', nav.profile_followers);
 app.get('/profile/following', nav.profile_following);
 
+app.get('/usersearchresults', nav.user_search_results);
 app.get('/encyclopediaresults', nav.encyclopedia_results);
 app.get('/exercise', nav.exercise);
 

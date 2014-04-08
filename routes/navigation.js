@@ -63,6 +63,10 @@ exports.encyclopedia_results = function(req, res){
      res.render('encyclopediaresults', {title: 'Encyclopedia Results'});
 };
 
+exports.user_search_results = function(req, res){
+     res.render('usersearchresults', {title: 'User Results'});
+};
+
 exports.exercise = function(req, res){
      res.render('exercise', {title: 'Exercise'});
 };
