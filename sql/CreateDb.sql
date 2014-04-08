@@ -1,5 +1,7 @@
 -- drop tables
 
+DROP TABLE IF EXISTS does_follow;
+DROP TABLE IF EXISTS followers;
 DROP TABLE IF EXISTS favorite_workouts;
 DROP TABLE IF EXISTS favorite_exercises;
 DROP TABLE IF EXISTS users;
@@ -56,7 +58,10 @@ CREATE TABLE names(
 CREATE TABLE users(
 	id SERIAL PRIMARY KEY,
 	username VARCHAR(255) NOT NULL,
-	password VARCHAR(255) NOT NULL
+	password VARCHAR(255) NOT NULL,
+	activities VARCHAR(1023),
+	avatar VARCHAR(255) 
+	
 );	
 CREATE TABLE favorite_exercises(
 	id SERIAL PRIMARY KEY,
@@ -68,7 +73,16 @@ CREATE TABLE favorite_workouts(
 	user_id integer NOT NULL references users(id) ON DELETE CASCADE,
 	workout_id integer NOT NULL references workouts(id) ON DELETE CASCADE
 );	
-
+CREATE TABLE followers(
+	id SERIAL PRIMARY KEY,
+	user_id integer NOT NULL references users(id) ON DELETE CASCADE,
+	follower_id integer NOT NULL  references users(id) ON DELETE CASCADE
+);
+CREATE TABLE does_follow(
+	id SERIAL PRIMARY KEY,
+	user_id integer NOT NULL references users(id) ON DELETE CASCADE,
+	who_i_follow integer references users(id) ON DELETE CASCADE
+);
 
 -- load tables
 
