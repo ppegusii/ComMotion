@@ -11,14 +11,18 @@
 
 <script src="../javascripts/jquery-1.11.0.min.js"></script>
 
+
 <link rel="stylesheet" href="//code.jquery.com/ui/1.10.4/themes/smoothness/jquery-ui.css">
 <!--<script src="//code.jquery.com/jquery-1.9.1.js"></script> -->
-<script src="//code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
+<script src="//code.jquery.com/ui/1.10.4/jquery-ui.js"></script> 
+<script src="../javascripts/workoutcreator.js"></script>
 <link rel="stylesheet" href="/resources/demos/style.css">
+
 <style>
 /* IE has layout issues when sorting (see #5413) */
 .group { zoom: 1 }
 </style>
+
 <script>
 	$(function() {
 
@@ -55,6 +59,7 @@ ul { list-style-type: none; margin: 0; padding: 0; margin-bottom: 10px; }
 li { margin: 5px; padding: 5px; width: 150px; }
 </style>
 -->
+
 <script>
 $(function() {
 $( "#sortable" ).sortable({
@@ -72,17 +77,30 @@ revert: "invalid"
 //accept: ":not(.ui-sortable-helper)",
 drop: function( event, ui ) {
 //$(".draggable").addClass("group");
-//$(this).append( "<li>" + ui.draggable.text() + "</li>");
+//$(this).prepend( "<li>" + ui.draggable.text() + "</li>");
 //$(this).append( "<div class='group'> <ul> <li> a</li> <li> b</li> <li> c</li> </ul> </div>");
 //ui.draggable.addClass("accordion2");
 //$( "<li></li>" ).text( ui.draggable.text() ).appendTo( this );
 ui.draggable.appendTo(this);
 }
+})
 });
+/*
+.sortable({
+//items: "li:not(.placeholder)",
+sort: function() {
+// gets added unintentionally by droppable interacting with sortable
+// using connectWithSortable fixes this, but doesn't allow you to customize active/hoverClass options
+$( this ).removeClass( "ui-state-default" );
+};
 
 $( "ul, li" ).disableSelection();
 });
+
+});
+*/
 </script>
+
 
 </head>
 
@@ -201,7 +219,7 @@ $( "ul, li" ).disableSelection();
 
 <% include ../fragments/footer %>
 
-<script src = "javascripts/bootstrap.js"></script>
+<script src = "../javascripts/bootstrap.js"></script>
 
 
 </body>
