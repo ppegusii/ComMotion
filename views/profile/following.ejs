@@ -26,7 +26,7 @@
 	<div style="margin-top:20px" class="row">
 
 	
-		<div class="col-md-3 col-sm-3 col-xs-3">
+		<div class="col-md-3">
 	
 		<% include profilesidepanel %>
 		
@@ -36,9 +36,26 @@
 
 		</div>
 
-		<div class="col-md-9 col-sm-9 col-xs-9">
+		<div class="col-md-6">
 		
-		List users that I am following here
+		<center><h3><strong>myusername</strong> is Following</h3></center>
+		<hr>
+		<% for (var i = 0; i<4; i++){ %>
+
+		<row>
+
+		<% for (var j = 0; j<4; j++){  %>
+			<div class="col-md-2 col-md-offset-1" style="margin-top:30px">
+				<media>
+					<img src="../images/generic_person.jpg" width="80px" height="80px"></img>
+				</media>
+					<center>User <%= i*4+j %></center>
+			</div>
+		<% } %>
+	
+		</row>
+
+		<% } %>
 
 		</div>
 
