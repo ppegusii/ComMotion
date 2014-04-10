@@ -27,14 +27,14 @@ CREATE TABLE exercises(
 	description VARCHAR(1023) NOT NULL,
 	difficulty_id integer NOT NULL references difficulties(id),
 	musclegroup_id integer NOT NULL references musclegroups(id),
-	modified timestamp NOT NULL DEFAULT current_timestamp
+	created timestamp NOT NULL --check that this is handled in insert
 );
 CREATE TABLE workouts(
 	id SERIAL PRIMARY KEY,
 	description VARCHAR(1023) NOT NULL,
 	difficulty_id integer NOT NULL references difficulties(id),
 	musclegroup_id integer NOT NULL references musclegroups(id),
-	modified timestamp NOT NULL
+	date timestamp NOT NULL --check that this is handled in insert
 );
 CREATE TABLE photos(
 	id SERIAL PRIMARY KEY,
