@@ -13,3 +13,7 @@ exports.signup = function(req, res){
 };
 
 
+exports.createprofile = function(req, res){
+  res.render('starter/createprofile', {title: 'Create Profile'});
+};
+

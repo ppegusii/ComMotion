@@ -51,7 +51,7 @@ list-style-type: none;
 			// IE doesn't register the blur when sorting
 			// so trigger focusout handlers to remove .ui-state-focus
 			//if(!(ui.item.hasClass("element"))){
-			if(ui.item.hasClass("draggable")){
+			if(ui.item.hasClass("draggableExercise")){
 				ui.item.children( "h3" ).triggerHandler( "focusout" );
 				ui.item.replaceWith('<div class="group element"><h3><span class="ui-accordion-header-icon ui-icon ui-icon-triangle-1-e"></span>' + ui.item.text() + '</h3><ul><li>Add Set</li></ul></div>');
 				$(".element > h3").addClass('ui-accordion-header ui-helper-reset ui-state-default ui-corner-all ui-accordion-icons');
@@ -60,6 +60,16 @@ list-style-type: none;
 				$(".group > ul").sortable();
 				//$(".element").accordion({heightStyle: "content"});
 			}
+			if(ui.item.hasClass("draggableRest")){
+				//ui.item.children( "h3" ).triggerHandler( "focusout" );
+				ui.item.replaceWith('<div class="group restElement"><h3><span class="ui-accordion-header-icon ui-icon ui-icon-triangle-1-e"></span>' + ui.item.text() + '</h3><ul><li>Add Set</li></ul></div>');
+				$(".restElement > h3").addClass('ui-accordion-header ui-helper-reset ui-state-default ui-corner-all ui-accordion-icons');
+				//$(".restElement > ul").addClass('ui-accordion-content ui-helper-reset ui-widget-content ui-corner-bottom');
+				$(".restElement").accordion({collapsible: true});
+			//$(".restElement").accordion( "option", "active", false);
+				//$(".group > ul").sortable();
+				//$(".element").accordion({heightStyle: "content"});
+			}	
 
 			//}
 				
@@ -84,12 +94,17 @@ $(".group > ul").sortable();
 $( "#sortable" ).sortable({
 revert: true
 });
-$( ".draggable" ).draggable({
+$( ".draggableExercise" ).draggable({
 connectToSortable: "#accordion2",
 helper: "clone",
 revert: false
 });
-$( ".draggable2" ).draggable({
+$( ".draggableRest" ).draggable({
+connectToSortable: "#accordion2",
+helper: "clone",
+revert: false
+});
+$( ".draggableSetBuilder" ).draggable({
 connectToSortable: ".group > ul",
 helper: "clone",
 revert: false
@@ -118,7 +133,7 @@ revert: false
 
 		<div class="row">
 
-	<div class="col-md-3">
+	<div class="col-md-3 col-sm-3 col-xs-3">
 
 	<div id="accordion1">
 		<div class="group">
@@ -135,9 +150,9 @@ revert: false
 			<h3>Set Builders</h3>
 			<div>
 				<ul>
-					<li class="draggable2">Set Builder 1</li>
-					<li class="draggable2">Set Builder 2</li>
-					<li class="draggable2">Set Builder 3</li>
+					<li class="draggableSetBuilder">Set Builder 1</li>
+					<li class="draggableSetBuilder">Set Builder 2</li>
+					<li class="draggableSetBuilder">Set Builder 3</li>
 				</ul>
 			</div>
 		</div>
@@ -146,9 +161,9 @@ revert: false
 					<div>
 						<h4>Search Bar</h4>
 					<ul>
-						<li class="draggable">Exercise x</li>
-						<li class="draggable">Exercise y</li>
-						<li class="draggable">Exercise z</li>
+						<li class="draggableExercise">Exercise x</li>
+						<li class="draggableExercise">Exercise y</li>
+						<li class="draggableExercise">Exercise z</li>
 					</ul>
 					</div>
 				</div>
@@ -156,17 +171,17 @@ revert: false
 					<h3>Rest Period</h3>
 					<div>
 						<ul>
-							<li class="draggable">Rest 30 seconds</li>
-							<li class="draggable">Rest 1 minutes</li>
-							<li class="draggable">Rest 5 minutes</li>
+							<li class="draggableRest">Rest 30 seconds</li>
+							<li class="draggableRest">Rest 1 minutes</li>
+							<li class="draggableRest">Rest 5 minutes</li>
 						</ul>
 					</div>
 				</div>
 			</div>
 	</div>
-	<div class="col-md-1">
+	<div class="col-md-1 col-sm-1 col-xs-1">
 	</div>
-	<div class="col-md-5" style="margin-top:15px; height:200px">	
+	<div class="col-md-5 col-sm-5 col-xs-5" style="margin-top:15px; height:200px">	
 
 	<p>Drag exercises over here to build workout</p>
 
@@ -182,46 +197,13 @@ revert: false
 				</ul>
 				
 				</div>
-		<!--
-				<div class="group">
-					<h3>Increasing 3 - Shoulder Sagitall Raise</h3>
-					
-						<ul>
-							<li>Fill In</li>
-							<li>Fill In</li>
-							<li>Fill In</li>
-						</ul>
-					
-				</div>
-				<div class="group">
-					<h3>Straight 3 - Neck Bridges</h3>
-					
-						<ul>
-							<li>Fill In</li>
-							<li>Fill In</li>
-							<li>Fill In</li>
-						</ul>
-					
-				</div>
-				<div class="group">
-					<h3>Increasing 3 - Shoulder Flies</h3>
-					
-						<ul>
-							<li>Fill In</li>
-							<li>Fill In</li>
-							<li>Fill In</li>
-						</ul>
-					
-				</div>
-		-->
+
 			</div>
 		</div>
 
-		<div id="trash" class="col-md-offset-1 col-md-2 well" style="height:100px">
+		<div id="trash" class="col-md-offset-1 col-sm-offset-1 col-xs-offset-1 col-md-2 col-sm-2 col-xs-2 well" style="height:100px">
 
 			<center>Trash Area</center>
-
-		</div>
 
 		</div>
 

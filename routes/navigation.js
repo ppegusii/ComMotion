@@ -13,10 +13,6 @@ exports.create = function(req, res){
    res.render('create', {title: 'Create'});
 };
 
-exports.workoutplayer = function(req, res){
-      res.render('workoutplayer', {title: 'Workout Player'});
-};
-
 exports.encyclopedia = function(req, res){
       res.render('encyclopedia', {title: 'Encyclopedia'});
 };
@@ -65,10 +61,6 @@ exports.user_search_results = function(req, res){
 
 exports.exercise = function(req, res){
      res.render('create/exercise', {title: 'Exercise'});
-};
-
-exports.graph = function(req, res){
-     res.render('create/graph', {title: 'Graph'});
 };
 
 exports.workoutcreator = function(req, res){

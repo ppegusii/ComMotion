@@ -32,10 +32,10 @@ if ('development' == app.get('env')) {
 
 app.get('/', user.landing);
 app.get('/signup', user.signup);
+app.get('/createprofile', user.createprofile);
 app.get('/home', nav.home);
 
 app.get('/create', nav.create);
-app.get('/workoutplayer', nav.workoutplayer);
 app.get('/encyclopedia', nav.encyclopedia);
 
 app.get('/myfavorites', nav.myfavorites);
@@ -53,7 +53,6 @@ app.get('/usersearchresults', nav.user_search_results);
 app.get('/encyclopediaresults', nav.encyclopedia_results);
 
 app.get('/create/exercise', nav.exercise);
-app.get('/create/graph', nav.graph);
 app.get('/create/workoutcreator', nav.workoutcreator);
 
 http.createServer(app).listen(app.get('port'), function(){

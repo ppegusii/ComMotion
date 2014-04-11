@@ -28,7 +28,7 @@
 	<div class="row">
 
 		<!--Calendar Area-->
-		<div class="col-md-3">
+		<div class="col-md-3 col-sm-3 col-xs-3">
 		<center>
 		Calendar Area
 		</center>
@@ -36,7 +36,7 @@
 
 
 		<!--Post Area-->
-		<div class="col-md-6">
+		<div class="col-md-6 col-sm-6 col-xs-6">
 			<div class="row">
 			<center>
 			<textarea style="resize:none" rows="4" cols="50" value="" placeholder="Write something here..." resize="none"></textarea>
@@ -46,12 +46,14 @@
 			</div>			
 
 			<hr>
+
+<% for (var i=0; i<3; i++){ %>
 	
 			<div class="row">
 
 				<div class="col-md-1">
 					<center>
-					username1
+					username<%=i+1%>
 					<img src="images/generic_person.jpg" width="60" height="60"></img>
 					</center>
 				</div>
@@ -75,68 +77,13 @@
 	
 			<hr>
 
-			<div style="margin-top:30px;margin-bottom:30px" class="row">
-
-				<div class="col-md-1">
-					<center>
-					username2
-					<img src="images/generic_person.jpg" width="60" height="60"></img>
-					</center>
-				</div>
-		
-				<div class="col-md-6">
-				</div>
-		
-				<div class="col-md-5">
-					<center>
-					April 4, 2014 6:25pm est
-					</center>
-				</div>
-
-				
-			</div>	
-
-			<div class= "row">
-
-				ipsum dolor sit amet, consectetur adipiscing elit. Nunc leo quam, sollicitudin venenatis euismod eget, molestie sit amet arcu. Etiam pellentesque sapien eget lorem vulputate bibendum. Integer rhoncus auctor volutpat. Nulla facilisi. Nulla sed cursus risus. 
-	
-			</div>
-			
-<hr>
-
-			<div style="margin-top:30px;margin-bottom:30px" class="row">
-
-				<div class="col-md-1">
-					<center>
-					username3
-					<img src="images/generic_person.jpg" width="60" height="60"></img>
-					</center>
-				</div>
-
-				<div class="col-md-6">
-				</div>
-		
-				<div class="col-md-5">
-					<center>
-					April 4, 2014 3:10pm est
-					</center>
-				</div>
-
-				
-			</div>	
-
-			<div class= "row">
-
-				ipsum dolor sit amet, consectetur adipiscing elit. Nunc leo quam, sollicitudin venenatis euismod eget, molestie sit amet arcu. Etiam pellentesque sapien eget lorem vulputate bibendum. Integer rhoncus auctor volutpat. Nulla facilisi. Nulla sed cursus risus. 
-	
-			</div>
+<% } %>
 			
 		</div>
-
 		
 
 		<!--Graph area-->
-		<div class="col-md-3">
+		<div class="col-md-3 col-sm-3 col-xs-3">
 			<center>
 				Graphs Area
 			</center>

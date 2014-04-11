@@ -1,0 +1,93 @@
+<html lang="en-US">
+
+<head>
+
+<title><%= title %></title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel = "stylesheet" type ="text/css" href = "../stylesheets/bootstrap/css/bootstrap.css" >
+
+<script src="../javascripts/jquery-1.11.0.min.js"></script>
+
+</head>
+
+
+<body>
+
+
+<div class="container text-center">    
+	
+	<div id="loginbox" style="margin-top:50px;" class="mainbox col-md-5 col-md-offset-3">                    
+    	<div class="panel panel-info" >
+        	<div class="panel-heading"> 
+            	<div class="panel-title">Create Your Profile</div> 
+
+                <div style="padding-top:30px" class="panel-body" >
+	
+                	<div style="display:none" id="login-alert" class="alert alert-danger col-sm-12"></div>
+                            
+                   	<form id="createprofileform" class="form-horizontal" role="form">
+                          
+                        	<div style="margin-bottom: 0px" class="input-group col-md-offset-1">
+								<h5>Skill Level:</h5>
+								<span class="input-group">
+        							<input type="radio" name="skill_level" value="beginner"> Beginner
+									<input type="radio" name="skill_level" value="intermediate"> Intermediate
+									<input type="radio" name="skill_level" value="advanced"> Advanced
+      							</span>
+                            </div>
+                                
+                            <div style="margin-bottom: 0px" class="input-group">
+								<h5>Activities:</h5>
+								 <span class="input-group">
+									<table>
+									<tr>
+									<td><input type="checkbox" name="activity" value="swimming">  Swimming  </td>
+									<td><input type="checkbox" name="activity" value="weightlifting">  Weight Lifting  </td>
+									<td><input type="checkbox" name="activity" value="kickboxing">  Kick Boxing  </td>
+									</tr>
+									<tr>
+									<td><input type="checkbox" name="activity" value="cycling">  Cycling </td>
+									<td><input type="checkbox" name="activity" value="">  Running  </td>
+									<td><input type="checkbox" name="activity" value="kickboxing">  Fill In  </td>
+									</tr>
+									<tr>
+									<td><input type="checkbox" name="activity" value="cycling">  Fill In </td>
+									<td><input type="checkbox" name="activity" value="">  Fill In </td>
+									</tr>
+									</table>
+					  			</span>
+                            </div>
+
+							<div style="margin-bottom: 0px" class="input-group">
+								  <h5>Description:</h5>
+								<textarea class="form-control" id="exercise-description" style="resize:none" rows="4" cols="50" value="" resize="none" name="description"></textarea> 	
+                            </div>                            
+
+                              <div style="margin-top:20px" class="form-group pull-right">
+                                   <div class="col-sm-12 controls">
+                                      <a id="btn-signup" href="/" class="btn btn-success">Save Profile</a>
+                                    </div>
+                              </div>
+
+
+                            </form>     
+                 
+                    </div>  
+ 
+		<!--panel-->
+		</div>
+
+	<!--login box-->
+	</div>
+
+<!--container-->
+</div>
+
+<script src = "../javascripts/bootstrap.js"></script>
+
+
+
+</body>
+
+
+</html>
