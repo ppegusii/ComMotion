@@ -10,6 +10,7 @@ var routes = require(process.env.ROUTES);
 var user = require(process.env.ROUTES_USER);
 var http = require('http');
 var path = require('path');
+var flash = require('connect-flash');
 
 var app = express();
 
@@ -24,6 +25,7 @@ app.use(express.urlencoded());
 app.use(express.methodOverride());
 app.use(app.router);
 app.use(express.static(path.join(__dirname, 'public')));
+app.use(flash());
 
 // development only
 if ('development' == app.get('env')) {
@@ -54,6 +56,9 @@ app.get('/encyclopediaresults', nav.encyclopedia_results);
 
 app.get('/create/exercise', nav.exercise);
 app.get('/create/workoutcreator', nav.workoutcreator);
+
+app.post('/create/exercise/save', nav.saveexercise);
+app.get('/create/exercise/cancel', nav.cancelexercise);
 
 http.createServer(app).listen(app.get('port'), function(){
   console.log('Express server listening on port ' + app.get('port'));
