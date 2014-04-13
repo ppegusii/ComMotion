@@ -36,9 +36,84 @@
 		
 		</div>
 
-		<div class="col-md-9 col-sm-9 col-xs-9">
+		<div class="col-md-4 col-sm-4 col-xs-4">
+
+		<center><h3>Exercises</h3></center>
+		<hr>
 		
-		My Creations Screen
+		<% numberOfExercises = 7; %>
+		<% k = 0; %>
+
+		<% for (var i = 0; i< numberOfExercises/2; i++){ %>
+
+			<row> 
+
+			<% if ((numberOfExercises%2 == 1)&&(numberOfExercises/2 - i < 1)){ %>
+
+		<% k = 1; %>
+
+
+<% } %>
+
+			<% for (var j = 0; j<2-k; j++){  %>
+				<div class="col-md-4 col-sm-4 col-xs-4 col-md-offset-1 col-sm-offset-1 col-xs-offset-1" style="margin-top:30px">
+					<center>1 day ago</center>
+					<media>
+						<img src="../images/generic_exercise.jpeg" width="90px" height="90px"></img>
+					</media>
+						<center>Exercise <%= i*2+j+1 %></center>
+				</div>
+
+				<div class = col-md-1 col-sm-1 col-xs-1>
+
+				</div>
+			
+			<% } %>
+	
+			</row>
+
+		<% } %>
+
+		</div>
+
+
+		<div class="col-md-4 col-sm-4 col-xs-4 col-md-offset-1 col-sm-offset-1 col-xs-offset-1">
+		
+		<center><h3>Workouts</h3></center>
+		<hr>
+		
+		<% numberOfWorkouts = 6; %>
+		<% k = 0; %>
+
+		<% for (var i = 0; i< numberOfWorkouts/2; i++){ %>
+
+			<row> 
+
+			<% if ((numberOfWorkouts%2 == 1)&&(numberOfWorkouts/2 - i < 1)){ %>
+
+		<% k = 1; %>
+
+
+<% } %>
+
+			<% for (var j = 0; j<2-k; j++){  %>
+				<div class="col-md-4 col-sm-4 col-xs-4 col-md-offset-1 col-sm-offset-1 col-xs-offset-1" style="margin-top:30px">
+					<center>1 day ago</center>
+					<media>
+						<img src="../images/generic_exercise.jpeg" width="90px" height="90px"></img>
+					</media>
+						<center>Workout <%= i*2+j+1 %></center>
+				</div>
+
+				<div class = col-md-1 col-sm-1 col-xs-1>
+
+				</div>
+			
+			<% } %>
+	
+			</row>
+
+		<% } %>
 
 		</div>
 
