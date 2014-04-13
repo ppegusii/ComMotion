@@ -97,12 +97,22 @@ exports.saveexercise = function(req, res) {
         // add exercise to database
         addExercise(data);
         // redirect to created entry
-        res.redirect('/create/exercise')
+        res.redirect('/encyclopedia/exercise_entry');
      }
 }
 
 exports.cancelexercise = function(req, res) {
      res.redirect('/create');
+}
+
+exports.encyclopedia_exercise_entry = function(req, res) {
+     var data = getExerciseEntry('Get exercise id');
+     res.render('encyclopedia/exerciseentry', data);
+}
+
+exports.encyclopedia_workout_entry = function(req, res) {
+     var data = getWorkoutEntry('Get workout id');
+     res.render('encyclopedia/workoutentry', data);
 }
 
 // Adds exercise to database
@@ -121,5 +131,36 @@ function mediaProperFormat(mediaURL) {
    if(mediaURL.indexOf('youtube.com/watch?v=') !== -1)
       return true;
    return false;
+}
 
+function getExerciseEntry(exerciseId) {
+   var data = {
+      title: 'Exercise entry',
+      entryName: 'Bicycle crunches',
+      difficulty: 'Beginner',
+      description: 'This is my description',
+      musclegroup: 'Upper body',
+      media: [
+        'http://i.imgur.com/VvbSZ7x.jpg',
+        'http://i.imgur.com/VvbSZ7x.jpg',
+        'http://i.imgur.com/VvbSZ7x.jpg'
+      ]
+   };
+   return data;
+}
+
+function getWorkoutEntry(workoutId) {
+   var data = {
+      title: 'Workout entry',
+      entryName: 'My favorite workout',
+      difficulty: 'Beginner',
+      description: 'This is my description',
+      workout: 'A workout...',
+      media: [
+        'http://i.imgur.com/VvbSZ7x.jpg',
+        'http://i.imgur.com/VvbSZ7x.jpg',
+        'http://i.imgur.com/VvbSZ7x.jpg'
+      ]
+   };
+   return data;
 }

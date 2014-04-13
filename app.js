@@ -53,6 +53,8 @@ app.get('/profile/following', nav.profile_following);
 
 app.get('/usersearchresults', nav.user_search_results);
 app.get('/encyclopediaresults', nav.encyclopedia_results);
+app.get('/encyclopedia/exercise_entry', nav.encyclopedia_exercise_entry);
+app.get('/encyclopedia/workout_entry', nav.encyclopedia_workout_entry);
 
 app.get('/create/exercise', nav.exercise);
 app.get('/create/workoutcreator', nav.workoutcreator);
