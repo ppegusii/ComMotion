@@ -56,7 +56,7 @@ function rowToExercise(row,cb){
       row.description,
       results.difficulty,
       results.musclegroup,
-      row.modified,
+      row.created,
       results.names,
       results.videos,
       results.photos
@@ -75,7 +75,7 @@ function init(query,cb){
       return;
     }
     if(exercise.id){
-      var statement = 'UPDATE exercises SET description=$1,difficulty_id=$2,musclegroup_id=$3,modified=now WHERE id=$4 RETURNING id,modified';
+      var statement = 'UPDATE exercises SET description=$1,difficulty_id=$2,musclegroup_id=$3 WHERE id=$4 RETURNING id,created';
       var params = [
         exercise.description,
         exercise.difficulty.id,
@@ -83,7 +83,7 @@ function init(query,cb){
         exercise.id
       ];
     }else{
-      var statement = 'INSERT INTO exercises (description,difficulty_id,musclegroup_id) VALUES($1,$2,$3) RETURNING id,modified';
+      var statement = 'INSERT INTO exercises (description,difficulty_id,musclegroup_id) VALUES($1,$2,$3) RETURNING id,created';
       var params = [
         exercise.description,
         exercise.difficulty.id,
@@ -96,7 +96,7 @@ function init(query,cb){
         return;
       }
       exercise.id = result.rows[0].id.toString();
-      exercise.modified = result.rows[0].modified;
+      exercise.created = result.rows[0].created;
       //TODO init child objects
       cb(undefined,exercise);
     });

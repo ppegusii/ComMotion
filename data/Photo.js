@@ -25,6 +25,6 @@ function getByEidWid(query,cb){
 }
 function resultToPhotos(result,cb){
   cb(undefined,result.rows.map(function(row,index,rows){
-    return new model.Photo(row.id,row.filename,row.exercise_id,row.workout_id);
+    return new model.Photo(row.id,row.url,row.exercise_id,row.workout_id);
   }));
 }
