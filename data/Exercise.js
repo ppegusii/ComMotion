@@ -1,5 +1,7 @@
 var async = require('async');
 
+var validate = require(process.env.VALIDATE);
+
 var conn = require(process.env.DATA_CONN);
 var model = require(process.env.MODELS);
 var difficulty = require(process.env.DATA_DIFFICULTY);
@@ -69,7 +71,7 @@ function init(query,cb){
     cb('exercise undefined',undefined);
     return;
   }
-  validate(query.exercise,function afterValidation(err,exercise){
+  validate.exercise(query.exercise,function afterValidation(err,exercise){
     if(err){
       cb('invalid exercise',undefined);
       return;
@@ -101,40 +103,4 @@ function init(query,cb){
       cb(undefined,exercise);
     });
   });
-}
-function validate(exercise,cb){
-  if(exercise.id){
-    var eid = parseInt(exercise.id,10);
-    if(eid<=0){
-      cb('invalid exercise id',undefined);
-      return;
-    }
-    exercise.id = eid;
-  }
-  if(!exercise.description || exercise.description===''){
-    cb('undefined or blank description',undefined);
-    return;
-  }
-  if(!exercise.difficulty.id){
-    cb('undefined difficulty id',undefined);
-    return;
-  }
-  var did = parseInt(exercise.difficulty.id,10);
-  if(did<=0){
-    cb('invalid difficulty id',undefined);
-    return;
-  }
-  exercise.difficulty.id = did;
-  if(!exercise.musclegroup.id){
-    cb('undefined musclegroup id',undefined);
-    return;
-  }
-  var mid = parseInt(exercise.musclegroup.id,10);
-  if(mid<=0){
-    cb('invalid musclegroup id',undefined);
-    return;
-  }
-  exercise.musclegroup.id = mid;
-  //TODO validate child objects
-  cb(undefined,exercise);
 }
