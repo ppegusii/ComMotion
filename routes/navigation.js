@@ -1,3 +1,6 @@
+var exercise = require('../data/Exercise.js');
+var models = require('../models/index.js');
+
 exports.home = function(req, res){
    //res.sendfile('./public/home.html');
 	 res.render('home', { title: 'Home' });
@@ -64,6 +67,7 @@ exports.exercise = function(req, res){
      //    title: 'Exercise',
      //    err: req.flash('saveexercise'),
      // });
+     //req.flash('exercise', 'flash! aaa-ah!');
      res.render('create/exercise', {title: 'Exercise'});
 };
 
@@ -72,33 +76,27 @@ exports.workoutcreator = function(req, res){
 };
 
 exports.saveexercise = function(req, res) {
-     var data = {
-        name: req.body.name,
-        difficulty: req.body.difficulty,
-        description: req.body.description,
-        musclegroup: req.body.musclegroup,
-        media: req.body.media
-     };
-     console.log(data);
-     console.log(mediaProperFormat(data.media));
-     // handle errors
-     if(data.name === "" || data.description === "") {
-        // flash error
-        //req.flash('saveexercise', 'Must provide name and description');
-        res.redirect('/create/exercise?err=badNameOrDesc');
-     }
-     else if(data.media !== "" && !mediaProperFormat(data.media)) {
-        // flash error
-        //req.flash('saveexercise', 'Media URL format is incorrect. Please use ' +
-        //  'a Youtube URL or an image with a .jpg, .jpeg, or .png extension');
-        res.redirect('/create/exercise?err=badMedia');
-     }
-     else {
-        // add exercise to database
-        addExercise(data);
-        // redirect to created entry
-        res.redirect('/encyclopedia/exercise_entry');
-     }
+     var newExercise = new models.Exercise(
+         undefined,
+         req.body.description,
+         req.body.musclegroup,
+         undefined,
+         [req.body.name],
+         undefined,
+         [req.body.media]
+     );
+//     exercise.validate(newExercise, function(err, exercise) {
+//         if(err) {
+//             //req.flash('saveexercise', err);
+//             console.log(err);
+//             res.redirect('/create/exercise?err');
+//         }
+//         else {
+//             // add query
+//             res.redirect('/encyclopedia/exercise_entry');
+//         }
+//     });
+     res.redirect('create/exercise');
 }
 
 exports.cancelexercise = function(req, res) {

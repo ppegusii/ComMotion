@@ -25,6 +25,8 @@ app.use(express.urlencoded());
 app.use(express.methodOverride());
 app.use(app.router);
 app.use(express.static(path.join(__dirname, 'public')));
+app.use(express.cookieParser('commotion is the best'));
+app.use(express.session());
 app.use(flash());
 
 // development only
