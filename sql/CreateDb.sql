@@ -1,6 +1,4 @@
 -- drop tables
-
-DROP TABLE IF EXISTS does_follow;
 DROP TABLE IF EXISTS followers;
 DROP TABLE IF EXISTS favorite_workouts;
 DROP TABLE IF EXISTS favorite_exercises;
@@ -34,11 +32,13 @@ CREATE TABLE workouts(
 	description VARCHAR(1023) NOT NULL,
 	difficulty_id integer NOT NULL references difficulties(id),
 	musclegroup_id integer NOT NULL references musclegroups(id),
+	--exercise_order integer NOT NULL
+	--exercise_id integer NOT NULL references exercises(id),
 	modified timestamp NOT NULL
 );
 CREATE TABLE photos(
 	id SERIAL PRIMARY KEY,
-	filename VARCHAR(255) NOT NULL,
+	filename VARCHAR(1023) NOT NULL,
 	exercise_id integer references exercises(id) ON DELETE CASCADE,
 	workout_id integer references workouts(id) ON DELETE CASCADE
 );
@@ -60,8 +60,8 @@ CREATE TABLE users(
 	username VARCHAR(255) NOT NULL,
 	password VARCHAR(255) NOT NULL,
 	activities VARCHAR(1023),
-	avatar VARCHAR(255) 
-	
+	experience_level integer references difficulties(id),
+	avatar VARCHAR(1023) 	
 );	
 CREATE TABLE favorite_exercises(
 	id SERIAL PRIMARY KEY,
@@ -77,11 +77,6 @@ CREATE TABLE followers(
 	id SERIAL PRIMARY KEY,
 	user_id integer NOT NULL references users(id) ON DELETE CASCADE,
 	follower_id integer NOT NULL  references users(id) ON DELETE CASCADE
-);
-CREATE TABLE does_follow(
-	id SERIAL PRIMARY KEY,
-	user_id integer NOT NULL references users(id) ON DELETE CASCADE,
-	who_i_follow integer references users(id) ON DELETE CASCADE
 );
 
 -- load tables
@@ -133,12 +128,28 @@ ALTER SEQUENCE photos_id_seq RESTART WITH 2;
 INSERT INTO videos (id,url,exercise_id) VALUES
 	(1,'http://youtube.com/squat',1);
 ALTER SEQUENCE videos_id_seq RESTART WITH 2;
-INSERT INTO users (id, username, password) VALUES
-	(1, 'dorian', 'yates'),
-	(2, 'steve', 'reeves'),
-	(3, 'john', 'grimek'),
-	(4, 'franco', 'colombu');
-ALTER SEQUENCE users_id_seq RESTART WITH 5;
+INSERT INTO users (id, username, password, experience_level) VALUES
+	(1, 'dorianYates', 'commotion', 3),
+	(2, 'steveReeves', 'commotion', 2),
+	(3, 'johnGrimek', 'commotion', 1),
+	(4, 'francoColumbu', 'commotion', 3),
+	(5, 'janeAusten', 'commotion', 2),
+	(6, 'austinPowers', 'commotion', 1),
+	(7, 'dorianGray', 'commotion', 3),
+	(8, 'oscarWilde', 'commotion', 2),
+	(9, 'margaretThatcher', 'commotion', 1),
+	(10, 'miaHamm', 'commotion', 3),
+	(11, 'miaFarrow', 'commotion', 2),
+	(12, 'andyWarhol', 'commotion', 1),
+	(13, 'madameCurie', 'commotion', 3),
+	(14, 'adaLovelace', 'commotion', 2),
+	(15, 'babeRuth', 'commotion', 1),
+	(16, 'ruthGinsberg', 'commotion', 3),
+	(17, 'tylerDurden', 'commotion', 2),
+	(18, 'robertPaulson', 'commotion', 1),
+	(19, 'hermioneGranger', 'commotion', 3),
+	(20, 'severusSnape', 'commotion', 2);
+ALTER SEQUENCE users_id_seq RESTART WITH 21;
 INSERT INTO favorite_exercises (user_id, exercise_id) VALUES
 	(1, 1),
 	(1, 7),
