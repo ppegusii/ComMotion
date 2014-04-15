@@ -39,3 +39,7 @@ process.env['ROUTES_USER'] = path.join(routesDir,'./user');
 
 //test
 var testDir = path.join(appDir,'./test');
+
+//logging
+var loggingDir = path.join(appDir,'./logging');
+process.env['LOGGING'] = loggingDir;

@@ -9,7 +9,7 @@ function getByEidWid(query,cb){
   var eid = parseInt(query.eid,10);
   var wid = parseInt(query.wid,10);
   if((eid>0 && wid>0) || (eid<=0 && wid<=0)){
-    cb('define eid xor wid',undefined);
+    cb('define query.eid xor query.wid\n'+__stack,undefined);
     return;
   }
   if(eid){
@@ -33,7 +33,7 @@ function resultToVideos(result,cb){
 }
 function init(query,cb){
   if(!query.video){
-    cb('video undefined',undefined);
+    cb('query.video undefined\n'+__stack,undefined);
     return;
   }
   validate.video(query.video,function afterValidation(err,video){

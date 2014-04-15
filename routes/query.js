@@ -8,16 +8,8 @@ queries['exerciseInit'] = data.exerciseInit;
 
 function query(req,res){
 //console.log('body = '+JSON.stringify(req.body));
-/*
- * demo purposes only will be removed
- */
-req.flash('query','flash is working');
-console.log(req.flash('query'));
-/*
- * end demo
- */
 	if(queries[req.body.query]===undefined){
-		res.send('invalid query');
+		res.send('req.body.query undefined\n'+__stack);
 		return;
 	}
   queries[req.body.query](req.body,function(err,results){

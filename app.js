@@ -1,5 +1,9 @@
 // set environment variables
 require('./config/EnvVariables.js');
+
+// add info for logging
+require(process.env.LOGGING);
+
 /**
  * Module dependencies.
  */
