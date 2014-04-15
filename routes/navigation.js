@@ -1,3 +1,5 @@
+var data = require(process.env.DATA);
+
 exports.home = function(req, res){
    //res.sendfile('./public/home.html');
 	 res.render('home', { title: 'Home' });
@@ -72,6 +74,21 @@ exports.workoutcreator = function(req, res){
 };
 
 exports.saveexercise = function(req, res) {
+  //assuming req.body is an exercise object
+  data.exerciseInit({exercise: req.body},function afterSave(err,exercise){
+    if(err){
+console.log('saveexercis err = '+err);
+      req.flash('saveexercise',err);
+      //not sure how I should alter the err parameter below
+      res.redirect('/create/exercise?err=badNameOrDesc');
+      return;
+    }
+console.log('saveexercise exercise = '+JSON.stringify(exercise));
+    req.flash('exercise',exercise);
+    //make this route check flash?
+    res.redirect('/encyclopedia/exercise_entry');
+  });
+  /*
      var data = {
         name: req.body.name,
         difficulty: req.body.difficulty,
@@ -99,7 +116,8 @@ exports.saveexercise = function(req, res) {
         // redirect to created entry
         res.redirect('/encyclopedia/exercise_entry');
      }
-}
+     */
+};
 
 exports.cancelexercise = function(req, res) {
      res.redirect('/create');
