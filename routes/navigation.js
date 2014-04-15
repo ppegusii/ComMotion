@@ -16,7 +16,14 @@ exports.create = function(req, res){
 };
 
 exports.encyclopedia = function(req, res){
-      res.render('encyclopedia', {title: 'Encyclopedia'});
+  data.exercisesGetLimitN({n:10},function afterGet(err,exercises){
+    res.render('encyclopedia',
+      {
+        title: 'Encyclopedia',
+        exercises: exercises,
+        err: err
+      });
+  });
 };
 
 exports.myfavorites = function(req, res){
