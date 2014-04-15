@@ -2,6 +2,7 @@ var conn = require(process.env.DATA_CONN);
 var model = require(process.env.MODELS);
 
 exports.getById = getById;
+
 function getById(query,cb){
   var id = parseInt(query.id,10);
   if(id<=0){

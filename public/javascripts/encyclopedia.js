@@ -17,18 +17,16 @@ Model.prototype.initEntry = function(exercise,cb){
 		type: 'POST',
 		url: '/query',
 		data: {
-      query:'exerciseInit',
-      exercise:{
-        description:'new exercise!',
-        difficulty:{id:1},
-        musclegroup:{id:1}
-      }
+      query: 'exerciseInit',
+      exercise: exercise
     }
 	}).done(this.__getAjaxCb__(cb));
 };
 Model.prototype.__getAjaxCb__ = function(cb){
 	var m = this;
 	return function(msg){
+console.log('here\' the message:');
+console.log(msg);
 		m.entries = msg instanceof Array
       ? msg
       : [msg];
@@ -50,9 +48,12 @@ Controller.prototype.__init__ = function(){
 	});
 	this.model.initEntry(
     {
-      description:'new exercise!',
-      difficulty:{id:1},
-      musclegroup:{id:1}
+      description: 'new exercise!',
+      difficulty: {id: 1},
+      musclegroup: {id: 1},
+      names: [{name: 'ex1',votes: 2}],
+      videos: [{url: 'http://vid/myvid.ogg'}],
+      photos: [{url: 'http://photo/myphoto.png'}]
     },function(entry){
       c.__renderList__([entry]);
     }

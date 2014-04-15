@@ -1,38 +1,62 @@
+var async = require('async');
+
+var valDifficulty = require(process.env.VALIDATE_DIFFICULTY);
+var valMusclegroup = require(process.env.VALIDATE_MUSCLEGROUP);
+var valName = require(process.env.VALIDATE_NAME);
+var valVideo = require(process.env.VALIDATE_VIDEO);
+var valPhoto = require(process.env.VALIDATE_PHOTO);
+
 exports.validate = validate;
 
 function validate(exercise,cb){
-  if(exercise.id){
-    var eid = parseInt(exercise.id,10);
-    if(eid<=0){
-      cb('invalid exercise id',undefined);
-      return;
-    }
-    exercise.id = eid;
+  exercise.id = parseInt(exercise.id,10);
+  if(exercise.id<=0){
+    cb('invalid exercise id',undefined);
+    return;
   }
   if(!exercise.description || exercise.description===''){
     cb('undefined or blank description',undefined);
     return;
   }
-  if(!exercise.difficulty.id){
-    cb('undefined difficulty id',undefined);
+  if(!exercise.names){
+    cb('undefined names',undefined);
     return;
   }
-  var did = parseInt(exercise.difficulty.id,10);
-  if(did<=0){
-    cb('invalid difficulty id',undefined);
+  if(!exercise.videos){
+    cb('undefined videos',undefined);
     return;
   }
-  exercise.difficulty.id = did;
-  if(!exercise.musclegroup.id){
-    cb('undefined musclegroup id',undefined);
+  if(!exercise.photos){
+    cb('undefined photos',undefined);
     return;
   }
-  var mid = parseInt(exercise.musclegroup.id,10);
-  if(mid<=0){
-    cb('invalid musclegroup id',undefined);
-    return;
-  }
-  exercise.musclegroup.id = mid;
-  //TODO validate child objects
-  cb(undefined,exercise);
+  async.parallel({
+    difficulty: function(callback){
+      valDifficulty.validate(exercise.difficulty,callback);
+    },
+    musclegroup: function(callback){
+      valMusclegroup.validate(exercise.musclegroup,callback);
+    },
+    names: function(callback){
+      async.map(exercise.names,valName.validate,callback);
+    },
+    videos: function(callback){
+      async.map(exercise.videos,valVideo.validate,callback);
+    },
+    photos: function(callback){
+      async.map(exercise.photos,valPhoto.validate,callback);
+    }
+  },
+  function afterChildObjectValidation(err,results){
+    if(err){
+      cb(err,undefined);
+      return;
+    }
+    exercise.difficulty = results.difficulty;
+    exercise.musclegroup = results.musclegroup;
+    exercise.names = results.names;
+    exercise.videos = results.videos;
+    exercise.photos = results.photos;
+    cb(undefined,exercise);
+  });
 }
