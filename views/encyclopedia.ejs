@@ -17,6 +17,12 @@
 
 <% include fragments/header %>
 
+  <ul>
+    <% for(var i=0; i<exercises.length; i++){ %>
+      <li><%= JSON.stringify(exercises[i]) %></li>
+    <% } %>
+  </ul>
+
 	<script>
 	$( "#encyclopedia" ).addClass("active");
 	</script>
