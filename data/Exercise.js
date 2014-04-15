@@ -1,7 +1,9 @@
 var async = require('async');
 
-var conn = require(process.env.DATA_CONN);
+var validate = require(process.env.VALIDATE);
 var model = require(process.env.MODELS);
+
+var conn = require(process.env.DATA_CONN);
 var difficulty = require(process.env.DATA_DIFFICULTY);
 var musclegroup = require(process.env.DATA_MUSCLEGROUP);
 var name = require(process.env.DATA_NAME);
@@ -51,12 +53,16 @@ function rowToExercise(row,cb){
     }
   },
   function(err,results){
+    if(err){
+      cb(err,undefined);
+      return;
+    }
     var exercise = new model.Exercise(
       row.id.toString(),
       row.description,
       results.difficulty,
       results.musclegroup,
-      row.modified,
+      row.created,
       results.names,
       results.videos,
       results.photos
@@ -69,13 +75,13 @@ function init(query,cb){
     cb('exercise undefined',undefined);
     return;
   }
-  validate(query.exercise,function afterValidation(err,exercise){
+  validate.exercise(query.exercise,function afterValidation(err,exercise){
     if(err){
-      cb('invalid exercise',undefined);
+      cb(err,undefined);
       return;
     }
     if(exercise.id){
-      var statement = 'UPDATE exercises SET description=$1,difficulty_id=$2,musclegroup_id=$3,modified=now WHERE id=$4 RETURNING id,modified';
+      var statement = 'UPDATE exercises SET description=$1,difficulty_id=$2,musclegroup_id=$3 WHERE id=$4 RETURNING id,created';
       var params = [
         exercise.description,
         exercise.difficulty.id,
@@ -83,7 +89,7 @@ function init(query,cb){
         exercise.id
       ];
     }else{
-      var statement = 'INSERT INTO exercises (description,difficulty_id,musclegroup_id) VALUES($1,$2,$3) RETURNING id,modified';
+      var statement = 'INSERT INTO exercises (description,difficulty_id,musclegroup_id) VALUES($1,$2,$3) RETURNING id,created';
       var params = [
         exercise.description,
         exercise.difficulty.id,
@@ -96,45 +102,41 @@ function init(query,cb){
         return;
       }
       exercise.id = result.rows[0].id.toString();
-      exercise.modified = result.rows[0].modified;
+      exercise.created = result.rows[0].created;
       //TODO init child objects
-      cb(undefined,exercise);
+      async.parallel({
+        names: function(callback){
+          var names = exercise.names.map(function(name,index,names){
+            name.exerciseId = exercise.id;
+            return {name: name};
+          });
+         async.map(names,name.init,callback);
+        },
+        videos: function(callback){
+          var videos = exercise.videos.map(function(video,index,videos){
+            video.exerciseId = exercise.id;
+            return {video: video};
+          });
+         async.map(videos,video.init,callback);
+        },
+        photos: function(callback){
+          var photos = exercise.photos.map(function(photo,index,photos){
+            photo.exerciseId = exercise.id;
+            return {photo: photo};
+          });
+         async.map(photos,photo.init,callback);
+        }
+      },
+      function afterChildObjectInit(err,results){
+        if(err){
+          cb(err,undefined);
+          return;
+        }
+        exercise.names = results.names;
+        exercise.videos = results.videos;
+        exercise.photos = results.photos;
+        cb(undefined,exercise);
+      });
     });
   });
-}
-function validate(exercise,cb){
-  if(exercise.id){
-    var eid = parseInt(exercise.id,10);
-    if(eid<=0){
-      cb('invalid exercise id',undefined);
-      return;
-    }
-    exercise.id = eid;
-  }
-  if(!exercise.description || exercise.description===''){
-    cb('undefined or blank description',undefined);
-    return;
-  }
-  if(!exercise.difficulty.id){
-    cb('undefined difficulty id',undefined);
-    return;
-  }
-  var did = parseInt(exercise.difficulty.id,10);
-  if(did<=0){
-    cb('invalid difficulty id',undefined);
-    return;
-  }
-  exercise.difficulty.id = did;
-  if(!exercise.musclegroup.id){
-    cb('undefined musclegroup id',undefined);
-    return;
-  }
-  var mid = parseInt(exercise.musclegroup.id,10);
-  if(mid<=0){
-    cb('invalid musclegroup id',undefined);
-    return;
-  }
-  exercise.musclegroup.id = mid;
-  //TODO validate child objects
-  cb(undefined,exercise);
 }

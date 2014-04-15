@@ -6,7 +6,7 @@ process.env['APP_DIR'] = appDir;
 //database
 process.env['DB_CON_PG'] = 'postgres://vagrant:vagrant@localhost/commotion';
 
-//datalayer
+//data layer
 var dataDir = path.join(appDir,'./data');
 process.env['DATA'] = dataDir;
 process.env['DATA_CONN'] = path.join(dataDir,'./Conn.js');
@@ -16,6 +16,16 @@ process.env['DATA_MUSCLEGROUP'] = path.join(dataDir,'./Musclegroup.js');
 process.env['DATA_NAME'] = path.join(dataDir,'./Name.js');
 process.env['DATA_VIDEO'] = path.join(dataDir,'./Video.js');
 process.env['DATA_PHOTO'] = path.join(dataDir,'./Photo.js');
+
+//validation layer
+var validateDir = path.join(appDir,'./validate');
+process.env['VALIDATE'] = validateDir;
+process.env['VALIDATE_EXERCISE'] = path.join(validateDir,'./Exercise.js');
+process.env['VALIDATE_DIFFICULTY'] = path.join(validateDir,'./Difficulty.js');
+process.env['VALIDATE_MUSCLEGROUP'] = path.join(validateDir,'./Musclegroup.js');
+process.env['VALIDATE_NAME'] = path.join(validateDir,'./Name.js');
+process.env['VALIDATE_VIDEO'] = path.join(validateDir,'./Video.js');
+process.env['VALIDATE_PHOTO'] = path.join(validateDir,'./Photo.js');
 
 //models
 var modelsDir = path.join(appDir,'./models');
