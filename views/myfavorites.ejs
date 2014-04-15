@@ -9,30 +9,78 @@
 
 <link rel = "stylesheet" type ="text/css" href = "stylesheets/bootstrap/css/bootstrap.css" >
 
-<script src="javascripts/jquery-1.11.0.min.js"></script>
+<link rel = "stylesheet" type = "text/css" href = "stylesheets/encyclopedia_results.css">
 
+
+<script src="javascripts/jquery-1.11.0.min.js"></script>
 
 </head>
 
 <body>
 
-<% include header %>
-
-	<script>
-	$( "#myfavorites" ).addClass("active");
-	</script>
+<% include fragments/header %>
 
 <div class="container">
 
 	<div class="row">
 
-		My Favorites
+		<div class="col-md-6 col-sm-6 col-xs-6">
+
+		<h3>Favorite Exercises</h3>
+
+		<ul id="resultsList" class="list-group">
+
+				<% for (var i = 0; i<8; i++){ %>
+
+				<li class="list-group-item">
+					<div class="col-md-2 col-sm-2 col-xs-2">
+							<media>
+								<img src="images/generic_exercise.jpeg" width="65" height="65"></img>
+							</media>
+					</div>
+					<div class="col-md-10 col-sm-10 col-xs-10">
+						<h4>Exercise <%= i+1 %> - description of item will look something like this...description of item will look something like this...</h4>	
+					</div>
+	
+				</li>
+
+				<% } %>
+
+			</ul>
+
+		</div>	
+		
+		<div class="col-md-6 col-sm-6 col-xs-6">	
+			
+			<h3>Favorite Workouts</h3>
+
+			<ul id="resultsList2" class="list-group">
+
+				<% for (var i = 0; i<5; i++){ %>
+
+				<li class="list-group-item">
+					<div class="col-md-2 col-sm-2 col-xs-2">
+							<media>
+								<img src="images/generic_exercise.jpeg" width="65" height="65"></img>
+							</media>
+					</div>
+					<div class="col-md-10 col-sm-10 col-xs-10">
+						<h4>Workout <%= i+1 %> - description of item will look something like this...description of item will look something like this...</h4>	
+					</div>
+	
+				</li>
+
+				<% } %>
+
+			</ul>
+
+		</div>
 
 	</div>
 
 </div>
 
-<% include footer %>
+<% include fragments/footer %>
 
 <script src = "javascripts/bootstrap.js"></script>
 
@@ -41,3 +89,4 @@
 
 
 </html>
+

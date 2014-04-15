@@ -15,7 +15,7 @@
 
 <body>
 
-<% include ../header %>
+<% include ../fragments/header %>
 
 			<script>
 			$( "#profile" ).addClass("active");
@@ -37,44 +37,23 @@
 		</div>
 
 		<div class="col-md-6 col-sm-6 col-xs-6">
-		
-					<div style="margin-top:10px;margin-bottom:30px" class="row">
+
+		<% for (var i=0; i<4; i++){ %>
+
+				<div style="margin-top:10px;margin-bottom:30px" class="row">
 
 
-				<div class="col-md-7">
-				</div>
+					<div class="col-md-7 col-sm-7 col-xs-7">
+					</div>
 		
-				<div class="col-md-5">
-					<center>
-					April 4, 2014 3:10pm est
-					</center>
-				</div>
+					<div class="col-md-5 col-sm-5 col-xs-7">
+						<center>
+						April 4, 2014 3:10pm est
+						</center>
+					</div>
 
 				
-			</div>	
-
-			<div class= "row">
-
-				ipsum dolor sit amet, consectetur adipiscing elit. Nunc leo quam, sollicitudin venenatis euismod eget, molestie sit amet arcu. Etiam pellentesque sapien eget lorem vulputate bibendum. Integer rhoncus auctor volutpat. Nulla facilisi. Nulla sed cursus risus. 
-	
-			</div>
-
-			<hr>
-
-			<div style="margin-top:30px;margin-bottom:30px" class="row">
-
-
-				<div class="col-md-7">
-				</div>
-		
-				<div class="col-md-5">
-					<center>
-					April 4, 2014 3:10pm est
-					</center>
-				</div>
-
-				
-			</div>	
+				</div>	
 
 			<div class= "row">
 
@@ -84,29 +63,9 @@
 
 			<hr>
 		
-				<div style="margin-top:30px;margin-bottom:30px" class="row">
-
-
-				<div class="col-md-7">
-				</div>
+		<% } %>
 		
-				<div class="col-md-5">
-					<center>
-					April 4, 2014 3:10pm est
-					</center>
-				</div>
-
-				
-			</div>	
-
-			<div class= "row">
-
-				ipsum dolor sit amet, consectetur adipiscing elit. Nunc leo quam, sollicitudin venenatis euismod eget, molestie sit amet arcu. Etiam pellentesque sapien eget lorem vulputate bibendum. Integer rhoncus auctor volutpat. Nulla facilisi. Nulla sed cursus risus. 
-	
-			</div>
-
-			<hr>
-
+			
 		<div class="col-md-3 col-sm-3 col-xs-3">
 		</div>
 
@@ -116,7 +75,7 @@
 
 </div>
 
-<% include ../footer %>
+<% include ../fragments/footer %>
 
 <script src = "../javascripts/bootstrap.js"></script>
 

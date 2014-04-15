@@ -2,10 +2,11 @@ var conn = require(process.env.DATA_CONN);
 var model = require(process.env.MODELS);
 
 exports.getById = getById;
+
 function getById(query,cb){
   var id = parseInt(query.id,10);
   if(id<=0){
-    cb('invalid id',undefined);
+    cb('query.id invalid\n'+__stack,undefined);
     return;
   }
   conn.query('SELECT * FROM musclegroups WHERE id=$1',[id],function(err,result){

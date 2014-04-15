@@ -25,20 +25,26 @@ CREATE TABLE exercises(
 	description VARCHAR(1023) NOT NULL,
 	difficulty_id integer NOT NULL references difficulties(id),
 	musclegroup_id integer NOT NULL references musclegroups(id),
-	modified timestamp NOT NULL DEFAULT current_timestamp
+	created timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
 );
 CREATE TABLE workouts(
 	id SERIAL PRIMARY KEY,
 	description VARCHAR(1023) NOT NULL,
 	difficulty_id integer NOT NULL references difficulties(id),
 	musclegroup_id integer NOT NULL references musclegroups(id),
-	--exercise_order integer NOT NULL
+        --exercise_order integer NOT NULL
 	--exercise_id integer NOT NULL references exercises(id),
-	modified timestamp NOT NULL
+	created timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
 );
 CREATE TABLE photos(
 	id SERIAL PRIMARY KEY,
 	filename VARCHAR(1023) NOT NULL,
+=======
+	created timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
+);
+CREATE TABLE photos(
+	id SERIAL PRIMARY KEY,
+	url VARCHAR(1023) NOT NULL,
 	exercise_id integer references exercises(id) ON DELETE CASCADE,
 	workout_id integer references workouts(id) ON DELETE CASCADE
 );
@@ -122,8 +128,8 @@ INSERT INTO names (id,name,exercise_id,votes) VALUES
 	(12,'planks',12,5),
 	(13,'crunches',13,1);
 ALTER SEQUENCE names_id_seq RESTART WITH 14;
-INSERT INTO photos (id,filename,exercise_id) VALUES
-	(1,'pic.jpg',1);
+INSERT INTO photos (id,url,exercise_id) VALUES
+	(1,'http://url/of/my/photo.jpg',1);
 ALTER SEQUENCE photos_id_seq RESTART WITH 2;
 INSERT INTO videos (id,url,exercise_id) VALUES
 	(1,'http://youtube.com/squat',1);

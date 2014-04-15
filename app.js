@@ -1,5 +1,9 @@
 // set environment variables
 require('./config/EnvVariables.js');
+
+// add info for logging
+require(process.env.LOGGING);
+
 /**
  * Module dependencies.
  */
@@ -10,6 +14,7 @@ var routes = require(process.env.ROUTES);
 var user = require(process.env.ROUTES_USER);
 var http = require('http');
 var path = require('path');
+var flash = require('connect-flash');
 
 var app = express();
 
@@ -22,8 +27,12 @@ app.use(express.logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded());
 app.use(express.methodOverride());
+app.use(express.cookieParser('your secret here'));
+app.use(express.session());
+app.use(flash());
 app.use(app.router);
 app.use(express.static(path.join(__dirname, 'public')));
+//app.use(flash());
 
 // development only
 if ('development' == app.get('env')) {
@@ -32,12 +41,12 @@ if ('development' == app.get('env')) {
 
 app.get('/', user.landing);
 app.get('/signup', user.signup);
+app.get('/createprofile', user.createprofile);
 app.get('/home', nav.home);
 
 app.get('/create', nav.create);
-app.get('/workoutplayer', nav.workoutplayer);
 app.get('/encyclopedia', nav.encyclopedia);
-app.get('/workoutcreator', nav.workoutcreator);
+
 app.get('/myfavorites', nav.myfavorites);
 app.get('/findusers', nav.findusers);
 app.post('/query',routes.query);
@@ -51,9 +60,14 @@ app.get('/profile/following', nav.profile_following);
 
 app.get('/usersearchresults', nav.user_search_results);
 app.get('/encyclopediaresults', nav.encyclopedia_results);
-app.get('/exercise', nav.exercise);
+app.get('/encyclopedia/exercise_entry', nav.encyclopedia_exercise_entry);
+app.get('/encyclopedia/workout_entry', nav.encyclopedia_workout_entry);
 
-app.get('/graph', nav.graph);
+app.get('/create/exercise', nav.exercise);
+app.get('/create/workoutcreator', nav.workoutcreator);
+
+app.post('/create/exercise/save', nav.saveexercise);
+app.get('/create/exercise/cancel', nav.cancelexercise);
 
 http.createServer(app).listen(app.get('port'), function(){
   console.log('Express server listening on port ' + app.get('port'));

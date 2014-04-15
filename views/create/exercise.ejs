@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+<meta charset=”utf-8”> 
+
+<title><%= title %></title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<link rel = "stylesheet" type ="text/css" href = "../stylesheets/bootstrap/css/bootstrap.css" >
+
+<script src="../javascripts/jquery-1.11.0.min.js"></script>
+
+</head>
+
+<body>
+
+<% include ../fragments/header %>
+
+<div class="container">
+
+	<div style="margin-top:20px" class="row">
+
+				<div style="margin-bottom: 25px">
+                    
+					<center><h2>Create a new exercise</h2></center>  
+							
+                </div>
+     
+			<form id="exerciseform" class="form-horizontal col-md-6 col-sm-6 col-xs-6 col-md-offset-3  col-sm-offset-3 col-xs-offset-3 well" role="form" method="post" action="exercise/save">
+<% /* %>
+							<% if(err) { %>
+								<div style="margin-bottom: 15px">
+									<p class="error"><%= err %></p>
+								</div>
+							<% } %>
+<% */ %>
+
+                        	<div style="margin-bottom: 15px" class="input-group">
+								<h5>Name:</h5>
+                               	<input id="name" type="text" class="form-control" name="name" value="" maxlength="255">                                       
+							
+                            </div>
+
+							<div style="margin-bottom: 15px" class="input-group">
+	           					<h5>Difficulty:</h5>
+								<select id="difficulty" class="form-control" name="difficulty">
+									<option value="beginner">Beginner</option>
+									<option value="intermediate">Intermediate</option>
+									<option value="advanced">Advanced</option>
+								</select>
+							
+                            </div>
+                                
+                            <div style="margin-bottom: 15px" class="input-group">
+								<h5>Description:</h5>
+								<textarea class="form-control" id="description" style="resize:vertical" rows="4" cols="50" value="" name="description" maxlength="1023"></textarea>
+               
+                            </div>
+
+							<div style="margin-bottom: 15px" class="input-group">
+								<h5>Muscle Groups</h5>
+								<select id="musclegroup" class="form-control" name="musclegroup">
+									<option value="upperbody">Upper body</option>
+									<option value="lowerbody">Lower body</option>
+									<option value="legs">Legs</option>
+									<option value="core">Core</option>
+								</select>
+                            </div>
+						
+							<div style="margin-bottom: 15px" class="input-group">
+								<h5>Media URL (optional)</h5>
+								<input id="media" type="text" class="form-control" name="media" style="resize:none" maxlength="1023">     
+   
+                            </div>
+
+                              <div class="form-group pull-right">
+                                   <div class="col-sm-12 controls">
+                                   	<!--
+                                      <a id="btn-save" href="exercise/save" class="btn btn-success">Save Exercise</a>
+                                  -->
+                                      <button class="btn btn-success">Save exercise</input>
+                                    </div>
+                                    
+                              </div>
+
+                              <div class="form-group pull-left">
+                                   <div class="col-sm-12 controls">
+                                      <a id="btn-cancel" href="exercise/cancel" class="btn btn-danger">Cancel</a>
+                                    </div>
+                              </div>
+
+					
+
+             </form> 
+		  
+	<!--row-->
+	</div>
+<!--container-->
+</div>
+
+<% include ../fragments/footer %>
+
+<script src = "../javascripts/bootstrap.js"></script>
+
+
+</body>
+
+
+</html>
+

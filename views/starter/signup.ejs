@@ -4,9 +4,9 @@
 
 <title><%= title %></title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<link rel = "stylesheet" type ="text/css" href = "stylesheets/bootstrap/css/bootstrap.css" >
+<link rel = "stylesheet" type ="text/css" href = "../stylesheets/bootstrap/css/bootstrap.css" >
 
-<script src="javascripts/jquery-1.11.0.min.js"></script>
+<script src="../javascripts/jquery-1.11.0.min.js"></script>
 
 </head>
 
@@ -16,7 +16,7 @@
 
 <div class="container text-center">    
 	
-	<div id="loginbox" style="margin-top:50px;" class="mainbox col-md-5 col-md-offset-3 col-sm-8 col-sm-offset-2">                    
+	<div id="loginbox" style="margin-top:50px;" class="mainbox col-md-4 col-md-offset-4">                    
     	<div class="panel panel-info" >
         	<div class="panel-heading"> 
             	<div class="panel-title">ComMotion Sign Up</div> 
@@ -27,30 +27,25 @@
                             
                    	<form id="signupform" class="form-horizontal" role="form">
                           
-                        	<div style="margin-bottom: 0px" class="input-group col-md-offset-3">
+                        	<div style="margin-bottom: 0px" class="input-group col-md-offset-2">
 								<h5>User Name:</h5>
                                	<input id="signup-username" type="text" class="form-control" name="username" value="">                                       
 							
                             </div>
-
-							<div style="margin-bottom: 0px" class="input-group col-md-offset-3">
-								<h5>Email Address:</h5>
-                               	<input id="signup-emailaddress" type="text" class="form-control" name="emailaddress" value="">                                       
-                            </div>
                                 
-                            <div style="margin-bottom: 0px" class="input-group col-md-offset-3">
+                            <div style="margin-bottom: 0px" class="input-group col-md-offset-2">
 								 <h5>Password:</h5>
                                  <input id="signup-password" type="password" class="form-control" name="password">
                             </div>
 
-							<div style="margin-bottom: 0px" class="input-group col-md-offset-3">
+							<div style="margin-bottom: 0px" class="input-group col-md-offset-2">
 								 <h5>Confirm Password:</h5>
                                  <input id="signup-confirmpassword" type="password" class="form-control" name="confirmpassword">
                             </div>                            
 
                               <div style="margin-top:20px" class="form-group pull-right">
                                    <div class="col-sm-12 controls">
-                                      <a id="btn-signup" href="/" class="btn btn-success">Sign Up</a>
+                                      <a id="btn-signup" href="/createprofile" class="btn btn-success">Sign Up</a>
                                     </div>
                               </div>
 
@@ -68,7 +63,7 @@
 <!--container-->
 </div>
 
-<script src = "javascripts/bootstrap.js"></script>
+<script src = "../javascripts/bootstrap.js"></script>
 
 
 

@@ -15,7 +15,7 @@
 
 <body>
 
-<% include header %>
+<% include fragments/header %>
 
 	<script>
 	$( "#findusers" ).addClass("active");
@@ -25,528 +25,91 @@
 
 <div class="row">
 
-		<div class="col-md-4">
+		<div class="col-md-4 col-sm-4 col-xs-4">
 
-			<% include usersearchpanel %>			
+			<% include fragments/usersearchpanel %>			
 
 			</div>
 
-	<div class="col-md-8">
+	<div class="col-md-8 col-sm-8 col-xs-8">
+
+
+		<!--Populates a 5x2 grid of popular exercises -->
 	
 	<h3>Popular Users</h3>
 	<hr>
 
-		<div class="row">
+	<% for (var i=0; i<2; i++){ %>
 
-		<div class="col-md-2 col-md-offset-1">
-		<center>
-			<media>
-				<img src="images/generic_person.jpg" width="80" height="80"></img>
-			</media>
-			<h4>User 1</h4>
-		</center>
-
-		</div>
-
-		<div class="col-md-2">
-		<center>
-			<media>
-				<img src="images/generic_person.jpg" width="80" height="80"></img>
-			</media>
-			<h4>User 2</h4>
-		</center>
-
-		</div>	
-		
-		<div class="col-md-2">
-		<center>
-			<media>
-				<img src="images/generic_person.jpg" width="80" height="80"></img>
-			</media>
-			<h4>User 3</h4>
-		</center>
-
-		</div>
-
-		<div class="col-md-2">
-		<center>
-			<media>
-				<img src="images/generic_person.jpg" width="80" height="80"></img>
-			</media>
-			<h4>User 4</h4>
-		</center>
-
-		</div>
-
-		<div class="col-md-2">
-		<center>
-			<media>
-				<img src="images/generic_person.jpg" width="80" height="80"></img>
-			</media>
-			<h4>User 5</h4>
-		</center>
-
-		</div>
-
-		</div>
-
-		
 	<div style="margin-top:20px" class="row">
-
-
-	<div class="col-md-2 col-md-offset-1">
+	
+	<div class="col-md-2 col-sm-2 col-xs-2 col-md-offset-1 col-sm-offset-1 col-xs-offset-1">
 		<center>
 			<media>
 				<img src="images/generic_person.jpg" width="80" height="80"></img>
 			</media>
-			<h4>User 6</h4>
+			<h4>User <%= i*5+1 %></h4>
 		</center>
-
-		</div>
-
-		<div class="col-md-2">
+	
+	</div>
+	<% for (var j=0; j<4; j++){ %>
+		<div class="col-md-2 col-sm-2 col-xs-2">
 		<center>
 			<media>
 				<img src="images/generic_person.jpg" width="80" height="80"></img>
 			</media>
-			<h4>User 7</h4>
-		</center>
-
-		</div>	
-		
-		<div class="col-md-2">
-		<center>
-			<media>
-				<img src="images/generic_person.jpg" width="80" height="80"></img>
-			</media>
-			<h4>User 8</h4>
+			<h4>User <%= i*5+j+2 %></h4>
 		</center>
 
 		</div>
+	<% } %>
 
-		<div class="col-md-2">
-		<center>
-			<media>
-				<img src="images/generic_person.jpg" width="80" height="80"></img>
-			</media>
-			<h4>User 9</h4>
-		</center>
+	</div>
+	
+	<% } %>
 
-		</div>
-
-		<div class="col-md-2">
-		<center>
-			<media>
-				<img src="images/generic_person.jpg" width="80" height="80"></img>
-			</media>
-			<h4>User 10</h4>
-		</center>
-
-		</div>
-
-		</div>
-
-
-<h3>New Users</h3>
+	<!--Populates a 5x2 grid of popular exercises -->
+	
+	<h3>New Users</h3>
 	<hr>
-<div style="margin-top:20px" class="row">
 
-				<div class="col-md-2 col-md-offset-1">
-		<center>
-			<media>
-				<img src="images/generic_person.jpg" width="80" height="80"></img>
-			</media>
-			<h4>User 1</h4>
-		</center>
+	<% for (var i=0; i<2; i++){ %>
 
-		</div>
-
-		<div class="col-md-2">
-		<center>
-			<media>
-				<img src="images/generic_person.jpg" width="80" height="80"></img>
-			</media>
-			<h4>User 2</h4>
-		</center>
-
-		</div>	
-		
-		<div class="col-md-2">
-		<center>
-			<media>
-				<img src="images/generic_person.jpg" width="80" height="80"></img>
-			</media>
-			<h4>User 3</h4>
-		</center>
-
-		</div>
-
-		<div class="col-md-2">
-		<center>
-			<media>
-				<img src="images/generic_person.jpg" width="80" height="80"></img>
-			</media>
-			<h4>User 4</h4>
-		</center>
-
-		</div>
-
-		<div class="col-md-2">
-		<center>
-			<media>
-				<img src="images/generic_person.jpg" width="80" height="80"></img>
-			</media>
-			<h4>User 5</h4>
-		</center>
-
-		</div>
-
-		</div>
-
-		
 	<div style="margin-top:20px" class="row">
-
-
-	<div class="col-md-2 col-md-offset-1">
+	
+	<div class="col-md-2 col-sm-2 col-xs-2 col-md-offset-1 col-sm-offset-1 col-xs-offset-1">
 		<center>
 			<media>
 				<img src="images/generic_person.jpg" width="80" height="80"></img>
 			</media>
-			<h4>User 6</h4>
+			<h4>User <%= i*5+1 %></h4>
+		</center>
+	
+	</div>
+	<% for (var j=0; j<4; j++){ %>
+		<div class="col-md-2 col-sm-2 col-xs-2">
+		<center>
+			<media>
+				<img src="images/generic_person.jpg" width="80" height="80"></img>
+			</media>
+			<h4>User <%= i*5+j+2 %></h4>
 		</center>
 
 		</div>
+	<% } %>
 
-		<div class="col-md-2">
-		<center>
-			<media>
-				<img src="images/generic_person.jpg" width="80" height="80"></img>
-			</media>
-			<h4>User 7</h4>
-		</center>
+	</div>
+	
+	<% } %>
 
-		</div>	
+
+		</div>
+
+	</div>
 		
-		<div class="col-md-2">
-		<center>
-			<media>
-				<img src="images/generic_person.jpg" width="80" height="80"></img>
-			</media>
-			<h4>User 8</h4>
-		</center>
-
-		</div>
-
-		<div class="col-md-2">
-		<center>
-			<media>
-				<img src="images/generic_person.jpg" width="80" height="80"></img>
-			</media>
-			<h4>User 9</h4>
-		</center>
-
-		</div>
-
-		<div class="col-md-2">
-		<center>
-			<media>
-				<img src="images/generic_person.jpg" width="80" height="80"></img>
-			</media>
-			<h4>User 10</h4>
-		</center>
-
-		</div>
-
-		</div>
 </div>
 
-</div>
-
-<!--
-<div class="container">
-
-<div class="row">
-	
-		<div class="col-md-8 col-md-offset-2">
-			<h4><b>Search for</b></h4>
-			<h5>Skill Level:</h5>
-				<span class="input-group">
-        			<input type="radio" name="skill_level" value="beginner"> Beginner
-					<input type="radio" name="skill_level" value="intermediate"> Intermediate
-					<input type="radio" name="skill_level" value="advanced"> Advanced
-      			</span>
-			<h5>Activities:</h5>
-				<span class="input-group">
-        			<input type="checkbox" name="activity" value="swimming"> Swimming
-					<input type="checkbox" name="activity" value="weightlifting"> Weight Lifting
-					<input type="checkbox" name="activity" value="kickboxing"> Kick Boxing
-      			</span>
-		<center>
-			<span>
-					<div style="margin-top: 30px; margin-bottom:10px" class="input-group">
-								<input id="search" type="text" class="form-control" name="query" value="">                                       
-                                 
-                            </div>
-			</span>	
-					<a id="btn-search" href="encyclopediaresults" class="btn btn-danger">Search</a>
-   
-		</center>
-		</div>
-	</div>
-
-	<div style="margin-top:30px" class="row">
-
-	<div class="col-md-8 col-md-offset-2">
-
-	
-	<h3>Popular Users</h3>
-	<hr>
-	</div>
-		
-	</div>
-
-		<div class="row">
-
-		<div class="col-md-10 col-md-offset-1">
-
-		<div class="col-md-2 col-md-offset-1">
-		<center>
-			<media>
-				<img src="images/generic_person.jpg" width="80" height="80"></img>
-			</media>
-			<h4>User 1</h4>
-		</center>
-
-		</div>
-
-		<div class="col-md-2">
-		<center>
-			<media>
-				<img src="images/generic_person.jpg" width="80" height="80"></img>
-			</media>
-			<h4>User 2</h4>
-		</center>
-
-		</div>	
-		
-		<div class="col-md-2">
-		<center>
-			<media>
-				<img src="images/generic_person.jpg" width="80" height="80"></img>
-			</media>
-			<h4>User 3</h4>
-		</center>
-
-		</div>
-
-		<div class="col-md-2">
-		<center>
-			<media>
-				<img src="images/generic_person.jpg" width="80" height="80"></img>
-			</media>
-			<h4>User 4</h4>
-		</center>
-
-		</div>
-
-		<div class="col-md-2">
-		<center>
-			<media>
-				<img src="images/generic_person.jpg" width="80" height="80"></img>
-			</media>
-			<h4>User 5</h4>
-		</center>
-
-		</div>
-
-		</div>
-
-	</div>
-
-		
-	<div style="margin-top:20px" class="row">
-
-	<div class="col-md-10 col-md-offset-1">
-
-	<div class="col-md-2 col-md-offset-1">
-		<center>
-			<media>
-				<img src="images/generic_person.jpg" width="80" height="80"></img>
-			</media>
-			<h4>User 6</h4>
-		</center>
-
-		</div>
-
-		<div class="col-md-2">
-		<center>
-			<media>
-				<img src="images/generic_person.jpg" width="80" height="80"></img>
-			</media>
-			<h4>User 7</h4>
-		</center>
-
-		</div>	
-		
-		<div class="col-md-2">
-		<center>
-			<media>
-				<img src="images/generic_person.jpg" width="80" height="80"></img>
-			</media>
-			<h4>User 8</h4>
-		</center>
-
-		</div>
-
-		<div class="col-md-2">
-		<center>
-			<media>
-				<img src="images/generic_person.jpg" width="80" height="80"></img>
-			</media>
-			<h4>User 9</h4>
-		</center>
-
-		</div>
-
-		<div class="col-md-2">
-		<center>
-			<media>
-				<img src="images/generic_person.jpg" width="80" height="80"></img>
-			</media>
-			<h4>User 10</h4>
-		</center>
-
-		</div>
-
-		</div>
-		</div>
-		<div style="margin-top:30px" class = "row">
-			<div class="col-md-8 col-md-offset-2">
-				<h3>New Users</h3>
-				<hr>
-			</div>
-		</div>
-
-		<div class="row">
-	
-		<div class="col-md-10 col-md-offset-1">
-
-		<div class="col-md-2 col-md-offset-1">
-		<center>
-			<media>
-				<img src="images/generic_person.jpg" width="80" height="80"></img>
-			</media>
-			<h4>User 1</h4>
-		</center>
-
-		</div>
-
-		<div class="col-md-2">
-		<center>
-			<media>
-				<img src="images/generic_person.jpg" width="80" height="80"></img>
-			</media>
-			<h4>User 2</h4>
-		</center>
-
-		</div>	
-		
-		<div class="col-md-2">
-		<center>
-			<media>
-				<img src="images/generic_person.jpg" width="80" height="80"></img>
-			</media>
-			<h4>User 3</h4>
-		</center>
-
-		</div>
-
-		<div class="col-md-2">
-		<center>
-			<media>
-				<img src="images/generic_person.jpg" width="80" height="80"></img>
-			</media>
-			<h4>User 4</h4>
-		</center>
-
-		</div>
-
-		<div class="col-md-2">
-		<center>
-			<media>
-				<img src="images/generic_person.jpg" width="80" height="80"></img>
-			</media>
-			<h4>User 5</h4>
-		</center>
-
-		</div>
-
-		</div>
-		
-		</div>
-
-		
-	<div style="margin-top:20px" class="row">
-
-	<div class="col-md-10 col-md-offset-1">
-
-	<div class="col-md-2 col-md-offset-1">
-		<center>
-			<media>
-				<img src="images/generic_person.jpg" width="80" height="80"></img>
-			</media>
-			<h4>User 6</h4>
-		</center>
-
-		</div>
-
-		<div class="col-md-2">
-		<center>
-			<media>
-				<img src="images/generic_person.jpg" width="80" height="80"></img>
-			</media>
-			<h4>User 7</h4>
-		</center>
-
-		</div>	
-		
-		<div class="col-md-2">
-		<center>
-			<media>
-				<img src="images/generic_person.jpg" width="80" height="80"></img>
-			</media>
-			<h4>User 8</h4>
-		</center>
-
-		</div>
-
-		<div class="col-md-2">
-		<center>
-			<media>
-				<img src="images/generic_person.jpg" width="80" height="80"></img>
-			</media>
-			<h4>User 9</h4>
-		</center>
-
-		</div>
-
-		<div class="col-md-2">
-		<center>
-			<media>
-				<img src="images/generic_person.jpg" width="80" height="80"></img>
-			</media>
-			<h4>User 10</h4>
-		</center>
-
-		</div>
-
-		</div>
-
-		</div>
-		
-</div>
--->
-<% include footer %>
+<% include fragments/footer %>
 
 <script src = "javascripts/bootstrap.js"></script>
 

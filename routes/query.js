@@ -7,18 +7,20 @@ queries['exercisesGetLimitN'] = data.exercisesGetLimitN;
 queries['exerciseInit'] = data.exerciseInit;
 
 function query(req,res){
+//console.log('body = '+JSON.stringify(req.body));
 	if(queries[req.body.query]===undefined){
-		res.send('invalid query');
+		res.send('req.body.query undefined\n'+__stack);
 		return;
 	}
-//console.log('body = '+JSON.stringify(req.body));
-  queries[req.body.query](req.body,function(err,exercises){
+  queries[req.body.query](req.body,function(err,results){
 		if(err){
-			res.send(err.msg);
+//console.log('error = '+JSON.stringify(err));
+			res.send(err);
 		}
 		else{
+//console.log('results = '+JSON.stringify(results));
 			res.contentType('application/json');
-			res.send(exercises);
+			res.send(results);
 		}
 	});
 }

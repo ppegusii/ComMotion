@@ -7,19 +7,22 @@ exports.query = query;
 function query(statement,params,cb){
   pg.connect(conString,function(err,client,done){
     if(err){
-      cb(err,undefined);
+      var errString = 'pg error = '+JSON.stringify(err)+'\n'+__stack;
+      console.log(errString);
+      cb(errString,undefined);
       return;
     }
     client.query(statement,params,function(err,result){
       done();
       if(err){
-        console.log('statment = '+statement);
-        console.log('params = '+JSON.stringify(params));
-        console.log('pg error = '+JSON.stringify(err));
-        cb(err,undefined);
+        var errString = 'statment = '+statement+'\n';
+        errString += 'params = '+JSON.stringify(params)+'\n';
+        errString += 'pg error = '+JSON.stringify(err)+'\n'+__stack;
+        console.log(errString);
+        cb(errString,undefined);
         return;
       }
-      cb(err,result);
+      cb(undefined,result);
     });
   });
 }
@@ -31,20 +34,23 @@ function queryTransaction(statement,params,cb){
     }
     client.query('BEGIN', function(err){
       if(err){
+        var errString = 'pg error = '+JSON.stringify(err)+'\n'+__stack;
+        console.log(errString);
         rollback(client,done,cb);
         return;
       }
       process.nextTick(function(){
         client.query(statement,params,function(err,result){
           if(err){
-            console.log('statment = '+statement);
-            console.log('params = '+JSON.stringify(params));
-            console.log('pg error = '+JSON.stringify(err));
+            var errString = 'statment = '+statement+'\n';
+            errString += 'params = '+JSON.stringify(params)+'\n';
+            errString += 'pg error = '+JSON.stringify(err)+'\n'+__stack;
+            console.log(errString);
             rollback(client,done,cb);
             return;
           }
           client.query('COMMIT',done);
-          cb(err,result);
+          cb(undefined,result);
         });
       });
     });
