@@ -183,7 +183,12 @@ connectWith: "li"
 				<div class="group">
 					<h3>Search for Exercise</h3>
 					<div>
-						<h4>Search Bar</h4>
+						      <form class="navbar-form" role="search">
+								<div class="form-group">
+								  <input type="text" class="form-control" placeholder="Search" style="width:150px">
+								</div>
+								
+							  </form>
 					<ul>
 						<li class="draggableExercise">Exercise x</li>
 						<li class="draggableExercise">Exercise y</li>
@@ -195,6 +200,9 @@ connectWith: "li"
 					<h3>Rest Period</h3>
 					<div>
 						<ul>
+							<input id="newRestAmount" type="text" class="form-control" name="name" value="" maxlength="15" style= "width:100px; float:left; margin-bottom:20px">
+							<a id="btn-addRestAmount" href="" class="btn btn-danger" style="width:50px;  float:left; margin-bottom:20px">Add</a> 
+							
 							<li class="draggableRest">Rest 30 seconds</li>
 							<li class="draggableRest">Rest 1 minutes</li>
 							<li class="draggableRest">Rest 5 minutes</li>
@@ -202,19 +210,10 @@ connectWith: "li"
 					</div>
 				</div>
 			</div>
+
 	</div>
 	<div class="col-md-1 col-sm-1 col-xs-1">
 
-		<div id = "test">
-			<ul>
-			<li class="ui-draggable draggable-set-builder">
-			Hey
-			</li>
-			<li class="ui-draggable draggable-set-builder">
-			You
-			</li>
-			</ul>
-		</div>
 	</div>
 	<div class="col-md-5 col-sm-5 col-xs-5" style="margin-top:15px; height:200px">	
 
@@ -235,9 +234,9 @@ connectWith: "li"
 -->
 		</div>
 	</div>
-		<div id="trash" class="col-md-offset-1 col-sm-offset-1 col-xs-offset-1 col-md-2 col-sm-2 col-xs-2">
+		<div id="trash" class="col-md-3 col-sm-3 col-xs-3">
 			</p>Drag sets or exercises over here to delete them</p>
-			<div class="well"  style="height:100px">
+			<div class="well"  style="height:140px">
 				<center>Trash Area</center>
 			</div>
 		</div>
