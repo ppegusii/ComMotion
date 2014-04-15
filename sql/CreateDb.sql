@@ -2,6 +2,7 @@
 DROP TABLE IF EXISTS followers;
 DROP TABLE IF EXISTS favorite_workouts;
 DROP TABLE IF EXISTS favorite_exercises;
+DROP TABLE IF EXISTS activities;
 DROP TABLE IF EXISTS users;
 DROP TABLE IF EXISTS names;
 DROP TABLE IF EXISTS videos;
@@ -39,7 +40,6 @@ CREATE TABLE workouts(
 CREATE TABLE photos(
 	id SERIAL PRIMARY KEY,
 	filename VARCHAR(1023) NOT NULL,
-=======
 	created timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
 );
 CREATE TABLE photos(
@@ -65,10 +65,14 @@ CREATE TABLE users(
 	id SERIAL PRIMARY KEY,
 	username VARCHAR(255) NOT NULL,
 	password VARCHAR(255) NOT NULL,
-	activities VARCHAR(1023),
 	experience_level integer references difficulties(id),
 	avatar VARCHAR(1023) 	
 );	
+CREATE TABLE activities(
+	id SERIAL PRIMARY KEY,
+	activity VARCHAR(1023) NOT NULL,
+	user_id integer references users(id) ON DELETE CASCADE
+);
 CREATE TABLE favorite_exercises(
 	id SERIAL PRIMARY KEY,
 	user_id integer NOT NULL references users(id) ON DELETE CASCADE,
