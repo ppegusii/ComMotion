@@ -2,6 +2,7 @@
 DROP TABLE IF EXISTS followers;
 DROP TABLE IF EXISTS favorite_workouts;
 DROP TABLE IF EXISTS favorite_exercises;
+DROP TABLE IF EXISTS user_activities;
 DROP TABLE IF EXISTS activities;
 DROP TABLE IF EXISTS users;
 DROP TABLE IF EXISTS names;
@@ -39,11 +40,6 @@ CREATE TABLE workouts(
 );
 CREATE TABLE photos(
 	id SERIAL PRIMARY KEY,
-	filename VARCHAR(1023) NOT NULL,
-	created timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
-);
-CREATE TABLE photos(
-	id SERIAL PRIMARY KEY,
 	url VARCHAR(1023) NOT NULL,
 	exercise_id integer references exercises(id) ON DELETE CASCADE,
 	workout_id integer references workouts(id) ON DELETE CASCADE
@@ -70,7 +66,11 @@ CREATE TABLE users(
 );	
 CREATE TABLE activities(
 	id SERIAL PRIMARY KEY,
-	activity VARCHAR(1023) NOT NULL,
+	activity VARCHAR(1023) NOT NULL
+);
+CREATE TABLE user_activities(
+	id SERIAL PRIMARY KEY,
+	activity_id integer NOT NULL references activities(id),
 	user_id integer references users(id) ON DELETE CASCADE
 );
 CREATE TABLE favorite_exercises(
