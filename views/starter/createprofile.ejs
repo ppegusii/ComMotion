@@ -13,75 +13,58 @@
 
 <body>
 
+<div class="container">
 
-<div class="container text-center">    
+	<div class="col-md-5 col-md-offset-3">
+
+		<div style="margin-top:30px;background-color:#99CCCC" class="well">
+
+			<div style="margin-bottom:20px"><center><h4><strong>Create your profile</strong></h4></center></div>
+			<h5><strong>Skill Level:</strong></h5>
+				<span class="input-group">
+        			<input type="radio" name="skill_level" value="beginner"> Beginner
+					<input type="radio" name="skill_level" value="intermediate"> Intermediate
+					<input type="radio" name="skill_level" value="advanced"> Advanced
+      			</span>
+			<h5><strong>Activities:</strong></h5>
+				<span class="input-group">
+					<table>
+					<tr>
+        			<td><input type="checkbox" name="activity" value="swimming">  Swimming  </td>
+					<td><input type="checkbox" name="activity" value="weightlifting">  Weight Lifting  </td>
+					<td><input type="checkbox" name="activity" value="kickboxing">  Kick Boxing  </td>
+					</tr>
+					<tr>
+        			<td><input type="checkbox" name="activity" value="cycling">  Cycling </td>
+					<td><input type="checkbox" name="activity" value="">  Running  </td>
+					<td><input type="checkbox" name="activity" value="kickboxing">  Fill In  </td>
+					</tr>
+					<tr>
+        			<td><input type="checkbox" name="activity" value="cycling">  Fill In </td>
+					<td><input type="checkbox" name="activity" value="">  Fill In </td>
+					</tr>
+					</table>
+      			</span>
+
+				<div style="margin-bottom: 0px" class="input-group">
+					<h5><strong>Description:</strong></h5>
+					<textarea class="form-control" id="exercise-description" style="resize:none" rows="4" cols="50" value="" resize="none" name="description"></textarea> 	
+
+					<div style="margin-bottom: 15px" class="input-group">
+						<h5><strong>Profile Picture URL</strong> (optional)</h5>
+						<input id="media" type="text" class="form-control" name="media" style="resize:none" maxlength="1023">     
+
+               		</div>
 	
-	<div id="loginbox" style="margin-top:50px;" class="mainbox col-md-5 col-md-offset-3">                    
-    	<div class="panel panel-info" >
-        	<div class="panel-heading"> 
-            	<div class="panel-title">Create Your Profile</div> 
+						<a id="btn-search" href="home" style="margin-top:20px" class="btn btn-danger pull-right">Save profile</a>
+                </div>   
 
-                <div style="padding-top:30px" class="panel-body" >
-	
-                	<div style="display:none" id="login-alert" class="alert alert-danger col-sm-12"></div>
-                            
-                   	<form id="createprofileform" class="form-horizontal" role="form">
-                          
-                        	<div style="margin-bottom: 0px" class="input-group col-md-offset-1">
-								<h5>Skill Level:</h5>
-								<span class="input-group">
-        							<input type="radio" name="skill_level" value="beginner"> Beginner
-									<input type="radio" name="skill_level" value="intermediate"> Intermediate
-									<input type="radio" name="skill_level" value="advanced"> Advanced
-      							</span>
-                            </div>
-                                
-                            <div style="margin-bottom: 0px" class="input-group">
-								<h5>Activities:</h5>
-								 <span class="input-group">
-									<table>
-									<tr>
-									<td><input type="checkbox" name="activity" value="swimming">  Swimming  </td>
-									<td><input type="checkbox" name="activity" value="weightlifting">  Weight Lifting  </td>
-									<td><input type="checkbox" name="activity" value="kickboxing">  Kick Boxing  </td>
-									</tr>
-									<tr>
-									<td><input type="checkbox" name="activity" value="cycling">  Cycling </td>
-									<td><input type="checkbox" name="activity" value="">  Running  </td>
-									<td><input type="checkbox" name="activity" value="kickboxing">  Fill In  </td>
-									</tr>
-									<tr>
-									<td><input type="checkbox" name="activity" value="cycling">  Fill In </td>
-									<td><input type="checkbox" name="activity" value="">  Fill In </td>
-									</tr>
-									</table>
-					  			</span>
-                            </div>
-
-							<div style="margin-bottom: 0px" class="input-group">
-								  <h5>Description:</h5>
-								<textarea class="form-control" id="exercise-description" style="resize:none" rows="4" cols="50" value="" resize="none" name="description"></textarea> 	
-                            </div>                            
-
-                              <div style="margin-top:20px" class="form-group pull-right">
-                                   <div class="col-sm-12 controls">
-                                      <a id="btn-signup" href="/" class="btn btn-success">Save Profile</a>
-                                    </div>
-                              </div>
-
-
-                            </form>     
-                 
-                    </div>  
- 
-		<!--panel-->
+				
+   
 		</div>
-
-	<!--login box-->
 	</div>
-
-<!--container-->
 </div>
+
 
 <script src = "../javascripts/bootstrap.js"></script>
 

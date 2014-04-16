@@ -4,15 +4,8 @@ var models = require('../models/index.js');
 var data = require(process.env.DATA);
 
 exports.home = function(req, res){
-   //res.sendfile('./public/home.html');
 	 res.render('home', { title: 'Home' });
 };
-
-/*
-exports.profile = function(req, res){
-   res.render('profile', { title: 'Profile' });
-};
-*/
 
 exports.create = function(req, res){
    res.render('create', {title: 'Create'});
