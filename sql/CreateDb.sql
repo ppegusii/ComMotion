@@ -115,8 +115,20 @@ INSERT INTO exercises (id,description,difficulty_id,musclegroup_id) VALUES
 	(10,'Row with barbell',2,2),
 	(11,'Row with dumbbells',1,2),
 	(12,'Sustained hold of plank position',1,4),
-	(13,'Situps focusing on thoracic spine flexion',1,4);
-ALTER SEQUENCE exercises_id_seq RESTART WITH 14;
+	(13,'Situps focusing on thoracic spine flexion',1,4),
+	(14,'jump rope for time interval',1,1),
+	(15,'high kettlebell swings',1,2),
+	(16,'olympic clean and press from floor',3,1),
+	(17,'slam medicine ball to floor to activate lats',1,2),
+	(18,'lateral deltoid raises with dumbbells',1,2),
+	(19,'deadlift with straight legs and hip hinging',2,1),
+	(20,'lunges with dumbbells held at sides',1,3),
+	(21,'calf raises with extra weight',1,3),
+	(22,'turkish get-up, extra weight optional',3,1),
+	(23,'barbell shrugs to the front',1,2),
+	(24,'standing barbell curls',1,2),
+	(25,'strict isolating dumbbell curls',1,2);
+ALTER SEQUENCE exercises_id_seq RESTART WITH 26;
 INSERT INTO names (id,name,exercise_id,votes) VALUES
 	(1,'squat',1,5),
 	(2,'goblet squat',2,3),
@@ -130,8 +142,20 @@ INSERT INTO names (id,name,exercise_id,votes) VALUES
 	(10,'barbell row',10,1),
 	(11,'dumbbell row',11,3),
 	(12,'planks',12,5),
-	(13,'crunches',13,1);
-ALTER SEQUENCE names_id_seq RESTART WITH 14;
+	(13,'crunches',13,1),
+	(14,'jump rope',14,4),
+	(15,'kettlebell swings',15,3),
+	(16,'olympic clean and press',16,4),
+	(17,'medicine ball slam',17,5),
+	(18,'lateral deltoid raises',18,2),
+	(19,'straight-legged deadlift',19,2),
+	(20,'lunges',20,4),
+	(21,'calf raises',21,1),
+	(22,'Turkish get-up',22,4),
+	(23,'barbell shrugs',23,2),
+	(24,'barbell curls',24,5),
+	(25,'concentration curls',25,3);
+ALTER SEQUENCE names_id_seq RESTART WITH 26;
 INSERT INTO photos (id,url,exercise_id) VALUES
 	(1,'http://url/of/my/photo.jpg',1);
 ALTER SEQUENCE photos_id_seq RESTART WITH 2;
