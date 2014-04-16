@@ -1,5 +1,7 @@
+
 var exercise = require('../data/Exercise.js');
 var models = require('../models/index.js');
+var data = require(process.env.DATA);
 
 exports.home = function(req, res){
    //res.sendfile('./public/home.html');
@@ -17,7 +19,14 @@ exports.create = function(req, res){
 };
 
 exports.encyclopedia = function(req, res){
-      res.render('encyclopedia', {title: 'Encyclopedia'});
+  data.exercisesGetLimitN({n:10},function afterGet(err,exercises){
+    res.render('encyclopedia',
+      {
+        title: 'Encyclopedia',
+        exercises: exercises,
+        err: err
+      });
+  });
 };
 
 exports.myfavorites = function(req, res){
@@ -76,28 +85,22 @@ exports.workoutcreator = function(req, res){
 };
 
 exports.saveexercise = function(req, res) {
-     var newExercise = new models.Exercise(
-         undefined,
-         req.body.description,
-         req.body.musclegroup,
-         undefined,
-         [req.body.name],
-         undefined,
-         [req.body.media]
-     );
-//     exercise.validate(newExercise, function(err, exercise) {
-//         if(err) {
-//             //req.flash('saveexercise', err);
-//             console.log(err);
-//             res.redirect('/create/exercise?err');
-//         }
-//         else {
-//             // add query
-//             res.redirect('/encyclopedia/exercise_entry');
-//         }
-//     });
-     res.redirect('create/exercise');
-}
+
+  //assuming req.body is an exercise object
+  data.exerciseInit({exercise: req.body},function afterSave(err,exercise){
+    if(err){
+      console.log(Error.toJson(err));
+      req.flash('saveexercise',err);
+      //not sure how I should alter the err parameter below
+      res.redirect('/create/exercise?err=badNameOrDesc');
+      return;
+    }
+    console.log('saveexercise exercise = '+JSON.stringify(exercise));
+    req.flash('exercise',exercise);
+    //make this route check flash?
+    res.redirect('/encyclopedia/exercise_entry');
+  });
+};
 
 exports.cancelexercise = function(req, res) {
      res.redirect('/create');

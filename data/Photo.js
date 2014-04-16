@@ -9,7 +9,7 @@ function getByEidWid(query,cb){
   var eid = parseInt(query.eid,10);
   var wid = parseInt(query.wid,10);
   if((eid>0 && wid>0) || (eid<=0 && wid<=0)){
-    cb('define eid xor wid',undefined);
+    cb(Error.create('define query.eid xor query.wid'),undefined);
     return;
   }
   if(eid){
@@ -33,7 +33,7 @@ function resultToPhotos(result,cb){
 }
 function init(query,cb){
   if(!query.photo){
-    cb('photo undefined',undefined);
+    cb(Error.create('query.photo undefined'),undefined);
     return;
   }
   validate.photo(query.photo,function afterValidation(err,photo){

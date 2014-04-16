@@ -11,23 +11,23 @@ exports.validate = validate;
 function validate(exercise,cb){
   exercise.id = parseInt(exercise.id,10);
   if(exercise.id<=0){
-    cb('invalid exercise id',undefined);
+    cb(Error.create('exercise.id invalid'),undefined);
     return;
   }
   if(!exercise.description || exercise.description===''){
-    cb('undefined or blank description',undefined);
+    cb(Error.create('exercise.description blank or undefined'),undefined);
     return;
   }
   if(!exercise.names){
-    cb('undefined names',undefined);
+    cb(Error.create('exercise.names undefined'),undefined);
     return;
   }
   if(!exercise.videos){
-    cb('undefined videos',undefined);
+    cb(Error.create('exercise.videos undefined'),undefined);
     return;
   }
   if(!exercise.photos){
-    cb('undefined photos',undefined);
+    cb(Error.create('exercise.photos undefined'),undefined);
     return;
   }
   async.parallel({

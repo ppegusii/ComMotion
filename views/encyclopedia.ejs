@@ -17,15 +17,21 @@
 
 <% include fragments/header %>
 
+  <ul>
+    <% for(var i=0; i<exercises.length; i++){ %>
+      <li><%= JSON.stringify(exercises[i]) %></li>
+    <% } %>
+  </ul>
+
 	<script>
 	$( "#encyclopedia" ).addClass("active");
 	</script>
 
-<!--
+
     <h1><%= title %></h1>
     <p>Welcome to <%= title %></p>
 	<div id="entries"></div>
--->
+
 
 <div class="container">
 

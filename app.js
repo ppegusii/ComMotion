@@ -1,5 +1,6 @@
 // set environment variables
 require('./config/EnvVariables.js');
+
 /**
  * Module dependencies.
  */
@@ -11,6 +12,7 @@ var user = require(process.env.ROUTES_USER);
 var http = require('http');
 var path = require('path');
 var flash = require('connect-flash');
+require('simple-errors');
 
 var app = express();
 
@@ -23,11 +25,11 @@ app.use(express.logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded());
 app.use(express.methodOverride());
-app.use(app.router);
-app.use(express.static(path.join(__dirname, 'public')));
-app.use(express.cookieParser('commotion is the best'));
+app.use(express.cookieParser('your secret here'));
 app.use(express.session());
 app.use(flash());
+app.use(app.router);
+app.use(express.static(path.join(__dirname, 'public')));
 
 // development only
 if ('development' == app.get('env')) {

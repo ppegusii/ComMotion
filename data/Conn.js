@@ -7,26 +7,23 @@ exports.query = query;
 function query(statement,params,cb){
   pg.connect(conString,function(err,client,done){
     if(err){
-      cb(err,undefined);
+      cb(Error.create('pg conn error',undefined,err),undefined);
       return;
     }
     client.query(statement,params,function(err,result){
       done();
       if(err){
-        console.log('statment = '+statement);
-        console.log('params = '+JSON.stringify(params));
-        console.log('pg error = '+JSON.stringify(err));
-        cb(err,undefined);
+        cb(Error.create('pg query error',{statement: statement,params: params},err),undefined);
         return;
       }
-      cb(err,result);
+      cb(undefined,result);
     });
   });
 }
 function queryTransaction(statement,params,cb){
   pg.connect(conString,function(err,client,done){
     if(err){
-      cb(err,undefined);
+      cb(Error.create('pg conn error',undefined,err),undefined);
       return;
     }
     client.query('BEGIN', function(err){
@@ -37,14 +34,11 @@ function queryTransaction(statement,params,cb){
       process.nextTick(function(){
         client.query(statement,params,function(err,result){
           if(err){
-            console.log('statment = '+statement);
-            console.log('params = '+JSON.stringify(params));
-            console.log('pg error = '+JSON.stringify(err));
             rollback(client,done,cb);
             return;
           }
           client.query('COMMIT',done);
-          cb(err,result);
+          cb(undefined,result);
         });
       });
     });
@@ -53,6 +47,6 @@ function queryTransaction(statement,params,cb){
 function rollback(client,done,cb){
   client.query('ROLLBACK',function(err){
     done(err);
-    cb(err,undefined);
+    cb(Error.create('pg rollback',undefined,err),undefined);
   });
 }

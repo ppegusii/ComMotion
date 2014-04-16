@@ -9,12 +9,14 @@ queries['exerciseInit'] = data.exerciseInit;
 function query(req,res){
 //console.log('body = '+JSON.stringify(req.body));
 	if(queries[req.body.query]===undefined){
-		res.send('invalid query');
+		var err = Error.create('req.body.query undefined');
+    console.log(Error.toJson(err));
+		res.send(err);
 		return;
 	}
   queries[req.body.query](req.body,function(err,results){
 		if(err){
-//console.log('error = '+JSON.stringify(err));
+      console.log(Error.toJson(err));
 			res.send(err);
 		}
 		else{
