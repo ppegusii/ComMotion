@@ -84,7 +84,7 @@ exports.saveexercise = function(req, res) {
   //assuming req.body is an exercise object
   data.exerciseInit({exercise: req.body},function afterSave(err,exercise){
     if(err){
-console.log('saveexercis err = '+err);
+console.log(Error.toJson(err));
       req.flash('saveexercise',err);
       //not sure how I should alter the err parameter below
       res.redirect('/create/exercise?err=badNameOrDesc');

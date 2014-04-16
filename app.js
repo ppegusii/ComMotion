@@ -1,9 +1,6 @@
 // set environment variables
 require('./config/EnvVariables.js');
 
-// add info for logging
-require(process.env.LOGGING);
-
 /**
  * Module dependencies.
  */
@@ -15,6 +12,7 @@ var user = require(process.env.ROUTES_USER);
 var http = require('http');
 var path = require('path');
 var flash = require('connect-flash');
+require('simple-errors');
 
 var app = express();
 
@@ -32,7 +30,6 @@ app.use(express.session());
 app.use(flash());
 app.use(app.router);
 app.use(express.static(path.join(__dirname, 'public')));
-//app.use(flash());
 
 // development only
 if ('development' == app.get('env')) {

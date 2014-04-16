@@ -7,19 +7,13 @@ exports.query = query;
 function query(statement,params,cb){
   pg.connect(conString,function(err,client,done){
     if(err){
-      var errString = 'pg error = '+JSON.stringify(err)+'\n'+__stack;
-      console.log(errString);
-      cb(errString,undefined);
+      cb(Error.create('pg conn error',undefined,err),undefined);
       return;
     }
     client.query(statement,params,function(err,result){
       done();
       if(err){
-        var errString = 'statment = '+statement+'\n';
-        errString += 'params = '+JSON.stringify(params)+'\n';
-        errString += 'pg error = '+JSON.stringify(err)+'\n'+__stack;
-        console.log(errString);
-        cb(errString,undefined);
+        cb(Error.create('pg query error',{statement: statement,params: params},err),undefined);
         return;
       }
       cb(undefined,result);
@@ -29,23 +23,17 @@ function query(statement,params,cb){
 function queryTransaction(statement,params,cb){
   pg.connect(conString,function(err,client,done){
     if(err){
-      cb(err,undefined);
+      cb(Error.create('pg conn error',undefined,err),undefined);
       return;
     }
     client.query('BEGIN', function(err){
       if(err){
-        var errString = 'pg error = '+JSON.stringify(err)+'\n'+__stack;
-        console.log(errString);
         rollback(client,done,cb);
         return;
       }
       process.nextTick(function(){
         client.query(statement,params,function(err,result){
           if(err){
-            var errString = 'statment = '+statement+'\n';
-            errString += 'params = '+JSON.stringify(params)+'\n';
-            errString += 'pg error = '+JSON.stringify(err)+'\n'+__stack;
-            console.log(errString);
             rollback(client,done,cb);
             return;
           }
@@ -59,6 +47,6 @@ function queryTransaction(statement,params,cb){
 function rollback(client,done,cb){
   client.query('ROLLBACK',function(err){
     done(err);
-    cb(err,undefined);
+    cb(Error.create('pg rollback',undefined,err),undefined);
   });
 }
