@@ -5,7 +5,7 @@ exports.getById = getById;
 function getById(query,cb){
   var id = parseInt(query.id,10);
   if(id<=0){
-    cb('query.id invalid\n'+__stack,undefined);
+    cb(Error.create('query.id invalid'),undefined);
     return;
   }
   conn.query('SELECT * FROM difficulties WHERE id=$1',[id],function(err,result){

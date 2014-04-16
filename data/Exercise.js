@@ -16,7 +16,7 @@ exports.init = init;
 function getLimitN(query,cb){
   var n = parseInt(query.n,10);
   if(n<=0){
-    cb('query.n invalid\n'+__stack,undefined);
+    cb(Error.create('query.n invalid'),undefined);
     return;
   }
   conn.query('SELECT * FROM exercises LIMIT $1',[n],function(err,result){
@@ -72,7 +72,7 @@ function rowToExercise(row,cb){
 }
 function init(query,cb){
   if(!query.exercise){
-    cb('query.exercise undefined\n'+__stack,undefined);
+    cb(Error.create('query.exercise undefined'),undefined);
     return;
   }
   validate.exercise(query.exercise,function afterValidation(err,exercise){
