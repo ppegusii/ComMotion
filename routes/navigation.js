@@ -70,7 +70,10 @@ exports.exercise = function(req, res){
      //    err: req.flash('saveexercise'),
      // });
      //req.flash('exercise', 'flash! aaa-ah!');
-     res.render('create/exercise', {title: 'Exercise'});
+     res.render('create/exercise', {
+         title: 'Exercise',
+         err: req.flash('saveexercise')
+     });
 };
 
 exports.workoutcreator = function(req, res){
@@ -79,19 +82,26 @@ exports.workoutcreator = function(req, res){
 
 exports.saveexercise = function(req, res) {
 
-  //assuming req.body is an exercise object
-  data.exerciseInit({exercise: req.body},function afterSave(err,exercise){
+  var newExercise = {
+      names: [req.body.name],
+      difficulty: req.body.difficulty,
+      description: req.body.description,
+      musclegroup: req.body.musclegroup,
+      photos: [req.body.media],
+      videos: []
+  };
+  data.exerciseInit({exercise: newExercise},function afterSave(err,exercise){
     if(err){
       console.log(Error.toJson(err));
-      req.flash('saveexercise',err);
+      req.flash('saveexercise',err.message);
       //not sure how I should alter the err parameter below
-      res.redirect('/create/exercise?err=badNameOrDesc');
+      res.redirect('/create/exercise?err=badNameOrBody');
       return;
     }
     console.log('saveexercise exercise = '+JSON.stringify(exercise));
     req.flash('exercise',exercise);
     //make this route check flash?
-    res.redirect('/encyclopedia/exercise_entry');
+    res.redirect('/encyclopedia/exercise_entry?eid=' + exercise.id);
   });
 };
 
