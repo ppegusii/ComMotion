@@ -10,7 +10,10 @@ exports.validate = validate;
 
 function validate(exercise,cb){
   exercise.id = parseInt(exercise.id,10);
-  if(exercise.id<=0){
+  if(isNaN(exercise.id)){
+    exercise.id = undefined;
+  }
+  else if(exercise.id<=0){
     cb(Error.create('exercise.id invalid'),undefined);
     return;
   }

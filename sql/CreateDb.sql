@@ -66,7 +66,7 @@ CREATE TABLE users(
 );	
 CREATE TABLE activities(
 	id SERIAL PRIMARY KEY,
-	activity VARCHAR(1023) NOT NULL
+	name VARCHAR(1023) NOT NULL
 );
 CREATE TABLE user_activities(
 	id SERIAL PRIMARY KEY,

@@ -1,15 +1,41 @@
+var exercise = require('../data/Exercise.js');
+var models = require('../models/index.js');
 var data = require(process.env.DATA);
 
-exports.home = function(req, res){
-   //res.sendfile('./public/home.html');
-	 res.render('home', { title: 'Home' });
-};
-
 /*
-exports.profile = function(req, res){
-   res.render('profile', { title: 'Profile' });
-};
+var blankExercise = new models.Exercise(
+undefined,
+'',
+new models.musclegroup(
+undefined,
+''
+),
+undefined,
+[new models.name(
+undefined,
+'',
+0,
+undefined,
+undefined
+)],
+[new models.Video(
+undefined,
+'',
+undefined,
+undefined
+)],
+[new models.Photo(
+undefined,
+'',
+undefined,
+undefined
+)]
+);
 */
+
+exports.home = function(req, res){
+res.render('home', { title: 'Home' });
+};
 
 exports.create = function(req, res){
    res.render('create', {title: 'Create'});
@@ -35,104 +61,108 @@ exports.findusers = function(req, res){
 };
 
 
-
-exports.profile_edit = function(req, res){
-   res.render('profile/editprofile', {title: 'Edit Profile'});
-};
-
-exports.profile_about = function(req, res){
-      res.render('profile/about', {title: 'Profile About'});
-};
-
-exports.profile_posts = function(req, res){
-      res.render('profile/myposts', {title: 'Profile Posts'});
-};
-
-exports.profile_creations = function(req, res){
-     res.render('profile/mycreations', {title: 'Profile Creations'});
-};
-
-exports.profile_followers = function(req, res){
-     res.render('profile/followers', {title: 'Profile Followers'});
-};
-
-exports.profile_following = function(req, res){
-     res.render('profile/following', {title: 'Profile Following'});
-};
-
-exports.encyclopedia_results = function(req, res){
-     res.render('encyclopediaresults', {title: 'Encyclopedia Results'});
-};
-
-exports.user_search_results = function(req, res){
-     res.render('usersearchresults', {title: 'User Results'});
-};
-
 exports.exercise = function(req, res){
-     // res.render('create/exercise', {
-     //    title: 'Exercise',
-     //    err: req.flash('saveexercise'),
-     // });
-     res.render('create/exercise', {title: 'Exercise'});
+     var fl = req.flash('saveexercise');
+     var eid = req.query.eid;
+     // if accessing exercise creation from Create page, go to blank Create page
+     if(!eid) {
+         console.log('No eid found');
+         res.render('create/exercise', {
+             title: 'Exercise',
+             err : fl,
+             exercise: undefined
+         });
+     }
+     else {
+         console.log('Found eid ' + eid);
+         getExerciseEntry(eid, function(err, exercise) {
+             if(err) {
+                 console.log('Error');
+                 res.send(500, 'Exercise not found for eid ' + eid);
+             }
+             else {
+                 console.log('Populating text fields');
+                 res.render('create/exercise', {
+                     title: 'Exercise',
+                     err: [],
+                     exercise: exercise
+                 });
+             }
+         });
+     }
+
 };
 
 exports.workoutcreator = function(req, res){
      res.render('create/workoutcreator', {title: 'Workout Creator'});
 };
 
+function toDifficulty(difficulty) {
+    return new models.Difficulty(1, difficulty);
+}
+
+function toMusclegroup(musclegroup) {
+    return new models.Musclegroup(1, musclegroup);
+}
+
 exports.saveexercise = function(req, res) {
-  //assuming req.body is an exercise object
-  data.exerciseInit({exercise: req.body},function afterSave(err,exercise){
+
+  var newExercise = {
+      names: [req.body.name],
+      difficulty: toDifficulty(req.body.difficulty),
+      description: req.body.description,
+      musclegroup: toMusclegroup(req.body.musclegroup),
+      photos: [req.body.media],
+      videos: []
+  };
+  data.exerciseInit({exercise: newExercise},function afterSave(err,exercise){
     if(err){
-console.log(Error.toJson(err));
-      req.flash('saveexercise',err);
+      console.log(Error.toJson(err));
+      req.flash('saveexercise',err.message);
       //not sure how I should alter the err parameter below
-      res.redirect('/create/exercise?err=badNameOrDesc');
+      res.redirect('/create/exercise?err=badNameOrBody');
       return;
     }
-console.log('saveexercise exercise = '+JSON.stringify(exercise));
-    req.flash('exercise',exercise);
-    //make this route check flash?
-    res.redirect('/encyclopedia/exercise_entry');
+    console.log('saveexercise exercise = '+JSON.stringify(exercise));
+    res.redirect('/encyclopedia/exercise_entry?eid=' + exercise.id);
   });
-  /*
-     var data = {
-        name: req.body.name,
-        difficulty: req.body.difficulty,
-        description: req.body.description,
-        musclegroup: req.body.musclegroup,
-        media: req.body.media
-     };
-     console.log(data);
-     console.log(mediaProperFormat(data.media));
-     // handle errors
-     if(data.name === "" || data.description === "") {
-        // flash error
-        //req.flash('saveexercise', 'Must provide name and description');
-        res.redirect('/create/exercise?err=badNameOrDesc');
-     }
-     else if(data.media !== "" && !mediaProperFormat(data.media)) {
-        // flash error
-        //req.flash('saveexercise', 'Media URL format is incorrect. Please use ' +
-        //  'a Youtube URL or an image with a .jpg, .jpeg, or .png extension');
-        res.redirect('/create/exercise?err=badMedia');
-     }
-     else {
-        // add exercise to database
-        addExercise(data);
-        // redirect to created entry
-        res.redirect('/encyclopedia/exercise_entry');
-     }
-     */
 };
 
 exports.cancelexercise = function(req, res) {
-     res.redirect('/create');
+     var eid = req.query.eid;
+     if(eid)
+        res.redirect('/encyclopedia/exercise_entry?eid=' + eid);
+     else
+        res.redirect('/create');
 }
 
 exports.encyclopedia_exercise_entry = function(req, res) {
-     var data = getExerciseEntry('Get exercise id');
-     res.render('encyclopedia/exerciseentry', data);
+    /*
+// get exercise info
+var query = {
+id: req.query.eid
+};
+data.exerciseInit(query, function(err, exercise) {
+if(err) {
+console.log(err);
+res.redirect('/encyclopedia');
+}
+else {
+res.render('/encyclopedia/exerciseentry', exercise);
+}
+});
+*/
+     var eid = req.query.eid;
+     console.log('eid = ' + eid);
+     getExerciseEntry(eid, function(err, exercise) {
+         if(err) {
+             console.log('Couldnt find exercise ' + eid);
+             res.send(404, 'Exercise not found');
+         }
+         else {
+             res.render('encyclopedia/exerciseentry', exercise);
+         }
+     });
 }
 
 exports.encyclopedia_workout_entry = function(req, res) {
@@ -158,20 +188,26 @@ function mediaProperFormat(mediaURL) {
    return false;
 }
 
-function getExerciseEntry(exerciseId) {
-   var data = {
-      title: 'Exercise entry',
-      entryName: 'Bicycle crunches',
-      difficulty: 'Beginner',
-      description: 'This is my description',
-      musclegroup: 'Upper body',
-      media: [
-        'http://i.imgur.com/VvbSZ7x.jpg',
-        'http://i.imgur.com/VvbSZ7x.jpg',
-        'http://i.imgur.com/VvbSZ7x.jpg'
-      ]
-   };
-   return data;
+function getExerciseEntry(exerciseId, cb) {
+   if(parseInt(exerciseId) === 5) {
+       var data = new models.Exercise(
+           5,
+           'The id of this exercise is ' + exerciseId,
+           { id: 3, name: 'Advanced'},
+           { id: 3, name: 'Lower body'},
+           undefined,
+           ['A name'],
+           undefined,
+           ['http://i.imgur.com/VvbSZ7x.jpg',
+               'http://i.imgur.com/VvbSZ7x.jpg',
+               'http://i.imgur.com/VvbSZ7x.jpg']
+       );
+       cb(undefined, data);
+   }
+   else {
+       cb('Could not find exercise with id ' + exerciseId, undefined);
+   }
+
 }
 
 function getWorkoutEntry(workoutId) {

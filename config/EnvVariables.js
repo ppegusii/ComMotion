@@ -9,6 +9,7 @@ process.env['DB_CON_PG'] = 'postgres://vagrant:vagrant@localhost/commotion';
 //data layer
 var dataDir = path.join(appDir,'./data');
 process.env['DATA'] = dataDir;
+process.env['DATA_INDEX'] = path.join(dataDir,'./index.js');
 process.env['DATA_CONN'] = path.join(dataDir,'./Conn.js');
 process.env['DATA_EXERCISE'] = path.join(dataDir,'./Exercise.js');
 process.env['DATA_DIFFICULTY'] = path.join(dataDir,'./Difficulty.js');
@@ -30,6 +31,7 @@ process.env['VALIDATE_PHOTO'] = path.join(validateDir,'./Photo.js');
 //models
 var modelsDir = path.join(appDir,'./models');
 process.env['MODELS'] = modelsDir;
+process.env['MODELS_INDEX'] = path.join(modelsDir,'./index.js');
 
 //routes
 var routesDir = path.join(appDir,'./routes');
