@@ -9,8 +9,7 @@ var express = require('express');
 var prof = require('./routes/profile');
 var nav = require('./routes/navigation');
 var results = require('./routes/results');
-var entry = require('./routes/entry');
-//var routes = require(process.env.ROUTES);
+var routes = require(process.env.ROUTES);
 var user = require(process.env.ROUTES_USER);
 var http = require('http');
 var path = require('path');
@@ -59,15 +58,15 @@ app.get('/encyclopedia', nav.encyclopedia);
 app.get('/myfavorites', nav.myfavorites);
 app.get('/findusers', nav.findusers);
 
-//app.post('/query',routes.query);
+app.post('/query',routes.query);
 
 
 
 app.get('/usersearchresults', results.user_search_results);
 app.get('/encyclopediaresults', results.encyclopedia_results);
 
-app.get('/encyclopedia/exercise_entry', entry.encyclopedia_exercise_entry);
-app.get('/encyclopedia/workout_entry', entry.encyclopedia_workout_entry);
+app.get('/encyclopedia/exercise_entry', nav.encyclopedia_exercise_entry);
+app.get('/encyclopedia/workout_entry', nav.encyclopedia_workout_entry);
 
 app.get('/create/exercise', nav.exercise);
 app.get('/create/workoutcreator', nav.workoutcreator);
