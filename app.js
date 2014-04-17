@@ -39,10 +39,13 @@ if ('development' == app.get('env')) {
   app.get('/documentation',routes.documentation);
 }
 
-
 app.get('/', user.landing);
 app.get('/signup', user.signup);
 app.get('/createprofile', user.createprofile);
+
+// filters out "pages" with period; is there a better
+// way to not include resources?
+app.get('^[^.]+$', nav.checkUser);
 
 app.get('/profile/about', prof.profile_about);
 app.get('/profile/myposts', prof.profile_posts);

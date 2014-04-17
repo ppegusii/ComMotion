@@ -4,10 +4,10 @@
  */
 
 exports.landing = function(req, res){
-   if(!req.session.user)
-      res.render('starter/landing', {title: 'Landing'});
-   else
-      res.redirect('/home');
+   res.render('starter/landing', {
+      title: 'Landing',
+      err: req.flash('login')
+   });
 };
 
 

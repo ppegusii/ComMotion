@@ -37,6 +37,16 @@ exports.home = function(req, res){
    res.render('home', { user:req.session.user });
 }
 
+exports.checkUser = function(req, res, next) {
+   var user = req.session.user;
+   if(!user) {
+      res.redirect('/');
+   }
+   else {
+      next();
+   }
+}
+
 exports.authenticate = function(req, res) {
    console.log(req.body.username);
    console.log(req.body.password);
