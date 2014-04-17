@@ -6,8 +6,11 @@ require('./config/EnvVariables.js');
  */
 
 var express = require('express');
+var prof = require('./routes/profile');
 var nav = require('./routes/navigation');
-var routes = require(process.env.ROUTES);
+var results = require('./routes/results');
+var entry = require('./routes/entry');
+//var routes = require(process.env.ROUTES);
 var user = require(process.env.ROUTES_USER);
 var http = require('http');
 var path = require('path');
@@ -36,9 +39,17 @@ if ('development' == app.get('env')) {
   app.use(express.errorHandler());
 }
 
+
 app.get('/', user.landing);
 app.get('/signup', user.signup);
 app.get('/createprofile', user.createprofile);
+
+app.get('/profile/about', prof.profile_about);
+app.get('/profile/myposts', prof.profile_posts);
+app.get('/profile/mycreations', prof.profile_creations);
+app.get('/profile/followers', prof.profile_followers);
+app.get('/profile/following', prof.profile_following);
+
 app.get('/home', nav.home);
 
 app.get('/create', nav.create);
@@ -46,19 +57,16 @@ app.get('/encyclopedia', nav.encyclopedia);
 
 app.get('/myfavorites', nav.myfavorites);
 app.get('/findusers', nav.findusers);
-app.post('/query',routes.query);
 
-app.get('/profile/editprofile', nav.profile_edit);
-app.get('/profile/about', nav.profile_about);
-app.get('/profile/myposts', nav.profile_posts);
-app.get('/profile/mycreations', nav.profile_creations);
-app.get('/profile/followers', nav.profile_followers);
-app.get('/profile/following', nav.profile_following);
+//app.post('/query',routes.query);
 
-app.get('/usersearchresults', nav.user_search_results);
-app.get('/encyclopediaresults', nav.encyclopedia_results);
-app.get('/encyclopedia/exercise_entry', nav.encyclopedia_exercise_entry);
-app.get('/encyclopedia/workout_entry', nav.encyclopedia_workout_entry);
+
+
+app.get('/usersearchresults', results.user_search_results);
+app.get('/encyclopediaresults', results.encyclopedia_results);
+
+app.get('/encyclopedia/exercise_entry', entry.encyclopedia_exercise_entry);
+app.get('/encyclopedia/workout_entry', entry.encyclopedia_workout_entry);
 
 app.get('/create/exercise', nav.exercise);
 app.get('/create/workoutcreator', nav.workoutcreator);
