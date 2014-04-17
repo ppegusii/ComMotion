@@ -1,4 +1,3 @@
-
 var exercise = require('../data/Exercise.js');
 var models = require('../models/index.js');
 var data = require(process.env.DATA);
@@ -30,39 +29,6 @@ exports.findusers = function(req, res){
      res.render('findusers', {title: 'Find Users'});
 };
 
-
-
-exports.profile_edit = function(req, res){
-   res.render('profile/editprofile', {title: 'Edit Profile'});
-};
-
-exports.profile_about = function(req, res){
-      res.render('profile/about', {title: 'Profile About'});
-};
-
-exports.profile_posts = function(req, res){
-      res.render('profile/myposts', {title: 'Profile Posts'});
-};
-
-exports.profile_creations = function(req, res){
-     res.render('profile/mycreations', {title: 'Profile Creations'});
-};
-
-exports.profile_followers = function(req, res){
-     res.render('profile/followers', {title: 'Profile Followers'});
-};
-
-exports.profile_following = function(req, res){
-     res.render('profile/following', {title: 'Profile Following'});
-};
-
-exports.encyclopedia_results = function(req, res){
-     res.render('encyclopediaresults', {title: 'Encyclopedia Results'});
-};
-
-exports.user_search_results = function(req, res){
-     res.render('usersearchresults', {title: 'User Results'});
-};
 
 exports.exercise = function(req, res){
      // res.render('create/exercise', {
@@ -109,15 +75,7 @@ exports.cancelexercise = function(req, res) {
      res.redirect('/create');
 }
 
-exports.encyclopedia_exercise_entry = function(req, res) {
-     var data = getExerciseEntry('Get exercise id');
-     res.render('encyclopedia/exerciseentry', data);
-}
 
-exports.encyclopedia_workout_entry = function(req, res) {
-     var data = getWorkoutEntry('Get workout id');
-     res.render('encyclopedia/workoutentry', data);
-}
 
 // Adds exercise to database
 function addExercise(data) {
