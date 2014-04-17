@@ -30,7 +30,7 @@
      
 			<form id="exerciseform" class="form-horizontal col-md-6 col-sm-6 col-xs-6 col-md-offset-3  col-sm-offset-3 col-xs-offset-3 well" role="form" method="post" action="exercise/save">
 
-							<% if(err !== undefined) { %>
+							<% if(err.length !== 0) { %>
 								<div class="alert alert-danger" role="alert" style="margin-bottom: 15px">
 									<p class="error"><%= err %></p>
 								</div>
@@ -47,13 +47,15 @@
                             </div>
                             <button type="button" class="btn btn-default" id="addNameButton">Add name</button>
 -->
-                            <input id="name" type="text" class="input-group" name="name"
-                                   value="<% if (exercise !== undefined) { %><%= exercise.names[0]%><% } %>" maxlength="255">
+                            <div style="margin-bottom: 15px" class="input-group">
+                                <input id="name" type="text" class="form-control" name="name"
+                                       value="<% if (exercise) { %><%= exercise.names[0]%><% } %>" maxlength="255">
 
-                            <%  // logic for finding difficulty
-                            if(exercise !== undefined)
-                                var diffsel = parseInt(exercise.difficulty.id);
-                            %>
+                                <%  // logic for finding difficulty
+                                if(exercise)
+                                    var diffsel = parseInt(exercise.difficulty.id);
+                                %>
+                            </div>
 
 							<div style="margin-bottom: 15px" class="input-group">
 	           					<h5>Difficulty:</h5>
@@ -61,7 +63,7 @@
 									<option value="beginner"
                                             <% if(diffsel === 1) { %>selected<% } %>
                                             >Beginner</option>
-									<option value="intermediate" selected
+									<option value="intermediate"
                                             <% if(diffsel === 2) { %>selected<% } %>
                                             >Intermediate</option>
 									<option value="advanced"
@@ -75,27 +77,27 @@
 								<h5>Description:</h5>
 								<textarea class="form-control" id="description" style="resize:vertical" rows="4"
                                           cols="50" name="description" maxlength="1023"
-                                        ><% if (exercise !== undefined) { %><%= exercise.description %><% } %></textarea>
+                                        ><% if (exercise) { %><%= exercise.description %><% } %></textarea>
                
                             </div>
 
                             <%  // logic for finding muscle group
-                            if(exercise !== undefined)
+                            if(exercise)
                                 var muscsel = parseInt(exercise.musclegroup.id);
                             %>
 
 							<div style="margin-bottom: 15px" class="input-group">
 								<h5>Muscle Groups</h5>
 								<select id="musclegroup" class="form-control" name="musclegroup">
-									<option value="upperbody"
+                                    <option value="whole"
                                             <% if(muscsel === 1) {%>selected<% } %>
+                                            >Whole body</option>
+                                    <option value="upperbody"
+                                            <% if(muscsel === 2) {%>selected<% } %>
                                             >Upper body</option>
 									<option value="lowerbody"
-                                            <% if(muscsel === 2) {%>selected<% } %>
-                                            >Lower body</option>
-									<option value="legs"
                                             <% if(muscsel === 3) {%>selected<% } %>
-                                            >Whole body</option>
+                                            >Lower body</option>
 									<option value="core"
                                             <% if(muscsel === 4) {%>selected<% } %>
                                             >Core</option>
@@ -113,14 +115,21 @@
                                    	<!--
                                       <a id="btn-save" href="exercise/save" class="btn btn-success">Save Exercise</a>
                                   -->
-                                      <button class="btn btn-success">Save exercise</input>
+                                      <% if(!exercise) { %>
+                                         <button class="btn btn-success">Save exercise</button>
+                                      <% } else { %>
+                                         <!-- do proper linkage -->
+                                         <a class="btn btn-success">I'm a dummy button</a>
+                                      <% } %>
                                     </div>
                                     
                               </div>
 
                               <div class="form-group pull-left">
                                    <div class="col-sm-12 controls">
-                                      <a id="btn-cancel" href="exercise/cancel" class="btn btn-danger">Cancel</a>
+                                      <a id="btn-cancel" href=
+                                         "exercise/cancel<% if(exercise) { %>?eid=<%= exercise.id %><% } %>"
+                                         class="btn btn-danger">Cancel</a>
                                     </div>
                               </div>
 
