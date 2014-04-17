@@ -51,6 +51,9 @@ app.get('/profile/followers', prof.profile_followers);
 app.get('/profile/following', prof.profile_following);
 
 app.get('/home', nav.home);
+app.post('/home', nav.home);
+
+app.post('/authenticate', nav.authenticate);
 
 app.get('/create', nav.create);
 app.get('/encyclopedia', nav.encyclopedia);
@@ -73,6 +76,8 @@ app.get('/create/workoutcreator', nav.workoutcreator);
 
 app.post('/create/exercise/save', nav.saveexercise);
 app.get('/create/exercise/cancel', nav.cancelexercise);
+
+app.get('/logout', nav.logout);
 
 http.createServer(app).listen(app.get('port'), function(){
   console.log('Express server listening on port ' + app.get('port'));

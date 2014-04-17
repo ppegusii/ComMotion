@@ -4,7 +4,10 @@
  */
 
 exports.landing = function(req, res){
-  res.render('starter/landing', {title: 'Landing'});
+   if(!req.session.user)
+      res.render('starter/landing', {title: 'Landing'});
+   else
+      res.redirect('/home');
 };
 
 
