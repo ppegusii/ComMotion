@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title><%= title %></title>
+	<link rel="stylesheet" href="http://yandex.st/highlightjs/8.0/styles/zenburn.min.css">
+	<script src="http://yandex.st/highlightjs/8.0/highlight.min.js"></script>
+	<script>hljs.initHighlightingOnLoad();</script>
+  </head>
+  <body>
+    <h1><%= title %></h1>
+    <p>Here's a quick reference for the objects the backend expects and the available database interaction functions.</p>
+	<h2>Models</h2>
+	<div>
+		<pre>
+		<code>
+			<%= models %>
+		</code>
+		</pre>
+	</div>
+	<h2>Data Layer</h2>
+	<div>
+		<pre>
+		<code>
+			<%= datalayer %>
+		</code>
+		</pre>
+	</div>
+  </body>
+</html>
