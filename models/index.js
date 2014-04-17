@@ -69,3 +69,20 @@ exports.Musclegroup = function(id,name){
   //string;
   this.name = name;
 };
+
+exports.User = function(id,name,password,description,difficulty,photo){
+    this.id = id;
+    this.name = name;
+    this.password=password;
+    this.description=description;
+    this.difficulty=difficulty;
+    this.photo=photo;
+};
+exports.Workout = function(id,name,exercises,description,difficulty,photo){
+    this.id = id;
+    this.name = name;
+    this.exercises=exercises;//its a list of the exercises in order
+    this.description=description;
+    this.difficulty=difficulty;
+    this.photo=photo;
+};
