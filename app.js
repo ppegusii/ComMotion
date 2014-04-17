@@ -2,8 +2,8 @@
 require('./config/EnvVariables.js');
 
 /**
- * Module dependencies.
- */
+* Module dependencies.
+*/
 
 var express = require('express');
 var prof = require('./routes/profile');
@@ -37,6 +37,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 // development only
 if ('development' == app.get('env')) {
   app.use(express.errorHandler());
+  app.get('/documentation',routes.documentation);
 }
 
 
