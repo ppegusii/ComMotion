@@ -69,3 +69,12 @@ exports.Musclegroup = function(id,name){
   //string;
   this.name = name;
 };
+
+exports.User = function(id,name,password,description,difficulty,photo){
+    this.id = id;
+    this.name = name;
+    this.password=password;
+    this.description=description;
+    this.difficulty=difficulty;
+    this.photo=photo;
+};
