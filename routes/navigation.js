@@ -2,8 +2,39 @@ var exercise = require('../data/Exercise.js');
 var models = require('../models/index.js');
 var data = require(process.env.DATA);
 
+/*
+var blankExercise = new models.Exercise(
+undefined,
+'',
+new models.musclegroup(
+undefined,
+''
+),
+undefined,
+[new models.name(
+undefined,
+'',
+0,
+undefined,
+undefined
+)],
+[new models.Video(
+undefined,
+'',
+undefined,
+undefined
+)],
+[new models.Photo(
+undefined,
+'',
+undefined,
+undefined
+)]
+);
+*/
+
 exports.home = function(req, res){
-	 res.render('home', { title: 'Home' });
+res.render('home', { title: 'Home' });
 };
 
 exports.create = function(req, res){
@@ -32,27 +63,59 @@ exports.findusers = function(req, res){
 
 exports.exercise = function(req, res){
      // res.render('create/exercise', {
-     //    title: 'Exercise',
-     //    err: req.flash('saveexercise'),
+     // title: 'Exercise',
+     // err: req.flash('saveexercise'),
      // });
      //req.flash('exercise', 'flash! aaa-ah!');
-     res.render('create/exercise', {
-         title: 'Exercise',
-         err: req.flash('saveexercise')
-     });
+     var eid = req.query.eid;
+     // if accessing exercise creation from Create page, go to blank Create page
+     if(!eid) {
+         console.log('No eid found');
+         res.render('create/exercise', {
+             title: 'Exercise',
+             err: req.flash('saveexercise'),
+             exercise: undefined
+         });
+     }
+     else {
+         console.log('Found eid ' + eid);
+         getExerciseEntry(eid, function(err, exercise) {
+             if(err) {
+                 console.log('Error');
+                 res.send(500, 'Exercise not found for eid ' + eid);
+             }
+             else {
+                 console.log('Populating text fields');
+                 res.render('create/exercise', {
+                     title: 'Exercise',
+                     err: undefined,
+                     exercise: exercise
+                 });
+             }
+         });
+     }
+
 };
 
 exports.workoutcreator = function(req, res){
      res.render('create/workoutcreator', {title: 'Workout Creator'});
 };
 
+function toDifficulty(difficulty) {
+    return new models.Difficulty(1, difficulty);
+}
+
+function toMusclegroup(musclegroup) {
+    return new models.Musclegroup(1, musclegroup);
+}
+
 exports.saveexercise = function(req, res) {
 
   var newExercise = {
       names: [req.body.name],
-      difficulty: req.body.difficulty,
+      difficulty: toDifficulty(req.body.difficulty),
       description: req.body.description,
-      musclegroup: req.body.musclegroup,
+      musclegroup: toMusclegroup(req.body.musclegroup),
       photos: [req.body.media],
       videos: []
   };
@@ -75,7 +138,39 @@ exports.cancelexercise = function(req, res) {
      res.redirect('/create');
 }
 
+exports.encyclopedia_exercise_entry = function(req, res) {
+    /*
+// get exercise info
+var query = {
+id: req.query.eid
+};
+data.exerciseInit(query, function(err, exercise) {
+if(err) {
+console.log(err);
+res.redirect('/encyclopedia');
+}
+else {
+res.render('/encyclopedia/exerciseentry', exercise);
+}
+});
+*/
+     var eid = req.query.eid;
+     console.log('eid = ' + eid);
+     getExerciseEntry(eid, function(err, exercise) {
+         if(err) {
+             console.log('Couldnt find exercise ' + eid);
+             res.send(404, 'Exercise not found');
+         }
+         else {
+             res.render('encyclopedia/exerciseentry', exercise);
+         }
+     });
+}
 
+exports.encyclopedia_workout_entry = function(req, res) {
+     var data = getWorkoutEntry('Get workout id');
+     res.render('encyclopedia/workoutentry', data);
+}
 
 // Adds exercise to database
 function addExercise(data) {
@@ -95,20 +190,26 @@ function mediaProperFormat(mediaURL) {
    return false;
 }
 
-function getExerciseEntry(exerciseId) {
-   var data = {
-      title: 'Exercise entry',
-      entryName: 'Bicycle crunches',
-      difficulty: 'Beginner',
-      description: 'This is my description',
-      musclegroup: 'Upper body',
-      media: [
-        'http://i.imgur.com/VvbSZ7x.jpg',
-        'http://i.imgur.com/VvbSZ7x.jpg',
-        'http://i.imgur.com/VvbSZ7x.jpg'
-      ]
-   };
-   return data;
+function getExerciseEntry(exerciseId, cb) {
+   if(parseInt(exerciseId) === 5) {
+       var data = new models.Exercise(
+           5,
+           'The id of this exercise is ' + exerciseId,
+           { id: 3, name: 'Advanced'},
+           { id: 2, name: 'Lower body'},
+           undefined,
+           ['A name'],
+           undefined,
+           ['http://i.imgur.com/VvbSZ7x.jpg',
+               'http://i.imgur.com/VvbSZ7x.jpg',
+               'http://i.imgur.com/VvbSZ7x.jpg']
+       );
+       cb(undefined, data);
+   }
+   else {
+       cb('Could not find exercise with id ' + exerciseId, undefined);
+   }
+
 }
 
 function getWorkoutEntry(workoutId) {

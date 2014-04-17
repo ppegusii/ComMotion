@@ -16,25 +16,22 @@
 <body>
 
 <% include fragments/header %>
-
-<!--
+<% /* %>
   <ul>
     <% for(var i=0; i<exercises.length; i++){ %>
       <li><%= JSON.stringify(exercises[i]) %></li>
     <% } %>
   </ul>
-	-->
-	
 
 	<script>
 	$( "#encyclopedia" ).addClass("active");
 	</script>
 
-<!--
+<% */ %>
     <h1><%= title %></h1>
     <p>Welcome to <%= title %></p>
 	<div id="entries"></div>
--->
+
 
 <div class="container">
 
@@ -62,7 +59,7 @@
 					<img src="images/generic_exercise.jpeg" width="80" height="80"></img>
 				</media>
 			</a>
-			<h4><%= exercises[i*5].names[0].name %></h4>
+			<h4>Exercise <%= i*5+1 %></h4>
 		</center>
 	
 	</div>
@@ -74,7 +71,7 @@
 					<img src="images/generic_exercise.jpeg" width="80" height="80"></img>
 				</media>
 			</a>
-			<h4><%= (exercises[i*5+j+1].names[0].name)%></h4>
+			<h4>Exercise <%= i*5+j+2 %></h4>
 		</center>
 
 		</div>
