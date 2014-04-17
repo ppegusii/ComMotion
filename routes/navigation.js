@@ -1,42 +1,89 @@
-
 var exercise = require('../data/Exercise.js');
 var models = require('../models/index.js');
 var data = require(process.env.DATA);
 
 /*
 var blankExercise = new models.Exercise(
-    undefined,
-    '',
-    new models.musclegroup(
-        undefined,
-        ''
-    ),
-    undefined,
-    [new models.name(
-        undefined,
-        '',
-        0,
-        undefined,
-        undefined
-    )],
-    [new models.Video(
-        undefined,
-        '',
-        undefined,
-        undefined
-    )],
-    [new models.Photo(
-        undefined,
-        '',
-        undefined,
-        undefined
-    )]
+undefined,
+'',
+new models.musclegroup(
+undefined,
+''
+),
+undefined,
+[new models.name(
+undefined,
+'',
+0,
+undefined,
+undefined
+)],
+[new models.Video(
+undefined,
+'',
+undefined,
+undefined
+)],
+[new models.Photo(
+undefined,
+'',
+undefined,
+undefined
+)]
 );
 */
 
 exports.home = function(req, res){
-	 res.render('home', { title: 'Home' });
-};
+   res.render('home', { user:req.session.user });
+}
+
+exports.checkUser = function(req, res, next) {
+   var user = req.session.user;
+   if(!user) {
+      res.redirect('/');
+   }
+   else {
+      next();
+   }
+}
+
+exports.authenticate = function(req, res) {
+   console.log(req.body.username);
+   console.log(req.body.password);
+   var username = req.body.username;
+   var password = req.body.password;
+   setSessionForUser(username, password, req, function(err, user) {
+      if(err) {
+         req.flash('login', err);
+         res.redirect('/');
+      }
+      else {
+         //console.log(req.session.user);
+         res.redirect('home');
+      }
+   });
+}
+
+function setSessionForUser(user, pass, req, cb) {
+   // dummy stuff
+   if(user !== 'commotion' || pass !== 'commotion') {
+      cb('Cannot find user', undefined);
+   }
+   else {
+      var user = {
+         username: 'commotion',
+         id: 500
+      };
+      req.session.user = user;
+      cb(undefined, user);
+   }
+}
+
+exports.logout = function(req, res) {
+   req.session.destroy(function() {
+      res.redirect('/');
+   });
+}
 
 exports.create = function(req, res){
    res.render('create', {title: 'Create'});
@@ -62,52 +109,15 @@ exports.findusers = function(req, res){
 };
 
 
-
-exports.profile_edit = function(req, res){
-   res.render('profile/editprofile', {title: 'Edit Profile'});
-};
-
-exports.profile_about = function(req, res){
-      res.render('profile/about', {title: 'Profile About'});
-};
-
-exports.profile_posts = function(req, res){
-      res.render('profile/myposts', {title: 'Profile Posts'});
-};
-
-exports.profile_creations = function(req, res){
-     res.render('profile/mycreations', {title: 'Profile Creations'});
-};
-
-exports.profile_followers = function(req, res){
-     res.render('profile/followers', {title: 'Profile Followers'});
-};
-
-exports.profile_following = function(req, res){
-     res.render('profile/following', {title: 'Profile Following'});
-};
-
-exports.encyclopedia_results = function(req, res){
-     res.render('encyclopediaresults', {title: 'Encyclopedia Results'});
-};
-
-exports.user_search_results = function(req, res){
-     res.render('usersearchresults', {title: 'User Results'});
-};
-
 exports.exercise = function(req, res){
-     // res.render('create/exercise', {
-     //    title: 'Exercise',
-     //    err: req.flash('saveexercise'),
-     // });
-     //req.flash('exercise', 'flash! aaa-ah!');
+     var fl = req.flash('saveexercise');
      var eid = req.query.eid;
      // if accessing exercise creation from Create page, go to blank Create page
      if(!eid) {
          console.log('No eid found');
          res.render('create/exercise', {
              title: 'Exercise',
-             err: req.flash('saveexercise'),
+             err : fl,
              exercise: undefined
          });
      }
@@ -122,7 +132,7 @@ exports.exercise = function(req, res){
                  console.log('Populating text fields');
                  res.render('create/exercise', {
                      title: 'Exercise',
-                     err: undefined,
+                     err: [],
                      exercise: exercise
                  });
              }
@@ -162,32 +172,34 @@ exports.saveexercise = function(req, res) {
       return;
     }
     console.log('saveexercise exercise = '+JSON.stringify(exercise));
-    req.flash('exercise',exercise);
-    //make this route check flash?
     res.redirect('/encyclopedia/exercise_entry?eid=' + exercise.id);
   });
 };
 
 exports.cancelexercise = function(req, res) {
-     res.redirect('/create');
+     var eid = req.query.eid;
+     if(eid)
+        res.redirect('/encyclopedia/exercise_entry?eid=' + eid);
+     else
+        res.redirect('/create');
 }
 
 exports.encyclopedia_exercise_entry = function(req, res) {
     /*
-     // get exercise info
-     var query = {
-         id: req.query.eid
-     };
-     data.exerciseInit(query, function(err, exercise) {
-         if(err) {
-             console.log(err);
-             res.redirect('/encyclopedia');
-         }
-         else {
-             res.render('/encyclopedia/exerciseentry', exercise);
-         }
-     });
-     */
+// get exercise info
+var query = {
+id: req.query.eid
+};
+data.exerciseInit(query, function(err, exercise) {
+if(err) {
+console.log(err);
+res.redirect('/encyclopedia');
+}
+else {
+res.render('/encyclopedia/exerciseentry', exercise);
+}
+});
+*/
      var eid = req.query.eid;
      console.log('eid = ' + eid);
      getExerciseEntry(eid, function(err, exercise) {
@@ -230,7 +242,7 @@ function getExerciseEntry(exerciseId, cb) {
            5,
            'The id of this exercise is ' + exerciseId,
            { id: 3, name: 'Advanced'},
-           { id: 2, name: 'Lower body'},
+           { id: 3, name: 'Lower body'},
            undefined,
            ['A name'],
            undefined,
