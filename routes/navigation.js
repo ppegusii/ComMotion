@@ -35,15 +35,8 @@ var blankExercise = new models.Exercise(
 */
 
 exports.home = function(req, res){
-   //res.sendfile('./public/home.html');
 	 res.render('home', { title: 'Home' });
 };
-
-/*
-exports.profile = function(req, res){
-   res.render('profile', { title: 'Profile' });
-};
-*/
 
 exports.create = function(req, res){
    res.render('create', {title: 'Create'});
