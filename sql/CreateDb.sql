@@ -116,19 +116,34 @@ INSERT INTO exercises (id,description,difficulty_id,musclegroup_id) VALUES
 	(11,'Row with dumbbells',1,2),
 	(12,'Sustained hold of plank position',1,4),
 	(13,'Situps focusing on thoracic spine flexion',1,4),
-	(14,'jump rope for time interval',1,1),
-	(15,'high kettlebell swings',1,2),
-	(16,'olympic clean and press from floor',3,1),
-	(17,'slam medicine ball to floor to activate lats',1,2),
-	(18,'lateral deltoid raises with dumbbells',1,2),
-	(19,'deadlift with straight legs and hip hinging',2,1),
-	(20,'lunges with dumbbells held at sides',1,3),
-	(21,'calf raises with extra weight',1,3),
-	(22,'turkish get-up, extra weight optional',3,1),
-	(23,'barbell shrugs to the front',1,2),
-	(24,'standing barbell curls',1,2),
-	(25,'strict isolating dumbbell curls',1,2);
-ALTER SEQUENCE exercises_id_seq RESTART WITH 26;
+	(14,'Jump rope for time interval',1,1),
+	(15,'High kettlebell swings',1,2),
+	(16,'Olympic clean and press from floor',3,1),
+	(17,'Slam medicine ball to floor to activate lats',1,2),
+	(18,'Lateral deltoid raises with dumbbells',1,2),
+	(19,'Deadlift with straight legs and hip hinging',2,1),
+	(20,'Lunges with dumbbells held at sides',1,3),
+	(21,'Calf raises with extra weight',1,3),
+	(22,'Turkish get-up, extra weight optional',3,1),
+	(23,'Barbell shrugs to the front',1,2),
+	(24,'Standing barbell curls',1,2),
+	(25,'Strict isolating dumbbell curls',1,2),
+	(26,'Rollouts with ab wheel',2,4),
+	(27,'Squats with barbell resting on front delts',2,3),
+	(28,'Leg presses using leg press machine',1,3),
+	(29,'Leg curls using leg curl machine',1,3),
+	(30,'Leg raises while hanging from bar',3,4),
+	(31,'Front deltoid raises with dumbbells',1,2),
+	(32,'Barbell bench press from incline position',2,2),
+	(33,'Dumbbell bench press from flat position',1,2),
+	(34,'Dumbbell bench press form incline position',1,2),
+	(35,'Dumbbell chest flys while lying on bench',1,2),
+	(36,'Chin ups with close grip, hands supinated',1,2),
+	(37,'Pull ups with wide grip, hands pronated',2,2),
+	(38,'Tricep pressdowns with cable machine',1,2),
+	(39,'Lying tricep extensions with barbell',2,2),
+	(40,'Dips between parallel bars',2,2);
+ALTER SEQUENCE exercises_id_seq RESTART WITH 41;
 INSERT INTO names (id,name,exercise_id,votes) VALUES
 	(1,'squat',1,5),
 	(2,'goblet squat',2,3),
@@ -154,8 +169,23 @@ INSERT INTO names (id,name,exercise_id,votes) VALUES
 	(22,'Turkish get-up',22,4),
 	(23,'barbell shrugs',23,2),
 	(24,'barbell curls',24,5),
-	(25,'concentration curls',25,3);
-ALTER SEQUENCE names_id_seq RESTART WITH 26;
+	(25,'concentration curls',25,3),
+	(26,'ab rollouts',26,1),
+	(27,'front squats',27,4,
+	(28,'leg presses',28,5),
+	(29,'leg curls',29,1),
+	(30,'hanging leg raises',30,2),
+	(31,'front deltoid dumbbell raises',31,3),
+	(32,'barbell incline press',32,4),
+	(33,'dumbbell flat bench',33,3),
+	(34,'dumbbell incline bench',34,5),
+	(35,'dumbbell chest flys',35,2),
+	(36,'chin ups',36,5),
+	(37,'pull ups',37,4),
+	(38,'tricep cable pressdowns',38,3),
+	(39,'skull crushers',39,5),
+	(40,'dips',40,2);
+ALTER SEQUENCE names_id_seq RESTART WITH 41;
 INSERT INTO photos (id,url,exercise_id) VALUES
 	(1,'http://url/of/my/photo.jpg',1);
 ALTER SEQUENCE photos_id_seq RESTART WITH 2;
@@ -192,4 +222,3 @@ INSERT INTO fav_exercises (user_id, exercise_id) VALUES
 	(3, 4),
 	(3, 10),
 	(4, 2);
-

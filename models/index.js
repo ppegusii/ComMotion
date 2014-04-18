@@ -2,6 +2,14 @@
 //Comment format
 //type; validation constraints
 
+exports.Workout = function(id,name,exercises,description,difficulty,photo){
+    this.id = id;
+    this.name = name;
+    this.exercises=exercises;//its a list of the exercises in order
+    this.description=description;
+    this.difficulty=difficulty;
+    this.photo=photo;
+};
 exports.Exercise = function(id,description,difficulty,musclegroup,created,names,videos,photos){
   //number; parseInt(id,10) isNaN or > 0
   this.id = id;
@@ -15,7 +23,7 @@ exports.Exercise = function(id,description,difficulty,musclegroup,created,names,
   this.created = created;
   //Array of Name; names != falsey, each Name must validate
   this.names = names;
-  //Array of Video; names != falsey, each Video must validate
+  //Array of Video; videos != falsey, each Video must validate
   this.videos = videos;
   //Array of Photo; photos != falsey, each Photo must validate
   this.photos = photos;
@@ -82,7 +90,7 @@ exports.User = function(id,username,password,difficulty,avatar_url,activities,fa
   this.fav_exercises = fav_exercises;
 //****TODO will add after workouts created
   //Array of Workout; workouts != falsey, each Workout must validate
-  this.fav_workouts = fav_workouts;
+  //this.fav_workouts = fav_workouts;
   //Array of number;
   this.follows = follows;
   //Array of number;
