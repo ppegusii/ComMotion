@@ -34,8 +34,56 @@ undefined
 */
 
 exports.home = function(req, res){
-res.render('home', { title: 'Home' });
-};
+   res.render('home', { user:req.session.user });
+}
+
+exports.checkUser = function(req, res, next) {
+   var user = req.session.user;
+   if(!user) {
+      res.redirect('/');
+   }
+   else {
+      next();
+   }
+}
+
+exports.authenticate = function(req, res) {
+   console.log(req.body.username);
+   console.log(req.body.password);
+   var username = req.body.username;
+   var password = req.body.password;
+   setSessionForUser(username, password, req, function(err, user) {
+      if(err) {
+         req.flash('login', err);
+         res.redirect('/');
+      }
+      else {
+         //console.log(req.session.user);
+         res.redirect('home');
+      }
+   });
+}
+
+function setSessionForUser(user, pass, req, cb) {
+   // dummy stuff
+   if(user !== 'commotion' || pass !== 'commotion') {
+      cb('Cannot find user', undefined);
+   }
+   else {
+      var user = {
+         username: 'commotion',
+         id: 500
+      };
+      req.session.user = user;
+      cb(undefined, user);
+   }
+}
+
+exports.logout = function(req, res) {
+   req.session.destroy(function() {
+      res.redirect('/');
+   });
+}
 
 exports.create = function(req, res){
    res.render('create', {title: 'Create'});
@@ -107,27 +155,25 @@ function toMusclegroup(musclegroup) {
 
 exports.saveexercise = function(req, res) {
 
-   var newExercise = {
-      names: req.body.names,
+  var newExercise = {
+      names: [req.body.name],
       difficulty: toDifficulty(req.body.difficulty),
       description: req.body.description,
       musclegroup: toMusclegroup(req.body.musclegroup),
-      photos: req.body.photos,
+      photos: [req.body.media],
       videos: []
-   };
-   console.log(newExercise);
-
-   data.exerciseInit({exercise: newExercise},function afterSave(err,exercise){
-      if(err){
-         console.log(Error.toJson(err));
-         res.send(400, err.message);
-      }
-      else {
-         console.log('saveexercise exercise = '+JSON.stringify(exercise));
-         var goTo = '/encyclopedia/exercise_entry?eid=' + exercise.id;
-         res.send(200, goTo);
-      }
-   });
+  };
+  data.exerciseInit({exercise: newExercise},function afterSave(err,exercise){
+    if(err){
+      console.log(Error.toJson(err));
+      req.flash('saveexercise',err.message);
+      //not sure how I should alter the err parameter below
+      res.redirect('/create/exercise?err=badNameOrBody');
+      return;
+    }
+    console.log('saveexercise exercise = '+JSON.stringify(exercise));
+    res.redirect('/encyclopedia/exercise_entry?eid=' + exercise.id);
+  });
 };
 
 exports.cancelexercise = function(req, res) {

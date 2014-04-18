@@ -2,16 +2,14 @@
 require('./config/EnvVariables.js');
 
 /**
- * Module dependencies.
- */
+* Module dependencies.
+*/
 
 var express = require('express');
-var routes = require(process.env.ROUTES);
 var prof = require('./routes/profile');
 var nav = require('./routes/navigation');
 var results = require('./routes/results');
-var entry = require('./routes/entry');
-//var routes = require(process.env.ROUTES);
+var routes = require(process.env.ROUTES);
 var user = require(process.env.ROUTES_USER);
 var http = require('http');
 var path = require('path');
@@ -41,10 +39,13 @@ if ('development' == app.get('env')) {
   app.get('/documentation',routes.documentation);
 }
 
-
 app.get('/', user.landing);
 app.get('/signup', user.signup);
 app.get('/createprofile', user.createprofile);
+
+// filters out "pages" with period; is there a better
+// way to not include resources?
+app.get('^[^.]+$', nav.checkUser);
 
 app.get('/profile/about', prof.profile_about);
 app.get('/profile/myposts', prof.profile_posts);
@@ -53,6 +54,9 @@ app.get('/profile/followers', prof.profile_followers);
 app.get('/profile/following', prof.profile_following);
 
 app.get('/home', nav.home);
+app.post('/home', nav.home);
+
+app.post('/authenticate', nav.authenticate);
 
 app.get('/create', nav.create);
 app.get('/encyclopedia', nav.encyclopedia);
@@ -67,14 +71,16 @@ app.post('/query',routes.query);
 app.get('/usersearchresults', results.user_search_results);
 app.get('/encyclopediaresults', results.encyclopedia_results);
 
-app.get('/encyclopedia/exercise_entry', entry.encyclopedia_exercise_entry);
-app.get('/encyclopedia/workout_entry', entry.encyclopedia_workout_entry);
+app.get('/encyclopedia/exercise_entry', nav.encyclopedia_exercise_entry);
+app.get('/encyclopedia/workout_entry', nav.encyclopedia_workout_entry);
 
 app.get('/create/exercise', nav.exercise);
 app.get('/create/workoutcreator', nav.workoutcreator);
 
 app.post('/create/exercise/save', nav.saveexercise);
 app.get('/create/exercise/cancel', nav.cancelexercise);
+
+app.get('/logout', nav.logout);
 
 http.createServer(app).listen(app.get('port'), function(){
   console.log('Express server listening on port ' + app.get('port'));
