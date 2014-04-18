@@ -19,7 +19,8 @@ function getLimitN(query,cb){
     cb(Error.create('query.n invalid'),undefined);
     return;
   }
-  conn.query('SELECT * FROM exercises LIMIT $1',[n],function(err,result){
+  //conn.query('SELECT * FROM exercises LIMIT $1',[n],function(err,result){
+  conn.query('SELECT e.id,e.description,e.difficulty_id,e.musclegroup_id,e.created,d.name AS d_name,m.name AS m_name FROM exercises AS e,difficulties AS d,musclegroups AS m WHERE e.difficulty_id=d.id and e.musclegroup_id=m.id LIMIT $1',[n],function(err,result){
     if(err){
       cb(err,undefined);
     }
@@ -33,15 +34,7 @@ function resultToExercises(result,cb){
 }
 function rowToExercise(row,cb){
   var eid = row.id.toString();
-  var did = row.difficulty_id;
-  var mid = row.musclegroup_id;
   async.parallel({
-    difficulty: function(callback){
-      difficulty.getById({id:did},callback);
-    },
-    musclegroup: function(callback){
-      musclegroup.getById({id:mid},callback);
-    },
     names: function(callback){
       name.getByEidWid({eid:eid,wid:undefined},callback);
     },
@@ -60,8 +53,8 @@ function rowToExercise(row,cb){
     var exercise = new model.Exercise(
       row.id.toString(),
       row.description,
-      results.difficulty,
-      results.musclegroup,
+      new model.Difficulty(row.difficulty_id,row.d_name),
+      new model.Musclegroup(row.musclegroup_id,row.m_name),
       row.created,
       results.names,
       results.videos,

@@ -1,4 +1,5 @@
 /**
+<<<<<<< HEAD
 * Created by Ryan on 4/16/14.
 */
 

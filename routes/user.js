@@ -4,10 +4,7 @@
  */
 
 exports.landing = function(req, res){
-   res.render('starter/landing', {
-      title: 'Landing',
-      err: req.flash('login')
-   });
+  res.render('starter/landing', {title: 'Landing'});
 };
 
 

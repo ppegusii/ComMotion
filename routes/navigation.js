@@ -34,56 +34,8 @@ undefined
 */
 
 exports.home = function(req, res){
-   res.render('home', { user:req.session.user });
-}
-
-exports.checkUser = function(req, res, next) {
-   var user = req.session.user;
-   if(!user) {
-      res.redirect('/');
-   }
-   else {
-      next();
-   }
-}
-
-exports.authenticate = function(req, res) {
-   console.log(req.body.username);
-   console.log(req.body.password);
-   var username = req.body.username;
-   var password = req.body.password;
-   setSessionForUser(username, password, req, function(err, user) {
-      if(err) {
-         req.flash('login', err);
-         res.redirect('/');
-      }
-      else {
-         //console.log(req.session.user);
-         res.redirect('home');
-      }
-   });
-}
-
-function setSessionForUser(user, pass, req, cb) {
-   // dummy stuff
-   if(user !== 'commotion' || pass !== 'commotion') {
-      cb('Cannot find user', undefined);
-   }
-   else {
-      var user = {
-         username: 'commotion',
-         id: 500
-      };
-      req.session.user = user;
-      cb(undefined, user);
-   }
-}
-
-exports.logout = function(req, res) {
-   req.session.destroy(function() {
-      res.redirect('/');
-   });
-}
+res.render('home', { title: 'Home' });
+};
 
 exports.create = function(req, res){
    res.render('create', {title: 'Create'});
