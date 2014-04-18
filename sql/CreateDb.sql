@@ -1,7 +1,7 @@
 -- drop tables
 DROP TABLE IF EXISTS followers;
-DROP TABLE IF EXISTS favorite_workouts;
-DROP TABLE IF EXISTS favorite_exercises;
+DROP TABLE IF EXISTS fav_workouts;
+DROP TABLE IF EXISTS fav_exercises;
 DROP TABLE IF EXISTS user_activities;
 DROP TABLE IF EXISTS activities;
 DROP TABLE IF EXISTS users;
@@ -61,8 +61,8 @@ CREATE TABLE users(
 	id SERIAL PRIMARY KEY,
 	username VARCHAR(255) NOT NULL,
 	password VARCHAR(255) NOT NULL,
-	experience_level integer references difficulties(id),
-	avatar VARCHAR(1023) 	
+	difficulty_id integer references difficulties(id),
+	avatar_url VARCHAR(1023) 	
 );	
 CREATE TABLE activities(
 	id SERIAL PRIMARY KEY,
@@ -73,12 +73,12 @@ CREATE TABLE user_activities(
 	activity_id integer NOT NULL references activities(id),
 	user_id integer references users(id) ON DELETE CASCADE
 );
-CREATE TABLE favorite_exercises(
+CREATE TABLE fav_exercises(
 	id SERIAL PRIMARY KEY,
 	user_id integer NOT NULL references users(id) ON DELETE CASCADE,
 	exercise_id integer NOT NULL references exercises(id) ON DELETE CASCADE
 );
-CREATE TABLE favorite_workouts(
+CREATE TABLE fav_workouts(
 	id SERIAL PRIMARY KEY,
 	user_id integer NOT NULL references users(id) ON DELETE CASCADE,
 	workout_id integer NOT NULL references workouts(id) ON DELETE CASCADE
@@ -162,7 +162,7 @@ ALTER SEQUENCE photos_id_seq RESTART WITH 2;
 INSERT INTO videos (id,url,exercise_id) VALUES
 	(1,'http://youtube.com/squat',1);
 ALTER SEQUENCE videos_id_seq RESTART WITH 2;
-INSERT INTO users (id, username, password, experience_level) VALUES
+INSERT INTO users (id, username, password, difficulty_id) VALUES
 	(1, 'dorianYates', 'commotion', 3),
 	(2, 'steveReeves', 'commotion', 2),
 	(3, 'johnGrimek', 'commotion', 1),
@@ -184,7 +184,7 @@ INSERT INTO users (id, username, password, experience_level) VALUES
 	(19, 'hermioneGranger', 'commotion', 3),
 	(20, 'severusSnape', 'commotion', 2);
 ALTER SEQUENCE users_id_seq RESTART WITH 21;
-INSERT INTO favorite_exercises (user_id, exercise_id) VALUES
+INSERT INTO fav_exercises (user_id, exercise_id) VALUES
 	(1, 1),
 	(1, 7),
 	(2, 10),

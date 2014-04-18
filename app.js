@@ -6,6 +6,7 @@ require('./config/EnvVariables.js');
  */
 
 var express = require('express');
+var routes = require(process.env.ROUTES);
 var prof = require('./routes/profile');
 var nav = require('./routes/navigation');
 var results = require('./routes/results');
@@ -59,7 +60,7 @@ app.get('/encyclopedia', nav.encyclopedia);
 app.get('/myfavorites', nav.myfavorites);
 app.get('/findusers', nav.findusers);
 
-//app.post('/query',routes.query);
+app.post('/query',routes.query);
 
 
 
