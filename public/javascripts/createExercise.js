@@ -59,6 +59,8 @@ function initSaveButton() {
       data.musclegroup = $('#musclegroup').val();
       data.photos = photoURLs;
 
+      //alert('Sending this information: ' + JSON.stringify(data));
+
       $.ajax({
          type: "POST",
          url: '/create/exercise/save',
@@ -66,12 +68,14 @@ function initSaveButton() {
          data: JSON.stringify(data)
       })
          .done(function(res) {
+            alert('done');
             var goTo = res;
             // go to goTo url
             console.log('Going to: ' + goTo);
             document.location = goTo;
          })
          .fail(function(res) {
+            alert('fail');
             console.log('Error: ' + res.responseText);
             var html = '<div class="alert alert-danger" role="alert" style="margin-bottom: 15px">' +
                '<p class="error">' + res.responseText + '</p></div>';

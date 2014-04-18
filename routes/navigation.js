@@ -163,17 +163,31 @@ exports.saveexercise = function(req, res) {
       photos: [req.body.media],
       videos: []
   };
-  data.exerciseInit({exercise: newExercise},function afterSave(err,exercise){
-    if(err){
-      console.log(Error.toJson(err));
-      req.flash('saveexercise',err.message);
-      //not sure how I should alter the err parameter below
-      res.redirect('/create/exercise?err=badNameOrBody');
-      return;
-    }
-    console.log('saveexercise exercise = '+JSON.stringify(exercise));
-    res.redirect('/encyclopedia/exercise_entry?eid=' + exercise.id);
-  });
+//  data.exerciseInit({exercise: newExercise},function afterSave(err,exercise){
+//    if(err){
+//      console.log(Error.toJson(err));
+//      /*
+//      req.flash('saveexercise',err.message);
+//      //not sure how I should alter the err parameter below
+//      res.redirect('/create/exercise?err=badNameOrBody');
+//      return;
+//      */
+//      res.send(400, err.message);
+//    }
+//    else {
+//       var goTo = '/encyclopedia/exercise_entry?eid=' + exercise.id;
+//       res.send(200, goTo);
+//    }
+//  });
+   //var err = {message: 'Borked'};
+   var err = undefined;
+   if(err) {
+      res.send(400, err.message);
+   }
+   else {
+      var goTo = '/encyclopedia/exercise_entry?eid=' + '5';
+      res.send(200, goTo);
+   }
 };
 
 exports.cancelexercise = function(req, res) {
