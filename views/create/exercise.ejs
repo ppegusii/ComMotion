@@ -28,7 +28,7 @@
 							
                 </div>
      
-			<form id="exerciseform" class="form-horizontal col-md-6 col-sm-6 col-xs-6 col-md-offset-3  col-sm-offset-3 col-xs-offset-3 well" role="form" method="post" action="exercise/save">
+			<div id="exerciseform" class="form-horizontal col-md-6 col-sm-6 col-xs-6 col-md-offset-3  col-sm-offset-3 col-xs-offset-3 well" >
 
 							<% if(err.length !== 0) { %>
 								<div class="alert alert-danger" role="alert" style="margin-bottom: 15px">
@@ -36,38 +36,26 @@
 								</div>
 							<% } %>
 
+                            <div id="errorSection"></div>
+
                             <div class="panel panel-default">
                                 <div class="panel panel-heading">
                                     <h3 class="panel-title">Names:</h3>
                                 </div>
-                                <div id="enteredNames" class="panel-body">
-                                </div>
-
+                                <div id="enteredNames" class="panel-body"></div>
                             </div>
-                            <button type="button" class="btn btn-default" id="addNameButton">Add name</button>
+                            <button class="btn btn-default" style="margin-bottom: 15px" id="addNameButton">Add name</button>
 
-                            <div style="margin-bottom: 15px" class="input-group">
-                                <input id="name" type="text" class="form-control" name="name"
-                                       value="<% if (exercise) { %><%= exercise.names[0]%><% } %>" maxlength="255">
-
-                                <%  // logic for finding difficulty
-                                if(exercise)
-                                    var diffsel = parseInt(exercise.difficulty.id);
-                                %>
-                            </div>
-
+                            <%  // logic for finding difficulty
+                            if(exercise)
+                                var diffsel = parseInt(exercise.difficulty.id);
+                            %>
 							<div style="margin-bottom: 15px" class="input-group">
 	           					<h5>Difficulty:</h5>
 								<select id="difficulty" class="form-control" name="difficulty">
-									<option value="beginner"
-                                            <% if(diffsel === 1) { %>selected<% } %>
-                                            >Beginner</option>
-									<option value="intermediate"
-                                            <% if(diffsel === 2) { %>selected<% } %>
-                                            >Intermediate</option>
-									<option value="advanced"
-                                            <% if(diffsel === 3) { %>selected<% } %>
-                                            >Advanced</option>
+									<option <% if(diffsel === 1) { %>selected<% } %>>Beginner</option>
+									<option <% if(diffsel === 2) { %>selected<% } %>>Intermediate</option>
+									<option <% if(diffsel === 3) { %>selected<% } %>>Advanced</option>
 								</select>
 							
                             </div>
@@ -102,13 +90,15 @@
                                             >Core</option>
 								</select>
                             </div>
-						
-							<div style="margin-bottom: 15px" class="input-group">
-								<h5>Media URL (optional)</h5>
-								<input id="media" type="text" class="form-control" name="media" style="resize:none" maxlength="1023">     
-   
+                            <div>
+                                <div class="panel panel-default">
+                                    <div class="panel panel-heading">
+                                        <h3 class="panel-title">Photos and videos:</h3>
+                                    </div>
+                                    <div id="enteredMedia" class="panel-body"></div>
+                                </div>
+                                <button class="btn btn-default" style="margin-bottom: 15px" id="addMediaButton">Add photo or video</button>
                             </div>
-
                               <div class="form-group pull-right">
                                    <div class="col-sm-12 controls">
                                    	<!--
@@ -134,7 +124,7 @@
 
 					
 
-             </form> 
+             </div>
 		  
 	<!--row-->
 	</div>
