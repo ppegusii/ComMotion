@@ -108,38 +108,41 @@ exports.findusers = function(req, res){
      res.render('findusers', {title: 'Find Users'});
 };
 
+exports.createExercise = function(req, res) {
+   console.log('Executing createExercise');
+   var flash = req.flash('editExercise');
+   console.log(flash);
+   if(flash.length !== 0) {
+      var exercise = JSON.parse(flash);
+      res.render('create/exercise', {
+         title: 'Edit exercise',
+         exercise: exercise
+      });
+   }
+   else {
+      res.render('create/exercise', {
+         title: 'Create exercise',
+         exercise: undefined
+      });
+   }
+}
 
-exports.exercise = function(req, res){
-     var fl = req.flash('saveexercise');
-     var eid = req.query.eid;
-     // if accessing exercise creation from Create page, go to blank Create page
-     if(!eid) {
-         console.log('No eid found');
-         res.render('create/exercise', {
-             title: 'Exercise',
-             err : fl,
-             exercise: undefined
-         });
-     }
-     else {
-         console.log('Found eid ' + eid);
-         getExerciseEntry(eid, function(err, exercise) {
-             if(err) {
-                 console.log('Error');
-                 res.send(500, 'Exercise not found for eid ' + eid);
-             }
-             else {
-                 console.log('Populating text fields');
-                 res.render('create/exercise', {
-                     title: 'Exercise',
-                     err: [],
-                     exercise: exercise
-                 });
-             }
-         });
-     }
-
-};
+exports.editExercise = function(req, res) {
+   console.log('Executing editExercise');
+   var eid = req.query.eid;
+   console.log('Found eid ' + eid);
+   getExerciseEntry(eid, function(err, exercise) {
+      if(err) {
+         console.log('Error');
+         res.send(500, 'Exercise not found for eid ' + eid);
+      }
+      else {
+         console.log('Sending exercise ' + JSON.stringify(exercise));
+         req.flash('editExercise', JSON.stringify(exercise));
+         res.redirect('/create/exercise');
+      }
+   });
+}
 
 exports.workoutcreator = function(req, res){
      res.render('create/workoutcreator', {title: 'Workout Creator'});
@@ -179,10 +182,11 @@ exports.saveexercise = function(req, res) {
 //       res.send(200, goTo);
 //    }
 //  });
-   //var err = {message: 'Borked'};
-   var err = undefined;
+   var err = false;
+   if(req.body.description === 'error')
+      err = true;
    if(err) {
-      res.send(400, err.message);
+      res.send(400, 'Error message');
    }
    else {
       var goTo = '/encyclopedia/exercise_entry?eid=' + '5';
@@ -199,21 +203,6 @@ exports.cancelexercise = function(req, res) {
 }
 
 exports.encyclopedia_exercise_entry = function(req, res) {
-    /*
-// get exercise info
-var query = {
-id: req.query.eid
-};
-data.exerciseInit(query, function(err, exercise) {
-if(err) {
-console.log(err);
-res.redirect('/encyclopedia');
-}
-else {
-res.render('/encyclopedia/exerciseentry', exercise);
-}
-});
-*/
      var eid = req.query.eid;
      console.log('eid = ' + eid);
      getExerciseEntry(eid, function(err, exercise) {

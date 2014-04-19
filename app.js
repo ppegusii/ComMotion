@@ -73,9 +73,10 @@ app.get('/usersearchresults', results.user_search_results);
 app.get('/encyclopediaresults', results.encyclopedia_results);
 
 app.get('/encyclopedia/exercise_entry', nav.encyclopedia_exercise_entry);
+app.get('/encyclopedia/exercise_entry/edit', nav.editExercise);
 app.get('/encyclopedia/workout_entry', nav.encyclopedia_workout_entry);
 
-app.get('/create/exercise', nav.exercise);
+app.get('/create/exercise', nav.createExercise);
 app.get('/create/workoutcreator', nav.workoutcreator);
 
 app.post('/create/exercise/save', nav.saveexercise);
