@@ -12,6 +12,19 @@ asyncTest('exercisesGetLimitN',function(){
     start();
   });
 });
+asyncTest('exerciseGetById',function(){
+  expect(1);
+	$.ajax({
+		type: 'POST',
+		url: '/query',
+		data: {query:'exerciseGetById',id:1}
+	}).done(function(exercise){
+    console.log('exerciseGetById');
+    console.log(exercise);
+    equal(exercise.id,'1','received exercise with id 1');
+    start();
+  });
+});
 asyncTest('exerciseInit',function(){
   expect(1);
   var exercise = {

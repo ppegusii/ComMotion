@@ -4,6 +4,7 @@ exports.query = query;
 
 var queries = Array();
 queries['exercisesGetLimitN'] = data.exercisesGetLimitN;
+queries['exerciseGetById'] = data.exerciseGetById;
 queries['exerciseInit'] = data.exerciseInit;
 queries['exercisesGetByUserFav'] = data.exercisesGetByUserFav;
 queries['difficultyGetById'] = data.difficultyGetById;

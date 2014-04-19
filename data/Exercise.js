@@ -11,6 +11,7 @@ var video = require(process.env.DATA_VIDEO);
 var photo = require(process.env.DATA_PHOTO);
 
 exports.getLimitN = getLimitN;
+exports.getById = getById;
 exports.init = init;
 exports.getByUserFav = getByUserFav;
 
@@ -25,6 +26,19 @@ function getLimitN(query,cb){
       return cb(err,undefined);
     }
     resultToExercises(result,cb);
+  });
+}
+function getById(query,cb){
+  var id = parseInt(query.id,10);
+  if(id<=0){
+    cb(Error.create('query.id invalid'),undefined);
+    return;
+  }
+  conn.query('SELECT e.id,e.description,e.difficulty_id,e.musclegroup_id,e.created,d.name AS d_name,m.name AS m_name FROM exercises AS e,difficulties AS d,musclegroups AS m WHERE e.difficulty_id=d.id AND e.musclegroup_id=m.id AND e.id=$1',[id],function(err,result){
+    if(err){
+      return cb(err,undefined);
+    }
+    rowToExercise(result.rows[0],cb);
   });
 }
 function getByUserFav(query,cb){

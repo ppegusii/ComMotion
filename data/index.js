@@ -13,6 +13,8 @@ var activity = require(process.env.DATA_ACTIVITY);
 
 //{n: number}
 exports.exercisesGetLimitN = exercise.getLimitN;
+//{id: number}
+exports.exerciseGetById = exercise.getById;
 //{exercise: Exercise}
 exports.exerciseInit = exercise.init;
 //{userId: number}
