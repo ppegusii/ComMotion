@@ -18,7 +18,7 @@ function getLimitN(query,cb){
   if(n<=0){
     return cb(Error.create('query.n invalid'),undefined);
   }
-  conn.query('SELECT u.id,u.username,u.password,u.difficulty_id,u.avatar_url,d.name AS d_name FROM users AS u,difficulties AS d WHERE u.difficulty_id=d.id LIMIT $1',[n],function afterQuery(err,result){
+  conn.query('SELECT u.id,u.username,u.password,u.difficulty_id,u.avatar_url,u.bio,d.name AS d_name FROM users AS u,difficulties AS d WHERE u.difficulty_id=d.id LIMIT $1',[n],function afterQuery(err,result){
     if(err){
       return cb(err,undefined);
     }
@@ -30,7 +30,7 @@ function getById(query,cb){
   if(id<=0){
     return cb(Error.create('query.id invalid'),undefined);
   }
-  conn.query('SELECT u.id,u.username,u.password,u.difficulty_id,u.avatar_url,d.name AS d_name FROM users AS u,difficulties AS d WHERE u.difficulty_id=d.id AND u.id=$1',[id],function afterQuery(err,result){
+  conn.query('SELECT u.id,u.username,u.password,u.difficulty_id,u.avatar_url,u.bio,d.name AS d_name FROM users AS u,difficulties AS d WHERE u.difficulty_id=d.id AND u.id=$1',[id],function afterQuery(err,result){
     if(err){
       return cb(err,undefined);
     }
@@ -89,6 +89,7 @@ function rowToUser(row,cb){
       row.password,
       new model.Difficulty(row.difficulty_id,row.d_name),
       row.avatar_url,
+      row.bio,
       results.activities,
       results.fav_exercises,
       undefined,//holder for fav_workouts

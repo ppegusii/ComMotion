@@ -73,7 +73,7 @@ exports.Musclegroup = function(id,name){
   //string;
   this.name = name;
 };
-exports.User = function(id,username,password,difficulty,avatar_url,activities,fav_exercises,fav_workouts,follows,followers){
+exports.User = function(id,username,password,difficulty,avatar_url,bio,activities,fav_exercises,fav_workouts,follows,followers){
   //number; parseInt(id,10) isNaN or > 0
   this.id = id;
   //string; name != falsey, name !== ''
@@ -84,6 +84,8 @@ exports.User = function(id,username,password,difficulty,avatar_url,activities,fa
   this.difficulty = difficulty;
   //string; avatar_url = falsey or avatar_url is valid URL
   this.avatar_url = avatar_url;
+  //string;
+  this.bio = bio;
   //Array of Activty; activities = falsey or each Activity must validate
   this.activities = activities;
   //Array of Exercise; exercises = falsey or each Exercise.id must be valid

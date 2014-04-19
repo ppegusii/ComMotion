@@ -62,7 +62,8 @@ CREATE TABLE users(
 	username VARCHAR(255) NOT NULL,
 	password VARCHAR(255) NOT NULL,
 	difficulty_id integer references difficulties(id),
-	avatar_url VARCHAR(1023) 	
+	avatar_url VARCHAR(1023),
+	bio VARCHAR(2047)
 );	
 CREATE TABLE activities(
 	id SERIAL PRIMARY KEY,
@@ -192,27 +193,27 @@ ALTER SEQUENCE photos_id_seq RESTART WITH 2;
 INSERT INTO videos (id,url,exercise_id) VALUES
 	(1,'http://youtube.com/squat',1);
 ALTER SEQUENCE videos_id_seq RESTART WITH 2;
-INSERT INTO users (id, username, password, difficulty_id) VALUES
-	(1, 'dorianYates', 'commotion', 3),
-	(2, 'steveReeves', 'commotion', 2),
-	(3, 'johnGrimek', 'commotion', 1),
-	(4, 'francoColumbu', 'commotion', 3),
-	(5, 'janeAusten', 'commotion', 2),
-	(6, 'austinPowers', 'commotion', 1),
-	(7, 'dorianGray', 'commotion', 3),
-	(8, 'oscarWilde', 'commotion', 2),
-	(9, 'margaretThatcher', 'commotion', 1),
-	(10, 'miaHamm', 'commotion', 3),
-	(11, 'miaFarrow', 'commotion', 2),
-	(12, 'andyWarhol', 'commotion', 1),
-	(13, 'madameCurie', 'commotion', 3),
-	(14, 'adaLovelace', 'commotion', 2),
-	(15, 'babeRuth', 'commotion', 1),
-	(16, 'ruthGinsberg', 'commotion', 3),
-	(17, 'tylerDurden', 'commotion', 2),
-	(18, 'robertPaulson', 'commotion', 1),
-	(19, 'hermioneGranger', 'commotion', 3),
-	(20, 'severusSnape', 'commotion', 2);
+INSERT INTO users (id, username, password, difficulty_id, bio) VALUES
+	(1, 'dorianYates', 'commotion', 3, 'I like to sweat on others.'),
+	(2, 'steveReeves', 'commotion', 2, 'I like to sweat on others.'),
+	(3, 'johnGrimek', 'commotion', 1, 'I like to sweat on others.'),
+	(4, 'francoColumbu', 'commotion', 3, 'I like to sweat on others.'),
+	(5, 'janeAusten', 'commotion', 2, 'I like to sweat on others.'),
+	(6, 'austinPowers', 'commotion', 1, 'I like to sweat on others.'),
+	(7, 'dorianGray', 'commotion', 3, 'I like to sweat on others.'),
+	(8, 'oscarWilde', 'commotion', 2, 'I like to sweat on others.'),
+	(9, 'margaretThatcher', 'commotion', 1, 'I like to sweat on others.'),
+	(10, 'miaHamm', 'commotion', 3, 'I like to sweat on others.'),
+	(11, 'miaFarrow', 'commotion', 2, 'I like to sweat on others.'),
+	(12, 'andyWarhol', 'commotion', 1, 'I like to sweat on others.'),
+	(13, 'madameCurie', 'commotion', 3, 'I like to sweat on others.'),
+	(14, 'adaLovelace', 'commotion', 2, 'I like to sweat on others.'),
+	(15, 'babeRuth', 'commotion', 1, 'I like to sweat on others.'),
+	(16, 'ruthGinsberg', 'commotion', 3, 'I like to sweat on others.'),
+	(17, 'tylerDurden', 'commotion', 2, 'I like to sweat on others.'),
+	(18, 'robertPaulson', 'commotion', 1, 'I like to sweat on others.'),
+	(19, 'hermioneGranger', 'commotion', 3, 'I like to sweat on others.'),
+	(20, 'severusSnape', 'commotion', 2, 'I like to sweat on others.');
 ALTER SEQUENCE users_id_seq RESTART WITH 21;
 INSERT INTO fav_exercises (user_id, exercise_id) VALUES
 	(1, 1),
