@@ -44,7 +44,7 @@ exports.Name = function(id,name,votes,exerciseId,workoutId){
 exports.Photo = function(id,url,exerciseId,workoutId){
   //number; parseInt(id,10) isNaN or > 0
   this.id = id;
-  //string; url != falsey, url !== ''
+  //string; url != falsey, url is valid URL
   this.url = url;
   //number; parseInt(exerciseId,10) isNaN or > 0
   this.exerciseId = exerciseId;
@@ -54,7 +54,7 @@ exports.Photo = function(id,url,exerciseId,workoutId){
 exports.Video = function(id,url,exerciseId,workoutId){
   //number; parseInt(id,10) isNaN or > 0
   this.id = id;
-  //string; url != falsey, url !== ''
+  //string; url != falsey, url is valid URL
   this.url = url;
   //number; parseInt(exerciseId,10) isNaN or > 0
   this.exerciseId = exerciseId;
@@ -62,37 +62,43 @@ exports.Video = function(id,url,exerciseId,workoutId){
   this.workoutId = workoutId;
 };
 exports.Difficulty = function(id,name){
-  //number; parseInt(id,10) isNaN or > 0
+  //number; parseInt(id,10) > 0
   this.id = id;
   //string;
   this.name = name;
 };
 exports.Musclegroup = function(id,name){
-  //number; parseInt(id,10) isNaN or > 0
+  //number; parseInt(id,10) > 0
   this.id = id;
   //string;
   this.name = name;
 };
 exports.User = function(id,username,password,difficulty,avatar_url,activities,fav_exercises,fav_workouts,follows,followers){
-  //number;
+  //number; parseInt(id,10) isNaN or > 0
   this.id = id;
-  //string;
+  //string; name != falsey, name !== ''
   this.username = username;
-  //string;
+  //string; name != falsey, name !== ''
   this.password = password;
   //Difficulty object; difficulty != falsey, difficulty must validate
   this.difficulty = difficulty;
-  //string;
+  //string; avatar_url = falsey or avatar_url is valid URL
   this.avatar_url = avatar_url;
-  //Array of Activty; activities != falsey, each Activity must validate
+  //Array of Activty; activities = falsey or each Activity must validate
   this.activities = activities;
-  //Array of Exercise; exercises != falsey, each Exercise must validate
+  //Array of Exercise; exercises = falsey or each Exercise.id must be valid
   this.fav_exercises = fav_exercises;
 //****TODO will add after workouts created
-  //Array of Workout; workouts != falsey, each Workout must validate
+  //Array of Workout; workouts = falsey or each Workout.id must be valid
   //this.fav_workouts = fav_workouts;
-  //Array of number;
+  //Array of number; follows = falsey or each number > 0
   this.follows = follows;
-  //Array of number;
+  //Array of number; follows = falsey or each number > 0
   this.followers = followers;
 };
+exports.Activity = function(id,name){
+  //number; parseInt(id,10) > 0
+  this.id = id;
+  //string; name != falsey, name !== ''
+  this.name = name;
+}

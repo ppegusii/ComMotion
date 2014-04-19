@@ -7,6 +7,7 @@ var query = require(process.env.ROUTES_QUERY);
 exports.index = index;
 exports.query = query.query;
 exports.documentation = documentation;
+exports.tests = tests;
 
 /*
  * GET home page.
@@ -39,4 +40,7 @@ function documentation(req,res){
       datalayer: results.datalayer
     });
   });
+}
+function tests(req,res){
+  res.render('tests',{title: 'Tests'});
 }

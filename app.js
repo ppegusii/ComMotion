@@ -37,6 +37,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 if ('development' == app.get('env')) {
   app.use(express.errorHandler());
   app.get('/documentation',routes.documentation);
+  app.get('/tests',routes.tests);
 }
 
 app.get('/', user.landing);

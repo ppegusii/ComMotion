@@ -1,3 +1,5 @@
+var validator = require('validator');
+
 exports.validate = validate;
 
 function validate(photo,cb){
@@ -8,8 +10,8 @@ function validate(photo,cb){
     cb(Error.create('photo.id invalid'),undefined);
     return;
   }
-  if(!photo.url || photo.url===''){
-    cb(Error.create('photo.url undefined or empty string'),undefined);
+  if(!photo.url || !validator.isURL(photo.url)){
+    cb(Error.create('photo.url undefined or invalid URL'),undefined);
     return;
   }
   photo.exerciseId = parseInt(photo.exerciseId,10);

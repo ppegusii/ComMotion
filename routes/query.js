@@ -5,6 +5,17 @@ exports.query = query;
 var queries = Array();
 queries['exercisesGetLimitN'] = data.exercisesGetLimitN;
 queries['exerciseInit'] = data.exerciseInit;
+queries['exercisesGetByUserFav'] = data.exercisesGetByUserFav;
+queries['difficultyGetById'] = data.difficultyGetById;
+queries['musclegroupGetById'] = data.musclegroupGetById;
+queries['namesGetByEidWid'] = data.namesGetByEidWid;
+queries['videosGetByEidWid'] = data.videosGetByEidWid;
+queries['photosGetByEidWid'] = data.photosGetByEidWid;
+queries['usersGetLimitN'] = data.usersGetLimitN;
+queries['followedUserIdsGetByFollowingUserId'] = data.followedUserIdsGetByFollowingUserId;
+queries['followingUserIdsGetByFollowedUserId'] = data.followingUserIdsGetByFollowedUserId;
+queries['activitiesGetAll'] = data.activitiesGetAll;
+queries['activitiesGetByUserId'] = data.activitiesGetByUserId;
 
 function query(req,res){
 //console.log('body = '+JSON.stringify(req.body));

@@ -171,7 +171,7 @@ INSERT INTO names (id,name,exercise_id,votes) VALUES
 	(24,'barbell curls',24,5),
 	(25,'concentration curls',25,3),
 	(26,'ab rollouts',26,1),
-	(27,'front squats',27,4,
+	(27,'front squats',27,4),
 	(28,'leg presses',28,5),
 	(29,'leg curls',29,1),
 	(30,'hanging leg raises',30,2),
