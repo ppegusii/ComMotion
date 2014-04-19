@@ -33,6 +33,8 @@ exports.photosGetByEidWid = photo.getByEidWid;
 exports.usersGetLimitN = user.getLimitN;
 //{id: number}
 exports.userGetById = user.getById;
+//{username: string}
+exports.userIdGetByUsername = user.getIdByUsername;
 //{userId: number}
 exports.followedUserIdsGetByFollowingUserId;
 //{userId: number}

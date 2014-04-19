@@ -85,3 +85,19 @@ asyncTest('userGetById',function(){
     start();
   });
 });
+asyncTest('userIdGetByUsername',function(){
+  expect(1);
+	$.ajax({
+		type: 'POST',
+		url: '/query',
+		data: {
+      query: 'userIdGetByUsername',
+      username: 'dorianYates'
+    }
+	}).done(function(userId){
+    console.log('userIdGetByUsername');
+    console.log(userId);
+    equal(userId.id,1,'recieved correct userId given username');
+    start();
+  });
+});
