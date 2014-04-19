@@ -13,6 +13,7 @@ queries['namesGetByEidWid'] = data.namesGetByEidWid;
 queries['videosGetByEidWid'] = data.videosGetByEidWid;
 queries['photosGetByEidWid'] = data.photosGetByEidWid;
 queries['usersGetLimitN'] = data.usersGetLimitN;
+queries['userGetById'] = data.userGetById;
 queries['followedUserIdsGetByFollowingUserId'] = data.followedUserIdsGetByFollowingUserId;
 queries['followingUserIdsGetByFollowedUserId'] = data.followingUserIdsGetByFollowedUserId;
 queries['activitiesGetAll'] = data.activitiesGetAll;

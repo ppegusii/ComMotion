@@ -31,6 +31,8 @@ exports.videosGetByEidWid = video.getByEidWid;
 exports.photosGetByEidWid = photo.getByEidWid;
 //{n: number}
 exports.usersGetLimitN = user.getLimitN;
+//{id: number}
+exports.userGetById = user.getById;
 //{userId: number}
 exports.followedUserIdsGetByFollowingUserId;
 //{userId: number}

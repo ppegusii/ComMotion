@@ -9,6 +9,7 @@ var exercise = require(process.env.DATA_EXERCISE);
 var difficulty = require(process.env.DATA_DIFFICULTY);
 
 exports.getLimitN = getLimitN;
+exports.getById = getById;
 exports.getFollowedUserIdsByFollowingUserId = getFollowedUserIdsByFollowingUserId;
 exports.getFollowingUserIdsByFollowedUserId = getFollowingUserIdsByFollowedUserId;
 
@@ -22,6 +23,18 @@ function getLimitN(query,cb){
       return cb(err,undefined);
     }
     resultToUsers(result,cb);
+  });
+}
+function getById(query,cb){
+  var id = parseInt(query.id,10);
+  if(id<=0){
+    return cb(Error.create('query.id invalid'),undefined);
+  }
+  conn.query('SELECT u.id,u.username,u.password,u.difficulty_id,u.avatar_url,d.name AS d_name FROM users AS u,difficulties AS d WHERE u.difficulty_id=d.id AND u.id=$1',[id],function afterQuery(err,result){
+    if(err){
+      return cb(err,undefined);
+    }
+    rowToUser(result.rows[0],cb);
   });
 }
 function getFollowedUserIdsByFollowingUserId(query,cb){

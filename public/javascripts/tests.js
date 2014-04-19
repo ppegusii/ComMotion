@@ -72,3 +72,16 @@ asyncTest('usersGetLimitN',function(){
     start();
   });
 });
+asyncTest('userGetById',function(){
+  expect(1);
+	$.ajax({
+		type: 'POST',
+		url: '/query',
+		data: {query:'userGetById',id:1}
+	}).done(function(user){
+    console.log('userGetById');
+    console.log(user);
+    equal(user.id,1,'recieved user with correct id');
+    start();
+  });
+});
