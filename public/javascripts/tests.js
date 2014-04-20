@@ -12,7 +12,7 @@ asyncTest('exercisesGetLimitN',function(){
     start();
   });
 });
-asyncTest('exerciseGetById',function(){
+asyncTest('exerciseGetById exercise exists',function(){
   expect(1);
 	$.ajax({
 		type: 'POST',
@@ -22,6 +22,19 @@ asyncTest('exerciseGetById',function(){
     console.log('exerciseGetById');
     console.log(exercises);
     equal(exercises[0].id,'1','received exercise with id 1');
+    start();
+  });
+});
+asyncTest('exerciseGetById exercise does not exist',function(){
+  expect(1);
+	$.ajax({
+		type: 'POST',
+		url: '/query',
+		data: {query:'exerciseGetById',id:500000}
+	}).done(function(exercises){
+    console.log('exerciseGetById');
+    console.log(exercises);
+    equal(exercises.length,0,'received exercise with id 1');
     start();
   });
 });
@@ -98,6 +111,40 @@ asyncTest('userGetById user does not exist',function(){
     start();
   });
 });
+asyncTest('userGetByUsernamePassword user exists',function(){
+  expect(1);
+	$.ajax({
+		type: 'POST',
+		url: '/query',
+		data: {
+      query: 'userGetByUsernamePassword',
+      username: 'dorianYates',
+      password: 'commotion'
+    }
+	}).done(function(users){
+    console.log('userGetByUsernamePassword');
+    console.log(users);
+    equal(users[0].username,'dorianYates','recieved user with correct username');
+    start();
+  });
+});
+asyncTest('userGetByUsernamePassword user does not exist',function(){
+  expect(1);
+	$.ajax({
+		type: 'POST',
+		url: '/query',
+		data: {
+      query: 'userGetByUsernamePassword',
+      username: 'bubble',
+      password: 'licious'
+    }
+	}).done(function(users){
+    console.log('userGetByUsernamePassword');
+    console.log(users);
+    equal(users.length,0,'recieved user no users');
+    start();
+  });
+});
 asyncTest('userIdGetByUsername',function(){
   expect(1);
 	$.ajax({
@@ -107,10 +154,10 @@ asyncTest('userIdGetByUsername',function(){
       query: 'userIdGetByUsername',
       username: 'dorianYates'
     }
-	}).done(function(userId){
+	}).done(function(ids){
     console.log('userIdGetByUsername');
-    console.log(userId);
-    equal(userId.id,1,'recieved correct userId given username');
+    console.log(ids);
+    equal(ids[0],1,'recieved correct userId given username');
     start();
   });
 });
