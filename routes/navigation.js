@@ -78,7 +78,7 @@ function setSessionForUser(username, pass, req, cb) {
       id: undefined
    };
 
-   data.userIdGetByUsername({username: username, password: pass}, function (err, id){
+   data.userGetByUsernamePassword({username: username, password: pass}, function (err, id){
       if(err) {
          cb(err, undefined);
       }
@@ -134,9 +134,11 @@ exports.findusers = function(req, res){
 exports.createExercise = function(req, res) {
    console.log('Executing createExercise');
    var flash = req.flash('editExercise');
-   console.log(flash);
+   //console.log(flash);
    if(flash.length !== 0) {
       var exercise = JSON.parse(flash);
+      console.log(exercise);
+      console.log(exercise.names);
       res.render('create/exercise', {
          title: 'Edit exercise',
          exercise: exercise
@@ -160,8 +162,8 @@ exports.editExercise = function(req, res) {
          res.send(500, err.message);
       }
       else {
-         console.log('Sending exercise ' + JSON.stringify(exercise));
-         req.flash('editExercise', JSON.stringify(exercise));
+         console.log('Sending exercise ' + JSON.stringify(exercise[0]));
+         req.flash('editExercise', JSON.stringify(exercise[0]));
          res.redirect('/create/exercise');
       }
    });
@@ -234,7 +236,7 @@ exports.encyclopedia_exercise_entry = function(req, res) {
          res.send(500, err.message);
       }
       else {
-         res.render('encyclopedia/exerciseentry', exercise);
+         res.render('encyclopedia/exerciseentry', exercise[0]);
       }
    });
 //     getExerciseEntry(eid, function(err, exercise) {
