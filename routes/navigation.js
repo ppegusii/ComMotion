@@ -147,10 +147,10 @@ exports.editExercise = function(req, res) {
    console.log('Executing editExercise');
    var eid = req.query.eid;
    console.log('Found eid ' + eid);
-   getExerciseEntry(eid, function(err, exercise) {
+   data.exerciseGetById({id: eid}, function(err, exercise) {
       if(err) {
-         console.log('Error');
-         res.send(500, 'Exercise not found for eid ' + eid);
+         console.log(err.message);
+         res.send(500, err.message);
       }
       else {
          console.log('Sending exercise ' + JSON.stringify(exercise));

@@ -3,7 +3,7 @@
   <head>
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <title>Exercise entry for <%= names[0] %></title>
+    <title>Exercise entry for <%= names[0].name %></title>
 
     <!-- Bootstrap core CSS -->
     <link rel = "stylesheet" type ="text/css" href = "stylesheets/bootstrap/css/bootstrap.css" >
@@ -34,7 +34,7 @@
             <h3>Other names:</h3>
             <p>
                 <% for(var i = 0; i < names.length; i++) { %>
-                    <%= names[i].name %>#
+                    <%= names[i].name %>,
                 <% } %>
             </p>
 
@@ -53,6 +53,11 @@
                     <td>
                       <%= photos[i].url %>
                     </td>
+                  <% } %>
+                  <% for (var i=0; i < videos.length; i++) { %>
+                  <td>
+                      <%= videos[i].url %>
+                  </td>
                   <% } %>
                 </tr>
               </table>
