@@ -43,45 +43,6 @@
 
 	<div class="col-md-8 col-md-8 col-xs-8">
 
-	<!--Populates a 5x2 grid of popular exercises -->
-	
-	<h3>Popular Exercises</h3>
-	<hr>
-
-	<% for (var i=0; i<2; i++){ %>
-
-	<div style="margin-top:20px" class="row">
-	
-	<div class="col-md-2 col-sm-2 col-xs-2 col-md-offset-1 col-sm-offset-1 col-xs-offset-1">
-		<center>
-			<a href="encyclopedia/exercise_entry">
-				<media>
-					<img src="images/generic_exercise.jpeg" width="80" height="80">
-				</media>
-			</a>
-			<h4>Exercise <%= i*5+1 %></h4>
-		</center>
-	
-	</div>
-	<% for (var j=0; j<4; j++){ %>
-		<div class="col-md-2 col-sm-2 col-xs-2">
-		<center>
-			<a href="encyclopedia/exercise_entry">
-				<media>
-					<img src="images/generic_exercise.jpeg" width="80" height="80">
-				</media>
-			</a>
-			<h4>Exercise <%= i*5+j+2 %></h4>
-		</center>
-
-		</div>
-	<% } %>
-
-	</div>
-	
-	<% } %>
-
-
 	<!--Populates a 5x2 grid of new exercises -->
 
 	<h3>New Exercises</h3>
@@ -95,10 +56,10 @@
 		<center>
 			<a href="encyclopedia/exercise_entry">
 				<media>
-					<img src="images/generic_exercise.jpeg" width="80" height="80">
+					<img src="<%= nexercises[i*5].photos[0] %>" width="80" height="80">
 				</media>
 			</a>
-			<h4>Exercise <%= i*5+1 %></h4>
+			<h4><%= nexercises[i*5].names[0] %></h4>
 		</center>
 	
 	</div>
@@ -107,10 +68,10 @@
 		<center>
 			<a href="encyclopedia/exercise_entry">
 				<media>
-					<img src="images/generic_exercise.jpeg" width="80" height="80">
+					<img src="<%= pexercises[i*5+j+1].photos[0] %>" width="80" height="80">
 				</media>
 			</a>
-			<h4>Exercise <%= i*5+j+2 %></h4>
+			<h4> <%= pexercises[i*5+j+1].names[0] %></h4>
 		</center>
 
 		</div>
@@ -120,44 +81,6 @@
 	
 	<% } %>
 
-
-	<!--Populates a 5x2 grid of popular workouts -->
-
-	<h3>Popular Workouts</h3>
-	<hr>
-
-	<% for (var i=0; i<2; i++){ %>
-
-	<div style="margin-top:20px" class="row">
-	
-	<div class="col-md-2 col-sm-2 col-xs-2 col-md-offset-1 col-sm-offset-1 col-xs-offset-1">
-		<center>
-            <a href="encyclopedia/workout_entry">
-            <media>
-				<img src="images/generic_exercise.jpeg" width="80" height="80">
-			</media>
-                </a>
-			<h4>Workout <%= i*5+1 %></h4>
-		</center>
-	
-	</div>
-	<% for (var j=0; j<4; j++){ %>
-		<div class="col-md-2 col-sm-2 col-xs-2">
-		<center>
-            <a href="encyclopedia/workout_entry">
-			<media>
-				<img src="images/generic_exercise.jpeg" width="80" height="80">
-			</media>
-                </a>
-			<h4>Workout <%= i*5+j+2 %></h4>
-		</center>
-
-		</div>
-	<% } %>
-
-	</div>
-	
-	<% } %>
 
 
 	<!--Populates a 5x2 grid of new workouts -->
@@ -168,27 +91,26 @@
 	<% for (var i=0; i<2; i++){ %>
 
 	<div style="margin-top:20px" class="row">
-	
-	<div class="col-md-2 col-sm-2 col-xs-2 col-md-offset-1 col-sm-offset-1 col-xs-offset-1">
-		<center>
-            <a href="encyclopedia/workout_entry">
-            <media>
-				<img src="images/generic_exercise.jpeg" width="80" height="80">
-			</media>
+        <div class="col-md-2 col-sm-2 col-xs-2 col-md-offset-1 col-sm-offset-1 col-xs-offset-1">
+            <center>
+                <a href="encyclopedia/workout_entry">
+                    <media>
+                        <img src="<%= nworkouts[i*5].photo %>" width="80" height="80">
+                    </media>
                 </a>
-			<h4>Workout <%= i*5+1 %></h4>
-		</center>
-	
-	</div>
+                <h4> <%= nworkouts[i*5].name %></h4>
+            </center>
+
+        </div>
 	<% for (var j=0; j<4; j++){ %>
 		<div class="col-md-2 col-sm-2 col-xs-2">
 		<center>
             <a href="encyclopedia/workout_entry">
 			<media>
-				<img src="images/generic_exercise.jpeg" width="80" height="80">
+				<img src="<%= nworkouts[i*5+j+1].photo %>" width="80" height="80">
 			</media>
                 </a>
-			<h4>Workout <%= i*5+j+2 %></h4>
+			<h4><%= nworkouts[i*5+j+1].name %></h4>
 		</center>
 
 		</div>
