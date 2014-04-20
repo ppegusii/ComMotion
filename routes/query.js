@@ -14,6 +14,7 @@ queries['videosGetByEidWid'] = data.videosGetByEidWid;
 queries['photosGetByEidWid'] = data.photosGetByEidWid;
 queries['usersGetLimitN'] = data.usersGetLimitN;
 queries['userGetById'] = data.userGetById;
+queries['userGetByUsernamePassword'] = data.userGetByUsernamePassword;
 queries['userIdGetByUsername'] = data.userIdGetByUsername;
 queries['followedUserIdsGetByFollowingUserId'] = data.followedUserIdsGetByFollowingUserId;
 queries['followingUserIdsGetByFollowedUserId'] = data.followingUserIdsGetByFollowedUserId;

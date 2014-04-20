@@ -111,6 +111,40 @@ asyncTest('userGetById user does not exist',function(){
     start();
   });
 });
+asyncTest('userGetByUsernamePassword user exists',function(){
+  expect(1);
+	$.ajax({
+		type: 'POST',
+		url: '/query',
+		data: {
+      query: 'userGetByUsernamePassword',
+      username: 'dorianYates',
+      password: 'commotion'
+    }
+	}).done(function(users){
+    console.log('userGetByUsernamePassword');
+    console.log(users);
+    equal(users[0].username,'dorianYates','recieved user with correct username');
+    start();
+  });
+});
+asyncTest('userGetByUsernamePassword user does not exist',function(){
+  expect(1);
+	$.ajax({
+		type: 'POST',
+		url: '/query',
+		data: {
+      query: 'userGetByUsernamePassword',
+      username: 'bubble',
+      password: 'licious'
+    }
+	}).done(function(users){
+    console.log('userGetByUsernamePassword');
+    console.log(users);
+    equal(users.length,0,'recieved user no users');
+    start();
+  });
+});
 asyncTest('userIdGetByUsername',function(){
   expect(1);
 	$.ajax({
