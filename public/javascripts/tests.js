@@ -161,6 +161,45 @@ asyncTest('userIdGetByUsername',function(){
     start();
   });
 });
+asyncTest('userCreate user does not exist',function(){
+  expect(1);
+  g = guid();
+	$.ajax({
+		type: 'POST',
+		url: '/query',
+		data: {
+      query: 'userCreate',
+      user: {
+        username: g,
+        password: 'commotion'
+      }
+    }
+	}).done(function(user){
+    console.log('userCreate');
+    console.log(user);
+    equal(user.username,g,'recieved correct username');
+    start();
+  });
+});
+asyncTest('userCreate user already exists',function(){
+  expect(1);
+	$.ajax({
+		type: 'POST',
+		url: '/query',
+		data: {
+      query: 'userCreate',
+      user: {
+        username: 'dorianYates',
+        password: 'commotion'
+      }
+    }
+	}).done(function(error){
+    console.log('userCreate');
+    console.log(error);
+    ok(error.inner,undefined,'username exists error');
+    start();
+  });
+});
 module("activities");
 asyncTest('activitiesGetAll',function(){
   expect(1);
@@ -175,3 +214,15 @@ asyncTest('activitiesGetAll',function(){
     start();
   });
 });
+
+//copied from
+//http://stackoverflow.com/questions/105034/how-to-create-a-guid-uuid-in-javascript
+function guid() {
+  function s4() {
+  return Math.floor((1 + Math.random()) * 0x10000)
+    .toString(16)
+    .substring(1);
+  }
+  return s4() + s4() + '-' + s4() + '-' + s4() + '-' +
+    s4() + '-' + s4() + s4() + s4();
+}
