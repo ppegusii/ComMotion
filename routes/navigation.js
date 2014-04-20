@@ -34,6 +34,7 @@ undefined
 */
 
 exports.home = function(req, res){
+   console.log("HOME ID: " + req.session.user.id);
    res.render('home', { user:req.session.user });
 }
 
@@ -74,8 +75,19 @@ function setSessionForUser(user, pass, req, cb) {
          username: 'commotion',
          id: 500
       };
-      req.session.user = user;
-      cb(undefined, user);
+
+	  data.userIdGetByUsername({username: 'dorianYates'}, function (err, id){
+		console.log("ID: " + id.id);
+	
+	    user.id = id.id;
+		console.log("USERID: " + user.id);
+
+ 	       req.session.user = user;
+		   console.log(user);
+   		   cb(undefined, user);
+	  });
+
+
    }
 }
 

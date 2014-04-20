@@ -10,6 +10,7 @@ var difficulty = require(process.env.DATA_DIFFICULTY);
 
 exports.getLimitN = getLimitN;
 exports.getById = getById;
+exports.getIdByUsername = getIdByUsername;
 exports.getFollowedUserIdsByFollowingUserId = getFollowedUserIdsByFollowingUserId;
 exports.getFollowingUserIdsByFollowedUserId = getFollowingUserIdsByFollowedUserId;
 
@@ -35,6 +36,21 @@ function getById(query,cb){
       return cb(err,undefined);
     }
     rowToUser(result.rows[0],cb);
+  });
+}
+function getIdByUsername(query,cb){
+  var un = query.username;
+  if(!un){
+    return cb(Error.create('query.username undefined'),undefined);
+  }
+  conn.query('SELECT id FROM users WHERE username=$1',[un],function afterQuery(err,result){
+    if(err){
+      return cb(err,undefined);
+    }
+    if(result.rows.length === 0){
+      return cb(Error.create('username does not exist'),undefined);
+    }
+    return cb(err,{id: result.rows[0].id});
   });
 }
 function getFollowedUserIdsByFollowingUserId(query,cb){
