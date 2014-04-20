@@ -55,7 +55,7 @@ exports.authenticate = function(req, res) {
    var password = req.body.password;
    setSessionForUser(username, password, req, function(err, user) {
       if(err) {
-         req.flash('login', err);
+         req.flash('login', err.message);
          res.redirect('/');
       }
       else {
@@ -67,28 +67,31 @@ exports.authenticate = function(req, res) {
 
 function setSessionForUser(user, pass, req, cb) {
    // dummy stuff
-   if(user !== 'commotion' || pass !== 'commotion') {
-      cb('Cannot find user', undefined);
+   if(user !== 'dorianYates' || pass !== 'commotion') {
+      cb({ message: 'Please enter "dorianYates" for username and "commotion" for password' }, undefined);
+      return;
    }
-   else {
-      var user = {
-         username: 'commotion',
-         id: 500
-      };
+   var user = {
+      username: user,
+      password: pass,
+      id: undefined
+   };
 
-	  data.userIdGetByUsername({username: 'dorianYates'}, function (err, id){
-		console.log("ID: " + id.id);
-	
-	    user.id = id.id;
-		console.log("USERID: " + user.id);
+   data.userIdGetByUsername({username: 'dorianYates'}, function (err, id){
+      if(err) {
+         cb(err, undefined);
+      }
+      else {
+         console.log("ID: " + id.id);
 
- 	       req.session.user = user;
-		   console.log(user);
-   		   cb(undefined, user);
-	  });
+         user.id = id.id;
+         console.log("USERID: " + user.id);
 
-
-   }
+         req.session.user = user;
+         console.log(user);
+         cb(undefined, user);
+      }
+   });
 }
 
 exports.logout = function(req, res) {
