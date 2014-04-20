@@ -219,17 +219,26 @@ exports.cancelexercise = function(req, res) {
 }
 
 exports.encyclopedia_exercise_entry = function(req, res) {
-     var eid = req.query.eid;
-     console.log('eid = ' + eid);
-     getExerciseEntry(eid, function(err, exercise) {
-         if(err) {
-             console.log('Couldnt find exercise ' + eid);
-             res.send(404, 'Exercise not found');
-         }
-         else {
-             res.render('encyclopedia/exerciseentry', exercise);
-         }
-     });
+   var eid = req.query.eid;
+   console.log('eid = ' + eid);
+   data.exerciseGetById({id: eid}, function(err, exercise) {
+      if(err) {
+         console.log(err.message);
+         res.send(500, err.message);
+      }
+      else {
+         res.render('encyclopedia/exerciseentry', exercise);
+      }
+   });
+//     getExerciseEntry(eid, function(err, exercise) {
+//         if(err) {
+//             console.log(err.message);
+//             res.send(404, err.message);
+//         }
+//         else {
+//             res.render('encyclopedia/exerciseentry', exercise);
+//         }
+//     });
 }
 
 exports.encyclopedia_workout_entry = function(req, res) {
@@ -256,25 +265,25 @@ function mediaProperFormat(mediaURL) {
 }
 
 function getExerciseEntry(exerciseId, cb) {
-   if(parseInt(exerciseId) === 5) {
-       var data = new models.Exercise(
-           5,
-           'The id of this exercise is ' + exerciseId,
-           { id: 3, name: 'Advanced'},
-           { id: 3, name: 'Lower body'},
-           undefined,
-           ['A name'],
-           undefined,
-           ['http://i.imgur.com/VvbSZ7x.jpg',
-               'http://i.imgur.com/VvbSZ7x.jpg',
-               'http://i.imgur.com/VvbSZ7x.jpg']
-       );
-       cb(undefined, data);
-   }
-   else {
-       cb('Could not find exercise with id ' + exerciseId, undefined);
-   }
-
+   // dummy stuff
+//   if(parseInt(exerciseId) === 5) {
+//       var data = new models.Exercise(
+//           5,
+//           'The id of this exercise is ' + exerciseId,
+//           { id: 3, name: 'Advanced'},
+//           { id: 3, name: 'Lower body'},
+//           undefined,
+//           ['A name'],
+//           undefined,
+//           ['http://i.imgur.com/VvbSZ7x.jpg',
+//               'http://i.imgur.com/VvbSZ7x.jpg',
+//               'http://i.imgur.com/VvbSZ7x.jpg']
+//       );
+//       cb(undefined, data);
+//   }
+//   else {
+//       cb('Could not find exercise with id ' + exerciseId, undefined);
+//   }
 }
 
 function getWorkoutEntry(workoutId) {

@@ -19,7 +19,7 @@
     <div class="container">
 
       <div class="blog-header">
-        <h1 class="blog-title"><%= names[0] %></h1>
+        <h1 class="blog-title"><%= names[0].name %></h1>
         <p>
           <a id="editButton" class="btn btn-sm btn-default" href="/encyclopedia/exercise_entry/edit?eid=<%= id %>">Edit this entry</a>
           <a id="faveButton" class="btn btn-sm btn-default" href="/myfavorites?type=exercise,id=<%= id %>">Add to favorites</a>
@@ -31,6 +31,13 @@
         <div class="col-sm-8 blog-main">
 
           <div class="blog-post">
+            <h3>Other names:</h3>
+            <p>
+                <% for(var i = 0; i < names.length; i++) { %>
+                    <%= names[i].name %>#
+                <% } %>
+            </p>
+
             <h3>Difficulty: <%= difficulty.name %></h3>
 
             <h3>Description</h3>
@@ -44,7 +51,7 @@
                 <tr>
                   <% for (var i=0; i < photos.length; i++) { %>
                     <td>
-                      <img src="<%= photos[i] %>" height="200px" />
+                      <%= photos[i].url %>
                     </td>
                   <% } %>
                 </tr>
