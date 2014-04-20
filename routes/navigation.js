@@ -67,27 +67,28 @@ exports.authenticate = function(req, res) {
 
 function setSessionForUser(username, pass, req, cb) {
    // dummy stuff; delete when database stuff is complete
-   if(username !== 'dorianYates' || pass !== 'commotion') {
-      cb({ message: 'Please enter "dorianYates" for username and "commotion" for password' }, undefined);
-      return;
-   }
+//   if(username !== 'dorianYates' || pass !== 'commotion') {
+//      cb({ message: 'Please enter "dorianYates" for username and "commotion" for password' }, undefined);
+//      return;
+//   }
 
-   var user = {
-      username: username,
-      //password: pass,
-      id: undefined
-   };
+//   var user = {
+//      username: username,
+//      //password: pass,
+//      id: undefined
+//   };
 
-   data.userGetByUsernamePassword({username: username, password: pass}, function (err, id){
+   data.userGetByUsernamePassword({username: username, password: pass}, function (err, users){
       if(err) {
          cb(err, undefined);
       }
+      else if(users.length === 0) {
+         cb({message: 'Wrong username or password'}, undefined);
+      }
       else {
-         user.id = id.id;
-         console.log("USERID: " + user.id);
-
-         req.session.user = user;
+         var user = users[0];
          console.log(user);
+         req.session.user = user;
          cb(undefined, user);
       }
    });
