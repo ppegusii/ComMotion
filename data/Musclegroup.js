@@ -11,14 +11,13 @@ function getById(query,cb){
   }
   conn.query('SELECT * FROM musclegroups WHERE id=$1',[id],function(err,result){
     if(err){
-      cb(err,undefined);
+      return cb(err,undefined);
     }
-    else{
-      var row = result.rows[0];
-      rowToMusclegroup(row,cb)
-    }
+    resultToMusclegroups(result,cb);
   });
 }
-function rowToMusclegroup(row,cb){
-  cb(undefined,new model.Musclegroup(row.id.toString(),row.name));
+function resultToMusclegroups(result,cb){
+  cb(undefined,result.rows.map(function(musclegroup,index,musclegroups){
+    return new model.Musclegroup(row.id.toString(),row.name);
+  }));
 }

@@ -11,14 +11,13 @@ function getById(query,cb){
   }
   conn.query('SELECT * FROM difficulties WHERE id=$1',[id],function(err,result){
     if(err){
-      cb(err,undefined);
+      return cb(err,undefined);
     }
-    else{
-      var row = result.rows[0];
-      rowToDifficulty(row,cb)
-    }
+    resultToDifficulties(result,cb);
   });
 }
-function rowToDifficulty(row,cb){
-  cb(undefined,new model.Difficulty(row.id.toString(),row.name));
+function resultToDifficulties(result,cb){
+  cb(undefined,result.rows.map(function(difficulty,index,difficulties){
+    return new model.Difficulty(row.id.toString(),row.name);
+  }));
 }

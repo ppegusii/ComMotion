@@ -38,7 +38,7 @@ function getById(query,cb){
     if(err){
       return cb(err,undefined);
     }
-    rowToExercise(result.rows[0],cb);
+    return resultToExercises(result,cb);
   });
 }
 function getByUserFav(query,cb){

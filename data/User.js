@@ -10,6 +10,7 @@ var difficulty = require(process.env.DATA_DIFFICULTY);
 
 exports.getLimitN = getLimitN;
 exports.getById = getById;
+exports.getByUsernamePassword = getByUsernamePassword;
 exports.getIdByUsername = getIdByUsername;
 exports.getFollowedUserIdsByFollowingUserId = getFollowedUserIdsByFollowingUserId;
 exports.getFollowingUserIdsByFollowedUserId = getFollowingUserIdsByFollowedUserId;
@@ -35,7 +36,21 @@ function getById(query,cb){
     if(err){
       return cb(err,undefined);
     }
-    rowToUser(result.rows[0],cb);
+    return resultToUsers(result,cb);
+  });
+}
+function getByUsernamePassword(query,cb){
+  if(!query.username || query.username===''){
+    return cb(Error.create('query.username undefined or blank'),undefined);
+  }
+  if(!query.password || query.password===''){
+    return cb(Error.create('query.password undefined or blank'),undefined);
+  }
+  conn.query('SELECT u.id,u.username,u.password,u.difficulty_id,u.avatar_url,u.bio,d.name AS d_name FROM users AS u,difficulties AS d WHERE u.difficulty_id=d.id AND u.username=$1 AND u.password=$2',[query.username,query.password],function afterQuery(err,result){
+    if(err){
+      return cb(err,undefined);
+    }
+    return resultToUsers(result,cb);
   });
 }
 function getIdByUsername(query,cb){
@@ -47,10 +62,9 @@ function getIdByUsername(query,cb){
     if(err){
       return cb(err,undefined);
     }
-    if(result.rows.length === 0){
-      return cb(Error.create('username does not exist'),undefined);
-    }
-    return cb(err,{id: result.rows[0].id});
+    return cb(err,result.rows.map(function(row,index,rows){
+      return row.id;
+    }));
   });
 }
 function getFollowedUserIdsByFollowingUserId(query,cb){

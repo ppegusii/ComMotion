@@ -83,8 +83,6 @@ function setSessionForUser(username, pass, req, cb) {
          cb(err, undefined);
       }
       else {
-         console.log("ID: " + id.id);
-
          user.id = id.id;
          console.log("USERID: " + user.id);
 
@@ -117,7 +115,16 @@ exports.encyclopedia = function(req, res){
 };
 
 exports.myfavorites = function(req, res){
-     res.render('myfavorites', {title: 'My favorites'});
+	userId = req.session.user.id;
+	data.exercisesGetByUserFav( {userId: userId},function afterGet(err, exercises){
+    res.render('myfavorites',
+      {
+        title: 'My Favorites',
+        exercises: exercises,
+        err: err
+      });
+  });
+
 };
 
 exports.findusers = function(req, res){
