@@ -116,7 +116,16 @@ exports.encyclopedia = function(req, res){
 };
 
 exports.myfavorites = function(req, res){
-     res.render('myfavorites', {title: 'My favorites'});
+	userId = req.session.user.id;
+	data.exercisesGetByUserFav( {userId: userId},function afterGet(err, exercises){
+    res.render('myfavorites',
+      {
+        title: 'My Favorites',
+        exercises: exercises,
+        err: err
+      });
+  });
+
 };
 
 exports.findusers = function(req, res){
