@@ -83,7 +83,6 @@ function setSessionForUser(username, pass, req, cb) {
          cb(err, undefined);
       }
       else {
-         console.log("ID: " + id.id);
 
          user.id = id.id;
          console.log("USERID: " + user.id);
