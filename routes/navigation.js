@@ -65,19 +65,20 @@ exports.authenticate = function(req, res) {
    });
 }
 
-function setSessionForUser(user, pass, req, cb) {
-   // dummy stuff
-   if(user !== 'dorianYates' || pass !== 'commotion') {
+function setSessionForUser(username, pass, req, cb) {
+   // dummy stuff; delete when database stuff is complete
+   if(username !== 'dorianYates' || pass !== 'commotion') {
       cb({ message: 'Please enter "dorianYates" for username and "commotion" for password' }, undefined);
       return;
    }
+
    var user = {
-      username: user,
-      password: pass,
+      username: username,
+      //password: pass,
       id: undefined
    };
 
-   data.userIdGetByUsername({username: 'dorianYates'}, function (err, id){
+   data.userIdGetByUsername({username: username, password: pass}, function (err, id){
       if(err) {
          cb(err, undefined);
       }
