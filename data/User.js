@@ -47,10 +47,9 @@ function getIdByUsername(query,cb){
     if(err){
       return cb(err,undefined);
     }
-    if(result.rows.length === 0){
-      return cb(Error.create('username does not exist'),undefined);
-    }
-    return cb(err,{id: result.rows[0].id});
+    return cb(err,result.rows.map(function(row,index,rows){
+      return row.id;
+    }));
   });
 }
 function getFollowedUserIdsByFollowingUserId(query,cb){
