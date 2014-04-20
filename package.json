@@ -10,7 +10,8 @@
     "ejs": "*",
     "async": "0.6.2",
     "pg": "2.11.1",
-    "simple-errors": "*",
+    "simple-errors": "0.0.4",
+    "validator": "3.9.0",
     "connect-flash": "~0.1.1"
   }
 }

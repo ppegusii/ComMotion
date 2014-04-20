@@ -11,7 +11,9 @@ var video = require(process.env.DATA_VIDEO);
 var photo = require(process.env.DATA_PHOTO);
 
 exports.getLimitN = getLimitN;
+exports.getById = getById;
 exports.init = init;
+exports.getByUserFav = getByUserFav;
 
 function getLimitN(query,cb){
   var n = parseInt(query.n,10);
@@ -19,13 +21,37 @@ function getLimitN(query,cb){
     cb(Error.create('query.n invalid'),undefined);
     return;
   }
-  conn.query('SELECT * FROM exercises LIMIT $1',[n],function(err,result){
+  conn.query('SELECT e.id,e.description,e.difficulty_id,e.musclegroup_id,e.created,d.name AS d_name,m.name AS m_name FROM exercises AS e,difficulties AS d,musclegroups AS m WHERE e.difficulty_id=d.id AND e.musclegroup_id=m.id LIMIT $1',[n],function(err,result){
     if(err){
-      cb(err,undefined);
+      return cb(err,undefined);
     }
-    else{
-      resultToExercises(result,cb);
+    resultToExercises(result,cb);
+  });
+}
+function getById(query,cb){
+  var id = parseInt(query.id,10);
+  if(id<=0){
+    cb(Error.create('query.id invalid'),undefined);
+    return;
+  }
+  conn.query('SELECT e.id,e.description,e.difficulty_id,e.musclegroup_id,e.created,d.name AS d_name,m.name AS m_name FROM exercises AS e,difficulties AS d,musclegroups AS m WHERE e.difficulty_id=d.id AND e.musclegroup_id=m.id AND e.id=$1',[id],function(err,result){
+    if(err){
+      return cb(err,undefined);
     }
+    rowToExercise(result.rows[0],cb);
+  });
+}
+function getByUserFav(query,cb){
+  var uid = parseInt(query.userId,10);
+  if(uid<=0){
+    cb(Error.create('query.userId invalid'),undefined);
+    return;
+  }
+  conn.query('SELECT e.id,e.description,e.difficulty_id,e.musclegroup_id,e.created,d.name AS d_name,m.name AS m_name FROM exercises AS e,difficulties AS d,musclegroups AS m, fav_exercises AS f WHERE e.difficulty_id=d.id AND e.musclegroup_id=m.id AND f.exercise_id=e.id AND f.user_id=$1',[uid],function(err,result){
+    if(err){
+      return cb(err,undefined);
+    }
+    resultToExercises(result,cb);
   });
 }
 function resultToExercises(result,cb){
@@ -33,15 +59,7 @@ function resultToExercises(result,cb){
 }
 function rowToExercise(row,cb){
   var eid = row.id.toString();
-  var did = row.difficulty_id;
-  var mid = row.musclegroup_id;
   async.parallel({
-    difficulty: function(callback){
-      difficulty.getById({id:did},callback);
-    },
-    musclegroup: function(callback){
-      musclegroup.getById({id:mid},callback);
-    },
     names: function(callback){
       name.getByEidWid({eid:eid,wid:undefined},callback);
     },
@@ -54,20 +72,19 @@ function rowToExercise(row,cb){
   },
   function(err,results){
     if(err){
-      cb(err,undefined);
-      return;
+      return cb(err,undefined);
     }
     var exercise = new model.Exercise(
       row.id.toString(),
       row.description,
-      results.difficulty,
-      results.musclegroup,
+      new model.Difficulty(row.difficulty_id,row.d_name),
+      new model.Musclegroup(row.musclegroup_id,row.m_name),
       row.created,
       results.names,
       results.videos,
       results.photos
     );
-    cb(err,exercise);
+    cb(undefined,exercise);
   });
 }
 function init(query,cb){
@@ -103,28 +120,27 @@ function init(query,cb){
       }
       exercise.id = result.rows[0].id.toString();
       exercise.created = result.rows[0].created;
-      //TODO init child objects
       async.parallel({
         names: function(callback){
           var names = exercise.names.map(function(name,index,names){
             name.exerciseId = exercise.id;
-            return {name: name};
+            return name;
           });
-         async.map(names,name.init,callback);
+         async.map(names,name.initNoValidate,callback);
         },
         videos: function(callback){
           var videos = exercise.videos.map(function(video,index,videos){
             video.exerciseId = exercise.id;
-            return {video: video};
+            return video;
           });
-         async.map(videos,video.init,callback);
+         async.map(videos,video.initNoValidate,callback);
         },
         photos: function(callback){
           var photos = exercise.photos.map(function(photo,index,photos){
             photo.exerciseId = exercise.id;
-            return {photo: photo};
+            return photo;
           });
-         async.map(photos,photo.init,callback);
+         async.map(photos,photo.initNoValidate,callback);
         }
       },
       function afterChildObjectInit(err,results){
