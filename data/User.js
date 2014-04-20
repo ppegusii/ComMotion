@@ -35,7 +35,7 @@ function getById(query,cb){
     if(err){
       return cb(err,undefined);
     }
-    rowToUser(result.rows[0],cb);
+    return resultToUsers(result,cb);
   });
 }
 function getIdByUsername(query,cb){

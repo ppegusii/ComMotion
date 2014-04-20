@@ -18,10 +18,10 @@ asyncTest('exerciseGetById',function(){
 		type: 'POST',
 		url: '/query',
 		data: {query:'exerciseGetById',id:1}
-	}).done(function(exercise){
+	}).done(function(exercises){
     console.log('exerciseGetById');
-    console.log(exercise);
-    equal(exercise.id,'1','received exercise with id 1');
+    console.log(exercises);
+    equal(exercises[0].id,'1','received exercise with id 1');
     start();
   });
 });
@@ -72,16 +72,29 @@ asyncTest('usersGetLimitN',function(){
     start();
   });
 });
-asyncTest('userGetById',function(){
+asyncTest('userGetById user exists',function(){
   expect(1);
 	$.ajax({
 		type: 'POST',
 		url: '/query',
 		data: {query:'userGetById',id:1}
-	}).done(function(user){
+	}).done(function(users){
     console.log('userGetById');
-    console.log(user);
-    equal(user.id,1,'recieved user with correct id');
+    console.log(users);
+    equal(users[0].id,1,'recieved user with correct id');
+    start();
+  });
+});
+asyncTest('userGetById user does not exist',function(){
+  expect(1);
+	$.ajax({
+		type: 'POST',
+		url: '/query',
+		data: {query:'userGetById',id:500000}
+	}).done(function(users){
+    console.log('userGetById');
+    console.log(users);
+    equal(users.length,0,'recieved user with correct id');
     start();
   });
 });
@@ -98,6 +111,20 @@ asyncTest('userIdGetByUsername',function(){
     console.log('userIdGetByUsername');
     console.log(userId);
     equal(userId.id,1,'recieved correct userId given username');
+    start();
+  });
+});
+module("activities");
+asyncTest('activitiesGetAll',function(){
+  expect(1);
+	$.ajax({
+		type: 'POST',
+		url: '/query',
+		data: {query:'activitiesGetAll'}
+	}).done(function(activities){
+    console.log('activitiesGetAll');
+    console.log(activities);
+    equal(activities.length,0,'received array of length 0');
     start();
   });
 });
