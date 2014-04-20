@@ -50,7 +50,7 @@ app.get('^[^.]+$', nav.checkUser);
 
 app.get('/profile/about', prof.profile_about);
 app.get('/profile/myposts', prof.profile_posts);
-app.get('/profile/mycreations', prof.profile_creations);
+//app.get('/profile/mycreations', prof.profile_creations);
 app.get('/profile/followers', prof.profile_followers);
 app.get('/profile/following', prof.profile_following);
 
@@ -73,9 +73,10 @@ app.get('/usersearchresults', results.user_search_results);
 app.get('/encyclopediaresults', results.encyclopedia_results);
 
 app.get('/encyclopedia/exercise_entry', nav.encyclopedia_exercise_entry);
+app.get('/encyclopedia/exercise_entry/edit', nav.editExercise);
 app.get('/encyclopedia/workout_entry', nav.encyclopedia_workout_entry);
 
-app.get('/create/exercise', nav.exercise);
+app.get('/create/exercise', nav.createExercise);
 app.get('/create/workoutcreator', nav.workoutcreator);
 
 app.post('/create/exercise/save', nav.saveexercise);

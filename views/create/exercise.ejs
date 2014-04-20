@@ -30,19 +30,19 @@
      
 			<div id="exerciseform" class="form-horizontal col-md-6 col-sm-6 col-xs-6 col-md-offset-3  col-sm-offset-3 col-xs-offset-3 well" >
 
-							<% if(err.length !== 0) { %>
-								<div class="alert alert-danger" role="alert" style="margin-bottom: 15px">
-									<p class="error"><%= err %></p>
-								</div>
-							<% } %>
-
                             <div id="errorSection"></div>
 
                             <div class="panel panel-default">
                                 <div class="panel panel-heading">
                                     <h3 class="panel-title">Names:</h3>
                                 </div>
-                                <div id="enteredNames" class="panel-body"></div>
+                                <div id="enteredNames" class="panel-body">
+                                    <% if(exercise) {
+                                         for(var i = 0; i < exercise.names.length; i++) { %>
+                                            <a class="btn btn-sm btn-primary"><%= exercise.names[i].name %></a>
+                                    <%   }
+                                    } %>
+                                </div>
                             </div>
                             <button class="btn btn-default" style="margin-bottom: 15px" id="addNameButton">Add name</button>
 
@@ -95,7 +95,18 @@
                                     <div class="panel panel-heading">
                                         <h3 class="panel-title">Photos and videos:</h3>
                                     </div>
-                                    <div id="enteredMedia" class="panel-body"></div>
+                                    <div id="enteredMedia" class="panel-body">
+                                        <% if(exercise) {
+                                                for(var i = 0; i < exercise.photos.length; i++) { %>
+                                        <a class="btn btn-sm btn-primary"><%= exercise.photos[i].url %></a>
+                                        <%   }
+                                        } %>
+                                        <% if(exercise) {
+                                                for(var i = 0; i < exercise.videos.length; i++) { %>
+                                        <a class="btn btn-sm btn-primary"><%= exercise.videos[i].url %></a>
+                                        <%   }
+                                        } %>
+                                    </div>
                                 </div>
                                 <button class="btn btn-default" style="margin-bottom: 15px" id="addMediaButton">Add photo or video</button>
                             </div>

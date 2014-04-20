@@ -12,17 +12,17 @@
 <profilesidepanel>
 
 		<center>
-		<h4>myusername</h4>
+		<h4><%=user[0].username%></h4>
 		<media>
-		<img src="../images/generic_person.jpg" width="150px" height="150px"></img>
+			<img src="<%=user[0].avatar_url%>" width="150px" height="150px"></img>
 		</media>
 
 		<div style="margin-top:10px; margin-bottom:0px">
-		  <a id="followers" href="/profile/followers" style="font-Size:16px">Followers 8</a>
+		  <a id="followers" href="/profile/followers" style="font-Size:16px">Followers <%=user[0].followers.length%></a>
 		</div>
 		<hr style="margin-top: 10px; margin-bottom:10px" width="150px">
 		<div style="margin-top:0px">
-		  <a id="following" href="/profile/following" style="font-Size:16px">Following 11</a>
+		  <a id="following" href="/profile/following" style="font-Size:16px">Following <%=user[0].follows.length%></a>
 		</div>
 		<hr style="margin-top: 10px; margin-bottom:10px" width="150px" border>
 		<div style="margin-top:30px">
@@ -32,10 +32,11 @@
 		<div style="margin-top:20px">
 		  <a id="btn-my_posts" href="/profile/myposts" class="btn btn-default">Posts</a>
 		</div>
-
+		<!--
 		<div style="margin-top:20px">
 		  <a id="btn-my_creations" href="/profile/mycreations" class="btn btn-default">Creations</a>
 		</div>
+		-->
 
 		<div style="margin-top:20px">
 		  <a id="btn-edit_profile" data-toggle="modal" data-target="#editprofile" class="btn btn-default">Edit Profile</a>
@@ -79,8 +80,8 @@
       			</span>
 
 				<div style="margin-bottom: 0px" class="input-group">
-					<h5><strong>Description:</strong></h5>
-					<textarea class="form-control" id="exercise-description" style="resize:none" rows="4" cols="50" value="" resize="none" name="description"></textarea> 	
+					<h5><strong>Bio:</strong></h5>
+					<textarea class="form-control" id="exercise-bio" style="resize:none" rows="4" cols="50" value="" resize="none" name="description"></textarea> 	
 
 					<div style="margin-bottom: 15px" class="input-group">
 						<h5><strong>Profile Picture URL</strong> (optional)</h5>
