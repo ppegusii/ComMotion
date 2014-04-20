@@ -59,7 +59,7 @@ CREATE TABLE names(
 );
 CREATE TABLE users(
 	id SERIAL PRIMARY KEY,
-	username VARCHAR(255) NOT NULL,
+	username VARCHAR(255) UNIQUE NOT NULL,
 	password VARCHAR(255) NOT NULL,
 	difficulty_id integer references difficulties(id),
 	avatar_url VARCHAR(1023),

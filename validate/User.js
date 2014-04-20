@@ -2,12 +2,13 @@ var async = require('async');
 var validator = require('validator');
 
 var valExercise = require(process.env.VALIDATE_EXERCISE);
+var valDifficulty = require(process.env.VALIDATE_DIFFICULTY);
 
 exports.validate = validate;
 
 function validate(user,cb){
   user.id = parseInt(user.id,10);
-  if(isNan(user.id)){
+  if(isNaN(user.id)){
     user.id = undefined;
   }else if(user.id<=0){
     return cb(Error.create('user.id invalid'),undefined);
@@ -45,9 +46,9 @@ function validate(user,cb){
   if(!(user.follows instanceof(Array))){
     return cb(Error.create('user.follows not undefined or Array'),undefined);
   }
-  for(var i=0; i<follows.length; i++){
-    follows[i] = parseInt(follows[i],10);
-    if(follows[i] <= 0){
+  for(var i=0; i<user.follows.length; i++){
+    user.follows[i] = parseInt(user.follows[i],10);
+    if(user.follows[i] <= 0){
       return cb(Error.create('A follows id is invalid'),undefined);
     }
   }
@@ -57,13 +58,19 @@ function validate(user,cb){
   if(!(user.followers instanceof(Array))){
     return cb(Error.create('user.followers not undefined or Array'),undefined);
   }
-  for(var i=0; i<followers.length; i++){
-    followers[i] = parseInt(followers[i],10);
-    if(followers[i] <= 0){
+  for(var i=0; i<user.followers.length; i++){
+    user.followers[i] = parseInt(user.followers[i],10);
+    if(user.followers[i] <= 0){
       return cb(Error.create('A followers id is invalid'),undefined);
     }
   }
   async.parallel({
+    difficulty: function(callback){
+      if(user.difficulty){
+        return valDifficulty.validate(user.difficulty,callback);
+      }
+      callback(undefined,undefined);
+    },
     exercises: function(callback){
       async.map(user.fav_exercises,valExercise.validate,callback);
     }/*,
