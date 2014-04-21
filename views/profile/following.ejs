@@ -38,10 +38,10 @@
 
 		<div class="col-md-6 col-sm-6 col-xs-6">
 		
-		<center><h3><strong><%=user.username%></strong> is Following</h3></center>
+		<center><h3><strong><%=user[0].username%></strong> is Following</h3></center>
 		<hr>
 
-		<% var size = user.follows.length; %>
+		<% var size = user[0].follows.length; %>
 
 		<% if (size===0){ %>
 

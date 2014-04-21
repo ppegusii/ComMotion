@@ -12,17 +12,17 @@
 <profilesidepanel>
 
 		<center>
-		<h4><%=user.username%></h4>
+		<h4><%=user[0].username%></h4>
 		<media>
-			<img src="<%=user.avatar_url%>" width="150px" height="150px"></img>
+			<img src="<%=user[0].avatar_url%>" width="150px" height="150px"></img>
 		</media>
 
 		<div style="margin-top:10px; margin-bottom:0px">
-		  <a id="followers" href="/profile/followers" style="font-Size:16px">Followers <%=user.followers.length%></a>
+		  <a id="followers" href="/profile/followers" style="font-Size:16px">Followers <%=user[0].followers.length%></a>
 		</div>
 		<hr style="margin-top: 10px; margin-bottom:10px" width="150px">
 		<div style="margin-top:0px">
-		  <a id="following" href="/profile/following" style="font-Size:16px">Following <%=user.follows.length%></a>
+		  <a id="following" href="/profile/following" style="font-Size:16px">Following <%=user[0].follows.length%></a>
 		</div>
 		<hr style="margin-top: 10px; margin-bottom:10px" width="150px" border>
 		<div style="margin-top:30px">

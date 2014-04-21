@@ -38,9 +38,9 @@
 
 		<div class="col-md-6 col-sm-6 col-xs-6">
 
-		<center><h3><strong><%=user.username%></strong>'s Followers</h3></center>
+		<center><h3><strong><%=user[0].username%></strong>'s Followers</h3></center>
 		<hr>
-		<% var size = user.followers.length; %>
+		<% var size = user[0].followers.length; %>
 
 		<% if (size===0){ %>
 
