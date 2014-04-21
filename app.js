@@ -62,6 +62,8 @@ app.post('/authenticate', nav.authenticate);
 
 app.get('/create', nav.create);
 app.get('/encyclopedia', nav.encyclopedia);
+app.get('/encyclopediaindex', nav.encyclopediaindex);
+
 
 app.get('/myfavorites', nav.myfavorites);
 app.get('/findusers', nav.findusers);

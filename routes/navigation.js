@@ -72,6 +72,10 @@ exports.encyclopedia = function(req, res){
   });
 };
 
+exports.encyclopediaindex = function(req, res){
+  res.render('encyclopediaindex', {title: 'Encyclopedia Index'});
+};
+
 exports.myfavorites = function(req, res){
 	userId = req.session.user.id;
 	data.exercisesGetByUserFav( {userId: userId},function afterGet(err, exercises){
