@@ -258,7 +258,7 @@ asyncTest('activitiesGetAll',function(){
 	}).done(function(activities){
     console.log('activitiesGetAll');
     console.log(activities);
-    equal(activities.length,0,'received array of length 0');
+    equal(activities.length,16,'received array of length 0');
     start();
   });
 });
