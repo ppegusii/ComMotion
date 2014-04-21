@@ -6,6 +6,7 @@ require('./config/EnvVariables.js');
 */
 
 var express = require('express');
+var exer = require('./routes/exercise')
 var prof = require('./routes/profile');
 var nav = require('./routes/navigation');
 var results = require('./routes/results');
@@ -72,15 +73,15 @@ app.post('/query',routes.query);
 app.get('/usersearchresults', results.user_search_results);
 app.get('/encyclopediaresults', results.encyclopedia_results);
 
-app.get('/encyclopedia/exercise_entry', nav.encyclopedia_exercise_entry);
-app.get('/encyclopedia/exercise_entry/edit', nav.editExercise);
+app.get('/encyclopedia/exercise_entry', exer.encyclopedia_exercise_entry);
+app.get('/encyclopedia/exercise_entry/edit', exer.editExercise);
 app.get('/encyclopedia/workout_entry', nav.encyclopedia_workout_entry);
 
-app.get('/create/exercise', nav.createExercise);
+app.get('/create/exercise', exer.createExercise);
 app.get('/create/workoutcreator', nav.workoutcreator);
 
-app.post('/create/exercise/save', nav.saveexercise);
-app.get('/create/exercise/cancel', nav.cancelexercise);
+app.post('/create/exercise/save', exer.saveexercise);
+app.get('/create/exercise/cancel', exer.cancelexercise);
 
 app.get('/logout', nav.logout);
 
