@@ -29,6 +29,7 @@ process.env['VALIDATE_MUSCLEGROUP'] = path.join(validateDir,'./Musclegroup.js');
 process.env['VALIDATE_NAME'] = path.join(validateDir,'./Name.js');
 process.env['VALIDATE_VIDEO'] = path.join(validateDir,'./Video.js');
 process.env['VALIDATE_PHOTO'] = path.join(validateDir,'./Photo.js');
+process.env['VALIDATE_USER'] = path.join(validateDir,'./User.js');
 
 //models
 var modelsDir = path.join(appDir,'./models');

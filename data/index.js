@@ -37,6 +37,8 @@ exports.userGetById = user.getById;
 exports.userGetByUsernamePassword = user.getByUsernamePassword;
 //{username: string}
 exports.userIdGetByUsername = user.getIdByUsername;
+//{user: User}
+exports.userCreate = user.create;
 //{userId: number}
 exports.followedUserIdsGetByFollowingUserId;
 //{userId: number}

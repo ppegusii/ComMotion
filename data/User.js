@@ -14,6 +14,7 @@ exports.getByUsernamePassword = getByUsernamePassword;
 exports.getIdByUsername = getIdByUsername;
 exports.getFollowedUserIdsByFollowingUserId = getFollowedUserIdsByFollowingUserId;
 exports.getFollowingUserIdsByFollowedUserId = getFollowingUserIdsByFollowedUserId;
+exports.create = create;
 
 function getLimitN(query,cb){
   var n = parseInt(query.n,10);
@@ -127,5 +128,27 @@ function rowToUser(row,cb){
       results.followers
     );
     cb(undefined,user);
+  });
+}
+function create(query,cb){
+  if(!query.user){
+    return cb(Error.create('query.user undefined'),undefined);
+  }
+  validate.user(query.user,function afterValidation(err,user){
+    if(err){
+      return cb(err,undefined);
+    }
+    var statement = 'INSERT INTO users (username,password) VALUES ($1,$2) RETURNING id';
+    var params = [
+      query.user.username,
+      query.user.password
+    ];
+    conn.query(statement,params,function afterQuery(err,result){
+      if(err){
+        return cb(err,undefined);
+      }
+      user.id = result.rows[0].id.toString();
+      return cb(undefined,user);
+    });
   });
 }
