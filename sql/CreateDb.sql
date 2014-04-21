@@ -254,6 +254,42 @@ INSERT INTO users (id, username, password, difficulty_id, avatar_url, bio) VALUE
 	(19, 'hermioneGranger', 'commotion', 3, 'http://www.freelogovectors.net/wp-content/uploads/2013/02/Alien.png', 'I like to sweat on others.'),
 	(20, 'severusSnape', 'commotion', 2, 'http://www.freelogovectors.net/wp-content/uploads/2013/02/man-avatar-1.png', 'I like to sweat on others.');
 ALTER SEQUENCE users_id_seq RESTART WITH 21;
+INSERT INTO activities (id, name) VALUES
+	(1, 'hiking'),
+	(2, 'cycling'),
+	(3, 'mountain biking'),
+	(4, 'swimming'),
+	(5, 'surfing'),
+	(6, 'downhill skiing'),
+	(7, 'snowboarding'),
+	(8, 'cross country skiing'),
+	(9, 'martial arts'),
+	(10, 'bodybuilding'),
+	(11, 'powerlifting'),
+	(12, 'olympic lifting'),
+	(13, 'yoga'),
+	(14, 'snowshoeing'),
+	(15, 'parkour'),
+	(16, 'running');
+ALTER SEQUENCE activities_id_seq RESTART WITH 17;
+INSERT INTO user_activities (activity_id, user_id) VALUES
+	(13, 1),
+	(7, 1),
+	(13, 2),
+	(8, 3),
+	(3, 3),
+	(11, 4),
+	(9, 4),
+	(1, 4),
+	(15, 5),
+	(3, 6),
+	(10, 7),
+	(2, 7),
+	(4, 8),
+	(5, 8),
+	(6, 9),
+	(7, 10),
+	(13, 11);
 INSERT INTO fav_exercises (user_id, exercise_id) VALUES
 	(1, 1),
 	(1, 7),
@@ -262,3 +298,11 @@ INSERT INTO fav_exercises (user_id, exercise_id) VALUES
 	(3, 4),
 	(3, 10),
 	(4, 2);
+INSERT INTO followers (user_id, follower_id) VALUES
+	(1, 20),
+	(1, 7),
+	(1, 10),
+	(1, 11),
+	(2, 1),
+	(5, 1),
+	(14, 1);
