@@ -70,6 +70,22 @@ asyncTest('exerciseInit',function(){
     start();
   });
 });
+asyncTest('exercisesSearchByNameDescriptionMusclegroup',function(){
+  expect(1);
+	$.ajax({
+		type: 'POST',
+		url: '/query',
+		data: {
+      query:'exercisesSearchByNameDescriptionMusclegroup',
+      search: 'crusher'
+    }
+	}).done(function(es){
+    console.log('exercisesSearchByNameDescriptionMusclegroup');
+    console.log(es);
+    equal(es.length,1,'got 1');
+    start();
+  });
+});
 
 module("users");
 asyncTest('usersGetLimitN',function(){
@@ -140,6 +156,38 @@ asyncTest('userGetByUsernamePassword user does not exist',function(){
     }
 	}).done(function(users){
     console.log('userGetByUsernamePassword');
+    console.log(users);
+    equal(users.length,0,'recieved user no users');
+    start();
+  });
+});
+asyncTest('usersSearchByUsername user exists',function(){
+  expect(1);
+	$.ajax({
+		type: 'POST',
+		url: '/query',
+		data: {
+      query: 'usersSearchByUsername',
+      search: 'dorian'
+    }
+	}).done(function(users){
+    console.log('usersSearchByUsername');
+    console.log(users);
+    equal(users.length,2,'recieved two users');
+    start();
+  });
+});
+asyncTest('usersSearchByUsername user does not exist',function(){
+  expect(1);
+	$.ajax({
+		type: 'POST',
+		url: '/query',
+		data: {
+      query: 'usersSearchByUsername',
+      search: 'iDoNotExist'
+    }
+	}).done(function(users){
+    console.log('usersSearchByUsername');
     console.log(users);
     equal(users.length,0,'recieved user no users');
     start();
