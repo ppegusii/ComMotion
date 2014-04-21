@@ -175,49 +175,86 @@ exports.workoutcreator = function(req, res){
 };
 
 function toDifficulty(difficulty) {
-    return new models.Difficulty(1, difficulty);
+   var did = -1;
+   if(difficulty === 'Beginner')
+      did = 1;
+   if(difficulty === 'Intermediate')
+      did = 2;
+   if(difficulty === 'Advanced')
+      did = 3;
+   return new models.Difficulty(did, difficulty);
 }
 
 function toMusclegroup(musclegroup) {
-    return new models.Musclegroup(1, musclegroup);
+   var mid = -1;
+   if(musclegroup === 'Whole body')
+      mid = 1;
+   if(musclegroup === 'Upper body')
+      mid = 2;
+   if(musclegroup === 'Lower body')
+      mid = 3;
+   if(musclegroup === 'Core')
+      mid = 4;
+   return new models.Difficulty(mid, musclegroup);
+}
+
+// Convert string array to names array
+function toNames(namesArray) {
+   var ret = Array();
+   for(var i = 0; i < namesArray.length; i++) {
+      var nameObj = new models.Name(undefined, namesArray[i], undefined, undefined, undefined);
+      ret.push(nameObj);
+   }
+   return ret;
+}
+
+function toPhotos(photosArray) {
+   var ret = Array();
+   for(var i = 0; i < photosArray.length; i++) {
+      var photoObj = new models.Photo(undefined, photosArray[i], undefined, undefined);
+      ret.push(photoObj);
+   }
+   return ret;
+}
+
+function toVideos(videosArray) {
+   var ret = Array();
+   for(var i = 0; i < videosArray.length; i++) {
+      var videoObj = new models.Video(undefined, videosArray[i], undefined, undefined);
+      ret.push(videoObj);
+   }
+   return ret;
 }
 
 exports.saveexercise = function(req, res) {
 
-  var newExercise = {
-      names: [req.body.name],
-      difficulty: toDifficulty(req.body.difficulty),
-      description: req.body.description,
-      musclegroup: toMusclegroup(req.body.musclegroup),
-      photos: [req.body.media],
-      videos: []
-  };
-//  data.exerciseInit({exercise: newExercise},function afterSave(err,exercise){
-//    if(err){
-//      console.log(Error.toJson(err));
-//      /*
-//      req.flash('saveexercise',err.message);
-//      //not sure how I should alter the err parameter below
-//      res.redirect('/create/exercise?err=badNameOrBody');
-//      return;
-//      */
-//      res.send(400, err.message);
-//    }
-//    else {
-//       var goTo = '/encyclopedia/exercise_entry?eid=' + exercise.id;
-//       res.send(200, goTo);
-//    }
-//  });
-   var err = false;
-   if(req.body.description === 'error')
-      err = true;
-   if(err) {
-      res.send(400, 'Error message');
-   }
-   else {
-      var goTo = '/encyclopedia/exercise_entry?eid=' + '5';
-      res.send(200, goTo);
-   }
+   var queExercise = {
+       names: toNames(req.body.names),
+       difficulty: toDifficulty(req.body.difficulty),
+       description: req.body.description,
+       musclegroup: toMusclegroup(req.body.musclegroup),
+       photos: toPhotos(req.body.photos),
+       videos: []
+   };
+   console.log(queExercise);
+   data.exerciseInit({exercise: queExercise}, function(err, resExercise) {
+      if(err)
+         res.send(500, err.message);
+      else {
+         var goTo = '/encyclopedia/exercise_entry?eid=' + resExercise.id;
+         res.send(200, goTo);
+      }
+   })
+//   var err = false;
+//   if(req.body.description === 'error')
+//      err = true;
+//   if(err) {
+//      res.send(400, 'Error message');
+//   }
+//   else {
+//      var goTo = '/encyclopedia/exercise_entry?eid=' + '5';
+//      res.send(200, goTo);
+//   }
 };
 
 exports.cancelexercise = function(req, res) {
