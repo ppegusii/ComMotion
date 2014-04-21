@@ -4,6 +4,7 @@ DROP TABLE IF EXISTS fav_workouts;
 DROP TABLE IF EXISTS fav_exercises;
 DROP TABLE IF EXISTS user_activities;
 DROP TABLE IF EXISTS activities;
+DROP TABLE IF EXISTS posts;
 DROP TABLE IF EXISTS users;
 DROP TABLE IF EXISTS names;
 DROP TABLE IF EXISTS videos;
@@ -64,7 +65,13 @@ CREATE TABLE users(
 	difficulty_id integer references difficulties(id),
 	avatar_url VARCHAR(1023),
 	bio VARCHAR(2047)
-);	
+);
+CREATE TABLE posts(
+	id SERIAL PRIMARY KEY,
+	user_id integer references users(id) NOT NULL,
+	text VARCHAR(2047) NOT NULL,
+	created timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
+);
 CREATE TABLE activities(
 	id SERIAL PRIMARY KEY,
 	name VARCHAR(1023) NOT NULL
@@ -254,6 +261,16 @@ INSERT INTO users (id, username, password, difficulty_id, avatar_url, bio) VALUE
 	(19, 'hermioneGranger', 'commotion', 3, 'http://www.freelogovectors.net/wp-content/uploads/2013/02/Alien.png', 'I like to sweat on others.'),
 	(20, 'severusSnape', 'commotion', 2, 'http://www.freelogovectors.net/wp-content/uploads/2013/02/man-avatar-1.png', 'I like to sweat on others.');
 ALTER SEQUENCE users_id_seq RESTART WITH 21;
+INSERT INTO posts (user_id, text) VALUES
+	(13, 'The Boston Marathon today was just nuclear!  I''m glowing with admiration.  By the way, I found ring dips
+to be challenging, but what an awesome pump!'),
+	(15, 'I get tired so easily when I swim.  Medicine ball slams are helping with my endurance.'),
+	(17, 'I love squats so much, I want to start a squat club.  And the first rule of squat club is, you don''t
+talk about squat club.'),
+	(20, 'If anyone else is unhappy with their core, Turkish get-ups were a magic potion for my abs.'),
+	(18, 'Everyone!  I just joined this life-changing club for people who love squats.  Only I''m not supposed
+to talk about it...'),
+	(7, 'I do believe that heavy Olympic lifts keep me young.  It has nothing to do with that picture in my attic.');	
 INSERT INTO activities (id, name) VALUES
 	(1, 'hiking'),
 	(2, 'cycling'),
@@ -289,6 +306,9 @@ INSERT INTO user_activities (activity_id, user_id) VALUES
 	(5, 8),
 	(6, 9),
 	(7, 10),
+	(4, 15),
+	(9, 17),
+	(12, 7),
 	(13, 11);
 INSERT INTO fav_exercises (user_id, exercise_id) VALUES
 	(1, 1),
@@ -297,6 +317,8 @@ INSERT INTO fav_exercises (user_id, exercise_id) VALUES
 	(2, 6),
 	(3, 4),
 	(3, 10),
+	(15, 17),
+	(7, 16),
 	(4, 2);
 INSERT INTO followers (user_id, follower_id) VALUES
 	(1, 20),
@@ -305,4 +327,12 @@ INSERT INTO followers (user_id, follower_id) VALUES
 	(1, 11),
 	(2, 1),
 	(5, 1),
+	(17, 18),
+	(17, 2),
+	(17, 3),
+	(17, 4),
+	(17, 5),
+	(17, 6),
+	(17, 7),
+	(17, 8),
 	(14, 1);
