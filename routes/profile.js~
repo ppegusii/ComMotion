@@ -5,7 +5,7 @@ exports.profile_about = function(req, res){
 	var activities
 	data.activitiesGetByUserId({id: userId}, function aftergetActivities(err, retActivities){
 	console.log("start");
-	console.log("ACTIVITIES: " + retActivities);
+	console.log("ACTIVITIES: " + activities);
 	activities = retActivities;
 	});
 

@@ -27,7 +27,7 @@
       </div>
 
       <div class="row">
-
+<%= JSON.stringify(photos[0]) %>
         <div class="col-sm-8 blog-main">
 
           <div class="blog-post">
@@ -51,12 +51,15 @@
                 <tr>
                   <% for (var i=0; i < photos.length; i++) { %>
                     <td>
-                      <%= photos[i].url %>
+					<!--TODO: Adjust Sizes -->
+					<img src=<%=photos[i].url %> width="280px" height="280px"></img>
+                      
                     </td>
                   <% } %>
                   <% for (var i=0; i < videos.length; i++) { %>
                   <td>
-                      <%= videos[i].url %>
+					<!--TODO: Adjust Sizes -->
+                      <iframe width="560" height="315" src=<%= videos[i].url %> frameborder="0" allowfullscreen></iframe>
                   </td>
                   <% } %>
                 </tr>
