@@ -51,3 +51,7 @@ exports.followingUserIdsGetByFollowedUserId;
 exports.activitiesGetAll = activity.getAll;
 //{userId: number}
 exports.activitiesGetByUserId = activity.getByUserId;
+//{userId: number}
+exports.usergetFollowersUsernameAndAvatars = user.getFollowersUsernameAndAvatars;
+//{userId: number}
+exports.usergetFollowingUsernameAndAvatars = user.getFollowingUsernameAndAvatars;
