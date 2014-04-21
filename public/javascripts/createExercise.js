@@ -5,6 +5,7 @@
 
 var names = new Array();
 var photoURLs = new Array();
+var videoURLs = new Array();
 
 $(function () {
    initAddNameButton();
@@ -15,9 +16,10 @@ $(function () {
 function initAddNameButton() {
    var addNameButton = $('#addNameButton');
    addNameButton.click(function(event) {
-      var name = prompt('New name:');
-      if(name !== '') {
-         console.log('Entered name ' + name);
+      var name = prompt('New name:').trim();
+      console.log(name);
+      if(name !== '' && name !== null) {
+         console.log('Entered name "' + name + '"');
          // add name to model
          names.push(name);
          // add name to view
@@ -25,25 +27,59 @@ function initAddNameButton() {
          $('#enteredNames').append(html);
       }
       else
-         console.log('Entered empty name!');
+         console.log('Improper name format!');
    });
 }
 
 function initAddMediaButton() {
    var addMediaButton = $('#addMediaButton');
    addMediaButton.click(function(event) {
-      var url = prompt('URL of media:');
-      if(url !== '') {
+      var url = prompt('URL of media:').trim();
+      if(isPhotoURL(url) || isVideoURL(url)) {
          console.log('Entered url ' + url);
          // add url to model
-         photoURLs.push(url);
+         if(isPhotoURL(url))
+            photoURLs.push(url);
+         else
+            videoURLs.push(url);
          // add url to view
          var html = '<a class="btn btn-sm btn-primary">' + url + '</a>';
          $('#enteredMedia').append(html);
       }
       else
-         console.log('Entered empty url!');
+         console.log('Not photo or video!');
    });
+}
+
+function isPhotoURL(url) {
+   // check spaces
+   if(url === null || url.indexOf(' ') >= 0)
+      return false;
+   // check ending in .jpg, .jpeg, or .png
+   var fourCharEnd = url.substring(url.length-4);
+   var fiveCharEnd = url.substring(url.length-5);
+   if(fourCharEnd !== '.jpg' && fourCharEnd !== '.png' && fiveCharEnd !== '.jpeg')
+      return false;
+   return true;
+}
+
+// hash part has 11 chars
+function isVideoURL(url) {
+   if(url === null || url.indexOf(' ') >= 0)
+      return false;
+   if(url.indexOf('www.youtube.com') >= 0) {
+      // check embed format
+      var embedPart = 'www.youtube.com/embed/';
+      if(url.indexOf(embedPart) >= 0) {
+         console.log('Video embed format');
+         console.log(url.substring(url.indexOf(embedPart)+embedPart.length));
+         return (url.substring(url.indexOf(embedPart)+embedPart.length).length === 11);
+      }
+      else {
+         return url.indexOf('www.youtube.com/watch?v=') >= 0;
+      }
+   }
+   return false;
 }
 
 function initSaveButton() {

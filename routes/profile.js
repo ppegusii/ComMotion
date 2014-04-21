@@ -2,11 +2,19 @@ var data = require(process.env.DATA);
 
 exports.profile_about = function(req, res){
 	userId = req.session.user.id;
-	  data.userGetById( {id: userId},function afterGet(err, user){
+	var activities
+	data.activitiesGetByUserId({id: userId}, function aftergetActivities(err, retActivities){
+	console.log("start");
+	console.log("ACTIVITIES: " + retActivities);
+	activities = retActivities;
+	});
+
+	data.userGetById( {id: userId},function afterGet(err, user){
     res.render('profile/about',
       {
         title: 'Profile About',
         user: user,
+		activities: activities,
         err: err
       });
   });

@@ -11,6 +11,7 @@ var difficulty = require(process.env.DATA_DIFFICULTY);
 exports.getLimitN = getLimitN;
 exports.getById = getById;
 exports.getByUsernamePassword = getByUsernamePassword;
+exports.searchByUsername = searchByUsername;
 exports.getIdByUsername = getIdByUsername;
 exports.getFollowedUserIdsByFollowingUserId = getFollowedUserIdsByFollowingUserId;
 exports.getFollowingUserIdsByFollowedUserId = getFollowingUserIdsByFollowedUserId;
@@ -21,7 +22,7 @@ function getLimitN(query,cb){
   if(n<=0){
     return cb(Error.create('query.n invalid'),undefined);
   }
-  conn.query('SELECT u.id,u.username,u.password,u.difficulty_id,u.avatar_url,u.bio,d.name AS d_name FROM users AS u,difficulties AS d WHERE u.difficulty_id=d.id LIMIT $1',[n],function afterQuery(err,result){
+  conn.query('SELECT u.id,u.username,u.difficulty_id,u.avatar_url,u.bio,d.name AS d_name FROM users AS u,difficulties AS d WHERE u.difficulty_id=d.id LIMIT $1',[n],function afterQuery(err,result){
     if(err){
       return cb(err,undefined);
     }
@@ -33,7 +34,7 @@ function getById(query,cb){
   if(id<=0){
     return cb(Error.create('query.id invalid'),undefined);
   }
-  conn.query('SELECT u.id,u.username,u.password,u.difficulty_id,u.avatar_url,u.bio,d.name AS d_name FROM users AS u,difficulties AS d WHERE u.difficulty_id=d.id AND u.id=$1',[id],function afterQuery(err,result){
+  conn.query('SELECT u.id,u.username,u.difficulty_id,u.avatar_url,u.bio,d.name AS d_name FROM users AS u,difficulties AS d WHERE u.difficulty_id=d.id AND u.id=$1',[id],function afterQuery(err,result){
     if(err){
       return cb(err,undefined);
     }
@@ -47,7 +48,7 @@ function getByUsernamePassword(query,cb){
   if(!query.password || query.password===''){
     return cb(Error.create('query.password undefined or blank'),undefined);
   }
-  conn.query('SELECT u.id,u.username,u.password,u.difficulty_id,u.avatar_url,u.bio,d.name AS d_name FROM users AS u,difficulties AS d WHERE u.difficulty_id=d.id AND u.username=$1 AND u.password=$2',[query.username,query.password],function afterQuery(err,result){
+  conn.query('SELECT u.id,u.username,u.difficulty_id,u.avatar_url,u.bio,d.name AS d_name FROM users AS u,difficulties AS d WHERE u.difficulty_id=d.id AND u.username=$1 AND u.password=$2',[query.username,query.password],function afterQuery(err,result){
     if(err){
       return cb(err,undefined);
     }
@@ -66,6 +67,18 @@ function getIdByUsername(query,cb){
     return cb(err,result.rows.map(function(row,index,rows){
       return row.id;
     }));
+  });
+}
+function searchByUsername(query,cb){
+  if(!query.search){
+    return cb(Error.create('query.search undefined'),undefined);
+  }
+  query.search = '%'+query.search+'%';
+  conn.query('SELECT DISTINCT u.id,u.username,u.difficulty_id,u.avatar_url,u.bio,d.name AS d_name FROM users AS u,difficulties AS d WHERE u.difficulty_id=d.id AND u.username LIKE $1',[query.search],function afterQuery(err,result){
+    if(err){
+      return cb(err,undefined);
+    }
+    return resultToUsers(result,cb);
   });
 }
 function getFollowedUserIdsByFollowingUserId(query,cb){
@@ -117,7 +130,8 @@ function rowToUser(row,cb){
     var user = new model.User(
       row.id.toString(),
       row.username,
-      row.password,
+      //row.password,
+      undefined,
       new model.Difficulty(row.difficulty_id,row.d_name),
       row.avatar_url,
       row.bio,
@@ -148,6 +162,7 @@ function create(query,cb){
         return cb(err,undefined);
       }
       user.id = result.rows[0].id.toString();
+      user.password = undefined;
       return cb(undefined,user);
     });
   });

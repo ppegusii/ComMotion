@@ -17,7 +17,7 @@ function getByUserId(query,cb){
   if(uid<=0){
     return cb(Error.create('query.userId invalid'),undefined);
   }
-  conn.query('SELECT a.id,a.name FROM activities AS a, user_activities AS ua WHERE ua.user_id=$1',[uid],function(err,result){
+  conn.query('SELECT a.id,a.name FROM activities AS a, user_activities AS ua WHERE ua.activity_id=a.id AND ua.user_id=$1',[uid],function(err,result){
     if(err){
       return cb(err,undefined);
     }
