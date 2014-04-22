@@ -6,7 +6,7 @@ require('./config/EnvVariables.js');
 */
 
 var express = require('express');
-var exer = require('./routes/exercise')
+var exer = require('./routes/exercise');
 var prof = require('./routes/profile');
 var nav = require('./routes/navigation');
 var results = require('./routes/results');
@@ -72,8 +72,8 @@ app.post('/query',routes.query);
 
 
 
-app.get('/usersearchresults', results.user_search_results);
-app.get('/encyclopediaresults', results.encyclopedia_results);
+app.get('/findusers/results', results.user_search_results);
+app.get('/encyclopedia/results', results.encyclopedia_results);
 
 app.get('/encyclopedia/exercise_entry', exer.encyclopedia_exercise_entry);
 app.get('/encyclopedia/exercise_entry/edit', exer.editExercise);
@@ -86,6 +86,11 @@ app.post('/create/exercise/save', exer.saveexercise);
 app.get('/create/exercise/cancel', exer.cancelexercise);
 
 app.get('/logout', nav.logout);
+
+// functions accessible in ejs files
+app.locals({
+   toYoutubeThumb: exer.toYoutubeThumb
+});
 
 http.createServer(app).listen(app.get('port'), function(){
   console.log('Express server listening on port ' + app.get('port'));

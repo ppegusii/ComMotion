@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
   <link rel="stylesheet" href="../stylesheets/bootstrap/css/bootstrap.css">
   <link rel="stylesheet" href="../stylesheets/header.css">
+    <script src="../javascripts/userSearch.js"></script>
 
 <style>
 table tr > td{
@@ -18,7 +19,7 @@ padding-bottom:5px;
 
 <usersearchpanel>
 
-<div style="margin-top:30px" class="well">
+<div style="margin-top:30px; padding-left:12px; padding-right:12px" class="well">
 
 <div style="margin-bottom:20px"><center><h4><strong>Search for User</strong></h4></center></div>
 			<h5><strong>Skill Level:</strong></h5>
@@ -30,30 +31,45 @@ padding-bottom:5px;
 			<h5><strong>Activities:</strong></h5>
 				<span class="input-group">
 					<table>
-					<tr>
+					<tr style="font-size:14px">
+        			<td><input type="checkbox" name="activity" value="hiking">  Hiking  </td>
+					<td><input type="checkbox" name="activity" value="cycling">  Cycling  </td>
+					<td><input type="checkbox" name="activity" value="mountain_biking">  Mountain Biking  </td>
+					</tr>
+					<tr style="font-size:14px">
         			<td><input type="checkbox" name="activity" value="swimming">  Swimming  </td>
-					<td><input type="checkbox" name="activity" value="weightlifting">  Weight Lifting  </td>
-					<td><input type="checkbox" name="activity" value="kickboxing">  Kick Boxing  </td>
+        			<td><input type="checkbox" name="activity" value="surfing">  Surfing  </td>
+					<td><input type="checkbox" name="activity" value="downhill_skiing">  Downhill Skiing  </td>
 					</tr>
-					<tr>
-        			<td><input type="checkbox" name="activity" value="cycling">  Cycling </td>
-					<td><input type="checkbox" name="activity" value="">  Running  </td>
-					<td><input type="checkbox" name="activity" value="kickboxing">  Fill In  </td>
+					<tr style="font-size:14px">
+					<td><input type="checkbox" name="activity" value="snowboarding">  Snowboarding  </td>
+					<td><input type="checkbox" name="activity" value="cross_country_skiing">  XC Skiing  </td>
+					<td><input type="checkbox" name="activity" value="martial_arts">  Martial Arts </td>
 					</tr>
-					<tr>
-        			<td><input type="checkbox" name="activity" value="cycling">  Fill In </td>
-					<td><input type="checkbox" name="activity" value="">  Fill In </td>
+					<tr style="font-size:14px">
+					<td><input type="checkbox" name="activity" value="bodybuilding">  Bodybuilding </td>
+					<td><input type="checkbox" name="activity" value="powerlifting">  Powerlifting  </td>
+					<td><input type="checkbox" name="activity" value="olympic_lifting">  Olympic Lifting  </td>
+					</tr>
+					<tr style="font-size:14px">
+        			<td><input type="checkbox" name="activity" value="yoga">  Yoga </td>
+					<td><input type="checkbox" name="activity" value="snowshoeing">  Snowshoeing </td>
+					<td><input type="checkbox" name="activity" value="parkour">  Parkour  </td>
+
+					</tr>
+					<tr style="font-size:14px">
+					<td><input type="checkbox" name="activity" value="running">  Running  </td>
 					</tr>
 					</table>
       			</span>
 		<center>
 			<span>
 					<div style="margin-top: 30px; margin-bottom:10px" class="input-group">
-								<input id="search" type="text" class="form-control" name="query" value="">                                       
+								<input id="usersearch" type="text" class="form-control" name="query" value="">
                                  
                             </div>
 			</span>	
-					<a id="btn-search" href="usersearchresults" class="btn btn-danger">Search</a>
+					<a id="userSearchButton" class="btn btn-danger">Search</a>
    
 		</center>
 

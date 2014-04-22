@@ -24,8 +24,43 @@
 <div class="container">
 
 	<div class="row">
+<row>
+<h3>Exercises</h3>
+<hr>
+</row>
+<% var size = exercises.length%>
 
-		Exercise Index
+		<div class="col-md-3 col-sm-3 col-xs-3">
+			<ul>
+			<% for (var i=0; i<(size/4)*2; i++){ %>
+			<li><h4><a href="http://localhost:8080/encyclopedia/exercise_entry?eid=<%=exercises[i].id%>"><%=exercises[i].names[0].name %></a></h4></li>
+			<% } %>
+			</ul>
+		</div>
+
+		<div class="col-md-3 col-sm-3 col-xs-3">
+			<ul>
+			<% for (var i=(size/4); i<(size/4)*2; i++){ %>
+			<li><h4><a href="http://localhost:8080/encyclopedia/exercise_entry?eid=<%=exercises[i].id%>"><%=exercises[i].names[0].name %></a></h4></li>
+			<% } %>
+			</ul>
+		</div>
+
+		<div class="col-md-3 col-sm-3 col-xs-3">
+			<ul>
+			<% for (var i=(size/4)*2; i<(size/4)*3; i++){ %>
+			<li><h4><a href="http://localhost:8080/encyclopedia/exercise_entry?eid=<%=exercises[i].id%>"><%=exercises[i].names[0].name %></a></h4></li>
+			<% } %>
+			</ul>
+		</div>
+
+		<div class="col-md-3 col-sm-3 col-xs-3">
+			<ul>
+			<% for (var i=(size/4)*3; i<size; i++){ %>
+			<li><h4><a href="http://localhost:8080/encyclopedia/exercise_entry?eid=<%=exercises[i].id%>"><%=exercises[i].names[0].name %></a></h4></li>
+			<% } %>
+			</ul>
+		</div>
 
 	</div>
 

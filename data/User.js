@@ -16,6 +16,8 @@ exports.getIdByUsername = getIdByUsername;
 exports.getFollowedUserIdsByFollowingUserId = getFollowedUserIdsByFollowingUserId;
 exports.getFollowingUserIdsByFollowedUserId = getFollowingUserIdsByFollowedUserId;
 exports.create = create;
+exports.getFollowersUsernameAndAvatars = getFollowersUsernameAndAvatars;
+exports.getFollowingUsernameAndAvatars = getFollowingUsernameAndAvatars;
 
 function getLimitN(query,cb){
   var n = parseInt(query.n,10);
@@ -165,5 +167,39 @@ function create(query,cb){
       user.password = undefined;
       return cb(undefined,user);
     });
+  });
+}
+
+
+function getFollowersUsernameAndAvatars(query,cb){
+  var uid = query.userId
+
+  if(uid<=0){
+    return cb(Error.create('query.userId invalid'),undefined);
+  }
+	conn.query('SELECT username, avatar_url FROM users WHERE id IN (SELECT follower_id FROM followers WHERE user_id=$1)',[uid], function afterQuery(err, result){
+
+    if(err){
+      return cb(err,undefined);
+    }
+
+    return cb(undefined, result.rows);
+  });
+}
+
+
+function getFollowingUsernameAndAvatars(query,cb){
+  var uid = query.userId
+
+  if(uid<=0){
+    return cb(Error.create('query.userId invalid'),undefined);
+  }
+	conn.query('SELECT username, avatar_url FROM users WHERE id IN (SELECT user_id FROM followers WHERE follower_id=$1)',[uid], function afterQuery(err, result){
+
+    if(err){
+      return cb(err,undefined);
+    }
+
+    return cb(undefined, result.rows);
   });
 }

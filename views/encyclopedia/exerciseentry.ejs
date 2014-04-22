@@ -14,10 +14,11 @@
 
   <body>
 
+
     <% include ../fragments/header %>
 
     <div class="container">
-
+	
       <div class="blog-header">
         <h1 class="blog-title"><%= names[0].name %></h1>
         <p>
@@ -52,14 +53,20 @@
                   <% for (var i=0; i < photos.length; i++) { %>
                     <td>
 					<!--TODO: Adjust Sizes -->
-					<img src=<%=photos[i].url %> width="280px" height="280px"></img>
+					<img src=<%=photos[i].url %> width="280px" height="280px">
                       
                     </td>
                   <% } %>
                   <% for (var i=0; i < videos.length; i++) { %>
                   <td>
 					<!--TODO: Adjust Sizes -->
-                      <iframe width="560" height="315" src=<%= videos[i].url %> frameborder="0" allowfullscreen></iframe>
+					<!--
+                      <a href="<%= videos[i].url %>" target="_blank">
+                        <img src="<%- toYoutubeThumb(videos[i].url) %>" width="280px" height="280px">
+                      </a>
+					-->
+						<iframe id = "videoInsert" width="448" height="252" frameborder="0" allowfullscreen></iframe>
+
                   </td>
                   <% } %>
                 </tr>
@@ -68,11 +75,21 @@
             
           </div><!-- /.blog-post -->
 
+
         </div><!-- /.blog-main -->
 
       </div><!-- /.row -->
 
+
     </div><!-- /.container -->
+
+	
+<!--Script to Convert Standard youtube URL to embed URL -->
+	<script type='text/javascript'>
+		var  standardURL = <%-JSON.stringify(videos[0].url)%>
+		var embedURL = "http://" + standardURL.replace(/watch\?v=/g,"embed/");
+		 $("#videoInsert").attr("src", embedURL);
+	</script>
   
   <% include ../fragments/footer %>
   <script src = "javascripts/bootstrap.js"></script>

@@ -24,7 +24,7 @@
 <div class="container">
 
 	<div style="margin-top:20px" class="row">
-<%= JSON.stringify(user[0]) %>
+   <!--<%= JSON.stringify(user[0]) %>-->
 	
 		<div class="col-md-3 col-sm-3 col-xs-3">
 	
@@ -40,14 +40,21 @@
 
 		<div class="col-md-8 col-sm-8 col-xs-8">
 		
-		<div style="margin-bottom:15px; margin-top:30px"><strong>Skill Level:</strong> <%= user[0].difficulty.name %></div>
+		<div style="margin-bottom:25px; margin-top:30px"><h4 style="font-size:17px"><strong>Skill Level:</strong> <%= user[0].difficulty.name %></h4></div>
 
-		<div style="margin-bottom:15px"><strong>Activities:</strong> <% for(var i=0; i<user[0].activities.length; i++){ %>
-			<%=user[0].activities[i].name%>, 
+		<div style="margin-bottom:25px"><h4 style="font-size:17px"><strong>Activities:</strong> <% for(var i=0; i<user[0].activities.length; i++){ %>
+			<% if(i+1==user[0].activities.length){ %>
+				<%=user[0].activities[i].name%>
+			<% }else{ %>
+				<%=user[0].activities[i].name%>, 
 			<% } %>
+	
+			<% } %>
+			</h4>
 		</div>
 
-		<div><strong>Short Bio:</strong> <%= user[0].bio %>
+		<div><h4 style="font-size:17px"><strong>Short Bio:</strong> <%= user[0].bio %>
+		</h4>
 		</div>
 		</div>
 		

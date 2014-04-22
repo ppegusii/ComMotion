@@ -4,6 +4,8 @@ exports.profile_about = function(req, res){
 	userId = req.session.user.id;
 	var activities
 	data.activitiesGetByUserId({id: userId}, function aftergetActivities(err, retActivities){
+	console.log("start");
+	console.log("ACTIVITIES: " + retActivities);
 	activities = retActivities;
 	});
 
