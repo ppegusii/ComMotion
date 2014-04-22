@@ -245,21 +245,21 @@ INSERT INTO users (id, username, password, difficulty_id, avatar_url, bio) VALUE
 	(3, 'johnGrimek', 'commotion', 1, 'http://ict4kids.files.wordpress.com/2013/05/mrc-2.png', 'I like to sweat on others.'),
 	(4, 'francoColumbu', 'commotion', 3, 'http://photos.posh24.com/p/777876/z/paris_hilton/the_stars_as_avatars.jpg', 'I like to sweat on others.'),
 	(5, 'janeAusten', 'commotion', 2, 'http://infinitelives.net/avatars/flashjen.jpg', 'I like to sweat on others.'),
-	(6, 'austinPowers', 'commotion', 1, 'http:www.vector-eps.com/wp-content/gallery/penguin-avatars/thumbs/thumbs_penguin-avatars7.jpg', 'I like to sweat on others.'),
-	(7, 'dorianGray', 'commotion', 3, 'https:www.fgl.com/pictures/picture_zyyhpm251303.gif', 'I like to sweat on others.'),
+	(6, 'austinPowers', 'commotion', 1, 'http://www.vector-eps.com/wp-content/gallery/penguin-avatars/thumbs/thumbs_penguin-avatars7.jpg', 'I like to sweat on others.'),
+	(7, 'dorianGray', 'commotion', 3, 'https://www.fgl.com/pictures/picture_zyyhpm251303.gif', 'I like to sweat on others.'),
 	(8, 'oscarWilde', 'commotion', 2, 'http://images.businessweek.com/ss/06/01/motorola_labs/image/6_dmsg-realistic-avatar.jpg', 'I like to sweat on others.'),
 	(9, 'margaretThatcher', 'commotion', 1, 'http://photos.posh24.com/p/777888/l/paris_hilton/the_stars_as_avatars.jpg', 'I like to sweat on others.'),
 	(10, 'miaHamm', 'commotion', 3, 'http://png-2.findicons.com/files/icons/1072/face_avatars/300/fh04.png', 'I like to sweat on others.'),
-	(11, 'miaFarrow', 'commotion', 2, 'http:www.myicore.com/post_pics/logos/twitter-avatars/yoda-twitter-avatar.jpg', 'I like to sweat on others.'),
+	(11, 'miaFarrow', 'commotion', 2, 'http://www.myicore.com/post_pics/logos/twitter-avatars/yoda-twitter-avatar.jpg', 'I like to sweat on others.'),
 	(12, 'andyWarhol', 'commotion', 1, 'http://avatars.np.us.playstation.com/avatar/WWS_E/EP90000911000l.png', 'I like to sweat on others.'),
-	(13, 'madameCurie', 'commotion', 3, 'http:www.vector-eps.com/wp-content/gallery/penguin-avatars/thumbs/thumbs_penguin-avatars16.jpg', 'I like to sweat on others.'),
+	(13, 'madameCurie', 'commotion', 3, 'http://www.vector-eps.com/wp-content/gallery/penguin-avatars/thumbs/thumbs_penguin-avatars16.jpg', 'I like to sweat on others.'),
 	(14, 'adaLovelace', 'commotion', 2, 'https://docs.atlassian.com/aui/5.3-m3/docs/img/project-128.png', 'I like to sweat on others.'),
 	(15, 'babeRuth', 'commotion', 1, 'http://1.bp.blogspot.com/-rmN_xDIAljo/Tn0Yzd96yTI/AAAAAAAAB64/DXTwUXGWxw4/s400/avatars-000000733783-d1doh2-crop.jpg', 'I like to sweat on others.'),
 	(16, 'ruthGinsberg', 'commotion', 3, 'http://i1.sndcdn.com/avatars-000024624494-iqyx26-crop.jpg?3eddc42', 'I like to sweat on others.'),
 	(17, 'tylerDurden', 'commotion', 2, 'http://espenl4.files.wordpress.com/2011/03/coolavatar06.png', 'I like to sweat on others.'),
-	(18, 'robertPaulson', 'commotion', 1, 'https:www.fancyhands.com/images/default-avatar-250x250.png', 'I like to sweat on others.'),
-	(19, 'hermioneGranger', 'commotion', 3, 'http:www.freelogovectors.net/wp-content/uploads/2013/02/Alien.png', 'I like to sweat on others.'),
-	(20, 'severusSnape', 'commotion', 2, 'http:www.freelogovectors.net/wp-content/uploads/2013/02/man-avatar-1.png', 'I like to sweat on others.');
+	(18, 'robertPaulson', 'commotion', 1, 'https://www.fancyhands.com/images/default-avatar-250x250.png', 'I like to sweat on others.'),
+	(19, 'hermioneGranger', 'commotion', 3, 'http://www.freelogovectors.net/wp-content/uploads/2013/02/Alien.png', 'I like to sweat on others.'),
+	(20, 'severusSnape', 'commotion', 2, 'http://www.freelogovectors.net/wp-content/uploads/2013/02/man-avatar-1.png', 'I like to sweat on others.');
 ALTER SEQUENCE users_id_seq RESTART WITH 21;
 INSERT INTO posts (user_id, text) VALUES
 	(13, 'The Boston Marathon today was just nuclear!  I''m glowing with admiration.  By the way, I found ring dips
