@@ -19,6 +19,7 @@ queries['usersSearchByUsername'] = data.usersSearchByUsername;
 queries['userGetByUsernamePassword'] = data.userGetByUsernamePassword;
 queries['userIdGetByUsername'] = data.userIdGetByUsername;
 queries['userCreate'] = data.userCreate;
+queries['userCreateFavExercise'] = data.userCreateFavExercise;
 queries['followedUserIdsGetByFollowingUserId'] = data.followedUserIdsGetByFollowingUserId;
 queries['followingUserIdsGetByFollowedUserId'] = data.followingUserIdsGetByFollowedUserId;
 queries['activitiesGetAll'] = data.activitiesGetAll;

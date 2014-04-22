@@ -229,6 +229,59 @@ asyncTest('userCreate user does not exist',function(){
     start();
   });
 });
+/*
+asyncTest('userCreateFavExercise',function(){
+  expect(1);
+  g = guid();
+	$.ajax({
+		type: 'POST',
+		url: '/query',
+		data: {
+      query: 'userCreate',
+      user: {
+        username: g,
+        password: 'commotion'
+      }
+    }
+	}).done(function(user){
+    $.ajax({
+      type: 'POST',
+      url: '/query',
+      data: {
+        query: 'exerciseGetById',
+        id: 1
+      }
+    }).done(function(exercises){
+      $.ajax({
+        type: 'POST',
+        url: '/query',
+        data: {
+          query: 'userCreateFavExercise',
+          userId: user.id,
+          exerciseId: exercises[0].id
+        }
+      }).done(setTimeout(function(users){
+  console.log('users = '+JSON.stringify(users));
+  console.log('user.id = '+user.id);
+        user.fav_exercises = exercises;
+        $.ajax({
+          type: 'POST',
+          url: '/query',
+          data: {
+            query: 'userGetById',
+            id: user.id
+          }
+        }).done(function(users){
+          console.log('userCreateFavExercise');
+          console.log(users);
+          deepEqual(users[0],user,'userCreateFavExercise successful');
+          start();
+        });
+      },1000));
+    });
+  });
+});
+*/
 asyncTest('userCreate user already exists',function(){
   expect(1);
 	$.ajax({

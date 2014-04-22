@@ -16,6 +16,7 @@ exports.getIdByUsername = getIdByUsername;
 exports.getFollowedUserIdsByFollowingUserId = getFollowedUserIdsByFollowingUserId;
 exports.getFollowingUserIdsByFollowedUserId = getFollowingUserIdsByFollowedUserId;
 exports.create = create;
+exports.createFavExercise = createFavExercise;
 exports.getFollowersUsernameAndAvatars = getFollowersUsernameAndAvatars;
 exports.getFollowingUsernameAndAvatars = getFollowingUsernameAndAvatars;
 
@@ -105,6 +106,23 @@ function getFollowingUserIdsByFollowedUserId(query,cb){
       return cb(err,undefined);
     }
     return cb(err,result.rows);
+  });
+}
+function createFavExercise(query,cb){
+  uid = parseInt(query.userId,10);
+  eid = parseInt(query.exerciseId,10);
+  if(isNaN(eid) || eid<=0){
+    return cb(Error.create('query.exerciseId invalid'),undefined);
+  }
+  if(isNaN(uid) || uid<=0){
+    return cb(Error.create('query.userId invalid'),undefined);
+  }
+  conn.query('INSERT INTO fav_exercises (user_id,exercise_id) VALUES ($1,$2);',[uid,eid],function afterQuery(err,result){
+    if(err){
+      return cb(err,undefined);
+    }
+    return cb(undefined,result.rows);
+    //return getById({id: uid},cb);
   });
 }
 function resultToUsers(result,cb){
