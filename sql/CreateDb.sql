@@ -1,7 +1,7 @@
 -- drop tables
 DROP TABLE IF EXISTS followers;
-DROP TABLE IF EXISTS favorite_workouts;
-DROP TABLE IF EXISTS favorite_exercises;
+DROP TABLE IF EXISTS fav_workouts;
+DROP TABLE IF EXISTS fav_exercises;
 DROP TABLE IF EXISTS user_activities;
 DROP TABLE IF EXISTS activities;
 DROP TABLE IF EXISTS users;
@@ -61,8 +61,9 @@ CREATE TABLE users(
 	id SERIAL PRIMARY KEY,
 	username VARCHAR(255) NOT NULL,
 	password VARCHAR(255) NOT NULL,
-	experience_level integer references difficulties(id),
-	avatar VARCHAR(1023) 	
+	difficulty_id integer references difficulties(id),
+	avatar_url VARCHAR(1023),
+	bio VARCHAR(2047)
 );	
 CREATE TABLE activities(
 	id SERIAL PRIMARY KEY,
@@ -73,12 +74,12 @@ CREATE TABLE user_activities(
 	activity_id integer NOT NULL references activities(id),
 	user_id integer references users(id) ON DELETE CASCADE
 );
-CREATE TABLE favorite_exercises(
+CREATE TABLE fav_exercises(
 	id SERIAL PRIMARY KEY,
 	user_id integer NOT NULL references users(id) ON DELETE CASCADE,
 	exercise_id integer NOT NULL references exercises(id) ON DELETE CASCADE
 );
-CREATE TABLE favorite_workouts(
+CREATE TABLE fav_workouts(
 	id SERIAL PRIMARY KEY,
 	user_id integer NOT NULL references users(id) ON DELETE CASCADE,
 	workout_id integer NOT NULL references workouts(id) ON DELETE CASCADE
@@ -171,7 +172,7 @@ INSERT INTO names (id,name,exercise_id,votes) VALUES
 	(24,'barbell curls',24,5),
 	(25,'concentration curls',25,3),
 	(26,'ab rollouts',26,1),
-	(27,'front squats',27,4,
+	(27,'front squats',27,4),
 	(28,'leg presses',28,5),
 	(29,'leg curls',29,1),
 	(30,'hanging leg raises',30,2),
@@ -192,29 +193,29 @@ ALTER SEQUENCE photos_id_seq RESTART WITH 2;
 INSERT INTO videos (id,url,exercise_id) VALUES
 	(1,'http://youtube.com/squat',1);
 ALTER SEQUENCE videos_id_seq RESTART WITH 2;
-INSERT INTO users (id, username, password, experience_level) VALUES
-	(1, 'dorianYates', 'commotion', 3),
-	(2, 'steveReeves', 'commotion', 2),
-	(3, 'johnGrimek', 'commotion', 1),
-	(4, 'francoColumbu', 'commotion', 3),
-	(5, 'janeAusten', 'commotion', 2),
-	(6, 'austinPowers', 'commotion', 1),
-	(7, 'dorianGray', 'commotion', 3),
-	(8, 'oscarWilde', 'commotion', 2),
-	(9, 'margaretThatcher', 'commotion', 1),
-	(10, 'miaHamm', 'commotion', 3),
-	(11, 'miaFarrow', 'commotion', 2),
-	(12, 'andyWarhol', 'commotion', 1),
-	(13, 'madameCurie', 'commotion', 3),
-	(14, 'adaLovelace', 'commotion', 2),
-	(15, 'babeRuth', 'commotion', 1),
-	(16, 'ruthGinsberg', 'commotion', 3),
-	(17, 'tylerDurden', 'commotion', 2),
-	(18, 'robertPaulson', 'commotion', 1),
-	(19, 'hermioneGranger', 'commotion', 3),
-	(20, 'severusSnape', 'commotion', 2);
+INSERT INTO users (id, username, password, difficulty_id, bio) VALUES
+	(1, 'dorianYates', 'commotion', 3, 'I like to sweat on others.'),
+	(2, 'steveReeves', 'commotion', 2, 'I like to sweat on others.'),
+	(3, 'johnGrimek', 'commotion', 1, 'I like to sweat on others.'),
+	(4, 'francoColumbu', 'commotion', 3, 'I like to sweat on others.'),
+	(5, 'janeAusten', 'commotion', 2, 'I like to sweat on others.'),
+	(6, 'austinPowers', 'commotion', 1, 'I like to sweat on others.'),
+	(7, 'dorianGray', 'commotion', 3, 'I like to sweat on others.'),
+	(8, 'oscarWilde', 'commotion', 2, 'I like to sweat on others.'),
+	(9, 'margaretThatcher', 'commotion', 1, 'I like to sweat on others.'),
+	(10, 'miaHamm', 'commotion', 3, 'I like to sweat on others.'),
+	(11, 'miaFarrow', 'commotion', 2, 'I like to sweat on others.'),
+	(12, 'andyWarhol', 'commotion', 1, 'I like to sweat on others.'),
+	(13, 'madameCurie', 'commotion', 3, 'I like to sweat on others.'),
+	(14, 'adaLovelace', 'commotion', 2, 'I like to sweat on others.'),
+	(15, 'babeRuth', 'commotion', 1, 'I like to sweat on others.'),
+	(16, 'ruthGinsberg', 'commotion', 3, 'I like to sweat on others.'),
+	(17, 'tylerDurden', 'commotion', 2, 'I like to sweat on others.'),
+	(18, 'robertPaulson', 'commotion', 1, 'I like to sweat on others.'),
+	(19, 'hermioneGranger', 'commotion', 3, 'I like to sweat on others.'),
+	(20, 'severusSnape', 'commotion', 2, 'I like to sweat on others.');
 ALTER SEQUENCE users_id_seq RESTART WITH 21;
-INSERT INTO favorite_exercises (user_id, exercise_id) VALUES
+INSERT INTO fav_exercises (user_id, exercise_id) VALUES
 	(1, 1),
 	(1, 7),
 	(2, 10),
@@ -222,4 +223,3 @@ INSERT INTO favorite_exercises (user_id, exercise_id) VALUES
 	(3, 4),
 	(3, 10),
 	(4, 2);
-

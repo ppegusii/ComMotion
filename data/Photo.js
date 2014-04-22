@@ -5,6 +5,9 @@ var validate = require(process.env.VALIDATE);
 exports.getByEidWid = getByEidWid;
 exports.init = init;
 
+//internal only
+exports.initNoValidate = initNoValidate;
+
 function getByEidWid(query,cb){
   var eid = parseInt(query.eid,10);
   var wid = parseInt(query.wid,10);
@@ -41,6 +44,10 @@ function init(query,cb){
       cb(err,undefined);
       return;
     }
+    initNoValidate(photo,cb);
+  });
+}
+function initNoValidate(photo,cb){
     if(photo.id){
       var statement = 'UPDATE photos SET url=$1,exercise_id=$2,workout_id=$3 WHERE id=$4 RETURNING id';
       var params = [
@@ -65,5 +72,4 @@ function init(query,cb){
       photo.id = result.rows[0].id.toString();
       cb(undefined,photo);
     });
-  });
 }

@@ -1,3 +1,5 @@
+var validator = require('validator');
+
 exports.validate = validate;
 
 function validate(video,cb){
@@ -8,8 +10,8 @@ function validate(video,cb){
     cb(Error.create('video.id invalid'),undefined);
     return;
   }
-  if(!video.url || video.url===''){
-    cb(Error.create('video.url undefined or empty string'),undefined);
+  if(!video.url || !validator.isURL(video.url)){
+    cb(Error.create('video.url undefined or invalid URL'),undefined);
     return;
   }
   video.exerciseId = parseInt(video.exerciseId,10);

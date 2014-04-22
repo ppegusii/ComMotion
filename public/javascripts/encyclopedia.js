@@ -52,8 +52,8 @@ Controller.prototype.__init__ = function(){
       difficulty: {id: 1},
       musclegroup: {id: 1},
       names: [{name: 'ex1',votes: 2}],
-      videos: [{url: 'http://vid/myvid.ogg'}],
-      photos: [{url: 'http://photo/myphoto.png'}]
+      videos: [{url: 'http://vid.com/myvid.ogg'}],
+      photos: [{url: 'http://photo.com/myphoto.png'}]
     },function(entry){
       c.__renderList__([entry]);
     }

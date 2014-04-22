@@ -3,7 +3,7 @@
   <head>
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <title>Exercise entry for <%= names[0] %></title>
+    <title>Exercise entry for <%= names[0].name %></title>
 
     <!-- Bootstrap core CSS -->
     <link rel = "stylesheet" type ="text/css" href = "stylesheets/bootstrap/css/bootstrap.css" >
@@ -19,10 +19,10 @@
     <div class="container">
 
       <div class="blog-header">
-        <h1 class="blog-title"><%= names[0] %></h1>
+        <h1 class="blog-title"><%= names[0].name %></h1>
         <p>
-          <a id="edit" class="btn btn-sm btn-default" href="/create/exercise?eid=<%= id %>">Edit this entry</a>
-          <a id="fave" class="btn btn-sm btn-default" href="/myfavorites?type=exercise,id=<%= id %>">Add to favorites</a>
+          <a id="editButton" class="btn btn-sm btn-default" href="/encyclopedia/exercise_entry/edit?eid=<%= id %>">Edit this entry</a>
+          <a id="faveButton" class="btn btn-sm btn-default" href="/myfavorites?type=exercise,id=<%= id %>">Add to favorites</a>
         </p>
       </div>
 
@@ -31,6 +31,13 @@
         <div class="col-sm-8 blog-main">
 
           <div class="blog-post">
+            <h3>Other names:</h3>
+            <p>
+                <% for(var i = 0; i < names.length; i++) { %>
+                    <%= names[i].name %>,
+                <% } %>
+            </p>
+
             <h3>Difficulty: <%= difficulty.name %></h3>
 
             <h3>Description</h3>
@@ -44,8 +51,13 @@
                 <tr>
                   <% for (var i=0; i < photos.length; i++) { %>
                     <td>
-                      <img src="<%= photos[i] %>" height="200px" />
+                      <%= photos[i].url %>
                     </td>
+                  <% } %>
+                  <% for (var i=0; i < videos.length; i++) { %>
+                  <td>
+                      <%= videos[i].url %>
+                  </td>
                   <% } %>
                 </tr>
               </table>
