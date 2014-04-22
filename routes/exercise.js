@@ -76,8 +76,12 @@ exports.encyclopedia_exercise_entry = function(req, res) {
          console.log(err.message);
          res.send(500, err.message);
       }
+      else if(exercise.length === 0) {
+         console.log('Empty results');
+         res.send(500, 'No exercise found for id ' + eid);
+      }
       else {
-         console.log(exercise[0]);
+         console.log(exercise);
          res.render('encyclopedia/exerciseentry', exercise[0]);
       }
    });
