@@ -90,7 +90,8 @@ app.get('/logout', nav.logout);
 
 // functions accessible in ejs files
 app.locals({
-   toYoutubeThumb: exer.toYoutubeThumb
+   toYoutubeThumb: exer.toYoutubeThumb,
+   toEmbedURL: exer.toEmbedURL
 });
 
 http.createServer(app).listen(app.get('port'), function(){

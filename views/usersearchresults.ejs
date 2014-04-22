@@ -1,18 +1,20 @@
+
 <!DOCTYPE html>
 <html>
 
 <head>
-<meta charset=”utf-8”> 
+<meta charset=”utf-8”>
 
 <title><%= title %></title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 
 <link rel = "stylesheet" type ="text/css" href = "stylesheets/bootstrap/css/bootstrap.css" >
 
-<link rel = "stylesheet" type = "text/css" href = "stylesheets/user_search_results.css">
-
 
 <script src="../javascripts/jquery-1.11.0.min.js"></script>
+
+
+<link rel = "stylesheet" type = "text/css" href = "stylesheets/user_search_results.css">
 
 </head>
 
@@ -26,48 +28,48 @@
 
 		<div class="col-md-4 col-sm-4 col-xs-4">
 
-			<% include fragments/usersearchpanel %>
+		<% include fragments/usersearchpanel %>
 
-		</div>	
-		
-		<div class="col-md-8 col-sm-8 col-xs-8">	
-		
-			<div class="well">
+		</div>
 
+		<div class="col-md-8 col-sm-8 col-xs-8">
 
-			<ul id="resultsList" class="list-group">
+		<div class="well">
 
 
-			<% for (var i = 0; i<5; i++){ %>
+		<ul id="resultsList" class="list-group" style="height:500px">
 
-				<li class="list-group-item">
-					<div class="col-md-2 col-sm-2 col-xs-2">
-							<media>
-								<img src="<%= users[i].avatar_url %>" width="65" height="65">
-							</media>
-					</div>
-					<div class="col-md-10 col-sm-10 col-xs-10">
-						<h4><%= users[i].username %> - <%= users[i].bio%></h4>
-					</div>
-	
-				</li>
 
-				<% } %>
-	
-				
-				<li class="list-group-item" style="height:60px">
-				
-					<center>
-						<div class="btn-group">
-  							 <button type="button" class="btn btn-default">1</button>
- 							 <button type="button" class="btn btn-default">2</button>
- 				 			 <button type="button" class="btn btn-default">3</button>
- 							 <button type="button" class="btn btn-default">4</button>
- 							 <button type="button" class="btn btn-default">5</button>
-						</div>							
-					</center>
-				</li>
-			</ul>
+		<% for (var i = 0; i<5; i++){ %>
+
+		<li class="list-group-item" style="height:90px">
+			<div class="col-md-2 col-sm-2 col-xs-2">
+				<media>
+				<img src="<%= users[i].photos[0] %>" width="65" height="65">
+				</media>
+			</div>
+			<div class="col-md-10 col-sm-10 col-xs-10">
+			<h4><%= users[i].names[0].name %> - <%= users[i].description%></h4>
+			</div>
+
+		</li>
+
+		<% } %>
+
+
+		<li class="list-group-item" style="height:60px">
+
+		<center>
+		<div class="btn-group">
+		   <button type="button" class="btn btn-default">1</button>
+		  <button type="button" class="btn btn-default">2</button>
+		  <button type="button" class="btn btn-default">3</button>
+		  <button type="button" class="btn btn-default">4</button>
+		  <button type="button" class="btn btn-default">5</button>
+		</div>
+		</center>
+		</li>
+		</ul>
 			</div>
 
 		</div>
@@ -78,11 +80,13 @@
 
 <% include fragments/footer %>
 
-<script src = "javascripts/bootstrap.js"></script>
 
+<script src = "javascripts/bootstrap.js"></script>
 
 </body>
 
 
 </html>
+
+
 

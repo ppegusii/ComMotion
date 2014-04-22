@@ -101,6 +101,13 @@ exports.toYoutubeThumb = function(url) {
    return 'http://img.youtube.com/vi/' + hash + '/hqdefault.jpg';
 }
 
+exports.toEmbedURL = function(url) {
+   var ytPart = 'www.youtube.com/watch?v=';
+   var indexOfHash = url.indexOf(ytPart)+ytPart.length;
+   var hash = url.substring(indexOfHash, indexOfHash+11);
+   return 'http://www.youtube.com/embed/' + hash;
+}
+
 function toDifficulty(difficulty) {
    var did = -1;
    if(difficulty === 'Beginner')
