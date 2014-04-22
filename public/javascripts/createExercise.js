@@ -3,11 +3,22 @@
 * Created by Ryan on 4/16/14.
 */
 
+var exerciseObj = undefined;
+
 $(function () {
    initAddNameButton();
    initAddMediaButton();
    initSaveButton();
+   initExerciseObj();
 });
+
+function initExerciseObj() {
+   var jsonString = $('#exerciseObj').html();
+   if(jsonString !== '')
+      exerciseObj = JSON.parse(jsonString);
+   console.log('Exercise obj is:');
+   console.log(exerciseObj);
+}
 
 function getNames() {
    var namess = new Array();
