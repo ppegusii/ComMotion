@@ -18,6 +18,25 @@ exports.profile_about = function(req, res){
   });
 };
 
+
+exports.others_user_profile_about = function(req, res){
+	userId = req.currentuser;
+	var activities
+	data.activitiesGetByUserId({id: userId}, function aftergetActivities(err, retActivities){
+	activities = retActivities;
+	});
+
+	data.userGetById( {id: userId},function afterGet(err, user){
+    res.render('profile/about',
+      {
+        title: 'Profile About',
+        user: user,
+		activities: activities,
+        err: err
+      });
+  });
+};
+
 exports.profile_posts = function(req, res){
 	userId = req.session.user.id;
 	data.userGetById( {id: userId},function afterGet(err, user){
@@ -35,8 +54,6 @@ exports.profile_creations = function(req, res){
 };
 */
 exports.profile_followers = function(req, res){
-
-
 
 
 	userId = req.session.user.id;

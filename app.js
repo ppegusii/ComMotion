@@ -71,7 +71,7 @@ app.get('/findusers', nav.findusers);
 app.post('/query',routes.query);
 
 
-
+app.get('/encyclopediaresults', nav.encyclopediaresults);
 app.get('/findusers/results', results.user_search_results);
 app.get('/encyclopedia/results', results.encyclopedia_results);
 
