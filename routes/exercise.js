@@ -86,6 +86,24 @@ exports.encyclopedia_exercise_entry = function(req, res) {
    });
 }
 
+// assumes URL is of form www.youtube.com/watch?v=xxx or www.youtube.com/embed/xxx
+exports.toYoutubeThumb = function(url) {
+   // if URL has first form
+   var stdForm = 'www.youtube.com/watch?v=';
+   var embedForm = 'www.youtube.com/embed/'
+   var hash = undefined;
+   if(url.indexOf(stdForm) >= 0) {
+      console.log(url.indexOf(stdForm));
+      var hashStartIdx = url.indexOf(stdForm)+stdForm.length;
+      hash = url.substring(hashStartIdx, hashStartIdx+11);
+   }
+   else {
+      var hashStartIdx = url.indexOf(embedForm)+embedForm.length;
+      hash = url.substring(hashStartIdx, hashStartIdx+11);
+   }
+   return 'http://img.youtube.com/vi/' + hash + '/hqdefault.jpg';
+}
+
 function toDifficulty(difficulty) {
    var did = -1;
    if(difficulty === 'Beginner')

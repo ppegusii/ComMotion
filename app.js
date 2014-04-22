@@ -87,6 +87,11 @@ app.get('/create/exercise/cancel', exer.cancelexercise);
 
 app.get('/logout', nav.logout);
 
+// functions accessible in ejs files
+app.locals({
+   toYoutubeThumb: exer.toYoutubeThumb
+});
+
 http.createServer(app).listen(app.get('port'), function(){
   console.log('Express server listening on port ' + app.get('port'));
 });
