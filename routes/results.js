@@ -3,9 +3,25 @@ var models = require('../models/index.js');
 var data = require(process.env.DATA);
 
 exports.encyclopedia_results = function(req, res){
-     res.render('encyclopediaresults', {title: 'Encyclopedia Results'});
+    data.exercisesSearchByNameDescriptionMusclegroup({search:req.query.query}, function(err, exercises) {
+        if(err) {
+            console.log(err.message);
+            res.send(500, err.message);
+        }
+        else {
+            res.render('encyclopediaresults', {title: 'Encyclopedia Results'}, exercises);
+        }
+    });
 };
 
 exports.user_search_results = function(req, res){
-     res.render('usersearchresults', {title: 'User Results'});
+    data.usersSearchByUsername({search:req.query.query}, function(err, users) {
+        if(err) {
+            console.log(err.message);
+            res.send(500, err.message);
+        }
+        else {
+            res.render('usersearchresults', {title: 'User Results'}, users);
+        }
+    });
 };
