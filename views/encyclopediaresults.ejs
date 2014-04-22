@@ -41,11 +41,11 @@
 				<li class="list-group-item">
 					<div class="col-md-2 col-sm-2 col-xs-2">
 							<media>
-								<img src="<%= exercises[i].photo %>" width="65" height="65">
+                                <a href="/encyclopedia/exerciseentry/?eid=<%=exercises[i].eid%>"><img src="<%= exercises[i].photos[0] %>" width="65" height="65"></a>
 							</media>
 					</div>
 					<div class="col-md-10 col-sm-10 col-xs-10">
-						<h4><%= exercises[i].name %> - <%= exercises[i].description%></h4>
+						<h4><%= exercises[i].names[0].name %> - <%= exercises[i].description%></h4>
 					</div>
 	
 				</li>

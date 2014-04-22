@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
   <link rel="stylesheet" href="../stylesheets/bootstrap/css/bootstrap.css">
   <link rel="stylesheet" href="../stylesheets/header.css">
+    <script src="../javascripts/encyclopediaSearch.js"></script>
 </head>
 <body>
 
@@ -15,9 +16,10 @@
 		<div style="margin-bottom:20px"><center><h4><strong>Search for Item</strong></h4></center></div>
 			<h5><strong>Type of Item:</strong></h5>
 				<span class="input-group">
-        			<input type="radio" name="item_type" value="exercise"> Exercise
-					<input type="radio" name="item_type" value="workout"> Workout
-					<input type="radio" name="item_type" value="program"> Program
+        			<input type="radio" name="item_type" value="wholebody"> WholeBody
+					<input type="radio" name="item_type" value="upperbody"> UpperBody
+					<input type="radio" name="item_type" value="lowerbody"> LowerBody
+					<input type="radio" name="item_type" value="core"> Core
       			</span>
 			<h5><strong>Difficulty:</strong></h5>
 				<span class="input-group">
@@ -31,8 +33,8 @@
 						<input id="itemsearch" type="text" class="form-control" name="query" value="">
                    	</div>
 				</span>	
-				<a id="btn-search" href="encyclopediaresults" class="btn btn-danger">Search</a>
-   
+				<a id="encyclopediaSearchButton"  class="btn btn-danger">Search</a>
+
 			</center>
 
 </div>

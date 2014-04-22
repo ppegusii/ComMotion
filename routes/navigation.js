@@ -90,6 +90,8 @@ exports.myfavorites = function(req, res){
 };
 
 exports.findusers = function(req, res){
+
+    data.searchByNameDescriptionMusclegroup()
      res.render('findusers', {title: 'Find Users'});
 };
 
