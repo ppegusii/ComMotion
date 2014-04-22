@@ -18,6 +18,8 @@
 
 <% include ../fragments/header %>
 
+<div id="eid" style="display:none"><% if(exercise) { %><%= exercise.id %><% } %></div>
+
 <div class="container">
 
 	<div style="margin-top:20px" class="row">
@@ -115,12 +117,9 @@
                                    	<!--
                                       <a id="btn-save" href="exercise/save" class="btn btn-success">Save Exercise</a>
                                   -->
-                                      <% if(!exercise) { %>
+
                                          <button class="btn btn-success" id="saveExerciseButton">Save exercise</button>
-                                      <% } else { %>
-                                         <!-- do proper linkage -->
-                                         <a class="btn btn-success">I'm a dummy button</a>
-                                      <% } %>
+
                                     </div>
                                     
                               </div>

@@ -7,8 +7,10 @@ exports.createExercise = function(req, res) {
    //console.log(flash);
    if(flash.length !== 0) {
       var exercise = JSON.parse(flash);
-      console.log(exercise);
-      console.log(exercise.names);
+      // clear names, photos, and videos (otherwise duplicates will be generated)
+      exercise.names = [];
+      exercise.photos = [];
+      exercise.videos = [];
       res.render('create/exercise', {
          title: 'Edit exercise',
          exercise: exercise
@@ -32,7 +34,7 @@ exports.editExercise = function(req, res) {
          res.send(500, err.message);
       }
       else {
-         console.log('Sending exercise ' + JSON.stringify(exercise[0]));
+         //console.log('Sending exercise ' + JSON.stringify(exercise[0]));
          req.flash('editExercise', JSON.stringify(exercise[0]));
          res.redirect('/create/exercise');
       }
@@ -41,13 +43,15 @@ exports.editExercise = function(req, res) {
 
 exports.saveexercise = function(req, res) {
 
+   console.log('Executing saveexercise');
    var queExercise = {
+      id: req.body.id,
       names: toNames(req.body.names),
       difficulty: toDifficulty(req.body.difficulty),
       description: req.body.description,
       musclegroup: toMusclegroup(req.body.musclegroup),
       photos: toPhotos(req.body.photos),
-      videos: []
+      videos: toVideos(req.body.videos)
    };
    console.log(queExercise);
    data.exerciseInit({exercise: queExercise}, function(err, resExercise) {
