@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+<meta charset=”utf-8”> 
+
+<title><%= title %></title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<link rel = "stylesheet" type ="text/css" href = "../stylesheets/bootstrap/css/bootstrap.css" >
+
+<script src="../javascripts/jquery-1.11.0.min.js"></script>
+
+
+<link rel="stylesheet" href="//code.jquery.com/ui/1.10.4/themes/smoothness/jquery-ui.css">
+<!--<script src="//code.jquery.com/jquery-1.9.1.js"></script> -->
+<script src="//code.jquery.com/ui/1.10.4/jquery-ui.js"></script> 
+<script src="../javascripts/workoutcreator.js"></script>
+<link rel="stylesheet" href="/resources/demos/style.css">
+
+<style>
+/* IE has layout issues when sorting (see #5413) */
+.group { zoom: 1 }
+ul
+{
+list-style-type: none;
+}
+</style>
+
+
+<script>
+
+	$(function() {
+
+		$( "#accordion1" )
+			.accordion({
+			header: "> div > h3",
+			collapsible: false,
+			heightStyle: "content"
+			})
+
+		$( "#accordion2" )
+			.accordion({
+			header: "> div > h3",
+			collapsible: true,
+			heightStyle: "content"
+			})
+	
+			.sortable({
+			axis: "x, y",
+			handle: "h3",
+			dropOnEmpty: true,
+			stop: function( event, ui ) {
+
+			console.log("accordion stop");
+
+			//this is when an exercise is added to accordion
+			if(ui.item.hasClass("draggableExercise")){
+				ui.item.children( "h3" ).triggerHandler( "focusout" );
+				ui.item.replaceWith('<div class="group element"><h3><span class="ui-accordion-header-icon ui-icon ui-icon-triangle-1-e"></span>' + ui.item.text() + 
+'</h3><ul class="testSet"><li><input id="newSetAmount" type="text" class="form-control" name="name" value="" maxlength="15" style= "width:100px; float:left; margin-bottom:20px; margin-right:40px"><input id="newWeightAmount" type="text" class="form-control" name="name" value="" maxlength="15" style= "width:100px; float:left; margin-bottom:20px"><button onClick="addSetAmount()" class="btn btn-danger btn-addSetAmount" style=" float:right">Add Set</button></li></ul></div>');
+
+				$(".element > h3").addClass('ui-accordion-header ui-helper-reset ui-state-default ui-corner-all ui-accordion-icons');
+				$(".element > ul").addClass('ui-accordion-content ui-helper-reset ui-widget-content ui-corner-bottom');
+				$(".element").accordion({collapsible: true});
+				$(".group > ul").sortable();
+				$(".element").accordion({heightStyle: "content"});
+				//$(".group > ul").draggable({});
+			//	$(".ui-accordion-content").draggable("option", "connectToSortable", "#trash");
+			//	$(".ui-accordion-content").draggable("option", "revert", "false");
+			}
+			//This is when a rest time is added to accordion
+			if(ui.item.hasClass("draggableRest")){
+				ui.item.replaceWith('<div class="group restElement"><h3>' + ui.item.text() + '</h3></div>');
+				$(".restElement > h3").addClass('ui-accordion-header ui-helper-reset ui-state-default ui-corner-all ui-accordion-icons');
+				$("this").accordion({collapsible: true, disabled: true});
+				//$(".restElement").accordion("disable");
+			}	
+						
+			}
+		});
+
+$("#trash").droppable({
+//accept: '.group > ul',
+//hoverClass: 'dropAreaHover',
+drop: function(event, ui){
+$(ui.draggable).remove();
+
+}
+
+});
+
+$(".group > ul").sortable({
+//connectToSortable: "#trash",
+revert: false,
+stop: function( event, ui ) {
+console.log("Group Stop");
+//").accordion("option", "heightstyle", "content");
+}
+});
+
+$( "#sortable" ).sortable({
+revert: true
+});
+
+$( ".draggableExercise" ).draggable({
+connectToSortable: "#accordion2",
+helper: "clone",
+revert: false
+});
+$( ".draggableRest" ).draggable({
+connectToSortable: "#accordion2",
+helper: "clone",
+revert: false
+});
+$( ".draggableSetBuilder" ).draggable({
+connectToSortable: ".group > ul",
+helper: "clone",
+revert: false,
+stop: function(event, ui){
+console.log("Drag STOP");
+//$( "#accordion2" ).accordion( "refresh" );
+//ui.item.replaceWith("<li class='set'>" + ui.item.text() + "</li>");
+$("#accordion2").accordion("option", "heightstyle", "content");
+//$("ui.draggable").draggable("option", "connectToSortable", "#trash");
+/*
+$(".group > ul > li").draggable({
+connectToSortable: "#trash"
+});
+
+*/
+}
+});
+
+$( "#test > ul > li" ).draggable({
+revert: true
+});
+/*
+$(".droptrue").sortable({
+connectWith: "li"
+});
+*/
+
+});
+
+
+function addRestAmount(){
+console.log("Rest Amount Added");
+$("#restAmountList").append('<li class="draggableRest">' + $("#newRestAmount").val() + '</li>');
+}
+
+function addSetAmount(){
+console.log("Set Amount Added");
+$(".testSet").prepend("<li>" + $('#newSetAmount').val() + $('#newWeightAmount').val() + "</li>");
+$("#accordion2").accordion("option", "heightstyle", "content");
+}
+
+/*
+$("#addSetAmount").on("click", "a.bk_name", function(e){ 
+    e.preventDefault();
+    $('.testSet').append("TEST");
+});
+*/
+</script>
+
+
+</head>
+
+<body>
+
+		<% include ../fragments/header %>
+		
+
+	<div class="container">
+
+<center><h3>Create a new workout</h3></center>
+
+		<div class="row">
+
+	<div class="col-md-3 col-sm-3 col-xs-3">
+
+	<div id="accordion1" style="margin-top:40px">
+				<div class="group active">
+					<h3>Search for Exercise</h3>
+					<div>
+						      <form class="navbar-form" role="search">
+								<div class="form-group">
+								  <input type="text" class="form-control" placeholder="Search" style="width:150px">
+								</div>
+								
+							  </form>
+					<ul>
+						<li class="draggableExercise">Exercise x</li>
+						<li class="draggableExercise">Exercise y</li>
+						<li class="draggableExercise">Exercise z</li>
+					</ul>
+					</div>
+				</div>
+				<div class="group">
+					<h3>Rest Period</h3>
+					<div>
+						<ul id="restAmountList">
+							<input id="newRestAmount" type="text" class="form-control" name="name" value="" maxlength="15" style= "width:100px; float:left; margin-bottom:20px">
+							<button id="btn-addRestAmount" onClick="addRestAmount()" class="btn btn-danger" style="width:50px;  float:left;">Add</button> 
+							
+							<li class="draggableRest"; style="margin-top:20px">Rest 30 seconds</li>
+							<li class="draggableRest">Rest 1 minutes</li>
+							<li class="draggableRest">Rest 2 minutes</li>
+							<li class="draggableRest">Rest 3 minutes</li>
+							<li class="draggableRest">Rest 5 minutes</li>
+						</ul>
+					</div>
+				</div>
+			</div>
+
+	</div>
+	<div class="col-md-1 col-sm-1 col-xs-1">
+
+	</div>
+	<div class="col-md-5 col-sm-5 col-xs-5" style="margin-top:15px; height:200px">	
+
+	<p>Drag exercises over here to build workout</p>
+
+		<div id="accordion2" style="height:600px">
+<!--
+			<div id ="test2" class="group">
+				<h3>Increasing 3 - Clean and Press</h3>
+			
+				<ul>
+					<li>10 Reps 70% 1 Rep Max=70lb</li>
+					<li>8 Reps 80% 1 Rep Max=80lb</li>
+					<li>6 Reps 90% 1 Rep Max=90lb</li>
+				</ul>
+				
+			</div>
+-->
+		</div>
+	</div>
+		<div id="trash" class="col-md-3 col-sm-3 col-xs-3">
+			</p>Drag sets or exercises over here to delete them</p>
+			<div class="well"  style="height:140px">
+				<center><span class="glyphicon glyphicon-trash"></span> Trash Area</center>
+			</div>
+		</div>
+
+	</div>
+
+</div>
+
+<% include ../fragments/footer %>
+
+<script src = "../javascripts/bootstrap.js"></script>
+
+
+</body>
+
+
+</html>

@@ -4,8 +4,25 @@ exports.profile_about = function(req, res){
 	userId = req.session.user.id;
 	var activities
 	data.activitiesGetByUserId({id: userId}, function aftergetActivities(err, retActivities){
-	console.log("start");
-	console.log("ACTIVITIES: " + retActivities);
+	activities = retActivities;
+	});
+
+	data.userGetById( {id: userId},function afterGet(err, user){
+    res.render('profile/about',
+      {
+        title: 'Profile About',
+        user: user,
+		activities: activities,
+        err: err
+      });
+  });
+};
+
+
+exports.profile_about = function(req, res){
+	userId = req.currentuser;
+	var activities
+	data.activitiesGetByUserId({id: userId}, function aftergetActivities(err, retActivities){
 	activities = retActivities;
 	});
 
@@ -37,8 +54,6 @@ exports.profile_creations = function(req, res){
 };
 */
 exports.profile_followers = function(req, res){
-
-
 
 
 	userId = req.session.user.id;
