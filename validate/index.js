@@ -4,6 +4,7 @@ var musclegroup = require(process.env.VALIDATE_MUSCLEGROUP);
 var name = require(process.env.VALIDATE_NAME);
 var video = require(process.env.VALIDATE_VIDEO);
 var photo = require(process.env.VALIDATE_PHOTO);
+var user = require(process.env.VALIDATE_USER);
 
 exports.exercise = exercise.validate;
 exports.difficulty = difficulty.validate;
@@ -11,3 +12,4 @@ exports.musclegroup = musclegroup.validate;
 exports.name = name.validate;
 exports.video = video.validate;
 exports.photo = photo.validate;
+exports.user = user.validate;

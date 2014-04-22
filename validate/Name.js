@@ -14,8 +14,11 @@ function validate(name,cb){
   }
   name.votes = parseInt(name.votes,10);
   if(isNaN(name.votes)){
+    /*
     cb(Error.create('name.votes NaN'),undefined);
     return;
+    */
+    name.votes = 0;
   }
   name.exerciseId = parseInt(name.exerciseId,10);
   if(isNaN(name.exerciseId)){

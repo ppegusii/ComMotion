@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+<meta charset=”utf-8”> 
+
+<title><%= title %></title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<link rel = "stylesheet" type ="text/css" href = "stylesheets/bootstrap/css/bootstrap.css" >
+
+<script src="javascripts/jquery-1.11.0.min.js"></script>
+
+</head>
+
+<body>
+
+<% include fragments/header %>
+
+ 	<script>
+	$( "#encyclopedia" ).addClass("active");
+	</script>
+
+<div class="container">
+
+	<div class="row">
+<row>
+<h3>Exercises</h3>
+<hr>
+</row>
+<% var size = exercises.length%>
+
+		<div class="col-md-3 col-sm-3 col-xs-3">
+			<ul>
+			<% for (var i=0; i<(size/4)*2; i++){ %>
+			<li><h4><a href="http://localhost:8080/encyclopedia/exercise_entry?eid=<%=exercises[i].id%>"><%=exercises[i].names[0].name %></a></h4></li>
+			<% } %>
+			</ul>
+		</div>
+
+		<div class="col-md-3 col-sm-3 col-xs-3">
+			<ul>
+			<% for (var i=(size/4); i<(size/4)*2; i++){ %>
+			<li><h4><a href="http://localhost:8080/encyclopedia/exercise_entry?eid=<%=exercises[i].id%>"><%=exercises[i].names[0].name %></a></h4></li>
+			<% } %>
+			</ul>
+		</div>
+
+		<div class="col-md-3 col-sm-3 col-xs-3">
+			<ul>
+			<% for (var i=(size/4)*2; i<(size/4)*3; i++){ %>
+			<li><h4><a href="http://localhost:8080/encyclopedia/exercise_entry?eid=<%=exercises[i].id%>"><%=exercises[i].names[0].name %></a></h4></li>
+			<% } %>
+			</ul>
+		</div>
+
+		<div class="col-md-3 col-sm-3 col-xs-3">
+			<ul>
+			<% for (var i=(size/4)*3; i<size; i++){ %>
+			<li><h4><a href="http://localhost:8080/encyclopedia/exercise_entry?eid=<%=exercises[i].id%>"><%=exercises[i].names[0].name %></a></h4></li>
+			<% } %>
+			</ul>
+		</div>
+
+	</div>
+
+</div>
+
+<% include fragments/footer %>
+
+<script src = "javascripts/bootstrap.js"></script>
+
+
+</body>
+
+
+</html>

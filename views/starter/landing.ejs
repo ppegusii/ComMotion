@@ -13,12 +13,22 @@
 
 
 <body>
-
+<% include signup %>
+<% include createprofile %>
 <div class="container">
 
-    <div class="jumbotron">
-        <h1>Welcome to ComMotion!</h1>
+    <div class="jumbotron" style="padding-bottom:310px">
+		
+		<div class="col-md-3">
+			<img src="images/runner.png" width="200" height="200"></img>
+		</div>
+		<div class="col-md-6 jumbotron">
+		<h1>Welcome to ComMotion!</h1>
         <p>Welcome message here</p>
+		</div>
+        <div class="col-md-3">
+			<img src="images/weightlifter.gif" width="220" height="220"></img>
+		</div>
     </div>
 
 	<div class="col-md-5 col-md-offset-3">
@@ -57,11 +67,10 @@
                         <div class="form-group">
 							<center>
                             <div class="col-md-12 control">
-                                <div style="border-top: 1px solid#888; padding-top:15px; font-size:85%" >
+                                <div style="border-top: 1px solid#888; padding-top:15px; font-size:85%;cursor:pointer;" >
                                     Don't have an account! 
-                                <a href="signup" onClick="$('#loginbox').hide(); $('#signupbox').show()">
-                                    Sign Up Here
-                                </a>
+								<a id="btn-edit_profile" data-toggle="modal" data-target="#signup">Sign Up Here</a>
+
                                 </div>
                             </div>
 							</center>

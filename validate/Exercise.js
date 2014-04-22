@@ -21,8 +21,8 @@ function validate(exercise,cb){
     cb(Error.create('exercise.description blank or undefined'),undefined);
     return;
   }
-  if(!exercise.names){
-    cb(Error.create('exercise.names undefined'),undefined);
+  if(!exercise.names || exercise.names.length===0){
+    cb(Error.create('exercise.names undefined or 0 length'),undefined);
     return;
   }
   if(!exercise.videos){

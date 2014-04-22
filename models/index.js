@@ -33,8 +33,7 @@ exports.Name = function(id,name,votes,exerciseId,workoutId){
   this.id = id;
   //string; name != falsey, name !== ''
   this.name = name;
-//*****TODO Votes will not be used, drop validation for right now
-  //number; !isNaN(parseInt(votes,10))
+  //number;
   this.votes = votes;
   //number; parseInt(exerciseId,10) isNaN or > 0
   this.exerciseId = exerciseId;
@@ -80,7 +79,7 @@ exports.User = function(id,username,password,difficulty,avatar_url,bio,activitie
   this.username = username;
   //string; name != falsey, name !== ''
   this.password = password;
-  //Difficulty object; difficulty != falsey, difficulty must validate
+  //Difficulty object; if difficulty defined it must validate
   this.difficulty = difficulty;
   //string; avatar_url = falsey or avatar_url is valid URL
   this.avatar_url = avatar_url;

@@ -19,6 +19,8 @@ exports.exerciseGetById = exercise.getById;
 exports.exerciseInit = exercise.init;
 //{userId: number}
 exports.exercisesGetByUserFav = exercise.getByUserFav;
+//{search: string}
+exports.exercisesSearchByNameDescriptionMusclegroup = exercise.searchByNameDescriptionMusclegroup;
 //{id: number}
 exports.difficultyGetById = difficulty.getById;
 //{id: number}
@@ -33,8 +35,14 @@ exports.photosGetByEidWid = photo.getByEidWid;
 exports.usersGetLimitN = user.getLimitN;
 //{id: number}
 exports.userGetById = user.getById;
+//{search: string}
+exports.usersSearchByUsername = user.searchByUsername;
+//{username: string, password: string}
+exports.userGetByUsernamePassword = user.getByUsernamePassword;
 //{username: string}
 exports.userIdGetByUsername = user.getIdByUsername;
+//{user: User}
+exports.userCreate = user.create;
 //{userId: number}
 exports.followedUserIdsGetByFollowingUserId;
 //{userId: number}
@@ -43,3 +51,7 @@ exports.followingUserIdsGetByFollowedUserId;
 exports.activitiesGetAll = activity.getAll;
 //{userId: number}
 exports.activitiesGetByUserId = activity.getByUserId;
+//{userId: number}
+exports.usergetFollowersUsernameAndAvatars = user.getFollowersUsernameAndAvatars;
+//{userId: number}
+exports.usergetFollowingUsernameAndAvatars = user.getFollowingUsernameAndAvatars;

@@ -12,7 +12,7 @@
 
 
 <body>
-
+<!--
 <div class="container">
 
 	<div class="col-md-5 col-md-offset-3">
@@ -47,8 +47,8 @@
       			</span>
 
 				<div style="margin-bottom: 0px" class="input-group">
-					<h5><strong>Description:</strong></h5>
-					<textarea class="form-control" id="exercise-description" style="resize:none" rows="4" cols="50" value="" resize="none" name="description"></textarea> 	
+					<h5><strong>Bio:</strong></h5>
+					<textarea class="form-control" id="exercise-bio" style="resize:none" rows="4" cols="50" value="" resize="none" name="description"></textarea> 	
 
 					<div style="margin-bottom: 15px" class="input-group">
 						<h5><strong>Profile Picture URL</strong> (optional)</h5>
@@ -74,3 +74,75 @@
 
 
 </html>
+-->
+<createprofile>
+
+
+		<div class="modal fade" id="createprofile" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content col-md-11 col-md-offset-1"  style="background-color:#99CCCC">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h4 class="modal-title" id="myModalLabel">Create Your Profile</h4>
+      </div>
+      <div class="modal-body">
+			<form id="createprofileform" class="form-horizontal" role="form">
+        		<h5><strong>Skill Level:</strong></h5>
+				<span class="input-group">
+        			<input type="radio" name="skill_level" value="beginner"> Beginner
+					<input type="radio" name="skill_level" value="intermediate"> Intermediate
+					<input type="radio" name="skill_level" value="advanced"> Advanced
+      			</span>
+
+				<h5><strong>Activities:</strong></h5>
+				<span class="input-group">
+					<table>
+					<tr style="font-size:15px">
+        			<td><input type="checkbox" name="activity" value="hiking">  Hiking  </td>
+					<td><input type="checkbox" name="activity" value="cycling">  Cycling  </td>
+					<td><input type="checkbox" name="activity" value="mountain_biking">  Mountain Biking  </td>
+					<td><input type="checkbox" name="activity" value="swimming">  Swimming  </td>
+					</tr>
+					<tr style="font-size:15px">
+        			<td><input type="checkbox" name="activity" value="surfing">  Surfing  </td>
+					<td><input type="checkbox" name="activity" value="downhill_skiing">  Downhill Skiing  </td>
+					<td><input type="checkbox" name="activity" value="snowboarding">  Snowboarding  </td>
+					<td><input type="checkbox" name="activity" value="cross_country_skiing">  XC Skiing  </td>
+					</tr>
+					<tr style="font-size:15px">
+        			<td><input type="checkbox" name="activity" value="martial_arts">  Martial Arts </td>
+					<td><input type="checkbox" name="activity" value="bodybuilding">  Bodybuilding </td>
+					<td><input type="checkbox" name="activity" value="powerlifting">  Powerlifting  </td>
+					<td><input type="checkbox" name="activity" value="olympic_lifting">  Olympic Lifting  </td>
+					</tr>
+					<tr style="font-size:15px">
+        			<td><input type="checkbox" name="activity" value="yoga">  Yoga </td>
+					<td><input type="checkbox" name="activity" value="snowshoeing">  Snowshoeing </td>
+					<td><input type="checkbox" name="activity" value="parkour">  Parkour  </td>
+					<td><input type="checkbox" name="activity" value="running">  Running  </td>
+					</tr>
+					</table>
+      			</span>
+
+				<div style="margin-bottom: 0px" class="input-group">
+					<h5><strong>Bio: (optional)</strong></h5>
+					<textarea class="form-control" id="user-bio" style="resize:none" rows="4" cols="50" value="" resize="none" name="description"></textarea> 	
+
+					<div style="margin-bottom: 0px" class="input-group">
+						<h5><strong>Profile Picture URL</strong> (optional)</h5>
+						<input id="media" type="text" class="form-control" name="media" style="resize:none" maxlength="1023">     
+
+               		</div>
+
+                </div>  
+			</form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-danger pull-left" data-dismiss="modal">Close</button>
+        <a type="button" class="btn btn-primary" data-dismiss="modal" href="home">Save changes</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+</createprofile>
