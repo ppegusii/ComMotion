@@ -47,8 +47,9 @@ function setSessionForUser(username, pass, req, cb) {
       }
       else {
          var user = users[0];
-         console.log(user);
          req.session.user = user;
+		 req.session.userContextID = user.id;
+		 console.log(req.session.userContextID);
          cb(undefined, user);
       }
    });
@@ -77,10 +78,6 @@ exports.encyclopedia = function(req, res){
 
 exports.encyclopediaindex = function(req, res){
   res.render('encyclopediaindex', {title: 'Encyclopedia Index'});
-};
-
-exports.encyclopediaresults = function(req, res){
-  res.render('encyclopediaresults', {title: 'Encyclopedia Index'});
 };
 
 exports.myfavorites = function(req, res){

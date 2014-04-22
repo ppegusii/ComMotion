@@ -38,11 +38,11 @@
 		  <a id="btn-my_creations" href="/profile/mycreations" class="btn btn-default">Creations</a>
 		</div>
 		-->
-
+<% if(user[0].id === myId) { %>
 		<div style="margin-top:20px">
 		  <a id="btn-edit_profile" data-toggle="modal" data-target="#editprofile" class="btn btn-default">Edit Profile</a>
 		</div>
-		
+<% } %>
 		</center>
 
 		<div class="modal fade" id="editprofile" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
@@ -91,7 +91,7 @@
       			</span>
 
 				<div style="margin-bottom: 0px" class="input-group">
-					<h5><strong>Bio: (optional)</strong></h5>
+					<h5><strong>Bio:</strong> (optional)</h5>
 					<textarea class="form-control" id="exercise-bio" style="resize:none" rows="4" cols="50" value="" resize="none" name="description"></textarea> 	
 
 					<div style="margin-bottom: 15px" class="input-group">

@@ -57,7 +57,7 @@
 		<% for (var j = 0; j<4; j++){  %>
 			<div class="col-md-2 col-sm-2 col-xs-2 col-md-offset-1 col-sm-offset-1 col-xs-offset-1" style="margin-top:10px">
 					<media>
-						<img src=<%= followers[i*4+j].avatar_url%> width="80px" height="80px"></img>
+						<a href="http://localhost:8080/profile/user?currentUser=<%=followers[i*4+j].id%>"><img src=<%= followers[i*4+j].avatar_url%> width="80px" height="80px"></img></a>
 					</media>
 						<center><%= followers[i*4+j].username %></center>
 			</div>
@@ -68,7 +68,7 @@
 			<% for (var k = 0; k<size%4; k++){  %>
 			<div class="col-md-2 col-sm-2 col-xs-2 col-md-offset-1 col-sm-offset-1 col-xs-offset-1" style="margin-top:10px">
 					<media>
-						<img src=<%= followers[i*4+k].avatar_url %> width="80px" height="80px"></img>
+						<a href="http://localhost:8080/profile/user?currentUser=<%=followers[i*4+k].id%>"><img src=<%= followers[i*4+k].avatar_url %> width="80px" height="80px"></img></a>
 					</media>
 						<center><%= followers[i*4+k].username %></center>
 			</div>
