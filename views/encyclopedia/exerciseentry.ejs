@@ -60,13 +60,12 @@
                   <% for (var i=0; i < videos.length; i++) { %>
                   <td>
 					<!--TODO: Adjust Sizes -->
-					<!--
                       <a href="<%= videos[i].url %>" target="_blank">
                         <img src="<%- toYoutubeThumb(videos[i].url) %>" width="280px" height="280px">
                       </a>
-					-->
-						<iframe id = "videoInsert" width="448" height="252" frameborder="0" allowfullscreen></iframe>
-
+                      <!--
+					  <iframe id = "videoInsert" width="448" height="252" frameborder="0" allowfullscreen></iframe>
+                      -->
                   </td>
                   <% } %>
                 </tr>
@@ -85,12 +84,13 @@
 
 	
 <!--Script to Convert Standard youtube URL to embed URL -->
+    <% /* %>
 	<script type='text/javascript'>
 		var  standardURL = <%-JSON.stringify(videos[0].url)%>
 		var embedURL = "http://" + standardURL.replace(/watch\?v=/g,"embed/");
 		 $("#videoInsert").attr("src", embedURL);
 	</script>
-  
+    <% */ %>
   <% include ../fragments/footer %>
   <script src = "javascripts/bootstrap.js"></script>
   </body>
