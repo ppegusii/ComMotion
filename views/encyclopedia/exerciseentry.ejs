@@ -52,7 +52,7 @@
                   <% for (var i=0; i < photos.length; i++) { %>
                     <td>
 					<!--TODO: Adjust Sizes -->
-					<img src=<%=photos[i].url %> width="280px" height="280px"></img>
+					<img src=<%=photos[i].url %> width="280px" height="280px">
                       
                     </td>
                   <% } %>
@@ -60,7 +60,7 @@
                   <td>
 					<!--TODO: Adjust Sizes -->
                       <a href="<%= videos[i].url %>" target="_blank">
-                        <img src="<%- toYoutubeThumb(videos[i].url) %>" width="280px" height="280px"></img>
+                        <img src="<%- toYoutubeThumb(videos[i].url) %>" width="280px" height="280px">
                       </a>
                   </td>
                   <% } %>
