@@ -19,6 +19,7 @@
 <% include ../fragments/header %>
 
 <div id="eid" style="display:none"><% if(exercise) { %><%= exercise.id %><% } %></div>
+<div id="exerciseObj" style="display:none"><% if(exercise) { %><%= JSON.stringify(exercise) %><% } %></div>
 
 <div class="container">
 
