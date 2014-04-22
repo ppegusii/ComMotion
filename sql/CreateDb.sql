@@ -31,25 +31,6 @@ CREATE TABLE exercises(
 	musclegroup_id integer NOT NULL references musclegroups(id),
 	created timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
 );
-CREATE TABLE photos(
-	id SERIAL PRIMARY KEY,
-	url VARCHAR(1023) NOT NULL,
-	exercise_id integer references exercises(id) ON DELETE CASCADE
-	--workout_id integer references workouts(id) ON DELETE CASCADE
-);
-CREATE TABLE videos(
-	id SERIAL PRIMARY KEY,
-	url VARCHAR(1023) NOT NULL,
-	exercise_id integer references exercises(id) ON DELETE CASCADE
-	--workout_id integer references workouts(id) ON DELETE CASCADE
-);
-CREATE TABLE names(
-	id SERIAL PRIMARY KEY,
-	name VARCHAR(255) NOT NULL,
-        votes integer DEFAULT 0,
-	exercise_id integer references exercises(id) ON DELETE CASCADE
-	--workout_id integer references workouts(id) ON DELETE CASCADE
-);
 CREATE TABLE users(
 	id SERIAL PRIMARY KEY,
 	username VARCHAR(255) UNIQUE NOT NULL,
@@ -63,8 +44,27 @@ CREATE TABLE workouts(
 	description VARCHAR(1023) NOT NULL,
 	difficulty_id integer NOT NULL references difficulties(id),
 	musclegroup_id integer NOT NULL references musclegroups(id),
-       	user_id integer references users(id),
+	user_id integer references users(id),
 	created timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
+);
+CREATE TABLE photos(
+	id SERIAL PRIMARY KEY,
+	url VARCHAR(1023) NOT NULL,
+	exercise_id integer references exercises(id) ON DELETE CASCADE,
+	workout_id integer references workouts(id) ON DELETE CASCADE
+);
+CREATE TABLE videos(
+	id SERIAL PRIMARY KEY,
+	url VARCHAR(1023) NOT NULL,
+	exercise_id integer references exercises(id) ON DELETE CASCADE,
+	workout_id integer references workouts(id) ON DELETE CASCADE
+);
+CREATE TABLE names(
+	id SERIAL PRIMARY KEY,
+	name VARCHAR(255) NOT NULL,
+    votes integer DEFAULT 0,
+	exercise_id integer references exercises(id) ON DELETE CASCADE,
+	workout_id integer references workouts(id) ON DELETE CASCADE
 );
 CREATE TABLE workout_sequence(
 	id SERIAL PRIMARY KEY,
