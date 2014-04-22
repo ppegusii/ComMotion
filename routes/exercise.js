@@ -7,10 +7,6 @@ exports.createExercise = function(req, res) {
    //console.log(flash);
    if(flash.length !== 0) {
       var exercise = JSON.parse(flash);
-      // clear names, photos, and videos (otherwise duplicates will be generated)
-      exercise.names = [];
-      exercise.photos = [];
-      exercise.videos = [];
       res.render('create/exercise', {
          title: 'Edit exercise',
          exercise: exercise
@@ -44,15 +40,16 @@ exports.editExercise = function(req, res) {
 exports.saveexercise = function(req, res) {
 
    console.log('Executing saveexercise');
-   var queExercise = {
-      id: req.body.id,
-      names: toNames(req.body.names),
-      difficulty: toDifficulty(req.body.difficulty),
-      description: req.body.description,
-      musclegroup: toMusclegroup(req.body.musclegroup),
-      photos: toPhotos(req.body.photos),
-      videos: toVideos(req.body.videos)
-   };
+//   var queExercise = {
+//      id: req.body.id,
+//      names: toNames(req.body.names),
+//      difficulty: toDifficulty(req.body.difficulty),
+//      description: req.body.description,
+//      musclegroup: toMusclegroup(req.body.musclegroup),
+//      photos: toPhotos(req.body.photos),
+//      videos: toVideos(req.body.videos)
+//   };
+   var queExercise = req.body;
    console.log(queExercise);
    data.exerciseInit({exercise: queExercise}, function(err, resExercise) {
       if(err)
@@ -74,13 +71,17 @@ exports.cancelexercise = function(req, res) {
 
 exports.encyclopedia_exercise_entry = function(req, res) {
    var eid = req.query.eid;
-   console.log('eid = ' + eid);
    data.exerciseGetById({id: eid}, function(err, exercise) {
       if(err) {
          console.log(err.message);
          res.send(500, err.message);
       }
+      else if(exercise.length === 0) {
+         console.log('Empty results');
+         res.send(500, 'No exercise found for id ' + eid);
+      }
       else {
+         console.log(exercise);
          res.render('encyclopedia/exerciseentry', exercise[0]);
       }
    });
@@ -102,6 +103,13 @@ exports.toYoutubeThumb = function(url) {
       hash = url.substring(hashStartIdx, hashStartIdx+11);
    }
    return 'http://img.youtube.com/vi/' + hash + '/hqdefault.jpg';
+}
+
+exports.toEmbedURL = function(url) {
+   var ytPart = 'www.youtube.com/watch?v=';
+   var indexOfHash = url.indexOf(ytPart)+ytPart.length;
+   var hash = url.substring(indexOfHash, indexOfHash+11);
+   return 'http://www.youtube.com/embed/' + hash;
 }
 
 function toDifficulty(difficulty) {

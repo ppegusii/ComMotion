@@ -23,7 +23,7 @@ var app = express();
 app.set('port', process.env.PORT || 8080);
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
-app.use(express.favicon());
+app.use(express.favicon('public/images/logo.png'));
 app.use(express.logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded());
@@ -50,10 +50,12 @@ app.get('/createprofile', user.createprofile);
 app.get('^[^.]+$', nav.checkUser);
 
 app.get('/profile/about', prof.profile_about);
+app.get('/profile/about_you', prof.profile_about_reset);
 app.get('/profile/myposts', prof.profile_posts);
 //app.get('/profile/mycreations', prof.profile_creations);
 app.get('/profile/followers', prof.profile_followers);
 app.get('/profile/following', prof.profile_following);
+app.get('/profile/user', prof.other_user_profile_about);
 
 app.get('/home', nav.home);
 app.post('/home', nav.home);
@@ -69,7 +71,6 @@ app.get('/myfavorites', nav.myfavorites);
 app.get('/findusers', nav.findusers);
 
 app.post('/query',routes.query);
-
 
 
 app.get('/findusers/results', results.user_search_results);
@@ -89,7 +90,8 @@ app.get('/logout', nav.logout);
 
 // functions accessible in ejs files
 app.locals({
-   toYoutubeThumb: exer.toYoutubeThumb
+   toYoutubeThumb: exer.toYoutubeThumb,
+   toEmbedURL: exer.toEmbedURL
 });
 
 http.createServer(app).listen(app.get('port'), function(){

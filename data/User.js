@@ -195,7 +195,7 @@ function getFollowersUsernameAndAvatars(query,cb){
   if(uid<=0){
     return cb(Error.create('query.userId invalid'),undefined);
   }
-	conn.query('SELECT username, avatar_url FROM users WHERE id IN (SELECT follower_id FROM followers WHERE user_id=$1)',[uid], function afterQuery(err, result){
+	conn.query('SELECT id, username, avatar_url FROM users WHERE id IN (SELECT follower_id FROM followers WHERE user_id=$1)',[uid], function afterQuery(err, result){
 
     if(err){
       return cb(err,undefined);
@@ -212,8 +212,8 @@ function getFollowingUsernameAndAvatars(query,cb){
   if(uid<=0){
     return cb(Error.create('query.userId invalid'),undefined);
   }
-	conn.query('SELECT username, avatar_url FROM users WHERE id IN (SELECT user_id FROM followers WHERE follower_id=$1)',[uid], function afterQuery(err, result){
-
+	conn.query('SELECT id, username, avatar_url FROM users WHERE id IN (SELECT user_id FROM followers WHERE follower_id=$1)',[uid], function afterQuery(err, result){
+	console.log(result.rows);
     if(err){
       return cb(err,undefined);
     }

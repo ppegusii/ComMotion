@@ -47,8 +47,9 @@ function setSessionForUser(username, pass, req, cb) {
       }
       else {
          var user = users[0];
-         console.log(user);
          req.session.user = user;
+		 req.session.userContextID = user.id;
+		 console.log(req.session.userContextID);
          cb(undefined, user);
       }
    });

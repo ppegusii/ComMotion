@@ -9,6 +9,8 @@ exports.encyclopedia_results = function(req, res){
             res.send(500, err.message);
         }
         else {
+		for (var i=0;i<exercises.length;i++){
+		console.log(exercises[i]);}
             res.render('encyclopediaresults', {title: 'Encyclopedia Results', exercises: exercises});
         }
     });

@@ -53,19 +53,20 @@
                   <% for (var i=0; i < photos.length; i++) { %>
                     <td>
 					<!--TODO: Adjust Sizes -->
-					<img src=<%=photos[i].url %> width="280px" height="280px">
+					<img src=<%=photos[i].url %> width="252px" height="252px">
                       
                     </td>
                   <% } %>
                   <% for (var i=0; i < videos.length; i++) { %>
                   <td>
 					<!--TODO: Adjust Sizes -->
-                      <a href="<%= videos[i].url %>" target="_blank">
-                        <img src="<%- toYoutubeThumb(videos[i].url) %>" width="280px" height="280px">
+                      <% /* %>
+                      <a href="<%- toEmbedURL(videos[i].url) %>" target="_blank">
+                        <img src="<%- toYoutubeThumb(videos[i].url) %>" width="252px" height="252px">
                       </a>
-                      <!--
-					  <iframe id = "videoInsert" width="448" height="252" frameborder="0" allowfullscreen></iframe>
-                      -->
+                      <% */ %>
+					  <iframe id="videoInsert" width="448" height="252" frameborder="0"
+                              src="<%- toEmbedURL(videos[i].url) %>" allowfullscreen></iframe>
                   </td>
                   <% } %>
                 </tr>
