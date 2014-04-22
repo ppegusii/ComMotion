@@ -3,15 +3,41 @@
 * Created by Ryan on 4/16/14.
 */
 
-var names = new Array();
-var photoURLs = new Array();
-var videoURLs = new Array();
-
 $(function () {
    initAddNameButton();
    initAddMediaButton();
    initSaveButton();
 });
+
+function getNames() {
+   var namess = new Array();
+   var enteredNamesChildren = $('#enteredNames a');
+   for(var i = 0; i < enteredNamesChildren.length; i++)
+      namess.push(enteredNamesChildren[i].innerHTML);
+   return namess;
+}
+
+function getPhotos() {
+   var photos = new Array();
+   var enteredMedia = $('#enteredMedia a');
+   for(var i = 0; i < enteredMedia.length; i++) {
+      var url = enteredMedia[i].innerHTML;
+      if(isPhotoURL(url))
+         photos.push(url);
+   }
+   return photos;
+}
+
+function getVideos() {
+   var videos = new Array();
+   var enteredMedia = $('#enteredMedia a');
+   for(var i = 0; i < enteredMedia.length; i++) {
+      var url = enteredMedia[i].innerHTML;
+      if(isVideoURL(url))
+         videos.push(url);
+   }
+   return videos;
+}
 
 function initAddNameButton() {
    var addNameButton = $('#addNameButton');
@@ -20,8 +46,6 @@ function initAddNameButton() {
       console.log(name);
       if(name !== '' && name !== null) {
          console.log('Entered name "' + name + '"');
-         // add name to model
-         names.push(name);
          // add name to view
          var html = '<a class="btn btn-sm btn-primary">' + name + '</a>';
          $('#enteredNames').append(html);
@@ -37,11 +61,6 @@ function initAddMediaButton() {
       var url = prompt('URL of media:').trim();
       if(isPhotoURL(url) || isVideoURL(url)) {
          console.log('Entered url ' + url);
-         // add url to model
-         if(isPhotoURL(url))
-            photoURLs.push(url);
-         else
-            videoURLs.push(url);
          // add url to view
          var html = '<a class="btn btn-sm btn-primary">' + url + '</a>';
          $('#enteredMedia').append(html);
@@ -89,13 +108,21 @@ function initSaveButton() {
 
       // data object to send with AJAX
       var data = {};
-      data.names = names;
+      data.names = getNames();
       data.difficulty = $('#difficulty').val();
       data.description = $('#description').val();
       data.musclegroup = $('#musclegroup').val();
-      data.photos = photoURLs;
+      data.photos = getPhotos();
+      data.videos = getVideos();
+      data.id = null;
+
+      var eid = $('#eid').html();
+      console.log(eid);
+      if($('#eid').html() !== '')
+         data.id = eid;
 
       //alert('Sending this information: ' + JSON.stringify(data));
+      //return;
 
       $.ajax({
          type: "POST",
