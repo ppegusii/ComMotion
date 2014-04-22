@@ -9,7 +9,7 @@ exports.encyclopedia_results = function(req, res){
             res.send(500, err.message);
         }
         else {
-            res.render('encyclopediaresults', {title: 'Encyclopedia Results'}, exercises);
+            res.render('encyclopediaresults', {title: 'Encyclopedia Results', exercises: exercises});
         }
     });
 };
@@ -21,7 +21,7 @@ exports.user_search_results = function(req, res){
             res.send(500, err.message);
         }
         else {
-            res.render('usersearchresults', {title: 'User Results'}, users);
+            res.render('usersearchresults', {title: 'User Results', users:users});
         }
     });
 };
