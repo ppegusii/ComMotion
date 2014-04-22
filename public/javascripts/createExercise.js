@@ -3,7 +3,16 @@
 * Created by Ryan on 4/16/14.
 */
 
-var exerciseObj = undefined;
+var exerciseObj = {
+   id: null,
+   description: null,
+   difficulty: null,
+   musclegroup: null,
+   created: null,
+   names: new Array(),
+   photos: new Array(),
+   videos: new Array()
+};
 
 $(function () {
    initAddNameButton();
@@ -57,6 +66,11 @@ function initAddNameButton() {
       console.log(name);
       if(name !== '' && name !== null) {
          console.log('Entered name "' + name + '"');
+         // add name to exerciseObj
+         exerciseObj.names.push({
+            id: null,
+            name: name
+         });
          // add name to view
          var html = '<a class="btn btn-sm btn-primary">' + name + '</a>';
          $('#enteredNames').append(html);
@@ -72,6 +86,19 @@ function initAddMediaButton() {
       var url = prompt('URL of media:').trim();
       if(isPhotoURL(url) || isVideoURL(url)) {
          console.log('Entered url ' + url);
+         // add url to exerciseObj
+         if(isPhotoURL(url)) {
+            exerciseObj.photos.push({
+               id: null,
+               url: url
+            });
+         }
+         else {
+            exerciseObj.videos.push({
+               id: null,
+               url: url
+            });
+         }
          // add url to view
          var html = '<a class="btn btn-sm btn-primary">' + url + '</a>';
          $('#enteredMedia').append(html);
@@ -118,28 +145,30 @@ function initSaveButton() {
       event.preventDefault();
 
       // data object to send with AJAX
-      var data = {};
-      data.names = getNames();
-      data.difficulty = $('#difficulty').val();
-      data.description = $('#description').val();
-      data.musclegroup = $('#musclegroup').val();
-      data.photos = getPhotos();
-      data.videos = getVideos();
-      data.id = null;
+//      var data = {};
+//      data.names = getNames();
+//      data.difficulty = $('#difficulty').val();
+//      data.description = $('#description').val();
+//      data.musclegroup = $('#musclegroup').val();
+//      data.photos = getPhotos();
+//      data.videos = getVideos();
+//      data.id = null;
+      exerciseObj.difficulty = toDifficulty($('#difficulty').val());
+      exerciseObj.description = $('#description').val();
+      exerciseObj.musclegroup = toMusclegroup($('#musclegroup').val());
 
-      var eid = $('#eid').html();
-      console.log(eid);
-      if($('#eid').html() !== '')
-         data.id = eid;
+//      var eid = $('#eid').html();
+//      console.log(eid);
+//      if($('#eid').html() !== '')
+//         data.id = eid;
 
-      //alert('Sending this information: ' + JSON.stringify(data));
-      //return;
+      console.log(exerciseObj);
 
       $.ajax({
          type: "POST",
          url: '/create/exercise/save',
          contentType: 'application/json',
-         data: JSON.stringify(data)
+         data: JSON.stringify(exerciseObj)
       })
          .done(function(res) {
             var goTo = res;
@@ -154,4 +183,28 @@ function initSaveButton() {
             $('#errorSection').html(html);
          });
    });
+}
+
+function toDifficulty(difficulty) {
+   var did = -1;
+   if(difficulty === 'Beginner')
+      did = 1;
+   if(difficulty === 'Intermediate')
+      did = 2;
+   if(difficulty === 'Advanced')
+      did = 3;
+   return {id: did, name: difficulty};
+}
+
+function toMusclegroup(musclegroup) {
+   var mid = -1;
+   if(musclegroup === 'Whole body')
+      mid = 1;
+   if(musclegroup === 'Upper body')
+      mid = 2;
+   if(musclegroup === 'Lower body')
+      mid = 3;
+   if(musclegroup === 'Core')
+      mid = 4;
+   return {id: mid, name: musclegroup};
 }
