@@ -5,11 +5,12 @@ DROP TABLE IF EXISTS fav_exercises;
 DROP TABLE IF EXISTS user_activities;
 DROP TABLE IF EXISTS activities;
 DROP TABLE IF EXISTS posts;
+DROP TABLE IF EXISTS workout_sequence;
+DROP TABLE IF EXISTS workouts;
 DROP TABLE IF EXISTS users;
 DROP TABLE IF EXISTS names;
 DROP TABLE IF EXISTS videos;
 DROP TABLE IF EXISTS photos;
-DROP TABLE IF EXISTS workouts;
 DROP TABLE IF EXISTS exercises;
 DROP TABLE IF EXISTS musclegroups;
 DROP TABLE IF EXISTS difficulties;
@@ -30,33 +31,24 @@ CREATE TABLE exercises(
 	musclegroup_id integer NOT NULL references musclegroups(id),
 	created timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
 );
-CREATE TABLE workouts(
-	id SERIAL PRIMARY KEY,
-	description VARCHAR(1023) NOT NULL,
-	difficulty_id integer NOT NULL references difficulties(id),
-	musclegroup_id integer NOT NULL references musclegroups(id),
-        --exercise_order integer NOT NULL
-	--exercise_id integer NOT NULL references exercises(id),
-	created timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
-);
 CREATE TABLE photos(
 	id SERIAL PRIMARY KEY,
 	url VARCHAR(1023) NOT NULL,
-	exercise_id integer references exercises(id) ON DELETE CASCADE,
-	workout_id integer references workouts(id) ON DELETE CASCADE
+	exercise_id integer references exercises(id) ON DELETE CASCADE
+	--workout_id integer references workouts(id) ON DELETE CASCADE
 );
 CREATE TABLE videos(
 	id SERIAL PRIMARY KEY,
 	url VARCHAR(1023) NOT NULL,
-	exercise_id integer references exercises(id) ON DELETE CASCADE,
-	workout_id integer references workouts(id) ON DELETE CASCADE
+	exercise_id integer references exercises(id) ON DELETE CASCADE
+	--workout_id integer references workouts(id) ON DELETE CASCADE
 );
 CREATE TABLE names(
 	id SERIAL PRIMARY KEY,
 	name VARCHAR(255) NOT NULL,
         votes integer DEFAULT 0,
-	exercise_id integer references exercises(id) ON DELETE CASCADE,
-	workout_id integer references workouts(id) ON DELETE CASCADE
+	exercise_id integer references exercises(id) ON DELETE CASCADE
+	--workout_id integer references workouts(id) ON DELETE CASCADE
 );
 CREATE TABLE users(
 	id SERIAL PRIMARY KEY,
@@ -66,9 +58,23 @@ CREATE TABLE users(
 	avatar_url VARCHAR(1023),
 	bio VARCHAR(2047)
 );
+CREATE TABLE workouts(
+	id SERIAL PRIMARY KEY,
+	description VARCHAR(1023) NOT NULL,
+	difficulty_id integer NOT NULL references difficulties(id),
+	musclegroup_id integer NOT NULL references musclegroups(id),
+       	user_id integer references users(id),
+	created timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
+);
+CREATE TABLE workout_sequence(
+	id SERIAL PRIMARY KEY,
+	workout_id integer NOT NULL references workouts(id) ON DELETE CASCADE, 
+	exercise_id integer NOT NULL references exercises(id), 
+	exercise_order integer NOT NULL
+);
 CREATE TABLE posts(
 	id SERIAL PRIMARY KEY,
-	user_id integer references users(id) NOT NULL,
+	user_id integer NOT NULL references users(id),
 	text VARCHAR(2047) NOT NULL,
 	created timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
 );
@@ -195,8 +201,17 @@ INSERT INTO names (id,name,exercise_id,votes) VALUES
 	(40,'dips',40,2);
 ALTER SEQUENCE names_id_seq RESTART WITH 41;
 INSERT INTO photos (id,url,exercise_id) VALUES
-	(1,'http://url/of/my/photo.jpg',1);
-ALTER SEQUENCE photos_id_seq RESTART WITH 2;
+	(1,'http://fitnessrxformen.com/wp-content/uploads/2013/09/SQUATS-CROWN-LOWER-BODY-INS1.jpg',1),
+	(2,'http://www.fitnessfocus.ca/blog/image.axd?picture=2013%2F9%2FSaskatoon+Gym+Squats.jpg',2),
+	(3,'http://www.serwer1374994.home.pl/upload/images/deadlift_front_anatomy_2013-12-02_00-23-39.jpg',3),
+	(4,'http://michaelreid.typepad.com/.a/6a00e54edabd8388330134855ba3b2970c-pi',4),
+	(5,'http://www.t-nation.com/img/photos/2012/12-717-03/barbell-push-press.jpg',5),
+	(6,'http://images.rodale.com/image/pv/msnca-tone-overhead-press.jpg',6),
+	(7,'http://www.menshealth.com/mhlists/cms/uploads/1/1003-illo-bench-press.jpg',7),
+	(8,'http://img2.timeinc.net/health/img/mag/2012/10/slide-push-up-400x400.jpg',8),
+	(9,'http://www.menshealth.co.uk/cm/menshealthuk/images/Eh/pullup-med.jpg',9),
+	(10,'http://fitfinity.net/wp-content/uploads/2010/10/bent-over-barbell-row-e.jpg',10);
+ALTER SEQUENCE photos_id_seq RESTART WITH 11;
 INSERT INTO videos (id,url,exercise_id) VALUES
 	(1,'//www.youtube.com/embed/v-eQooI6Yds', 1),
 	(2,'//www.youtube.com/embed/PKmrXTx6jZs', 2),
@@ -261,6 +276,21 @@ INSERT INTO users (id, username, password, difficulty_id, avatar_url, bio) VALUE
 	(19, 'hermioneGranger', 'commotion', 3, 'http://www.freelogovectors.net/wp-content/uploads/2013/02/Alien.png', 'I like to sweat on others.'),
 	(20, 'severusSnape', 'commotion', 2, 'http://www.freelogovectors.net/wp-content/uploads/2013/02/man-avatar-1.png', 'I like to sweat on others.');
 ALTER SEQUENCE users_id_seq RESTART WITH 21;
+INSERT INTO workouts (id, description, difficulty_id, musclegroup_id, user_id) VALUES
+	(1, 'lower body challenge', 2, 3, 16),
+	(2, 'work out anywhere', 1, 1, 12);
+ALTER SEQUENCE workouts_id_seq RESTART WITH 3;
+INSERT INTO workout_sequence (workout_id, exercise_id, exercise_order) VALUES
+	(1, 1, 1),
+	(1, 20, 2),
+	(1, 29, 3),
+	(1, 28, 4),
+	(1, 14, 5),
+	(1, 4, 6),
+	(2, 8, 1),
+	(2, 9, 2),
+	(2, 12, 3),
+	(2, 14, 4);
 INSERT INTO posts (user_id, text) VALUES
 	(13, 'The Boston Marathon today was just nuclear!  I''m glowing with admiration.  By the way, I found ring dips
 to be challenging, but what an awesome pump!'),
