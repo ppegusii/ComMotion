@@ -47,7 +47,7 @@
             <h3>Muscle group: <%= musclegroup.name %></h3>
 
             <h3>Media</h3>
-            <div id="medias" style="max-height: 300px; overflow-x:scroll">
+            <div id="medias" style="max-height: 300px; overflow-x:auto">
               <table style="border-collapse: separate; border-spacing: 10px">
                 <tr>
                   <% for (var i=0; i < photos.length; i++) { %>
@@ -83,16 +83,6 @@
 
     </div><!-- /.container -->
 
-	
-<!--Script to Convert Standard youtube URL to embed URL -->
-    <% /* %>
-	<script type='text/javascript'>
-		var  standardURL = <%-JSON.stringify(videos[0].url)%>
-		var embedURL = "http://" + standardURL.replace(/watch\?v=/g,"embed/");
-		 $("#videoInsert").attr("src", embedURL);
-	</script>
-    <% */ %>
   <% include ../fragments/footer %>
-  <script src = "javascripts/bootstrap.js"></script>
   </body>
 </html>
