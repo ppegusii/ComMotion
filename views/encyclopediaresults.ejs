@@ -37,15 +37,22 @@
 		<div class="well">
 
 
-		<ul id="resultsList" class="list-group" style="height:500px">
-
+		<ul id="resultsList" class="list-group" >
 
 		<% for (var i = 0; i<Math.min(5,exercises.length); i++){ %>
 
 		<li class="list-group-item" style="height:90px">
 			<div class="col-md-2 col-sm-2 col-xs-2">
 				<media>
-				<a href="/encyclopedia/exercise_entry?eid=<%=exercises[i].id%>"><img src="<%= exercises[i].photos[0] %>" width="65" height="65"></a>
+        				<% if (exercises[i].photos[0] === undefined) { %>
+
+						<img src= "/images/generic_exercise.jpeg" width="80" height="80"></img>
+							
+						<% } else { %>
+
+						<img src= <%=exercises[i].photos[0].url %> width="80" height="80"></img>
+
+						<% } %>
 				</media>
 			</div>
 			<div class="col-md-10 col-sm-10 col-xs-10">
