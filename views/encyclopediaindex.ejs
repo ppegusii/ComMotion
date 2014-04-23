@@ -35,6 +35,13 @@
 <% if (size%4>=3) {column3plus =1;} %>
 
 
+<% exercises.sort(function(a, b) { %> 
+   <% var textA = a.names[0].name.toUpperCase(); %>
+   <% var textB = b.names[0].name.toUpperCase(); %>
+   <% return (textA < textB) ? -1 : (textA > textB) ? 1 : 0; %>
+<% }); %>
+
+
 		<div class="col-md-3 col-sm-3 col-xs-3">
 			<ul>
 			<% for (var i=0; i<constant+column1plus; i++){ %>

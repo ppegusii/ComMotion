@@ -29,6 +29,7 @@ function getLimitN(query,cb){
     resultToExercises(result,cb);
   });
 }
+
 function getById(query,cb){
   var id = parseInt(query.id,10);
   if(id<=0){
