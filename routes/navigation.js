@@ -77,7 +77,14 @@ exports.encyclopedia = function(req, res){
 };
 
 exports.encyclopediaindex = function(req, res){
-  res.render('encyclopediaindex', {title: 'Encyclopedia Index'});
+    data.exercisesGetLimitN({n:100},function afterGet(err,exercises){
+    res.render('encyclopediaindex',
+      {
+        title: 'Encyclopedia Index',
+        exercises: exercises,
+        err: err
+      });
+  });
 };
 
 exports.myfavorites = function(req, res){
