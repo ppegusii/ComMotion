@@ -44,6 +44,7 @@
 
 		<li class="list-group-item" style="height:90px">
 			<div class="col-md-2 col-sm-2 col-xs-2">
+			<a href="/profile/user?currentUser=<%=users[i].id%>">
 				<media>
 			        <% if (users[i].avatar_url===undefined) { %>
 
@@ -56,6 +57,7 @@
 					<% } %>
 	
 				</media>
+				</a>
 			</div>
 			<div class="col-md-10 col-sm-10 col-xs-10">
 			<h4><%= users[i].username %> - <%= users[i].bio%></h4>

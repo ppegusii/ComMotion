@@ -49,7 +49,7 @@
 	
 	<div class="col-md-2 col-sm-2 col-xs-2 col-md-offset-1 col-sm-offset-1 col-xs-offset-1">
 		<center>
-			<a href="encyclopedia/exercise_entry">
+			<a href="encyclopedia/exercise_entry?eid=<%=exercises[i*5].id%>">
 				<media>
 						<% if (exercises[i].length ===0) { %>
 
@@ -69,7 +69,7 @@
 	<% for (var j=0; j<4; j++){ %>
 		<div class="col-md-2 col-sm-2 col-xs">
 		<center>
-			<a href="encyclopedia/exercise_entry">
+			<a href="encyclopedia/exercise_entry?eid=<%=exercises[i*5+j+1].id%>">
 				<media>
         				<% if (exercises[i].photos[0] === undefined) { %>
 
