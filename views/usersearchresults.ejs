@@ -40,25 +40,25 @@
 		<ul id="resultsList" class="list-group">
 
 
-		<% for (var i = 0; i<5; i++){ %>
+		<% for (var i = 0; i<Math.min(5,users.length); i++){ %>
 
 		<li class="list-group-item" style="height:90px">
 			<div class="col-md-2 col-sm-2 col-xs-2">
 				<media>
-			        <% if (users[i].photos[0] === undefined) { %>
+			        <% if (users[i].avatar_url===undefined) { %>
 
-					<img src= "/images/generic_person.jpg" width="65" height="65"></img>
+					<img src= "/images/generic_person.jpg" width="65" height="65">
 
 					<% } else { %>
 
-					<img src= <%=users[i].photos[0].url %> width="65" height="65"></img>
+					<img src= <%=users[i].avatar_url %> width="65" height="65">
 
 					<% } %>
 	
 				</media>
 			</div>
 			<div class="col-md-10 col-sm-10 col-xs-10">
-			<h4><%= users[i].names[0].name %> - <%= users[i].description%></h4>
+			<h4><%= users[i].username %> - <%= users[i].bio%></h4>
 			</div>
 
 		</li>
