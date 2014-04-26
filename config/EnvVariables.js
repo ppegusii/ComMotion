@@ -19,6 +19,7 @@ process.env['DATA_VIDEO'] = path.join(dataDir,'./Video.js');
 process.env['DATA_PHOTO'] = path.join(dataDir,'./Photo.js');
 process.env['DATA_USER'] = path.join(dataDir,'./User.js');
 process.env['DATA_ACTIVITY'] = path.join(dataDir,'./Activity.js');
+process.env['DATA_POST'] = path.join(dataDir,'./Post.js');
 
 //validation layer
 var validateDir = path.join(appDir,'./validate');

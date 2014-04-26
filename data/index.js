@@ -7,6 +7,7 @@ var video = require(process.env.DATA_VIDEO);
 var photo = require(process.env.DATA_PHOTO);
 var user = require(process.env.DATA_USER);
 var activity = require(process.env.DATA_ACTIVITY);
+var post = require(process.env.DATA_POST);
 
 //Comment format
 //expected object
@@ -57,3 +58,7 @@ exports.activitiesGetByUserId = activity.getByUserId;
 exports.usergetFollowersUsernameAndAvatars = user.getFollowersUsernameAndAvatars;
 //{userId: number}
 exports.usergetFollowingUsernameAndAvatars = user.getFollowingUsernameAndAvatars;
+//{userId: number}
+exports.postsGetByUserId = post.getByUserId;
+//{userId: number}
+exports.postsOfFollowedUsersGetByFollowingUserId = post.getPostsOfFollowedUsersByFollowingUserId;

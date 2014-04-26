@@ -97,6 +97,12 @@ exports.User = function(id,username,password,difficulty,avatar_url,bio,activitie
   //Array of number; follows = falsey or each number > 0
   this.followers = followers;
 };
+exports.Post = function(id,userId,text,created){
+  this.id = id;
+  this.userId = userId;
+  this.text = text;
+  this.created = created;
+}
 exports.Activity = function(id,name){
   //number; parseInt(id,10) > 0
   this.id = id;
