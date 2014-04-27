@@ -93,11 +93,23 @@ exports.profile_posts = function(req, res){
 
 	});
 };
-/*
+
 exports.profile_creations = function(req, res){
-     res.render('profile/mycreations', {title: 'Profile Creations'});
+	userId = req.session.user.id;
+	userContextId = req.session.userContextID;
+
+	data.userGetById( {id: userContextId},function afterGet(err, user){
+    res.render('profile/mycreations',
+      {
+        title: 'Profile Creations',
+        user: user,
+		myId: userId,
+        err: err
+      });
+  });
+     
 };
-*/
+
 exports.profile_followers = function(req, res){
 
 	userContextId = req.session.userContextID;

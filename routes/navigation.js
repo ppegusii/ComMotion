@@ -3,23 +3,20 @@ var models = require('../models/index.js');
 var data = require(process.env.DATA);
 
 exports.home = function(req, res){
-  // console.log("HOME ID: " + req.session.user.id);
-  // res.render('home', { user:req.session.user });
-
 	userId = req.session.user.id;
 
 	data.postsOfFollowedUsersGetByFollowingUserId( {userId: userId}, function afterGet(err, posts){
 
 		data.userGetUsernameAndAvatarsOfPosts({userId: userId}, function afterGet2(err, users){
 		
-    res.render('home', 
-      {
-        title: 'Locker',
-		posts: posts,
-		user: req.session.user,
-		users: users,
-        err: err
-      });
+		res.render('home', 
+		  {
+		    title: 'Locker',
+			posts: posts,
+			user: req.session.user,
+			users: users,
+		    err: err
+		  });
 
 	  });
 
@@ -127,17 +124,21 @@ exports.findusers = function(req, res){
 
 exports.workoutcreator = function(req, res){
 
-	    data.exercisesSearchByNameDescriptionMusclegroup({search:req.query.query}, function(err, exercises) {
-        if(err) {
-            console.log(err.message);
-            res.send(500, err.message);
-        }
-        else {
-		for (var i=0;i<exercises.length;i++){
-		console.log(exercises[i]);}
-            res.render('create/workoutcreator', {title: 'Workout Creator', exercises: exercises});
-        }
-    });
+ res.render('create/workoutcreator', {title: 'Workout Creator'});
+
+};
+
+exports.getExercisesBySearchUsingAjax = function(req, res){
+
+	data.exercisesSearchByNameDescriptionMusclegroup({search: req.body.term}, function(err, exercises) {
+		    if(err) {
+		    console.log(err.message);
+		    res.send(500, err.message);
+		    }
+			else{
+			  res.send(exercises);
+			}
+	});
 
 };
 

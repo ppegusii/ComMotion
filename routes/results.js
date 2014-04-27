@@ -3,6 +3,7 @@ var models = require('../models/index.js');
 var data = require(process.env.DATA);
 
 exports.encyclopedia_results = function(req, res){
+
     data.exercisesSearchByNameDescriptionMusclegroup({search:req.query.query}, function(err, exercises) {
         if(err) {
             console.log(err.message);
