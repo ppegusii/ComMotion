@@ -82,7 +82,6 @@ app.get('/encyclopedia/workout_entry', nav.encyclopedia_workout_entry);
 
 app.get('/create/exercise', exer.createExercise);
 app.get('/create/workoutcreator', nav.workoutcreator);
-app.post('/create/workoutcreator', nav.getExercisesBySearchUsingAjax);
 
 app.post('/create/exercise/save', exer.saveexercise);
 app.get('/create/exercise/cancel', exer.cancelexercise);

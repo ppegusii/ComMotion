@@ -242,21 +242,22 @@ $("#addSetAmount").on("click", "a.bk_name", function(e){
             console.log('search clicked');
 
 			var data = {};
-			data.term = $("#field").val();
-			console.log(data.term);
-			//data.term = "test";
+
+			data.query = 'exercisesSearchByNameDescriptionMusclegroup';
+			data.search = $("#field").val();
+
 
 			$.ajax({
 				type: 'POST',
 				data: JSON.stringify(data),
 		        contentType: 'application/json',
-                url: 'http://localhost:8080/create/workoutcreator',						
+				 url: 'http://localhost:8080/query',						
                 success: function(data) {
 		
 					var exercises = data;
 
                     console.log('success');
-                  //  console.log(JSON.stringify(data));
+                    console.log(JSON.stringify(data));
 					
 						$('#exercise_results').empty();
 

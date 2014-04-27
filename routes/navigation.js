@@ -128,19 +128,6 @@ exports.workoutcreator = function(req, res){
 
 };
 
-exports.getExercisesBySearchUsingAjax = function(req, res){
-
-	data.exercisesSearchByNameDescriptionMusclegroup({search: req.body.term}, function(err, exercises) {
-		    if(err) {
-		    console.log(err.message);
-		    res.send(500, err.message);
-		    }
-			else{
-			  res.send(exercises);
-			}
-	});
-
-};
 
 exports.encyclopedia_workout_entry = function(req, res) {
      var data = getWorkoutEntry('Get workout id');
