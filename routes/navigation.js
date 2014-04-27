@@ -10,7 +10,7 @@ exports.home = function(req, res){
 
 	data.postsOfFollowedUsersGetByFollowingUserId( {userId: userId}, function afterGet(err, posts){
 
-		data.userGetUsernameAndAvatars({userId: userId}, function afterGet2(err, users){
+		data.userGetUsernameAndAvatarsOfPosts({userId: userId}, function afterGet2(err, users){
 		
     res.render('home', 
       {
@@ -126,7 +126,19 @@ exports.findusers = function(req, res){
 };
 
 exports.workoutcreator = function(req, res){
-     res.render('create/workoutcreator', {title: 'Workout Creator'});
+
+	    data.exercisesSearchByNameDescriptionMusclegroup({search:req.query.query}, function(err, exercises) {
+        if(err) {
+            console.log(err.message);
+            res.send(500, err.message);
+        }
+        else {
+		for (var i=0;i<exercises.length;i++){
+		console.log(exercises[i]);}
+            res.render('create/workoutcreator', {title: 'Workout Creator', exercises: exercises});
+        }
+    });
+
 };
 
 exports.encyclopedia_workout_entry = function(req, res) {

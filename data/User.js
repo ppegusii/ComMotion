@@ -19,7 +19,7 @@ exports.create = create;
 exports.createFavExercise = createFavExercise;
 exports.getFollowersUsernameAndAvatars = getFollowersUsernameAndAvatars;
 exports.getFollowingUsernameAndAvatars = getFollowingUsernameAndAvatars;
-exports.getUsernameAndAvatars = getUsernameAndAvatars;
+exports.getUsernameAndAvatarsOfPosts = getUsernameAndAvatarsOfPosts;
 
 function getLimitN(query,cb){
   var n = parseInt(query.n,10);
@@ -224,7 +224,7 @@ function getFollowingUsernameAndAvatars(query,cb){
 }
 
 
-function getUsernameAndAvatars(query,cb){
+function getUsernameAndAvatarsOfPosts(query,cb){
 	var userId = query.userId;
 
   if(userId<=0){
