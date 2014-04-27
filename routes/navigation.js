@@ -116,6 +116,23 @@ exports.myfavorites = function(req, res){
 
 };
 
+/*
+//{userId: number, exerciseId: number}
+exports.userCreateFavExercise = user.createFavExercise;
+
+
+exports.saveFavoriteExercise = function(req, res){
+
+	userId = req.session.user.id;
+	exerciseId = req.query.exerciseId;
+	
+	data.userCreateFavExercise( {userId: userId, exerciseId:  
+
+
+};
+*/
+
+
 exports.findusers = function(req, res){
 
     //data.searchByNameDescriptionMusclegroup()
