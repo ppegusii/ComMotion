@@ -166,6 +166,7 @@ function rowToUser(row,cb){
   });
 }
 function create(query,cb){
+  console.log(JSON.stringify(query));
   if(!query.user){
     return cb(Error.create('query.user undefined'),undefined);
   }
