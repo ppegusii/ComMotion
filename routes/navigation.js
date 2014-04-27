@@ -3,8 +3,27 @@ var models = require('../models/index.js');
 var data = require(process.env.DATA);
 
 exports.home = function(req, res){
-   console.log("HOME ID: " + req.session.user.id);
-   res.render('home', { user:req.session.user });
+  // console.log("HOME ID: " + req.session.user.id);
+  // res.render('home', { user:req.session.user });
+
+	userId = req.session.user.id;
+
+	data.postsOfFollowedUsersGetByFollowingUserId( {userId: userId}, function afterGet(err, posts){
+
+		data.userGetUsernameAndAvatars({userId: userId}, function afterGet2(err, users){
+		
+    res.render('home', 
+      {
+        title: 'Locker',
+		posts: posts,
+		user: req.session.user,
+		users: users,
+        err: err
+      });
+
+	  });
+
+	});
 }
 
 exports.checkUser = function(req, res, next) {

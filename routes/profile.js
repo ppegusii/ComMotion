@@ -76,15 +76,22 @@ exports.profile_posts = function(req, res){
 	userId = req.session.user.id;
 	userContextId = req.session.userContextID;
 
-	data.userGetById( {id: userContextId},function afterGet(err, user){
+   console.log("USER CONTEXT ID: "+ userContextId);
+
+	data.postsGetByUserId( {userId: userContextId}, function afterGet(err, posts){
+
+	data.userGetById( {id: userContextId},function afterGet2(err, user){
     res.render('profile/myposts',
       {
         title: 'Profile Posts',
         user: user,
 		myId: userId,
+		posts: posts,
         err: err
       });
   });
+
+	});
 };
 /*
 exports.profile_creations = function(req, res){

@@ -19,6 +19,7 @@ exports.create = create;
 exports.createFavExercise = createFavExercise;
 exports.getFollowersUsernameAndAvatars = getFollowersUsernameAndAvatars;
 exports.getFollowingUsernameAndAvatars = getFollowingUsernameAndAvatars;
+exports.getUsernameAndAvatars = getUsernameAndAvatars;
 
 function getLimitN(query,cb){
   var n = parseInt(query.n,10);
@@ -221,3 +222,23 @@ function getFollowingUsernameAndAvatars(query,cb){
     return cb(undefined, result.rows);
   });
 }
+
+
+function getUsernameAndAvatars(query,cb){
+	var userId = query.userId;
+
+  if(userId<=0){
+    return cb(Error.create('query.userId invalid'),undefined);
+  }
+
+	conn.query('SELECT u.id,u.username, u.avatar_url FROM users AS u WHERE id in (SELECT p.user_id FROM posts AS p,followers AS f WHERE f.follower_id=$1 AND f.user_id=p.user_id ORDER BY created DESC)', [userId], function afterQuery(err,result){
+
+    if(err){
+      return cb(err,undefined);
+    }
+    return resultToUsers(result,cb);
+  });
+
+}
+
+
