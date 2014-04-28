@@ -325,8 +325,8 @@ asyncTest('postsGetByUserId',function(){
 		url: '/query',
 		data: {query: 'postsGetByUserId',userId: 17}
 	}).done(function(posts){
-    console.log('postsGetByUserId');
-    console.log(posts);
+    //console.log('postsGetByUserId');
+    //console.log(posts);
     equal(posts.length,1,'received correct number of posts');
     equal(posts[0].text,'I love squats so much, I want to start a squat club.  And the first rule of squat club is, you don\'t talk about squat club.','received correct post');
     start();
@@ -339,10 +339,29 @@ asyncTest('postsOfFollowedUsersGetByFollowingUserId',function(){
 		url: '/query',
 		data: {query: 'postsOfFollowedUsersGetByFollowingUserId',userId: 7}
 	}).done(function(posts){
-    console.log('postsOfFollowedUsersGetByFollowingUserId');
-    console.log(posts);
+    //console.log('postsOfFollowedUsersGetByFollowingUserId');
+    //console.log(posts);
     equal(posts.length,1,'received correct number of posts');
     equal(posts[0].text,'I love squats so much, I want to start a squat club.  And the first rule of squat club is, you don\'t talk about squat club.','received correct post');
+    start();
+  });
+});
+asyncTest('postInit',function(){
+  expect(1);
+	$.ajax({
+		type: 'POST',
+		url: '/query',
+		data: {
+      query: 'postInit',
+      post: {
+        userId: 9,
+        text: 'I roid rage in my spare time.'
+      }
+    }
+	}).done(function(post){
+    console.log('postInit');
+    console.log(post);
+    equal(post.text,'I roid rage in my spare time.','created a new post');
     start();
   });
 });

@@ -31,6 +31,7 @@ process.env['VALIDATE_NAME'] = path.join(validateDir,'./Name.js');
 process.env['VALIDATE_VIDEO'] = path.join(validateDir,'./Video.js');
 process.env['VALIDATE_PHOTO'] = path.join(validateDir,'./Photo.js');
 process.env['VALIDATE_USER'] = path.join(validateDir,'./User.js');
+process.env['VALIDATE_POST'] = path.join(validateDir,'./Post.js');
 
 //models
 var modelsDir = path.join(appDir,'./models');

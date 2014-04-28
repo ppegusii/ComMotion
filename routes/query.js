@@ -26,6 +26,7 @@ queries['activitiesGetAll'] = data.activitiesGetAll;
 queries['activitiesGetByUserId'] = data.activitiesGetByUserId;
 queries['postsGetByUserId'] = data.postsGetByUserId;
 queries['postsOfFollowedUsersGetByFollowingUserId'] = data.postsOfFollowedUsersGetByFollowingUserId;
+queries['postInit'] = data.postInit;
 
 function query(req,res){
 //console.log('body = '+JSON.stringify(req.body));

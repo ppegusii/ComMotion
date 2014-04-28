@@ -98,9 +98,13 @@ exports.User = function(id,username,password,difficulty,avatar_url,bio,activitie
   this.followers = followers;
 };
 exports.Post = function(id,userId,text,created){
+  //number; parseInt(id,10) > 0
   this.id = id;
+  //number; parseInt(userId,10) > 0
   this.userId = userId;
+  //string; text != falsey, text !== ''
   this.text = text;
+  //Date;
   this.created = created;
 }
 exports.Activity = function(id,name){
