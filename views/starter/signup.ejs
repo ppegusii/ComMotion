@@ -47,10 +47,38 @@
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-danger pull-left" data-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary" data-dismiss="modal" data-toggle="modal" data-target="#createprofile">Sign Up</button>
+        <button id ="sign-up" type="button" class="btn btn-primary" data-dismiss="modal" data-toggle="modal" data-target="#createprofile">Sign Up</button>
       </div>
     </div>
   </div>
 </div>
+
+<script>
+    $(function(){				
+        $('#sign-up').click(function(e){
+            e.preventDefault();
+            console.log('User Sign Up Clicked');
+
+			var data = {};
+
+			data.query = 'userCreate';
+			data.user = {
+			username: $('#signup-username').val(),
+			password: $('#signup-password').val()
+			};
+
+			$.ajax({
+				type: 'POST',
+				data: JSON.stringify(data),
+		        contentType: 'application/json',
+				 url: 'http://localhost:8080/query',						
+                success: function(data) {
+                    console.log('User has signed up');
+                }
+            });
+
+        });				
+    });
+</script>
 
 </signup>

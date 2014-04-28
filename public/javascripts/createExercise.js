@@ -3,6 +3,10 @@
 * Created by Ryan on 4/16/14.
 */
 
+var uiIdNameCount = 0;
+var uiIdPhotoCount = 0;
+var uiIdVideoCount = 0;
+
 var exerciseObj = {
    id: null,
    description: null,
@@ -23,40 +27,19 @@ $(function () {
 
 function initExerciseObj() {
    var jsonString = $('#exerciseObj').html();
-   if(jsonString !== '')
-      exerciseObj = JSON.parse(jsonString);
+   if(jsonString !== '') {
+      var temp = JSON.parse(jsonString);
+      exerciseObj.id = temp.id;
+      exerciseObj.description = temp.description;
+      exerciseObj.difficulty = temp.difficulty;
+      exerciseObj.musclegroup = temp.musclegroup;
+      for(var i=0; i < temp.names.length; i++)
+         addName(temp.names[i].name, temp.names[i].id);
+      exerciseObj.photos = temp.photos;
+      exerciseObj.videos = temp.videos;
+   }
    console.log('Exercise obj is:');
    console.log(exerciseObj);
-}
-
-function getNames() {
-   var namess = new Array();
-   var enteredNamesChildren = $('#enteredNames a');
-   for(var i = 0; i < enteredNamesChildren.length; i++)
-      namess.push(enteredNamesChildren[i].innerHTML);
-   return namess;
-}
-
-function getPhotos() {
-   var photos = new Array();
-   var enteredMedia = $('#enteredMedia a');
-   for(var i = 0; i < enteredMedia.length; i++) {
-      var url = enteredMedia[i].innerHTML;
-      if(isPhotoURL(url))
-         photos.push(url);
-   }
-   return photos;
-}
-
-function getVideos() {
-   var videos = new Array();
-   var enteredMedia = $('#enteredMedia a');
-   for(var i = 0; i < enteredMedia.length; i++) {
-      var url = enteredMedia[i].innerHTML;
-      if(isVideoURL(url))
-         videos.push(url);
-   }
-   return videos;
 }
 
 function initAddNameButton() {
@@ -64,20 +47,45 @@ function initAddNameButton() {
    addNameButton.click(function(event) {
       var name = prompt('New name:').trim();
       console.log(name);
-      if(name !== '' && name !== null) {
-         console.log('Entered name "' + name + '"');
-         // add name to exerciseObj
-         exerciseObj.names.push({
-            id: null,
-            name: name
-         });
-         // add name to view
-         var html = '<a class="btn btn-sm btn-primary">' + name + '</a>';
-         $('#enteredNames').append(html);
-      }
-      else
-         console.log('Improper name format!');
+      addName(name);
    });
+}
+
+function addName(name, id) {
+   if(name !== '' && name !== null) {
+      console.log('Entered name "' + name + '"');
+      console.log('Entered with id: ' + id);
+      // add name to exerciseObj
+      exerciseObj.names.push({
+         id: (id === undefined ? null : id),
+         name: name,
+         uiId: uiIdNameCount
+      });
+      // add name to view
+      var htmlId = 'name' + uiIdNameCount;
+      var html = '<a class="btn btn-sm btn-primary" id="' + htmlId + '">' + name + '</a>';
+      $('#enteredNames').append(html);
+      $('#'+htmlId).click(removeNameFn('#'+htmlId, uiIdNameCount));
+      uiIdNameCount++;
+   }
+   else
+      console.log('Improper name format!');
+}
+
+function removeNameFn(selector, uiId) {
+   return function(event) {
+      // Remove from UI
+      $(selector).remove();
+      // Remove from exerciseObj
+      console.log('Checking for uiId = ' + uiId);
+      for(var i = 0; i < exerciseObj.names.length; i++) {
+         console.log(exerciseObj.names[i].uiId);
+         if(exerciseObj.names[i].uiId === uiId) {
+            exerciseObj.names.splice(i,1);
+            return;
+         }
+      }
+   };
 }
 
 function initAddMediaButton() {
@@ -144,25 +152,10 @@ function initSaveButton() {
    saveButton.click(function(event) {
       event.preventDefault();
 
-      // data object to send with AJAX
-//      var data = {};
-//      data.names = getNames();
-//      data.difficulty = $('#difficulty').val();
-//      data.description = $('#description').val();
-//      data.musclegroup = $('#musclegroup').val();
-//      data.photos = getPhotos();
-//      data.videos = getVideos();
-//      data.id = null;
       exerciseObj.difficulty = toDifficulty($('#difficulty').val());
       exerciseObj.description = $('#description').val();
       exerciseObj.musclegroup = toMusclegroup($('#musclegroup').val());
-
-//      var eid = $('#eid').html();
-//      console.log(eid);
-//      if($('#eid').html() !== '')
-//         data.id = eid;
-
-      console.log(exerciseObj);
+      //alert(JSON.stringify(exerciseObj));
 
       $.ajax({
          type: "POST",

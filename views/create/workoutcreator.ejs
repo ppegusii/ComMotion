@@ -25,6 +25,10 @@ ul
 {
 list-style-type: none;
 }
+.draggableExercise, .draggableRest
+{
+cursor:pointer;
+}
 </style>
 
 
@@ -147,6 +151,12 @@ connectWith: "li"
 function addRestAmount(){
 console.log("Rest Amount Added");
 $("#restAmountList").append('<li class="draggableRest">' + $("#newRestAmount").val() + '</li>');
+
+$( ".draggableRest" ).draggable({
+connectToSortable: "#accordion2",
+helper: "clone",
+revert: false
+});
 }
 
 function addSetAmount(){
@@ -161,6 +171,8 @@ $("#addSetAmount").on("click", "a.bk_name", function(e){
     $('.testSet').append("TEST");
 });
 */
+
+   
 </script>
 
 
@@ -183,16 +195,12 @@ $("#addSetAmount").on("click", "a.bk_name", function(e){
 				<div class="group active">
 					<h3>Search for Exercise</h3>
 					<div>
-						      <form class="navbar-form" role="search">
-								<div class="form-group">
-								  <input type="text" class="form-control" placeholder="Search" style="width:150px">
-								</div>
-								
-							  </form>
-					<ul>
-						<li class="draggableExercise">Exercise x</li>
-						<li class="draggableExercise">Exercise y</li>
-						<li class="draggableExercise">Exercise z</li>
+
+ <input id="field" type="text" class="form-control" placeholder="Search" style="width:150px">
+
+					<ul id="exercise_results">
+
+
 					</ul>
 					</div>
 				</div>
@@ -222,22 +230,11 @@ $("#addSetAmount").on("click", "a.bk_name", function(e){
 	<p>Drag exercises over here to build workout</p>
 
 		<div id="accordion2" style="height:600px">
-<!--
-			<div id ="test2" class="group">
-				<h3>Increasing 3 - Clean and Press</h3>
-			
-				<ul>
-					<li>10 Reps 70% 1 Rep Max=70lb</li>
-					<li>8 Reps 80% 1 Rep Max=80lb</li>
-					<li>6 Reps 90% 1 Rep Max=90lb</li>
-				</ul>
-				
-			</div>
--->
+
 		</div>
 	</div>
 		<div id="trash" class="col-md-3 col-sm-3 col-xs-3">
-			</p>Drag sets or exercises over here to delete them</p>
+			</p>Drag exercises or rests over here to delete them</p>
 			<div class="well"  style="height:140px">
 				<center><span class="glyphicon glyphicon-trash"></span> Trash Area</center>
 			</div>
@@ -246,6 +243,50 @@ $("#addSetAmount").on("click", "a.bk_name", function(e){
 	</div>
 
 </div>
+
+<script>
+
+    $(function(){				
+        $('#field').keyup(function(e){
+            e.preventDefault();
+            console.log('search clicked');
+
+			var data = {};
+
+			data.query = 'exercisesSearchByNameDescriptionMusclegroup';
+			data.search = $("#field").val();
+
+
+			$.ajax({
+				type: 'POST',
+				data: JSON.stringify(data),
+		        contentType: 'application/json',
+				 url: 'http://localhost:8080/query',						
+                success: function(data) {
+		
+					var exercises = data;
+
+                    console.log('success');
+                    console.log(JSON.stringify(data));
+					
+						$('#exercise_results').empty();
+
+						for(var i=0; i<Math.min(10,exercises.length); i++){
+
+							$('#exercise_results').append('<li class="draggableExercise">' + exercises[i].names[0].name + '</li>');
+						}
+
+					$( ".draggableExercise" ).draggable({
+						connectToSortable: "#accordion2",
+						helper: "clone",
+						revert: false
+					});
+                }
+            });
+
+        });				
+    });
+</script>
 
 <% include ../fragments/footer %>
 
