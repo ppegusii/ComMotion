@@ -6,11 +6,11 @@ DROP TABLE IF EXISTS user_activities;
 DROP TABLE IF EXISTS activities;
 DROP TABLE IF EXISTS posts;
 DROP TABLE IF EXISTS workout_sequence;
-DROP TABLE IF EXISTS workouts;
-DROP TABLE IF EXISTS users;
 DROP TABLE IF EXISTS names;
 DROP TABLE IF EXISTS videos;
 DROP TABLE IF EXISTS photos;
+DROP TABLE IF EXISTS workouts;
+DROP TABLE IF EXISTS users;
 DROP TABLE IF EXISTS exercises;
 DROP TABLE IF EXISTS musclegroups;
 DROP TABLE IF EXISTS difficulties;
@@ -98,9 +98,10 @@ CREATE TABLE fav_workouts(
 	workout_id integer NOT NULL references workouts(id) ON DELETE CASCADE
 );	
 CREATE TABLE followers(
-	id SERIAL PRIMARY KEY,
 	user_id integer NOT NULL references users(id) ON DELETE CASCADE,
 	follower_id integer NOT NULL  references users(id) ON DELETE CASCADE
+	PRIMARY KEY(user_id, follower_id),
+	CHECK(user_id<>follower_id)
 );
 
 -- load tables
@@ -210,8 +211,18 @@ INSERT INTO photos (id,url,exercise_id) VALUES
 	(7,'http://www.menshealth.com/mhlists/cms/uploads/1/1003-illo-bench-press.jpg',7),
 	(8,'http://img2.timeinc.net/health/img/mag/2012/10/slide-push-up-400x400.jpg',8),
 	(9,'http://www.menshealth.co.uk/cm/menshealthuk/images/Eh/pullup-med.jpg',9),
-	(10,'http://fitfinity.net/wp-content/uploads/2010/10/bent-over-barbell-row-e.jpg',10);
-ALTER SEQUENCE photos_id_seq RESTART WITH 11;
+	(10,'http://fitfinity.net/wp-content/uploads/2010/10/bent-over-barbell-row-e.jpg',10),
+	(11,'http://www.poweredbypeanutbutter.com/wp-content/uploads/2012/05/dumbbell-row.jpg', 11),
+	(12,'http://img2.timeinc.net/health/images/gallery/living/ggm-runninf-plank-400.jpg',12),
+	(13,'http://blog.vytalz.com/wp-content/uploads/2012/08/crunches.png',13),
+	(14,'http://media.coreperformance.com/images/jump-rope-secrets-from-buddy-lee.jpg',14),
+	(15,'http://danjohn.net/wp-content/uploads/Weight-Training-For-Wrestling-Kettlebell-Swing.jpg',15),
+	(16,'http://images.huffingtonpost.com/2010-02-28-olympicswithguineapigs0st5.jpg',16),
+	(17,'http://www.fitquip.net.au/media/wysiwyg/medicine-ball-slams.jpg',17),
+	(18,'http://www.buildingmuscle.org/raise.jpg',18),
+	(19,'http://yourfitnesscorner.com/wp-content/uploads/2013/10/or_3cc22ae8125778003715076-2.jpg',19),
+	(20,'http://www.kickstandfitness.com/wp-content/uploads/2012/11/lunge-nice-looking.jpg',20);
+ALTER SEQUENCE photos_id_seq RESTART WITH 21;
 INSERT INTO videos (id,url,exercise_id) VALUES
 	(1,'www.youtube.com/watch?v=v-eQooI6Yds', 1),
 	(2,'www.youtube.com/watch?v=PKmrXTx6jZs', 2),
