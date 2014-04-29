@@ -98,9 +98,10 @@ CREATE TABLE fav_workouts(
 	workout_id integer NOT NULL references workouts(id) ON DELETE CASCADE
 );	
 CREATE TABLE followers(
-	id SERIAL PRIMARY KEY,
 	user_id integer NOT NULL references users(id) ON DELETE CASCADE,
-	follower_id integer NOT NULL  references users(id) ON DELETE CASCADE
+	follower_id integer NOT NULL  references users(id) ON DELETE CASCADE,
+  PRIMARY KEY(user_id,follower_id),
+  CHECK (user_id<>follower_id)
 );
 
 -- load tables

@@ -19,6 +19,8 @@ exports.create = create;
 exports.createFavExercise = createFavExercise;
 exports.getFollowersUsernameAndAvatars = getFollowersUsernameAndAvatars;
 exports.getFollowingUsernameAndAvatars = getFollowingUsernameAndAvatars;
+exports.createFollowByUserIdFollowerId = createFollowByUserIdFollowerId;
+exports.deleteFollowByUserIdFollowerId = deleteFollowByUserIdFollowerId;
 exports.getUsernameAndAvatarsOfPosts = getUsernameAndAvatarsOfPosts;
 exports.favExerciseDeleteByUserIdExerciseId = favExerciseDeleteByUserIdExerciseId;
 
@@ -108,6 +110,44 @@ function getFollowingUserIdsByFollowedUserId(query,cb){
       return cb(err,undefined);
     }
     return cb(err,result.rows);
+  });
+}
+function createFollowByUserIdFollowerId(query,cb){
+  var uid = parseInt(query.userId,10);
+  if(uid<=0){
+    return cb(Error.create('query.userId invalid'),undefined);
+  }
+  var fid = parseInt(query.followerId,10);
+  if(fid<=0){
+    return cb(Error.create('query.followerId invalid'),undefined);
+  }
+  if(uid===fid){
+    return cb(Error.create('user cannot follow itself'),undefined);
+  }
+  conn.query('INSERT INTO followers (user_id,follower_id) VALUES($1,$2)',[uid,fid],function afterQuery(err,result){
+    if(err){
+      return cb(err,undefined);
+    }
+    return cb(err,{rowCount: result.rowCount});
+  });
+}
+function deleteFollowByUserIdFollowerId(query,cb){
+  var uid = parseInt(query.userId,10);
+  if(uid<=0){
+    return cb(Error.create('query.userId invalid'),undefined);
+  }
+  var fid = parseInt(query.followerId,10);
+  if(fid<=0){
+    return cb(Error.create('query.followerId invalid'),undefined);
+  }
+  if(uid===fid){
+    return cb(Error.create('user does not follow itself'),undefined);
+  }
+  conn.query('DELETE FROM followers WHERE user_id=$1 AND follower_id=$2',[uid,fid],function afterQuery(err,result){
+    if(err){
+      return cb(err,undefined);
+    }
+    return cb(err,{rowCount: result.rowCount});
   });
 }
 function createFavExercise(query,cb){

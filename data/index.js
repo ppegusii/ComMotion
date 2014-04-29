@@ -47,9 +47,13 @@ exports.userCreate = user.create;
 //{userId: number, exerciseId: number}
 exports.userCreateFavExercise = user.createFavExercise;
 //{userId: number}
-exports.followedUserIdsGetByFollowingUserId;
+exports.followedUserIdsGetByFollowingUserId = user.getFollowedUserIdsByFollowingUserId;
 //{userId: number}
-exports.followingUserIdsGetByFollowedUserId;
+exports.followingUserIdsGetByFollowedUserId = user.getFollowingUserIdsByFollowedUserId;
+//{userId: number, followerId: number}
+exports.followCreateByUserIdFollowerId = user.createFollowByUserIdFollowerId;
+//{userId: number, followerId: number}
+exports.followDeleteByUserIdFollowerId = user.deleteFollowByUserIdFollowerId;
 //{userId: number, exerciseId: number}
 exports.favExerciseDeleteByUserIdExerciseId = user.favExerciseDeleteByUserIdExerciseId;
 //undefined

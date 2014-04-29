@@ -318,6 +318,40 @@ asyncTest('favExerciseDeleteByUserIdExerciseId',function(){
     start();
   });
 });
+asyncTest('followCreateByUserIdFollowerId',function(){
+  expect(1);
+	$.ajax({
+		type: 'POST',
+		url: '/query',
+		data: {
+      query: 'followCreateByUserIdFollowerId',
+      userId: 1,
+      followerId: 2
+    }
+	}).done(function(result){
+    console.log('followCreateByUserIdFollowerId');
+    console.log(result);
+    equal(result.rowCount,1,'created follow if error run SQL script');
+    start();
+  });
+});
+asyncTest('followDeleteByUserIdFollowerId',function(){
+  expect(1);
+	$.ajax({
+		type: 'POST',
+		url: '/query',
+		data: {
+      query: 'followDeleteByUserIdFollowerId',
+      userId: 2,
+      followerId: 1
+    }
+	}).done(function(result){
+    console.log('followDeleteByUserIdFollowerId');
+    console.log(result);
+    equal(result.rowCount,1,'deleted follow if error run SQL script');
+    start();
+  });
+});
 
 module('activities');
 asyncTest('activitiesGetAll',function(){
