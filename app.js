@@ -52,7 +52,7 @@ app.get('^[^.]+$', nav.checkUser);
 app.get('/profile/about', prof.profile_about);
 app.get('/profile/about_you', prof.profile_about_reset);
 app.get('/profile/myposts', prof.profile_posts);
-//app.get('/profile/mycreations', prof.profile_creations);
+app.get('/profile/mycreations', prof.profile_creations);
 app.get('/profile/followers', prof.profile_followers);
 app.get('/profile/following', prof.profile_following);
 app.get('/profile/user', prof.other_user_profile_about);

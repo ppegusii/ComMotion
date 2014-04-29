@@ -3,8 +3,24 @@ var models = require('../models/index.js');
 var data = require(process.env.DATA);
 
 exports.home = function(req, res){
-   console.log("HOME ID: " + req.session.user.id);
-   res.render('home', { user:req.session.user });
+	userId = req.session.user.id;
+
+	data.postsOfFollowedUsersGetByFollowingUserId( {userId: userId}, function afterGet(err, posts){
+
+		data.userGetUsernameAndAvatarsOfPosts({userId: userId}, function afterGet2(err, users){
+		
+		res.render('home', 
+		  {
+		    title: 'Locker',
+			posts: posts,
+			user: req.session.user,
+			users: users,
+		    err: err
+		  });
+
+	  });
+
+	});
 }
 
 exports.checkUser = function(req, res, next) {
@@ -77,7 +93,14 @@ exports.encyclopedia = function(req, res){
 };
 
 exports.encyclopediaindex = function(req, res){
-  res.render('encyclopediaindex', {title: 'Encyclopedia Index'});
+    data.exercisesGetLimitN({n:100},function afterGet(err,exercises){
+    res.render('encyclopediaindex',
+      {
+        title: 'Encyclopedia Index',
+        exercises: exercises,
+        err: err
+      });
+  });
 };
 
 exports.myfavorites = function(req, res){
@@ -93,6 +116,23 @@ exports.myfavorites = function(req, res){
 
 };
 
+/*
+//{userId: number, exerciseId: number}
+exports.userCreateFavExercise = user.createFavExercise;
+
+
+exports.saveFavoriteExercise = function(req, res){
+
+	userId = req.session.user.id;
+	exerciseId = req.query.exerciseId;
+	
+	data.userCreateFavExercise( {userId: userId, exerciseId:  
+
+
+};
+*/
+
+
 exports.findusers = function(req, res){
 
     //data.searchByNameDescriptionMusclegroup()
@@ -100,8 +140,11 @@ exports.findusers = function(req, res){
 };
 
 exports.workoutcreator = function(req, res){
-     res.render('create/workoutcreator', {title: 'Workout Creator'});
+
+ res.render('create/workoutcreator', {title: 'Workout Creator'});
+
 };
+
 
 exports.encyclopedia_workout_entry = function(req, res) {
      var data = getWorkoutEntry('Get workout id');

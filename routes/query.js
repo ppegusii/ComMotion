@@ -22,8 +22,14 @@ queries['userCreate'] = data.userCreate;
 queries['userCreateFavExercise'] = data.userCreateFavExercise;
 queries['followedUserIdsGetByFollowingUserId'] = data.followedUserIdsGetByFollowingUserId;
 queries['followingUserIdsGetByFollowedUserId'] = data.followingUserIdsGetByFollowedUserId;
+queries['followCreateByUserIdFollowerId'] = data.followCreateByUserIdFollowerId;
+queries['followDeleteByUserIdFollowerId'] = data.followDeleteByUserIdFollowerId;
+queries['favExerciseDeleteByUserIdExerciseId'] = data.favExerciseDeleteByUserIdExerciseId;
 queries['activitiesGetAll'] = data.activitiesGetAll;
 queries['activitiesGetByUserId'] = data.activitiesGetByUserId;
+queries['postsGetByUserId'] = data.postsGetByUserId;
+queries['postsOfFollowedUsersGetByFollowingUserId'] = data.postsOfFollowedUsersGetByFollowingUserId;
+queries['postInit'] = data.postInit;
 
 function query(req,res){
 //console.log('body = '+JSON.stringify(req.body));

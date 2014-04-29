@@ -99,9 +99,9 @@ CREATE TABLE fav_workouts(
 );	
 CREATE TABLE followers(
 	user_id integer NOT NULL references users(id) ON DELETE CASCADE,
-	follower_id integer NOT NULL  references users(id) ON DELETE CASCADE
-	PRIMARY KEY(user_id, follower_id),
-	CHECK(user_id<>follower_id)
+	follower_id integer NOT NULL  references users(id) ON DELETE CASCADE,
+  PRIMARY KEY(user_id,follower_id),
+  CHECK (user_id<>follower_id)
 );
 
 -- load tables
@@ -303,14 +303,11 @@ INSERT INTO workout_sequence (workout_id, exercise_id, exercise_order) VALUES
 	(2, 12, 3),
 	(2, 14, 4);
 INSERT INTO posts (user_id, text) VALUES
-	(13, 'The Boston Marathon today was just nuclear!  I''m glowing with admiration.  By the way, I found ring dips
-to be challenging, but what an awesome pump!'),
+	(13, 'The Boston Marathon today was just nuclear!  I''m glowing with admiration.  By the way, I found ring dips to be challenging, but what an awesome pump!'),
 	(15, 'I get tired so easily when I swim.  Medicine ball slams are helping with my endurance.'),
-	(17, 'I love squats so much, I want to start a squat club.  And the first rule of squat club is, you don''t
-talk about squat club.'),
+	(17, 'I love squats so much, I want to start a squat club.  And the first rule of squat club is, you don''t talk about squat club.'),
 	(20, 'If anyone else is unhappy with their core, Turkish get-ups were a magic potion for my abs.'),
-	(18, 'Everyone!  I just joined this life-changing club for people who love squats.  Only I''m not supposed
-to talk about it...'),
+	(18, 'Everyone!  I just joined this life-changing club for people who love squats.  Only I''m not supposed to talk about it...'),
 	(7, 'I do believe that heavy Olympic lifts keep me young.  It has nothing to do with that picture in my attic.');	
 INSERT INTO activities (id, name) VALUES
 	(1, 'hiking'),

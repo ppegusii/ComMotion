@@ -10,7 +10,15 @@
 <link rel = "stylesheet" type ="text/css" href = "stylesheets/bootstrap/css/bootstrap.css" >
 
 <script src="javascripts/jquery-1.11.0.min.js"></script>
-
+ <link rel="stylesheet" href="//code.jquery.com/ui/1.10.4/themes/smoothness/jquery-ui.css">
+<script src="//code.jquery.com/jquery-1.10.2.js"></script>
+<script src="//code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
+<link rel="stylesheet" href="/resources/demos/style.css">
+<script>
+$(function() {
+$( "#tabs" ).tabs();
+});
+</script>
 </head>
 
 <body>
@@ -21,6 +29,15 @@
 	$( "#encyclopedia" ).addClass("active");
 	</script>
 
+
+<div id="tabs" style="margin-left:10px; margin-right:10px">
+	 <ul>
+	<li><a href="#tab-exercises">Exercises</a></li>
+	<li><a href="#tab-workouts">Workouts</a></li>
+	</ul>
+
+<div id="tab-exercises">
+
 <div class="container">
 
 	<div class="row">
@@ -28,11 +45,33 @@
 <h3>Exercises</h3>
 <hr>
 </row>
-<% var size = exercises.length%>
+<% var size = exercises.length; var column1plus =0; var column2plus = 0; var column3plus = 0;%>
+<% var constant = Math.floor(size/4); %>
+<% if (size%4>=1) {column1plus =1;} %>
+<% if (size%4>=2) {column2plus =1;} %>
+<% if (size%4>=3) {column3plus =1;} %>
+
+
+<% exercises.sort(function(a, b) { %> 
+   <% var textA = a.names[0].name.toUpperCase(); %>
+   <% var textB = b.names[0].name.toUpperCase(); %>
+   <% return (textA < textB) ? -1 : (textA > textB) ? 1 : 0; %>
+<% }); %>
+
+
+	
+		<div class="col-md-3 col-sm-3 col-xs-3">
+			<ul>
+			<% for (var i=0; i<constant+column1plus; i++){ %>
+			<li><h4><a href="http://localhost:8080/encyclopedia/exercise_entry?eid=<%=exercises[i].id%>"><%=exercises[i].names[0].name %></a></h4></li>	
+			<% } %>
+			</ul>
+		</div>
+
 
 		<div class="col-md-3 col-sm-3 col-xs-3">
 			<ul>
-			<% for (var i=0; i<(size/4)*2; i++){ %>
+			<% for (i =constant+column1plus; i<constant*2+column1plus + column2plus; i++){ %>
 			<li><h4><a href="http://localhost:8080/encyclopedia/exercise_entry?eid=<%=exercises[i].id%>"><%=exercises[i].names[0].name %></a></h4></li>
 			<% } %>
 			</ul>
@@ -40,7 +79,7 @@
 
 		<div class="col-md-3 col-sm-3 col-xs-3">
 			<ul>
-			<% for (var i=(size/4); i<(size/4)*2; i++){ %>
+			<% for (i = constant*2+column2plus + column1plus; i< constant*3+column3plus + column1plus + column2plus; i++){ %>
 			<li><h4><a href="http://localhost:8080/encyclopedia/exercise_entry?eid=<%=exercises[i].id%>"><%=exercises[i].names[0].name %></a></h4></li>
 			<% } %>
 			</ul>
@@ -48,19 +87,22 @@
 
 		<div class="col-md-3 col-sm-3 col-xs-3">
 			<ul>
-			<% for (var i=(size/4)*2; i<(size/4)*3; i++){ %>
+			<% for (i=constant*3+column3plus+column1plus+column2plus; i<size; i++){ %>
 			<li><h4><a href="http://localhost:8080/encyclopedia/exercise_entry?eid=<%=exercises[i].id%>"><%=exercises[i].names[0].name %></a></h4></li>
 			<% } %>
 			</ul>
 		</div>
+		</div>
+	</div>
 
-		<div class="col-md-3 col-sm-3 col-xs-3">
-			<ul>
-			<% for (var i=(size/4)*3; i<size; i++){ %>
-			<li><h4><a href="http://localhost:8080/encyclopedia/exercise_entry?eid=<%=exercises[i].id%>"><%=exercises[i].names[0].name %></a></h4></li>
-			<% } %>
-			</ul>
-		</div>
+	</div>
+
+	<div id="tab-workouts">
+	
+		<row>
+		<h3>Workouts</h3>
+		<hr>
+		</row>
 
 	</div>
 
@@ -69,6 +111,7 @@
 <% include fragments/footer %>
 
 <script src = "javascripts/bootstrap.js"></script>
+
 
 
 </body>

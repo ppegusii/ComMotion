@@ -19,6 +19,7 @@ process.env['DATA_VIDEO'] = path.join(dataDir,'./Video.js');
 process.env['DATA_PHOTO'] = path.join(dataDir,'./Photo.js');
 process.env['DATA_USER'] = path.join(dataDir,'./User.js');
 process.env['DATA_ACTIVITY'] = path.join(dataDir,'./Activity.js');
+process.env['DATA_POST'] = path.join(dataDir,'./Post.js');
 
 //validation layer
 var validateDir = path.join(appDir,'./validate');
@@ -30,6 +31,7 @@ process.env['VALIDATE_NAME'] = path.join(validateDir,'./Name.js');
 process.env['VALIDATE_VIDEO'] = path.join(validateDir,'./Video.js');
 process.env['VALIDATE_PHOTO'] = path.join(validateDir,'./Photo.js');
 process.env['VALIDATE_USER'] = path.join(validateDir,'./User.js');
+process.env['VALIDATE_POST'] = path.join(validateDir,'./Post.js');
 
 //models
 var modelsDir = path.join(appDir,'./models');

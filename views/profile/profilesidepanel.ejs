@@ -33,14 +33,18 @@
 		<div style="margin-top:20px">
 		  <a id="btn-my_posts" href="/profile/myposts" class="btn btn-default">Posts</a>
 		</div>
-		<!--
+		
 		<div style="margin-top:20px">
 		  <a id="btn-my_creations" href="/profile/mycreations" class="btn btn-default">Creations</a>
 		</div>
-		-->
+		
 <% if(user[0].id === myId) { %>
 		<div style="margin-top:20px">
 		  <a id="btn-edit_profile" data-toggle="modal" data-target="#editprofile" class="btn btn-default">Edit Profile</a>
+		</div>
+<% } else {%>
+		<div style="margin-top:20px">
+		  <a id="btn-follow_user" class="btn btn-danger">Follow User</a>
 		</div>
 <% } %>
 		</center>
