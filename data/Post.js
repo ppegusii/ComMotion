@@ -1,10 +1,13 @@
+var conn = require(process.env.DATA_CONN);
 var validate = require(process.env.VALIDATE);
 var model = require(process.env.MODELS);
 
-var conn = require(process.env.DATA_CONN);
-
 exports.getByUserId = getByUserId;
 exports.getPostsOfFollowedUsersByFollowingUserId = getPostsOfFollowedUsersByFollowingUserId;
+exports.init = init;
+
+//internal only
+exports.initNoValidate = initNoValidate;
 
 function getByUserId(query,cb){
   console.log("QUERY: " + query.userId);
@@ -32,6 +35,40 @@ function getPostsOfFollowedUsersByFollowingUserId(query,cb){
       return cb(err,undefined);
     }
     return resultToPosts(result,cb);
+  });
+}
+function init(query,cb){
+  if(!query.post){
+    return cb(Error.create('query.post undefined'),undefined);
+  }
+  validate.post(query.post,function afterValidation(err,post){
+    if(err){
+      return cb(err,undefined);
+    }
+    initNoValidate(post,cb);
+  });
+}
+function initNoValidate(post,cb){
+  if(post.id){
+    var statement = 'UPDATE posts SET text=$1 WHERE id=$2 RETURNING id,created';
+    var params = [
+      post.text,
+      post.id
+    ];
+  }else{
+    var statement = 'INSERT INTO posts (user_id,text) VALUES ($1,$2) RETURNING id,created';
+    var params = [
+      post.userId,
+      post.text
+    ];
+  }
+  conn.query(statement,params,function afterQuery(err,result){
+    if(err){
+      return cb(err,undefined);
+    }
+    post.id = result.rows[0].id.toString();
+    post.created = result.rows[0].created;
+    cb(undefined,post);
   });
 }
 function resultToPosts(result,cb){

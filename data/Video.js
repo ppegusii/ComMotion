@@ -36,13 +36,11 @@ function resultToVideos(result,cb){
 }
 function init(query,cb){
   if(!query.video){
-    cb(Error.create('query.video undefined'),undefined);
-    return;
+    return cb(Error.create('query.video undefined'),undefined);
   }
   validate.video(query.video,function afterValidation(err,video){
     if(err){
-      cb(err,undefined);
-      return;
+      return cb(err,undefined);
     }
     initNoValidate(video,cb);
   });
@@ -66,8 +64,7 @@ function initNoValidate(video,cb){
   }
   conn.query(statement,params,function afterUpdateOrInsert(err,result){
     if(err){
-      cb(err,undefined);
-      return;
+      return cb(err,undefined);
     }
     video.id = result.rows[0].id.toString();
     cb(undefined,video);

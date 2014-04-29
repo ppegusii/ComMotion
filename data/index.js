@@ -62,5 +62,7 @@ exports.usergetFollowingUsernameAndAvatars = user.getFollowingUsernameAndAvatars
 exports.postsGetByUserId = post.getByUserId;
 //{userId: number}
 exports.postsOfFollowedUsersGetByFollowingUserId = post.getPostsOfFollowedUsersByFollowingUserId;
+//{post: Post}
+exports.postInit = post.init;
 //{userId: number}
 exports.userGetUsernameAndAvatarsOfPosts = user.getUsernameAndAvatarsOfPosts;
