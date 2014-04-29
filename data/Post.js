@@ -10,18 +10,14 @@ exports.init = init;
 exports.initNoValidate = initNoValidate;
 
 function getByUserId(query,cb){
-  console.log("QUERY: " + query.userId);
   var uid = parseInt(query.userId,10);
   if(uid<=0){
     return cb(Error.create('query.userId invalid'),undefined);
   }
-  console.log("UID: " + uid);
   conn.query('SELECT id,user_id,text,created FROM posts WHERE user_id=$1 ORDER BY created DESC',[uid],function afterQuery(err,result){
     if(err){
-		console.log("ERROR");
       return cb(err,undefined);
     }
-	console.log("RESULT" + result);
     return resultToPosts(result,cb);
   });
 }

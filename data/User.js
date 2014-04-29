@@ -20,6 +20,7 @@ exports.createFavExercise = createFavExercise;
 exports.getFollowersUsernameAndAvatars = getFollowersUsernameAndAvatars;
 exports.getFollowingUsernameAndAvatars = getFollowingUsernameAndAvatars;
 exports.getUsernameAndAvatarsOfPosts = getUsernameAndAvatarsOfPosts;
+exports.favExerciseDeleteByUserIdExerciseId = favExerciseDeleteByUserIdExerciseId;
 
 function getLimitN(query,cb){
   var n = parseInt(query.n,10);
@@ -123,7 +124,22 @@ function createFavExercise(query,cb){
       return cb(err,undefined);
     }
     return cb(undefined,result.rows);
-    //return getById({id: uid},cb);
+  });
+}
+function favExerciseDeleteByUserIdExerciseId(query,cb){
+  uid = parseInt(query.userId,10);
+  eid = parseInt(query.exerciseId,10);
+  if(isNaN(eid) || eid<=0){
+    return cb(Error.create('query.exerciseId invalid'),undefined);
+  }
+  if(isNaN(uid) || uid<=0){
+    return cb(Error.create('query.userId invalid'),undefined);
+  }
+  conn.query('DELETE FROM fav_exercises WHERE user_id=$1 AND exercise_id=$2;',[uid,eid],function afterQuery(err,result){
+    if(err){
+      return cb(err,undefined);
+    }
+    return cb(undefined,{rowCount: result.rowCount});
   });
 }
 function resultToUsers(result,cb){
@@ -166,7 +182,6 @@ function rowToUser(row,cb){
   });
 }
 function create(query,cb){
-  console.log(JSON.stringify(query));
   if(!query.user){
     return cb(Error.create('query.user undefined'),undefined);
   }
@@ -215,7 +230,6 @@ function getFollowingUsernameAndAvatars(query,cb){
     return cb(Error.create('query.userId invalid'),undefined);
   }
 	conn.query('SELECT id, username, avatar_url FROM users WHERE id IN (SELECT user_id FROM followers WHERE follower_id=$1)',[uid], function afterQuery(err, result){
-	console.log(result.rows);
     if(err){
       return cb(err,undefined);
     }

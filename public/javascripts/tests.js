@@ -301,6 +301,23 @@ asyncTest('userCreate user already exists',function(){
     start();
   });
 });
+asyncTest('favExerciseDeleteByUserIdExerciseId',function(){
+  expect(1);
+	$.ajax({
+		type: 'POST',
+		url: '/query',
+		data: {
+      query: 'favExerciseDeleteByUserIdExerciseId',
+      userId: 1,
+      exerciseId: 1
+    }
+	}).done(function(result){
+    console.log('favExerciseDeleteByUserIdExerciseId');
+    console.log(result);
+    equal(result.rowCount,1,'deleted fav if error run SQL script');
+    start();
+  });
+});
 
 module('activities');
 asyncTest('activitiesGetAll',function(){

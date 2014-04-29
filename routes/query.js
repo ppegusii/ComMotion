@@ -22,6 +22,7 @@ queries['userCreate'] = data.userCreate;
 queries['userCreateFavExercise'] = data.userCreateFavExercise;
 queries['followedUserIdsGetByFollowingUserId'] = data.followedUserIdsGetByFollowingUserId;
 queries['followingUserIdsGetByFollowedUserId'] = data.followingUserIdsGetByFollowedUserId;
+queries['favExerciseDeleteByUserIdExerciseId'] = data.favExerciseDeleteByUserIdExerciseId;
 queries['activitiesGetAll'] = data.activitiesGetAll;
 queries['activitiesGetByUserId'] = data.activitiesGetByUserId;
 queries['postsGetByUserId'] = data.postsGetByUserId;

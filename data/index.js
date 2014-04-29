@@ -50,6 +50,8 @@ exports.userCreateFavExercise = user.createFavExercise;
 exports.followedUserIdsGetByFollowingUserId;
 //{userId: number}
 exports.followingUserIdsGetByFollowedUserId;
+//{userId: number, exerciseId: number}
+exports.favExerciseDeleteByUserIdExerciseId = user.favExerciseDeleteByUserIdExerciseId;
 //undefined
 exports.activitiesGetAll = activity.getAll;
 //{userId: number}
