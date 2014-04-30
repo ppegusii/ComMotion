@@ -20,7 +20,11 @@ function deleteByExerciseIdAndIdNotInSet(query,statement,cb){
       ids.push(id);
     }
   }
-  conn.query(statement,[eid,ids.toString()],function(err,result){
+  //POOR CODING ALERT!
+  //Using bad hack to signify the empty set
+  //It depends on no id being 0
+  ids = (ids.length===0) ? '0' : ids.toString();
+  conn.query(statement,[eid,ids],function(err,result){
     if(err){
       return cb(err,undefined);
     }

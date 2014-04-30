@@ -111,10 +111,12 @@ function init(query,cb){
   }
   validate.exercise(query.exercise,function afterValidation(err,exercise){
     if(err){
-      cb(err,undefined);
-      return;
+      return cb(err,undefined);
     }
     deleteMissingChildObjects(exercise,function afterChildDeletion(err,exercise){
+      if(err){
+        return cb(err,undefined);
+      }
       if(exercise.id){
         var statement = 'UPDATE exercises SET description=$1,difficulty_id=$2,musclegroup_id=$3 WHERE id=$4 RETURNING id,created';
         var params = [

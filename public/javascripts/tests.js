@@ -62,6 +62,8 @@ asyncTest('exerciseInit',function(){
     exercise.created = e.created;
     exercise.names[0].id = e.names[0].id;
     exercise.names[0].exerciseId = e.id;
+    exercise.names[1].id = e.names[1].id;
+    exercise.names[1].exerciseId = e.id;
     exercise.photos[0].id = e.photos[0].id;
     exercise.photos[0].exerciseId = e.id;
     exercise.videos[0].id = e.videos[0].id;
