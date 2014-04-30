@@ -59,6 +59,7 @@ app.get('/profile/user', prof.other_user_profile_about);
 
 app.get('/home', nav.home);
 app.post('/home', nav.home);
+app.post('/home/post', nav.post);
 
 app.post('/authenticate', nav.authenticate);
 
