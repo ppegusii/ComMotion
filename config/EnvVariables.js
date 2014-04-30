@@ -11,6 +11,7 @@ var dataDir = path.join(appDir,'./data');
 process.env['DATA'] = dataDir;
 process.env['DATA_INDEX'] = path.join(dataDir,'./index.js');
 process.env['DATA_CONN'] = path.join(dataDir,'./Conn.js');
+process.env['DATA_COMMON'] = path.join(dataDir,'./common.js');
 process.env['DATA_EXERCISE'] = path.join(dataDir,'./Exercise.js');
 process.env['DATA_DIFFICULTY'] = path.join(dataDir,'./Difficulty.js');
 process.env['DATA_MUSCLEGROUP'] = path.join(dataDir,'./Musclegroup.js');

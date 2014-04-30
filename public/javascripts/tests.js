@@ -44,7 +44,7 @@ asyncTest('exerciseInit',function(){
     description: 'new exercise!',
     difficulty: {id: 1},
     musclegroup: {id: 1},
-    names: [{name: 'ex1',votes: 0}],
+    names: [{name: 'ex1',votes: 0},{name: 'ex2',votes: 0}],
     videos: [{url: 'http://vid.com/myvid.ogg'}],
     photos: [{url: 'http://photo.com/myphoto.png'}]
   }
