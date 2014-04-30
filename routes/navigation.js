@@ -5,20 +5,38 @@ var data = require(process.env.DATA);
 exports.home = function(req, res){
 	userId = req.session.user.id;
 
-	data.postsOfFollowedUsersGetByFollowingUserId( {userId: userId}, function afterGet(err, posts){
+	data.postsOfFollowedUsersGetByFollowingUserId( {userId: userId}, function(err, posts){
+      if(err) {
+         console.log(err);
+      }
+      else {
+         data.userGetUsernameAndAvatarsOfPosts({userId: userId}, function(err2, users) {
+            if(err) {
+               console.log(err2);
+            }
+            else {
+               console.log(users);
+               res.render('home', {
+                  posts: posts,
+                  user: req.session.user,
+                  users: users
+               });
+            }
 
-		data.userGetUsernameAndAvatarsOfPosts({userId: userId}, function afterGet2(err, users){
-		
-		res.render('home', 
-		  {
-		    title: 'Locker',
-			posts: posts,
-			user: req.session.user,
-			users: users,
-		    err: err
-		  });
-
-	  });
+         });
+      }
+//		data.userGetUsernameAndAvatarsOfPosts({userId: userId}, function afterGet2(err, users){
+//
+//		res.render('home',
+//		  {
+//		    title: 'Locker',
+//			posts: posts,
+//			user: req.session.user,
+//			users: users,
+//		    err: err
+//		  });
+//
+//	  });
 
 	});
 }
@@ -74,6 +92,21 @@ function setSessionForUser(username, pass, req, cb) {
 exports.logout = function(req, res) {
    req.session.destroy(function() {
       res.redirect('/');
+   });
+}
+
+exports.post = function(req, res) {
+   var uid = req.session.user.id;
+   var text = req.body.text;
+   console.log(uid + '/////' + text);
+   var myPost = new models.Post(undefined, uid, text, undefined);
+   data.postInit({post: myPost}, function(err, post) {
+      if(err) {
+         res.send(500, err.message);
+      }
+      else {
+         res.send(200, JSON.stringify(post));
+      }
    });
 }
 

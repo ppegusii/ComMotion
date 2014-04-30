@@ -49,10 +49,10 @@ exports.profile_about = function(req, res){
 
 
 exports.other_user_profile_about = function(req, res){
-	myId = req.session.user.id;
+	userId = req.session.user.id;
 	req.session.userContextID = req.param("currentUser");
 	userContextId = req.session.userContextID;
-	userId = req.param("currentUser");
+
     var activities;
 	data.activitiesGetByUserId({id: userContextId}, function aftergetActivities(err, retActivities){
 	activities = retActivities;
@@ -66,7 +66,7 @@ exports.other_user_profile_about = function(req, res){
         title: 'Profile About',
         user: user,
 		activities: activities,
-		myId: myId,
+		myId: userId,
         err: err
       });
   });
