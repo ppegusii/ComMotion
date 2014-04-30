@@ -93,18 +93,7 @@
                                     <div class="panel panel-heading">
                                         <h3 class="panel-title">Photos and videos:</h3>
                                     </div>
-                                    <div id="enteredMedia" class="panel-body">
-                                        <% if(exercise) {
-                                                for(var i = 0; i < exercise.photos.length; i++) { %>
-                                        <a class="btn btn-sm btn-primary"><%= exercise.photos[i].url %></a>
-                                        <%   }
-                                        } %>
-                                        <% if(exercise) {
-                                                for(var i = 0; i < exercise.videos.length; i++) { %>
-                                        <a class="btn btn-sm btn-primary"><%= exercise.videos[i].url %></a>
-                                        <%   }
-                                        } %>
-                                    </div>
+                                    <div id="enteredMedia" class="panel-body"></div>
                                 </div>
                                 <button class="btn btn-default" style="margin-bottom: 15px" id="addMediaButton">Add photo or video</button>
                             </div>

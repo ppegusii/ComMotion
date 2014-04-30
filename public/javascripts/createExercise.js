@@ -35,8 +35,10 @@ function initExerciseObj() {
       exerciseObj.musclegroup = temp.musclegroup;
       for(var i=0; i < temp.names.length; i++)
          addName(temp.names[i].name, temp.names[i].id);
-      exerciseObj.photos = temp.photos;
-      exerciseObj.videos = temp.videos;
+      for(var i=0; i < temp.photos.length; i++)
+         addPhoto(temp.photos[i].url, temp.photos[i].id);
+      for(var i=0; i < temp.videos.length; i++)
+         addVideo(temp.videos[i].url, temp.videos[i].id);
    }
    console.log('Exercise obj is:');
    console.log(exerciseObj);
@@ -47,29 +49,28 @@ function initAddNameButton() {
    addNameButton.click(function(event) {
       var name = prompt('New name:').trim();
       console.log(name);
-      addName(name);
+      if(name !== '' && name !== null)
+         addName(name);
+      else
+         console.log('Improper name format!');
    });
 }
 
 function addName(name, id) {
-   if(name !== '' && name !== null) {
-      console.log('Entered name "' + name + '"');
-      console.log('Entered with id: ' + id);
-      // add name to exerciseObj
-      exerciseObj.names.push({
-         id: (id === undefined ? null : id),
-         name: name,
-         uiId: uiIdNameCount
-      });
-      // add name to view
-      var htmlId = 'name' + uiIdNameCount;
-      var html = '<a class="btn btn-sm btn-primary" id="' + htmlId + '">' + name + '</a>';
-      $('#enteredNames').append(html);
-      $('#'+htmlId).click(removeNameFn('#'+htmlId, uiIdNameCount));
-      uiIdNameCount++;
-   }
-   else
-      console.log('Improper name format!');
+   console.log('Entered name "' + name + '"');
+   console.log('Entered with id: ' + id);
+   // add name to exerciseObj
+   exerciseObj.names.push({
+      id: (id === undefined ? null : id),
+      name: name,
+      uiId: uiIdNameCount
+   });
+   // add name to view
+   var htmlId = 'name' + uiIdNameCount;
+   var html = '<a class="btn btn-sm btn-primary" id="' + htmlId + '">' + name + '</a>';
+   $('#enteredNames').append(html);
+   $('#'+htmlId).click(removeNameFn('#'+htmlId, uiIdNameCount));
+   uiIdNameCount++;
 }
 
 function removeNameFn(selector, uiId) {
@@ -88,32 +89,102 @@ function removeNameFn(selector, uiId) {
    };
 }
 
+function removePhotoFn(selector, uiId) {
+   return function(event) {
+      // Remove from UI
+      $(selector).remove();
+      // Remove from exerciseObj
+      console.log('Checking for uiId = ' + uiId);
+      var i = 0;
+      for(i = 0; i < exerciseObj.photos.length; i++) {
+         if(exerciseObj.photos[i].uiId === uiId) {
+            exerciseObj.photos.splice(i,1);
+            return;
+         }
+      }
+   };
+}
+
+function removeVideoFn(selector, uiId) {
+   return function(event) {
+      // Remove from UI
+      $(selector).remove();
+      // Remove from exerciseObj
+      console.log('Checking for uiId = ' + uiId);
+      var i = 0;
+      for(i = 0; i < exerciseObj.videos.length; i++) {
+         if(exerciseObj.videos[i].uiId === uiId) {
+            exerciseObj.videos.splice(i,1);
+            return;
+         }
+      }
+   };
+}
+
 function initAddMediaButton() {
    var addMediaButton = $('#addMediaButton');
    addMediaButton.click(function(event) {
       var url = prompt('URL of media:').trim();
-      if(isPhotoURL(url) || isVideoURL(url)) {
-         console.log('Entered url ' + url);
-         // add url to exerciseObj
-         if(isPhotoURL(url)) {
-            exerciseObj.photos.push({
-               id: null,
-               url: url
-            });
-         }
-         else {
-            exerciseObj.videos.push({
-               id: null,
-               url: url
-            });
-         }
-         // add url to view
-         var html = '<a class="btn btn-sm btn-primary">' + url + '</a>';
-         $('#enteredMedia').append(html);
+//      if(isPhotoURL(url) || isVideoURL(url)) {
+//         console.log('Entered url ' + url);
+//         // add url to exerciseObj
+//         if(isPhotoURL(url)) {
+//            addPhoto(url);
+//         }
+//         else {
+//            exerciseObj.videos.push({
+//               id: null,
+//               url: url
+//            });
+//         }
+//         // add url to view
+//         var html = '<a class="btn btn-sm btn-primary">' + url + '</a>';
+//         $('#enteredMedia').append(html);
+//      }
+//      else
+//         console.log('Not photo or video!');
+      if(isPhotoURL(url)) {
+         console.log('Adding photo');
+         addPhoto(url);
       }
-      else
+      else if(isVideoURL(url)) {
+         console.log('Adding video');
+         addVideo(url);
+      }
+      else {
          console.log('Not photo or video!');
+      }
    });
+}
+
+function addPhoto(url, id) {
+   // add photo to exerciseObj
+   exerciseObj.photos.push({
+      id: (id === undefined ? null : id),
+      url: url,
+      uiId: uiIdPhotoCount
+   });
+   // add photo to view
+   var htmlId = 'photo' + uiIdPhotoCount;
+   var html = '<a class="btn btn-sm btn-primary" id="' + htmlId + '">' + url + '</a>';
+   $('#enteredMedia').append(html);
+   $('#'+htmlId).click(removePhotoFn('#'+htmlId, uiIdPhotoCount));
+   uiIdPhotoCount++;
+}
+
+function addVideo(url, id) {
+   // add video to exerciseObj
+   exerciseObj.videos.push({
+      id: (id === undefined ? null : id),
+      url: url,
+      uiId: uiIdVideoCount
+   });
+   // add video to view
+   var htmlId = 'video' + uiIdVideoCount;
+   var html = '<a class="btn btn-sm btn-primary" id="' + htmlId + '">' + url + '</a>';
+   $('#enteredMedia').append(html);
+   $('#'+htmlId).click(removeVideoFn('#'+htmlId, uiIdVideoCount));
+   uiIdVideoCount++;
 }
 
 function isPhotoURL(url) {
