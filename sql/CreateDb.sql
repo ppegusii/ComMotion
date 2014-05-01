@@ -14,8 +14,8 @@ DROP TABLE IF EXISTS names;
 DROP TABLE IF EXISTS videos;
 DROP TABLE IF EXISTS photos;
 DROP TABLE IF EXISTS workouts;
-DROP TABLE IF EXISTS users;
 DROP TABLE IF EXISTS exercises;
+DROP TABLE IF EXISTS users;
 DROP TABLE IF EXISTS musclegroups;
 DROP TABLE IF EXISTS difficulties;
 
@@ -28,13 +28,6 @@ CREATE TABLE musclegroups(
 	id SERIAL PRIMARY KEY,
 	name VARCHAR(255) NOT NULL
 );
-CREATE TABLE exercises(
-	id SERIAL PRIMARY KEY,
-	description VARCHAR(1023) NOT NULL,
-	difficulty_id integer NOT NULL references difficulties(id),
-	musclegroup_id integer NOT NULL references musclegroups(id),
-	created timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
-);
 CREATE TABLE users(
 	id SERIAL PRIMARY KEY,
 	username VARCHAR(255) UNIQUE NOT NULL,
@@ -42,6 +35,14 @@ CREATE TABLE users(
 	difficulty_id integer references difficulties(id),
 	avatar_url VARCHAR(1023),
 	bio VARCHAR(2047)
+);
+CREATE TABLE exercises(
+	id SERIAL PRIMARY KEY,
+	description VARCHAR(1023) NOT NULL,
+	difficulty_id integer NOT NULL references difficulties(id),
+	musclegroup_id integer NOT NULL references musclegroups(id),
+	created timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+	creator_id integer REFERENCES users(id) ON DELETE SET NULL
 );
 CREATE TABLE workouts(
 	id SERIAL PRIMARY KEY,
@@ -356,6 +357,9 @@ INSERT INTO workout_sequence (workout_id, exercise_id, exercise_order) VALUES
 	(2, 12, 3),
 	(2, 14, 4);
 */
+INSERT INTO workout_components (id,workout_id,seq_order) VALUES(1,1,1);
+INSERT INTO timers (id,seconds) VALUES(1,60);
+ALTER SEQUENCE workout_components_id_seq RESTART WITH 2;
 INSERT INTO posts (user_id, text) VALUES
 	(13, 'The Boston Marathon today was just nuclear!  I''m glowing with admiration.  By the way, I found ring dips to be challenging, but what an awesome pump!'),
 	(15, 'I get tired so easily when I swim.  Medicine ball slams are helping with my endurance.'),
