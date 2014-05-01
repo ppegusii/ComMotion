@@ -356,6 +356,9 @@ INSERT INTO workout_sequence (workout_id, exercise_id, exercise_order) VALUES
 	(2, 12, 3),
 	(2, 14, 4);
 */
+INSERT INTO workout_components (id,workout_id,seq_order) VALUES(1,1,1);
+INSERT INTO timers (id,seconds) VALUES(1,60);
+ALTER SEQUENCE workout_components_id_seq RESTART WITH 2;
 INSERT INTO posts (user_id, text) VALUES
 	(13, 'The Boston Marathon today was just nuclear!  I''m glowing with admiration.  By the way, I found ring dips to be challenging, but what an awesome pump!'),
 	(15, 'I get tired so easily when I swim.  Medicine ball slams are helping with my endurance.'),
