@@ -221,8 +221,28 @@ INSERT INTO photos (id,url,exercise_id) VALUES
 	(17,'http://www.fitquip.net.au/media/wysiwyg/medicine-ball-slams.jpg',17),
 	(18,'http://www.buildingmuscle.org/raise.jpg',18),
 	(19,'http://yourfitnesscorner.com/wp-content/uploads/2013/10/or_3cc22ae8125778003715076-2.jpg',19),
-	(20,'http://www.kickstandfitness.com/wp-content/uploads/2012/11/lunge-nice-looking.jpg',20);
-ALTER SEQUENCE photos_id_seq RESTART WITH 21;
+	(20,'http://www.kickstandfitness.com/wp-content/uploads/2012/11/lunge-nice-looking.jpg',20),
+	(21,'http://www.bodybuilding.com/exercises/exerciseImages/sequences/219/Male/m/219_2.jpg',21),
+	(22,'http://yourlivingbody.com/wp-content/uploads/2013/08/how-to-do-a-turkish-getup.jpg',22),
+	(23,'http://media.xn--trnahemma-w2a.org/2012/06/Barbell-Shrugs.jpg',23),
+	(24,'http://www.musclebuildingtnt.com/wp-content/uploads/2013/02/Standing-Barbell-Curl.jpg',24),
+	(25,'http://images.meredith.com/fitness/images/2006/01/ss_FI110105WELFE012.jpg',25),
+	(26,'http://www.unique-bodyweight-exercises.com/images/photo-ab-rollout-11-jpeg.JPG',26),
+	(27,'http://i0.wp.com/barbellacademy.com/wp-content/uploads/2013/07/7-must-try-squat-variations-front-squat.jpg?resize=263%2C279',27),
+	(28,'http://www.ironsimba.co.uk/wp-content/uploads/2013/03/leg-press-dude.jpg',28),
+	(29,'http://dq8nlzk56ayth.cloudfront.net/wp-content/uploads/2012/11/Question-3.jpg',29),
+	(30,'http://mhstatic.de/fm/1/thumbnails/Fitness_Lexikon_Uebung_086b.583625.jpg.2409777.jpg',30),
+	(31,'http://www.prevention.com/images/cma/ultrae_03b.jpg',31),
+	(32,'http://www.bodybuilding.com/exercises/exerciseImages/sequences/369/Female/m/369_1.jpg',32),
+	(33,'http://www.menshealth.com.sg/system/files/shared/Picture_2.jpg',33),
+	(34,'http://cdn.menshealth.com/images/MH_Static/Incline-Dumbell-Press.jpg',34),
+	(35,'http://www.gymper.com/wp-content/pics-exercise-workout//2010/06/chest-fly.jpg',35),
+	(36,'http://www.buzzle.com/img/articleImages/419308-7016-13.jpg',36),
+	(37,'http://crossfitorangecounty.typepad.com/crossfit_orange_county/images/2007/04/20/gregringdip.jpg',37),
+	(38,'http://blu.stb.s-msn.com/i/8D/2468D5101165EE98893870F41FCC24.jpg',38),
+	(39,'http://bodybuilding24x7.com/wp-content/uploads/2014/03/barbell-skull-crushers.jpg',39),
+	(40,'http://www.rsasr.krefeld.schulen.net/homepages_if/homepages2012/murat/Bilder/Vorgebeugte%20Barren-Dips2.jpg',40);
+ALTER SEQUENCE photos_id_seq RESTART WITH 41;
 INSERT INTO videos (id,url,exercise_id) VALUES
 	(1,'www.youtube.com/watch?v=v-eQooI6Yds', 1),
 	(2,'www.youtube.com/watch?v=PKmrXTx6jZs', 2),
