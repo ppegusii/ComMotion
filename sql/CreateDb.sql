@@ -5,7 +5,11 @@ DROP TABLE IF EXISTS fav_exercises;
 DROP TABLE IF EXISTS user_activities;
 DROP TABLE IF EXISTS activities;
 DROP TABLE IF EXISTS posts;
-DROP TABLE IF EXISTS workout_sequence;
+DROP TABLE IF EXISTS workout_sequence; --This is only left to clean old schema from DB.
+DROP TABLE IF EXISTS timers;
+DROP TABLE IF EXISTS exercise_instances;
+DROP TABLE IF EXISTS measurements;
+DROP TABLE IF EXISTS workout_components;
 DROP TABLE IF EXISTS names;
 DROP TABLE IF EXISTS videos;
 DROP TABLE IF EXISTS photos;
@@ -41,10 +45,11 @@ CREATE TABLE users(
 );
 CREATE TABLE workouts(
 	id SERIAL PRIMARY KEY,
+	name VARCHAR(255) NOT NULL,
 	description VARCHAR(1023) NOT NULL,
 	difficulty_id integer NOT NULL references difficulties(id),
 	musclegroup_id integer NOT NULL references musclegroups(id),
-	user_id integer references users(id),
+	creator_id integer references users(id),
 	created timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
 );
 CREATE TABLE photos(
@@ -66,11 +71,33 @@ CREATE TABLE names(
 	exercise_id integer references exercises(id) ON DELETE CASCADE,
 	workout_id integer references workouts(id) ON DELETE CASCADE
 );
+/*
 CREATE TABLE workout_sequence(
 	id SERIAL PRIMARY KEY,
 	workout_id integer NOT NULL references workouts(id) ON DELETE CASCADE, 
 	exercise_id integer NOT NULL references exercises(id), 
 	exercise_order integer NOT NULL
+);
+*/
+CREATE TABLE workout_components(
+	id SERIAL PRIMARY KEY,
+	workout_id integer NOT NULL references workouts(id) ON DELETE CASCADE, 
+	seq_order integer NOT NULL
+);
+CREATE TABLE measurements(
+	id SERIAL PRIMARY KEY,
+	name VARCHAR(255) NOT NULL
+);
+CREATE TABLE exercise_instances(
+	id integer PRIMARY KEY REFERENCES workout_components(id) ON DELETE CASCADE,
+	exercise_id integer NOT NULL references exercises(id),
+	measurement_id integer references measurements(id) ON DELETE SET NULL,
+	measurement_value VARCHAR(255),
+	weight integer
+);
+CREATE TABLE timers(
+	id integer PRIMARY KEY REFERENCES workout_components(id) ON DELETE CASCADE,
+	seconds integer NOT NULL
 );
 CREATE TABLE posts(
 	id SERIAL PRIMARY KEY,
@@ -308,13 +335,14 @@ INSERT INTO users (id, username, password, difficulty_id, avatar_url, bio) VALUE
 	(19, 'hermioneGranger', 'commotion', 3, 'http://www.freelogovectors.net/wp-content/uploads/2013/02/Alien.png', 'I like to sweat on others.'),
 	(20, 'severusSnape', 'commotion', 2, 'http://www.freelogovectors.net/wp-content/uploads/2013/02/man-avatar-1.png', 'I like to sweat on others.');
 ALTER SEQUENCE users_id_seq RESTART WITH 21;
-INSERT INTO workouts (id, description, difficulty_id, musclegroup_id, user_id) VALUES
-	(1, 'lower body challenge', 2, 3, 16),
-	(2, 'work out anywhere', 1, 1, 12);
+INSERT INTO workouts (id, name, description, difficulty_id, musclegroup_id, creator_id) VALUES
+	(1,'lower body challenge','lower body challenge', 2, 3, 16),
+	(2,'workout anywhere','work out anywhere', 1, 1, 12);
 ALTER SEQUENCE workouts_id_seq RESTART WITH 3;
 INSERT INTO photos (id,url,workout_id) VALUES
 	(41,'http://http://www.fitnessatlantic.com/images/exercises/leg_muscles.jpg',1);
 ALTER SEQUENCE photos_id_seq RESTART WITH 42;
+/*
 INSERT INTO workout_sequence (workout_id, exercise_id, exercise_order) VALUES
 	(1, 1, 1),
 	(1, 20, 2),
@@ -326,6 +354,7 @@ INSERT INTO workout_sequence (workout_id, exercise_id, exercise_order) VALUES
 	(2, 9, 2),
 	(2, 12, 3),
 	(2, 14, 4);
+*/
 INSERT INTO posts (user_id, text) VALUES
 	(13, 'The Boston Marathon today was just nuclear!  I''m glowing with admiration.  By the way, I found ring dips to be challenging, but what an awesome pump!'),
 	(15, 'I get tired so easily when I swim.  Medicine ball slams are helping with my endurance.'),
