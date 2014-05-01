@@ -340,8 +340,9 @@ INSERT INTO workouts (id, name, description, difficulty_id, musclegroup_id, crea
 	(2,'workout anywhere','work out anywhere', 1, 1, 12);
 ALTER SEQUENCE workouts_id_seq RESTART WITH 3;
 INSERT INTO photos (id,url,workout_id) VALUES
-	(41,'http://http://www.fitnessatlantic.com/images/exercises/leg_muscles.jpg',1);
-ALTER SEQUENCE photos_id_seq RESTART WITH 42;
+	(41,'http://www.fitnessatlantic.com/images/exercises/leg_muscles.jpg',1),
+	(42,'http://www.criticalbench.com/images/bodyweight-workouts1.jpg',2);
+ALTER SEQUENCE photos_id_seq RESTART WITH 43;
 /*
 INSERT INTO workout_sequence (workout_id, exercise_id, exercise_order) VALUES
 	(1, 1, 1),
