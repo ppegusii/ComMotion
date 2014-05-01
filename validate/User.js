@@ -3,6 +3,7 @@ var validator = require('validator');
 
 var valExercise = require(process.env.VALIDATE_EXERCISE);
 var valDifficulty = require(process.env.VALIDATE_DIFFICULTY);
+var valActivity = require(process.env.VALIDATE_ACTIVITY);
 
 exports.validate = validate;
 
@@ -16,7 +17,7 @@ function validate(user,cb){
   if(!user.username || user.username===''){
     return cb(Error.create('user.username blank undefined or blank'),undefined);
   }
-  if(!user.password || user.password===''){
+  if(!user.id && (!user.password || user.password==='')){
     return cb(Error.create('user.password blank undefined or blank'),undefined);
   }
   if(user.avatar_url && !validator.isURL(user.avatar_url)){
@@ -71,7 +72,10 @@ function validate(user,cb){
       }
       callback(undefined,undefined);
     },
-    exercises: function(callback){
+    activities: function(callback){
+      async.map(user.activities,valActivity.validate,callback);
+    },
+    fav_exercises: function(callback){
       async.map(user.fav_exercises,valExercise.validate,callback);
     }/*,
     workouts: function(callback){
@@ -79,7 +83,7 @@ function validate(user,cb){
     }
     */
   },function afterChildObjectValidation(err,results){
-    user.fav_exercises = results.exercises;
+    user.fav_exercises = results.fav_exercises;
     //user.fav_workouts = results.workouts;
     cb(undefined,user);
   });

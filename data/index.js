@@ -44,6 +44,8 @@ exports.userGetByUsernamePassword = user.getByUsernamePassword;
 exports.userIdGetByUsername = user.getIdByUsername;
 //{user: User}
 exports.userCreate = user.create;
+//{user: User}
+exports.userUpdateProfile = user.updateProfile;
 //{userId: number, exerciseId: number}
 exports.userCreateFavExercise = user.createFavExercise;
 //{userId: number}

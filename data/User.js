@@ -16,6 +16,7 @@ exports.getIdByUsername = getIdByUsername;
 exports.getFollowedUserIdsByFollowingUserId = getFollowedUserIdsByFollowingUserId;
 exports.getFollowingUserIdsByFollowedUserId = getFollowingUserIdsByFollowedUserId;
 exports.create = create;
+exports.updateProfile = updateProfile;
 exports.createFavExercise = createFavExercise;
 exports.getFollowersUsernameAndAvatars = getFollowersUsernameAndAvatars;
 exports.getFollowingUsernameAndAvatars = getFollowingUsernameAndAvatars;
@@ -241,6 +242,44 @@ function create(query,cb){
       user.id = result.rows[0].id.toString();
       user.password = undefined;
       return cb(undefined,user);
+    });
+  });
+}
+function updateProfile(query,cb){
+  if(!query.user){
+    return cb(Error.create('query.user undefined'),undefined);
+  }
+  if(!query.user.id){
+    return cb(Error.create('query.user.id undefined'),undefined);
+  }
+  validate.user(query.user,function afterValidation(err,user){
+    if(err){
+      return cb(err,undefined);
+    }
+    activity.deleteUserActivityByUserId({userId: user.id},function afterActivityDeletion(err,rowCount){
+      if(err){
+        return cb(err,undefined);
+      }
+      var statement = 'UPDATE users SET difficulty_id=$1,avatar_url=$2,bio=$3';
+      var params = [
+        user.difficulty.id,
+        user.avatar_url,
+        user.bio
+      ];
+      conn.query(statement,params,function afterQuery(err,result){
+        if(err){
+          return cb(err,undefined);
+        }
+        var uidAids = user.activities.map(function(activity,index,activities){
+          return {userId: user.id,activityId: activity.id};
+        });
+        async.map(uidAids,activity.createUserActivityByUserIdActivityId,function afterActivityCreation(err,userActivityIds){
+          if(err){
+            return cb(err,undefined);
+          }
+          return cb(undefined,user);
+        });
+      });
     });
   });
 }

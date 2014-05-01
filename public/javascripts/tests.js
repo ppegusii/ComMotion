@@ -303,6 +303,29 @@ asyncTest('userCreate user already exists',function(){
     start();
   });
 });
+asyncTest('userUpdateProfile',function(){
+  expect(1);
+	$.ajax({
+		type: 'POST',
+		url: '/query',
+		data: {
+      query: 'userUpdateProfile',
+      user: {
+        id: 1,
+        username: 'dorianYates',
+        difficulty: {id: 2},
+        activities: [{id:5},{id:7}],
+        bio: 'I must have a board under my feet.',
+        avatar_url: 'http://www.freelogovectors.net/wp-content/uploads/2013/02/man-avatar-1.png'
+      }
+    }
+	}).done(function(user){
+    //console.log('userUpdateProfile');
+    //console.log(user);
+    ok(user,'A really bad test');
+    start();
+  });
+});
 asyncTest('favExerciseDeleteByUserIdExerciseId',function(){
   expect(1);
 	$.ajax({
