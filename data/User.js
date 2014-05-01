@@ -230,7 +230,7 @@ function create(query,cb){
     if(err){
       return cb(err,undefined);
     }
-    var statement = 'INSERT INTO users (username,password) VALUES ($1,$2) RETURNING id';
+    var statement = 'INSERT INTO users (username,password,difficulty_id) VALUES ($1,$2,1) RETURNING id';
     var params = [
       query.user.username,
       query.user.password
