@@ -2,7 +2,7 @@ var conn = require(process.env.DATA_CONN);
 
 exports.deleteByExerciseIdAndIdNotInSet = deleteByExerciseIdAndIdNotInSet;
 
-function deleteByExerciseIdAndIdNotInSet(query,statement,cb){
+function deleteByExerciseIdAndIdNotInSet(query,table,cb){
   var eid = parseInt(query.exerciseId,10);
   if(eid<=0){
     return cb(Error.create('query.exerciseId invalid'),undefined);
@@ -20,11 +20,14 @@ function deleteByExerciseIdAndIdNotInSet(query,statement,cb){
       ids.push(id);
     }
   }
-  //POOR CODING ALERT!
-  //Using bad hack to signify the empty set
-  //It depends on no id being 0
-  ids = (ids.length===0) ? '0' : ids.toString();
-  conn.query(statement,[eid,ids],function(err,result){
+  if(ids.length===0){
+    var statement = 'DELETE FROM '+table+' WHERE exercise_id=$1';
+    var params = [eid];
+  }else{
+    var statement = 'DELETE FROM '+table+' WHERE exercise_id=$1 AND id NOT IN ($2)';
+    var params = [eid,ids.toString()];
+  }
+  conn.query(statement,params,function(err,result){
     if(err){
       return cb(err,undefined);
     }

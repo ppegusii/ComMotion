@@ -76,6 +76,6 @@ function initNoValidate(photo,cb){
     });
 }
 function deleteByExerciseIdAndIdNotInSet(query,cb){
-  var statement = 'DELETE FROM photos WHERE exercise_id=$1 AND id NOT IN ($2)';
-  common.deleteByExerciseIdAndIdNotInSet(query,statement,cb);
+  var table = 'photos';
+  common.deleteByExerciseIdAndIdNotInSet(query,table,cb);
 }

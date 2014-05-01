@@ -73,6 +73,6 @@ function initNoValidate(video,cb){
   });
 }
 function deleteByExerciseIdAndIdNotInSet(query,cb){
-  var statement = 'DELETE FROM videos WHERE exercise_id=$1 AND id NOT IN ($2)';
-  common.deleteByExerciseIdAndIdNotInSet(query,statement,cb);
+  var table = 'videos';
+  common.deleteByExerciseIdAndIdNotInSet(query,table,cb);
 }
