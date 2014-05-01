@@ -313,7 +313,7 @@ INSERT INTO workouts (id, description, difficulty_id, musclegroup_id, user_id) V
 	(2, 'work out anywhere', 1, 1, 12);
 ALTER SEQUENCE workouts_id_seq RESTART WITH 3;
 INSERT INTO photos (id,url,workout_id) VALUES
-	(41,'http://www.rsasr.krefeld.schulen.net/homepages_if/homepages2012/murat/Bilder/Vorgebeugte%20Barren-Dips2.jpg',1);
+	(41,'http://http://www.fitnessatlantic.com/images/exercises/leg_muscles.jpg',1);
 ALTER SEQUENCE photos_id_seq RESTART WITH 42;
 INSERT INTO workout_sequence (workout_id, exercise_id, exercise_order) VALUES
 	(1, 1, 1),
