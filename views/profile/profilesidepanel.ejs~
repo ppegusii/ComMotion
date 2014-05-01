@@ -173,7 +173,7 @@
 
 				console.log(i);
 
-					if(followers[i].follower_id === <%=myId%>){
+								if(followers[i].follower_id === <%=myId%>){
 					
 						return true;
 					}

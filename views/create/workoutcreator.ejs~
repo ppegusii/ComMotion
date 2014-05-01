@@ -276,7 +276,7 @@ $(function(){
 	
 		$("#accordion2 .test").each((function(){
 
-		$(this > h3).append("HELLO");
+		$(this).append("HELLO");
 
 		}));
 	
