@@ -103,7 +103,8 @@ revert: false
 $( ".draggableRest" ).draggable({
 connectToSortable: "#accordion2",
 helper: "clone",
-revert: false
+revert: false,
+cursorAt: {top: 10}
 });
 
 });
@@ -158,11 +159,11 @@ revert: false
 				<div class="group">
 					<h3>Rest Period</h3>
 					<div>
-						<ul id="restAmountList">
-							<input id="newRestAmount" type="text" class="form-control" name="name" value="" maxlength="15" style= "width:50px; float:left; margin-bottom:20px; margin-right:10px;margin-left:-25px">
+						
+							<input id="newRestAmount" type="text" class="form-control" name="name" value="" maxlength="15" style= "width:60px; float:left; margin-bottom:20px; margin-right:10px;margin-left:0px">
 <select id="time" style="float:left; width:55px; margin-right:10px"><option value="seconds">sec</option><option value="minutes">min</option></select>
 							<button id="btn-addRestAmount" onClick="addRestAmount()" class="btn btn-danger" style="width:50px;  float:left; margin-bottom:20px">Add</button> 
-							
+						<ul id="restAmountList">
 							<li class="draggableRest"> 30 seconds</li>
 							<li class="draggableRest"> 1 minutes</li>
 							<li class="draggableRest"> 2 minutes</li>
@@ -239,15 +240,54 @@ revert: false
           </div>
 	</div>
 		<div id="trash" class="col-md-3 col-sm-3 col-xs-3">
-			</p>Drag exercises or rests over here to delete them</p>
+			<p>Drag exercises or rests over here to delete them</p>
 			<div class="well"  style="height:200px">
 				<center><span class="glyphicon glyphicon-trash"></span> Trash Area</center>
 			</div>
+
+		</div>
+
+		<div class="test">
+
+		<p>1</p>		
+	
+		</div>
+
+		<div class="test">
+
+		<p>2</p>
+
 		</div>
 
 	</div>
 
 </div>
+
+
+<script>
+
+$(function(){
+
+	$('#saveWorkoutButton').click(function(e){
+
+	console.log("save button clicked");
+
+	//console.log($("#accordion2 .group:nth-child(2) h3").text());
+	
+		$("#accordion2 .test").each((function(){
+
+		$(this > h3).append("HELLO");
+
+		}));
+	
+	//$('#trash > p').append("HELLO");
+
+
+	});
+
+});
+
+</script>
 
 <script>
 

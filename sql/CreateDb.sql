@@ -5,13 +5,17 @@ DROP TABLE IF EXISTS fav_exercises;
 DROP TABLE IF EXISTS user_activities;
 DROP TABLE IF EXISTS activities;
 DROP TABLE IF EXISTS posts;
-DROP TABLE IF EXISTS workout_sequence;
+DROP TABLE IF EXISTS workout_sequence; --This is only left to clean old schema from DB.
+DROP TABLE IF EXISTS timers;
+DROP TABLE IF EXISTS exercise_instances;
+DROP TABLE IF EXISTS measurements;
+DROP TABLE IF EXISTS workout_components;
 DROP TABLE IF EXISTS names;
 DROP TABLE IF EXISTS videos;
 DROP TABLE IF EXISTS photos;
 DROP TABLE IF EXISTS workouts;
-DROP TABLE IF EXISTS users;
 DROP TABLE IF EXISTS exercises;
+DROP TABLE IF EXISTS users;
 DROP TABLE IF EXISTS musclegroups;
 DROP TABLE IF EXISTS difficulties;
 
@@ -24,13 +28,6 @@ CREATE TABLE musclegroups(
 	id SERIAL PRIMARY KEY,
 	name VARCHAR(255) NOT NULL
 );
-CREATE TABLE exercises(
-	id SERIAL PRIMARY KEY,
-	description VARCHAR(1023) NOT NULL,
-	difficulty_id integer NOT NULL references difficulties(id),
-	musclegroup_id integer NOT NULL references musclegroups(id),
-	created timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
-);
 CREATE TABLE users(
 	id SERIAL PRIMARY KEY,
 	username VARCHAR(255) UNIQUE NOT NULL,
@@ -39,12 +36,21 @@ CREATE TABLE users(
 	avatar_url VARCHAR(1023),
 	bio VARCHAR(2047)
 );
-CREATE TABLE workouts(
+CREATE TABLE exercises(
 	id SERIAL PRIMARY KEY,
 	description VARCHAR(1023) NOT NULL,
 	difficulty_id integer NOT NULL references difficulties(id),
 	musclegroup_id integer NOT NULL references musclegroups(id),
-	user_id integer references users(id),
+	created timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+	creator_id integer REFERENCES users(id) ON DELETE SET NULL
+);
+CREATE TABLE workouts(
+	id SERIAL PRIMARY KEY,
+	name VARCHAR(255) NOT NULL,
+	description VARCHAR(1023) NOT NULL,
+	difficulty_id integer NOT NULL references difficulties(id),
+	musclegroup_id integer NOT NULL references musclegroups(id),
+	creator_id integer references users(id),
 	created timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
 );
 CREATE TABLE photos(
@@ -66,11 +72,33 @@ CREATE TABLE names(
 	exercise_id integer references exercises(id) ON DELETE CASCADE,
 	workout_id integer references workouts(id) ON DELETE CASCADE
 );
+/*
 CREATE TABLE workout_sequence(
 	id SERIAL PRIMARY KEY,
 	workout_id integer NOT NULL references workouts(id) ON DELETE CASCADE, 
 	exercise_id integer NOT NULL references exercises(id), 
 	exercise_order integer NOT NULL
+);
+*/
+CREATE TABLE workout_components(
+	id SERIAL PRIMARY KEY,
+	workout_id integer NOT NULL references workouts(id) ON DELETE CASCADE, 
+	seq_order integer NOT NULL
+);
+CREATE TABLE measurements(
+	id SERIAL PRIMARY KEY,
+	name VARCHAR(255) NOT NULL
+);
+CREATE TABLE exercise_instances(
+	id integer PRIMARY KEY REFERENCES workout_components(id) ON DELETE CASCADE,
+	exercise_id integer NOT NULL references exercises(id),
+	measurement_id integer references measurements(id) ON DELETE SET NULL,
+	measurement_value VARCHAR(255),
+	weight integer
+);
+CREATE TABLE timers(
+	id integer PRIMARY KEY REFERENCES workout_components(id) ON DELETE CASCADE,
+	seconds integer NOT NULL
 );
 CREATE TABLE posts(
 	id SERIAL PRIMARY KEY,
@@ -111,12 +139,14 @@ INSERT INTO difficulties (id,name) VALUES
 	(2,'intermediate'),
 	(3,'advanced');
 ALTER SEQUENCE difficulties_id_seq RESTART WITH 4;
+
 INSERT INTO musclegroups (id,name) VALUES
 	(1,'whole body'),
 	(2,'upper body'),
 	(3,'lower body'),
 	(4,'core');
 ALTER SEQUENCE musclegroups_id_seq RESTART WITH 5;
+
 INSERT INTO exercises (id,description,difficulty_id,musclegroup_id) VALUES
 	(1,'Back squat with barbell',2,3),
 	(2,'Front squat with dumbbell',1,3),
@@ -159,6 +189,7 @@ INSERT INTO exercises (id,description,difficulty_id,musclegroup_id) VALUES
 	(39,'Lying tricep extensions with barbell',2,2),
 	(40,'Dips between parallel bars',2,2);
 ALTER SEQUENCE exercises_id_seq RESTART WITH 41;
+
 INSERT INTO names (id,name,exercise_id,votes) VALUES
 	(1,'squat',1,5),
 	(2,'goblet squat',2,3),
@@ -201,6 +232,7 @@ INSERT INTO names (id,name,exercise_id,votes) VALUES
 	(39,'skull crushers',39,5),
 	(40,'dips',40,2);
 ALTER SEQUENCE names_id_seq RESTART WITH 41;
+
 INSERT INTO photos (id,url,exercise_id) VALUES
 	(1,'http://fitnessrxformen.com/wp-content/uploads/2013/09/SQUATS-CROWN-LOWER-BODY-INS1.jpg',1),
 	(2,'http://www.fitnessfocus.ca/blog/image.axd?picture=2013%2F9%2FSaskatoon+Gym+Squats.jpg',2),
@@ -243,6 +275,7 @@ INSERT INTO photos (id,url,exercise_id) VALUES
 	(39,'http://bodybuilding24x7.com/wp-content/uploads/2014/03/barbell-skull-crushers.jpg',39),
 	(40,'http://www.rsasr.krefeld.schulen.net/homepages_if/homepages2012/murat/Bilder/Vorgebeugte%20Barren-Dips2.jpg',40);
 ALTER SEQUENCE photos_id_seq RESTART WITH 41;
+
 INSERT INTO videos (id,url,exercise_id) VALUES
 	(1,'www.youtube.com/watch?v=v-eQooI6Yds', 1),
 	(2,'www.youtube.com/watch?v=PKmrXTx6jZs', 2),
@@ -285,6 +318,7 @@ INSERT INTO videos (id,url,exercise_id) VALUES
 	(39,'www.youtube.com/watch?v=9baX4-wEYx8', 39),
 	(40,'www.youtube.com/watch?v=K71EA0BxU4w', 40);	
 ALTER SEQUENCE videos_id_seq RESTART WITH 41;
+
 INSERT INTO users (id, username, password, difficulty_id, avatar_url, bio) VALUES
 	(1, 'dorianYates', 'commotion', 3, 'http://png-2.findicons.com/files/icons/1072/face_avatars/300/i05.png', 'I like to sweat on others.'),
 	(2, 'steveReeves', 'commotion', 2, 'http://buddies.koinup.com/group-637.png','I like to sweat on others.'),
@@ -301,16 +335,25 @@ INSERT INTO users (id, username, password, difficulty_id, avatar_url, bio) VALUE
 	(13, 'madameCurie', 'commotion', 3, 'http://www.vector-eps.com/wp-content/gallery/penguin-avatars/thumbs/thumbs_penguin-avatars16.jpg', 'I like to sweat on others.'),
 	(14, 'adaLovelace', 'commotion', 2, 'https://docs.atlassian.com/aui/5.3-m3/docs/img/project-128.png', 'I like to sweat on others.'),
 	(15, 'babeRuth', 'commotion', 1, 'http://1.bp.blogspot.com/-rmN_xDIAljo/Tn0Yzd96yTI/AAAAAAAAB64/DXTwUXGWxw4/s400/avatars-000000733783-d1doh2-crop.jpg', 'I like to sweat on others.'),
-	(16, 'ruthGinsberg', 'commotion', 3, 'http://i1.sndcdn.com/avatars-000024624494-iqyx26-crop.jpg?3eddc42', 'I like to sweat on others.'),
+	(16, 'ruthBaderGinsberg', 'commotion', 3, 'http://i1.sndcdn.com/avatars-000024624494-iqyx26-crop.jpg?3eddc42', 'I like to sweat on others.'),
 	(17, 'tylerDurden', 'commotion', 2, 'http://espenl4.files.wordpress.com/2011/03/coolavatar06.png', 'I like to sweat on others.'),
 	(18, 'robertPaulson', 'commotion', 1, 'https://www.fancyhands.com/images/default-avatar-250x250.png', 'I like to sweat on others.'),
 	(19, 'hermioneGranger', 'commotion', 3, 'http://www.freelogovectors.net/wp-content/uploads/2013/02/Alien.png', 'I like to sweat on others.'),
 	(20, 'severusSnape', 'commotion', 2, 'http://www.freelogovectors.net/wp-content/uploads/2013/02/man-avatar-1.png', 'I like to sweat on others.');
 ALTER SEQUENCE users_id_seq RESTART WITH 21;
-INSERT INTO workouts (id, description, difficulty_id, musclegroup_id, user_id) VALUES
-	(1, 'lower body challenge', 2, 3, 16),
-	(2, 'work out anywhere', 1, 1, 12);
-ALTER SEQUENCE workouts_id_seq RESTART WITH 3;
+
+INSERT INTO workouts (id, name, description, difficulty_id, musclegroup_id, creator_id) VALUES
+	(1,'Leg Blaster!','challenging lower body workout', 2, 3, 16),
+	(2,'Workout anywhere...','body weight workout', 1, 1, 12),
+	(3,'Bench Press Bonanza','designed to improve your bench press',3,2,17);
+ALTER SEQUENCE workouts_id_seq RESTART WITH 4;
+
+INSERT INTO photos (id,url,workout_id) VALUES
+	(41,'http://www.fitnessatlantic.com/images/exercises/leg_muscles.jpg',1),
+	(42,'http://www.criticalbench.com/images/bodyweight-workouts1.jpg',2),
+	(43,'http://www.lift.net/wp-content/uploads/2013/09/Jeremy-Hoornstra-close-grip.jpg',3);
+ALTER SEQUENCE photos_id_seq RESTART WITH 44;
+/*
 INSERT INTO workout_sequence (workout_id, exercise_id, exercise_order) VALUES
 	(1, 1, 1),
 	(1, 20, 2),
@@ -322,6 +365,90 @@ INSERT INTO workout_sequence (workout_id, exercise_id, exercise_order) VALUES
 	(2, 9, 2),
 	(2, 12, 3),
 	(2, 14, 4);
+*/
+INSERT INTO workout_components (id,workout_id,seq_order) VALUES
+	(1, 1, 1),
+	(2, 1, 2),
+	(3, 1, 3),
+	(4, 1, 4),
+	(5, 1, 5),
+	(6, 2, 1),
+	(7, 2, 2),
+	(8, 2, 3),
+	(9, 2, 4),
+	(10, 3, 1),
+	(11, 3, 2),
+	(12, 3, 3),
+	(13, 3, 4),
+	(14, 3, 5),
+	(15, 3, 6),
+	(16, 3, 7),
+	(17, 3, 8),
+	(18, 3, 9),
+	(19, 3, 10),
+	(20, 3, 11),
+	(21, 3, 12);
+ALTER SEQUENCE workout_components_id_seq RESTART WITH 22;
+
+INSERT INTO measurements (id, name) VALUES
+	(1, 'reps'),
+	(2, 'sec'),
+	(3, 'min'),
+	(4, 'm'),
+	(5, 'km'),
+	(6, 'yds'),
+	(7, 'miles');
+ALTER SEQUENCE measurements_id_seq RESTART WITH 8;
+
+INSERT INTO exercise_instances (id, exercise_id, measurement_id, measurement_value) VALUES
+	(1, 1, 1, '10'),
+	(2, 29, 1, '10'),
+	(3, 20, 1, '10'),
+	(4, 21, 1, '10'),
+	(5, 14, 3, '15'),
+	(6, 8, 1, '20'),
+	(7, 9, 1, '10'),
+	(8, 12, 3, '1'),
+	(9, 14, 3, '15'),
+	(10, 6, 1, '8'),
+	(11, 6, 1, '8'),
+	(12, 6, 1, '8'),
+	(13, 7, 1, '8'),
+	(14, 7, 1, '5'),
+	(15, 7, 1, '3'),
+	(16, 34, 1, '8'),
+	(17, 34, 1, '8'),
+	(18, 34, 1, '8'),
+	(19, 38, 1, '10'),
+	(20, 38, 1, '10'),
+	(21, 38, 1, '10');
+--ALTER SEQUENCE exercise_instances_id_seq RESTART WITH 6;
+--did not need to alter sequence since id references workout_components(id)
+
+INSERT INTO timers (id,seconds) VALUES
+	(1, 120),
+	(2, 90),
+	(3, 90),
+	(4, 30),
+	(5, 15),
+	(6, 120),
+	(7, 120),
+	(8, 30),
+	(9, 300),
+	(10, 90),
+	(11, 90),
+	(12, 90),
+	(13, 90),
+	(14, 120),
+	(15, 120),
+	(16, 90),
+	(17, 90),
+	(18, 90),
+	(19, 60), 
+	(20, 60),
+	(21, 60);
+--no alter sequence added since id's reference workout_components(id)
+
 INSERT INTO posts (user_id, text) VALUES
 	(13, 'The Boston Marathon today was just nuclear!  I''m glowing with admiration.  By the way, I found ring dips to be challenging, but what an awesome pump!'),
 	(15, 'I get tired so easily when I swim.  Medicine ball slams are helping with my endurance.'),
