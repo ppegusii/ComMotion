@@ -80,6 +80,7 @@ app.get('/encyclopedia/results', results.encyclopedia_results);
 app.get('/encyclopedia/exercise_entry', exer.encyclopedia_exercise_entry);
 app.get('/encyclopedia/exercise_entry/edit', exer.editExercise);
 app.get('/encyclopedia/workout_entry', nav.encyclopedia_workout_entry);
+app.get('/encyclopedia/workout_entry/edit', nav.editWorkout);
 
 app.get('/create/exercise', exer.createExercise);
 app.get('/create/workoutcreator', nav.workoutcreator);

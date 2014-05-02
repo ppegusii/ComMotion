@@ -180,6 +180,52 @@ exports.workoutcreator = function(req, res){
 
 
 exports.encyclopedia_workout_entry = function(req, res) {
-     var data = getWorkoutEntry('Get workout id');
-     res.render('encyclopedia/workoutentry', data);
+   var wid = req.query.wid;
+   // fake workout object
+   if(parseInt(wid) === 5)
+      res.render('encyclopedia/workoutentry', fakeWorkout);
+   else
+      res.send(500, 'Couldnt find workout');
 }
+
+exports.editWorkout = function(req, res) {
+   console.log('Executing editWorkout');
+   var wid = req.query.wid;
+   console.log('Found eid ' + wid);
+   /*
+   data.exerciseGetById({id: eid}, function(err, exercise) {
+      if(err) {
+         console.log(err.message);
+         res.send(500, err.message);
+      }
+      else {
+         //console.log('Sending exercise ' + JSON.stringify(exercise[0]));
+         req.flash('editExercise', JSON.stringify(exercise[0]));
+         res.redirect('/create/exercise');
+      }
+   });
+   */
+   req.flash('editWorkout', JSON.stringify(fakeWorkout));
+   res.redirect('/create/workoutcreator');
+
+}
+
+var fakeWorkout = new models.Workout(5, 'My workout', undefined, 'Description', {name: 'Advanced'}, 'http://i.imgur.com/VSxZ1KI.jpg');
+
+//exports.encyclopedia_exercise_entry = function(req, res) {
+//   var eid = req.query.eid;
+//   data.exerciseGetById({id: eid}, function(err, exercise) {
+//      if(err) {
+//         console.log(err.message);
+//         res.send(500, err.message);
+//      }
+//      else if(exercise.length === 0) {
+//         console.log('Empty results');
+//         res.send(500, 'No exercise found for id ' + eid);
+//      }
+//      else {
+//         console.log(exercise);
+//         res.render('encyclopedia/exerciseentry', exercise[0]);
+//      }
+//   });
+//}
