@@ -40,7 +40,7 @@
 		<ul id="resultsList" class="list-group">
 
 
-		<% for (var i = 0; i<Math.min(5,users.length); i++){ %>
+		<% for (var i = pageN*5; i<Math.min(pageN*5+5,users.length); i++){ %>
 
 		<li class="list-group-item" style="height:90px">
 			<div class="col-md-2 col-sm-2 col-xs-2">
@@ -72,12 +72,11 @@
 
 		<center>
 		<div class="btn-group">
-		   <button type="button" class="btn btn-default">1</button>
-		  <button type="button" class="btn btn-default">2</button>
-		  <button type="button" class="btn btn-default">3</button>
-		  <button type="button" class="btn btn-default">4</button>
-		  <button type="button" class="btn btn-default">5</button>
-		</div>
+            <button id="PrevButton" class="btn btn-default" onclick="pageN=Math.max(pageN-1,0)">Previous</button>
+            <button id="PageNumber" class="btn btn-default"><%=pageN%></button>
+			<button id="NextButton" class="btn btn-default" onclick="pageN=Math.min(pageN+1,Math.floor(users.length/5))">Next</button>
+
+        </div>
 		</center>
 		</li>
 		</ul>
