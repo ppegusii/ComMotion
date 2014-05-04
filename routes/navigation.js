@@ -175,10 +175,20 @@ exports.findusers = function(req, res){
 exports.workoutcreator = function(req, res){
    console.log('Executing workoutcreator');
    var flash = req.flash('editWorkout');
-   if(flash.length !== 0)
+   if(flash.length !== 0) {
       console.log(JSON.parse(flash));
-   res.render('create/workoutcreator', {title: 'Workout Creator'});
-
+      var workout = JSON.parse(flash);
+      res.render('create/workoutcreator', {
+         title: 'Workout Creator',
+         workout: workout
+      });
+   }
+   else {
+      res.render('create/workoutcreator', {
+         title: 'Workout Creator',
+         workout: undefined
+      });
+   }
 };
 
 
