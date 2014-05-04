@@ -213,22 +213,9 @@ exports.editWorkout = function(req, res) {
 
 }
 
-var fakeWorkout = new models.Workout(5, 'My workout', undefined, 'Description', {name: 'Advanced'}, 'http://i.imgur.com/VSxZ1KI.jpg');
-
-//exports.encyclopedia_exercise_entry = function(req, res) {
-//   var eid = req.query.eid;
-//   data.exerciseGetById({id: eid}, function(err, exercise) {
-//      if(err) {
-//         console.log(err.message);
-//         res.send(500, err.message);
-//      }
-//      else if(exercise.length === 0) {
-//         console.log('Empty results');
-//         res.send(500, 'No exercise found for id ' + eid);
-//      }
-//      else {
-//         console.log(exercise);
-//         res.render('encyclopedia/exerciseentry', exercise[0]);
-//      }
-//   });
-//}
+var pURL = 'http://i.imgur.com/gxtji6F.jpg';
+var vURL = 'https://www.youtube.com/watch?v=JOCtdw9FG-s';
+var fakeWorkout = new models.Workout(5, 'My workout', {name: 'Advanced'}, 1, 'Description',
+   [{url: pURL}],
+   [{url: vURL},{url: vURL}],
+   []);
