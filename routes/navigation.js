@@ -225,7 +225,7 @@ exports.editWorkout = function(req, res) {
 
 var pURL = 'http://i.imgur.com/gxtji6F.jpg';
 var vURL = 'https://www.youtube.com/watch?v=JOCtdw9FG-s';
-var fakeWorkout = new models.Workout(5, 'My workout', {name: 'Advanced'}, 1, 'Description',
+var fakeWorkout = new models.Workout(5, 'My workout', {name: 'Intermediate'}, 1, 'Description',
    [{url: pURL}],
    [{url: vURL},{url: vURL}],
    []);
