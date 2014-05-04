@@ -4,7 +4,7 @@ ComMotion
 ##ComMotion Documentation
 
 Welcome to ComMotion's documentation page!  We hope you'll find all the help you'll need to easily navigate and fully
-enjoy exercise and fitness website, featuring YOU, and everyday athletes just like you.
+enjoy our exercise and fitness website, featuring YOU, and everyday athletes just like you.
 
 **Where do I start?**
 
@@ -54,8 +54,8 @@ can enter it into the text box, then click on *Search*.
 
 Go to the *Encyclopedia* page, where you'll find search utilities and thumbnails of new exercises and workouts.  If you'd
 like to search through an index, click on the *Encyclopedia Index* button.  Choose the appropriate tab, then click on the
-link for any exercise or workout you'd like to see.  You can also use our Search box by choosing a muscle group and difficultylevel, then entering the exercise or workout name into the text box.  Just entering the name works great too.  If more than
-one result pops up, just click on the one you'd like to see.
+link for any exercise or workout you'd like to see.  You can also use our Search engine by choosing a muscle group and
+difficulty level, then entering the exercise or workout name into the text box.  Just entering the name works great too.       If more than one result pops up, just click on the one you'd like to see.
 
 **How do I create an exercise?**
 
