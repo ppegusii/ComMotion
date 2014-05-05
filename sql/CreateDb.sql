@@ -49,7 +49,6 @@ CREATE TABLE workouts(
 	name VARCHAR(255) NOT NULL,
 	description VARCHAR(1023) NOT NULL,
 	difficulty_id integer NOT NULL references difficulties(id),
-	musclegroup_id integer NOT NULL references musclegroups(id),
 	creator_id integer references users(id),
 	created timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
 );
@@ -343,10 +342,10 @@ INSERT INTO users (id, username, password, difficulty_id, avatar_url, bio) VALUE
 	(20, 'severusSnape', 'commotion', 2, 'http://www.freelogovectors.net/wp-content/uploads/2013/02/man-avatar-1.png', 'I like to sweat on others.');
 ALTER SEQUENCE users_id_seq RESTART WITH 21;
 
-INSERT INTO workouts (id, name, description, difficulty_id, musclegroup_id, creator_id) VALUES
-	(1,'Leg Blaster!','challenging lower body workout', 2, 3, 16),
-	(2,'Workout anywhere...','body weight workout', 1, 1, 12),
-	(3,'Bench Press Bonanza','designed to improve your bench press',3,2,17);
+INSERT INTO workouts (id, name, description, difficulty_id, creator_id) VALUES
+	(1,'Leg Blaster!','challenging lower body workout', 2, 16),
+	(2,'Workout anywhere...','body weight workout', 1, 12),
+	(3,'Bench Press Bonanza','designed to improve your bench press',3,17);
 ALTER SEQUENCE workouts_id_seq RESTART WITH 4;
 
 INSERT INTO photos (id,url,workout_id) VALUES
@@ -354,6 +353,12 @@ INSERT INTO photos (id,url,workout_id) VALUES
 	(42,'http://www.criticalbench.com/images/bodyweight-workouts1.jpg',2),
 	(43,'http://www.lift.net/wp-content/uploads/2013/09/Jeremy-Hoornstra-close-grip.jpg',3);
 ALTER SEQUENCE photos_id_seq RESTART WITH 44;
+
+INSERT INTO videos (id, url, workout_id) VALUES
+	(41,'www.youtube.com/watch?v=cFg9kGYF400', 1),
+	(42,'www.youtube.com/watch?v=475aEW2KV_8', 2),
+	(43,'www.youtube.com/watch?v=oVGJInBJoh0', 3);
+ALTER SEQUENCE videos_id_seq RESTART WITH 44;
 /*
 INSERT INTO workout_sequence (workout_id, exercise_id, exercise_order) VALUES
 	(1, 1, 1),
@@ -369,27 +374,49 @@ INSERT INTO workout_sequence (workout_id, exercise_id, exercise_order) VALUES
 */
 INSERT INTO workout_components (id,workout_id,seq_order) VALUES
 	(1, 1, 1),
-	(2, 1, 2),
-	(3, 1, 3),
-	(4, 1, 4),
-	(5, 1, 5),
+	(2, 1, 3),
+	(3, 1, 5),
+	(4, 1, 7),
+	(5, 1, 9),
 	(6, 2, 1),
-	(7, 2, 2),
-	(8, 2, 3),
-	(9, 2, 4),
+	(7, 2, 3),
+	(8, 2, 5),
+	(9, 2, 7),
 	(10, 3, 1),
-	(11, 3, 2),
-	(12, 3, 3),
-	(13, 3, 4),
-	(14, 3, 5),
-	(15, 3, 6),
-	(16, 3, 7),
-	(17, 3, 8),
-	(18, 3, 9),
-	(19, 3, 10),
-	(20, 3, 11),
-	(21, 3, 12);
-ALTER SEQUENCE workout_components_id_seq RESTART WITH 22;
+	(11, 3, 3),
+	(12, 3, 5),
+	(13, 3, 7),
+	(14, 3, 9),
+	(15, 3, 11),
+	(16, 3,13),
+	(17, 3,15),
+	(18, 3,17),
+	(19, 3, 19),
+	(20, 3, 21),
+	(21, 3, 23),
+	--adding extra for timers
+	(22, 1, 2),
+	(23, 1, 4),
+	(24, 1, 6),
+	(25, 1, 8),
+	(26, 1, 10),
+	(27, 2, 2),
+	(28, 2, 4),
+	(29, 2, 6),
+	(30, 2, 8),
+	(31, 3, 2),
+	(32, 3, 4),
+	(33, 3, 6),
+	(34, 3, 8),
+	(35, 3, 10),
+	(36, 3, 12),
+	(37, 3, 14),
+	(38, 3, 16),
+	(39, 3, 18),
+	(40, 3, 20),
+	(41, 3, 22),
+	(42, 3, 24);
+ALTER SEQUENCE workout_components_id_seq RESTART WITH 43;
 
 INSERT INTO measurements (id, name) VALUES
 	(1, 'reps'),
@@ -427,27 +454,27 @@ INSERT INTO exercise_instances (id, exercise_id, measurement_id, measurement_val
 --did not need to alter sequence since id references workout_components(id)
 
 INSERT INTO timers (id,seconds) VALUES
-	(1, 120),
-	(2, 90),
-	(3, 90),
-	(4, 30),
-	(5, 15),
-	(6, 120),
-	(7, 120),
-	(8, 30),
-	(9, 300),
-	(10, 90),
-	(11, 90),
-	(12, 90),
-	(13, 90),
-	(14, 120),
-	(15, 120),
-	(16, 90),
-	(17, 90),
-	(18, 90),
-	(19, 60), 
-	(20, 60),
-	(21, 60);
+	(22, 120),
+	(23, 90),
+	(24, 90),
+	(25, 30),
+	(26, 15),
+	(27, 120),
+	(28, 120),
+	(29, 30),
+	(30, 300),
+	(31, 90),
+	(32, 90),
+	(33, 90),
+	(34, 90),
+	(35, 120),
+	(36, 120),
+	(37, 90),
+	(38, 90),
+	(39, 90),
+	(40, 60), 
+	(41, 60),
+	(42, 60);
 --no alter sequence added since id's reference workout_components(id)
 
 INSERT INTO posts (user_id, text) VALUES
@@ -456,7 +483,13 @@ INSERT INTO posts (user_id, text) VALUES
 	(17, 'I love squats so much, I want to start a squat club.  And the first rule of squat club is, you don''t talk about squat club.'),
 	(20, 'If anyone else is unhappy with their core, Turkish get-ups were a magic potion for my abs.'),
 	(18, 'Everyone!  I just joined this life-changing club for people who love squats.  Only I''m not supposed to talk about it...'),
-	(7, 'I do believe that heavy Olympic lifts keep me young.  It has nothing to do with that picture in my attic.');	
+	(7, 'I love this app!'),
+	(2, 'This is a great app!'),
+    (5, 'Hey guys! Can you hear me?'),
+    (14, 'Good luck on the marathon guys!'),
+    (1, 'This is a test post'),
+    (1, 'Wow, this app is so amazing!!'),
+    (1, 'If this app were a school project, this would get an A++!');
 INSERT INTO activities (id, name) VALUES
 	(1, 'hiking'),
 	(2, 'cycling'),

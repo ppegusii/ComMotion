@@ -20,6 +20,9 @@ function genResults() {
     }
 
 }
+if(exercises.length===0)
+results.append('<h2>No Results Found</h2>');
+else
 results.append('<li class="list-group-item" style="height:60px"><center><div class="btn-group"><button id="PrevButton" class="btn btn-default" >Previous</button><button id="NextButton" class="btn btn-default" >Next</button></div></center></li>');
 var prevButton = $('#PrevButton');
     prevButton.click(function(event) {
@@ -34,7 +37,7 @@ genResults();
     var exercises=JSON.parse($('#exercisesJSON').html());
     var pageN = parseInt($('#currentPage').val());
         event.preventDefault();
-        $('#currentPage').val(Math.min(pageN+1,Math.floor((exercises.length-1)/5)));
+        $('#currentPage').val(Math.min(pageN+1,Math.ceil((exercises.length)/5-1)));
 	console.log($('#currentPage').val());
 	genResults();
     });

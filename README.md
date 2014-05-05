@@ -1,6 +1,33 @@
 ComMotion
 =========
 
+##Notes for the graders
+
+**Installing postgres**
+
+This is how we installed postgres for our app (graders can skip if postgresql-server-dev-9.1 is already installed):
+```
+sudo apt-get install postgresql postgresql-server-dev-9.1
+sudo su postgres
+createuser -P vagrant //Answer no to all questions
+createdb -O vagrant commotion
+exit
+```
+
+To view the data in the database (when shell user is vagrant):
+```
+psql -d commotion
+```
+
+To load the database with our predefined data:
+```
+psql -d commotion -a -f CreateDb.sql
+```
+
+**Logging in**
+
+We have multiple test users. For best results, we recommend logging in as user **dorianYates** and password **commotion**.
+
 ##ComMotion Documentation
 
 Welcome to ComMotion's documentation page!  We hope you'll find all the help you'll need to easily navigate and fully
