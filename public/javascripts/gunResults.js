@@ -34,7 +34,7 @@ genResults();
     var users=JSON.parse($('#usersJSON').html());
     var pageN = parseInt($('#currentPage').val());
         event.preventDefault();
-        $('#currentPage').val(Math.min(pageN+1,Math.ceil(users.length/5)));
+        $('#currentPage').val(Math.min(pageN+1,Math.ceil(users.length/5-1)));
 	console.log($('#currentPage').val());
 	genResults();
     });
