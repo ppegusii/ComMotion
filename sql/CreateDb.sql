@@ -465,7 +465,10 @@ INSERT INTO posts (user_id, text) VALUES
 	(7, 'I love this app!'),
 	(2, 'This is a great app!'),
     (5, 'Hey guys! Can you hear me?'),
-    (14, 'Good luck on the marathon guys!');
+    (14, 'Good luck on the marathon guys!'),
+    (1, 'This is a test post'),
+    (1, 'Wow, this app is so amazing!!'),
+    (1, 'If this app were a school project, this would get an A++!');
 INSERT INTO activities (id, name) VALUES
 	(1, 'hiking'),
 	(2, 'cycling'),
