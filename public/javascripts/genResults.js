@@ -37,7 +37,7 @@ genResults();
     var exercises=JSON.parse($('#exercisesJSON').html());
     var pageN = parseInt($('#currentPage').val());
         event.preventDefault();
-        $('#currentPage').val(Math.min(pageN+1,Math.ceil((exercises.length-1)/5)));
+        $('#currentPage').val(Math.min(pageN+1,Math.ceil((exercises.length)/5)));
 	console.log($('#currentPage').val());
 	genResults();
     });
