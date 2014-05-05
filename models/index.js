@@ -105,7 +105,7 @@ exports.Activity = function(id,name){
   //string; name != falsey, name !== ''
   this.name = name;
 }
-exports.Workout = function(id, name, difficulty, creatorId, description, photos, videos, sequence){
+exports.Workout = function(id,name,difficulty,creatorId,created,description,photos,videos,sequence){
   //number;
   this.id = id;
   //string;
@@ -114,6 +114,8 @@ exports.Workout = function(id, name, difficulty, creatorId, description, photos,
   this.difficulty = difficulty;
   //number; maybe null
   this.creatorId = creatorId;
+  //Date;
+  this.created = created;
   //string;
   this.description = description;
   //Array of Photo objects;

@@ -19,10 +19,12 @@ function getByEidWid(query,cb){
   }
   if(eid){
     var statement = 'SELECT * FROM videos WHERE exercise_id=$1';
+    var id = eid;
   }else{
     var statement = 'SELECT * FROM videos WHERE workout_id=$1';
+    var id = wid;
   }
-  conn.query(statement,[eid],function(err,result){
+  conn.query(statement,[id],function(err,result){
     if(err){
       cb(err,undefined);
     }

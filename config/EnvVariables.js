@@ -24,6 +24,7 @@ process.env['DATA_POST'] = path.join(dataDir,'./Post.js');
 process.env['DATA_MEASUREMENT'] = path.join(dataDir,'./Measurement.js');
 process.env['DATA_TIMER'] = path.join(dataDir,'./Timer.js');
 process.env['DATA_EXERCISEINSTANCE'] = path.join(dataDir,'./ExerciseInstance.js');
+process.env['DATA_WORKOUT'] = path.join(dataDir,'./Workout.js');
 
 //validation layer
 var validateDir = path.join(appDir,'./validate');

@@ -536,6 +536,22 @@ asyncTest('exerciseInstancesGetByWorkoutId',function(){
     start();
   });
 });
+asyncTest('workoutGetById',function(){
+  expect(1);
+	$.ajax({
+		type: 'POST',
+		url: '/query',
+		data: {
+      query: 'workoutGetById',
+      id: 1
+    }
+	}).done(function(workouts){
+    console.log('workoutGetById');
+    console.log(workouts);
+    equal(workouts[0].name,'Leg Blaster!','got correct workout');
+    start();
+  });
+});
 
 //copied from
 //http://stackoverflow.com/questions/105034/how-to-create-a-guid-uuid-in-javascript

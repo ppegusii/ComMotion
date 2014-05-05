@@ -37,6 +37,7 @@ queries['timerGetById'] = data.timerGetById;
 queries['timersGetByWorkoutId'] = data.timersGetByWorkoutId;
 queries['exerciseInstanceGetById'] = data.exerciseInstanceGetById;
 queries['exerciseInstancesGetByWorkoutId'] = data.exerciseInstancesGetByWorkoutId;
+queries['workoutGetById'] = data.workoutGetById;
 
 function query(req,res){
 //console.log('body = '+JSON.stringify(req.body));
