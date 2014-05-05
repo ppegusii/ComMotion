@@ -2,14 +2,6 @@
 //Comment format
 //type; validation constraints
 
-exports.Workout = function(id,name,exercises,description,difficulty,photo){
-    this.id = id;
-    this.name = name;
-    this.exercises=exercises;//its a list of the exercises in order
-    this.description=description;
-    this.difficulty=difficulty;
-    this.photo=photo;
-};
 exports.Exercise = function(id,description,difficulty,musclegroup,created,names,videos,photos){
   //number; parseInt(id,10) isNaN or > 0
   this.id = id;
