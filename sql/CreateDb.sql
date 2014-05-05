@@ -49,7 +49,6 @@ CREATE TABLE workouts(
 	name VARCHAR(255) NOT NULL,
 	description VARCHAR(1023) NOT NULL,
 	difficulty_id integer NOT NULL references difficulties(id),
-	musclegroup_id integer NOT NULL references musclegroups(id),
 	creator_id integer references users(id),
 	created timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
 );
@@ -343,10 +342,10 @@ INSERT INTO users (id, username, password, difficulty_id, avatar_url, bio) VALUE
 	(20, 'severusSnape', 'commotion', 2, 'http://www.freelogovectors.net/wp-content/uploads/2013/02/man-avatar-1.png', 'I like to sweat on others.');
 ALTER SEQUENCE users_id_seq RESTART WITH 21;
 
-INSERT INTO workouts (id, name, description, difficulty_id, musclegroup_id, creator_id) VALUES
-	(1,'Leg Blaster!','challenging lower body workout', 2, 3, 16),
-	(2,'Workout anywhere...','body weight workout', 1, 1, 12),
-	(3,'Bench Press Bonanza','designed to improve your bench press',3,2,17);
+INSERT INTO workouts (id, name, description, difficulty_id, creator_id) VALUES
+	(1,'Leg Blaster!','challenging lower body workout', 2, 16),
+	(2,'Workout anywhere...','body weight workout', 1, 12),
+	(3,'Bench Press Bonanza','designed to improve your bench press',3,17);
 ALTER SEQUENCE workouts_id_seq RESTART WITH 4;
 
 INSERT INTO photos (id,url,workout_id) VALUES
@@ -375,48 +374,48 @@ INSERT INTO workout_sequence (workout_id, exercise_id, exercise_order) VALUES
 */
 INSERT INTO workout_components (id,workout_id,seq_order) VALUES
 	(1, 1, 1),
-	(2, 1, 2),
-	(3, 1, 3),
-	(4, 1, 4),
-	(5, 1, 5),
+	(2, 1, 3),
+	(3, 1, 5),
+	(4, 1, 7),
+	(5, 1, 9),
 	(6, 2, 1),
-	(7, 2, 2),
-	(8, 2, 3),
-	(9, 2, 4),
+	(7, 2, 3),
+	(8, 2, 5),
+	(9, 2, 7),
 	(10, 3, 1),
-	(11, 3, 2),
-	(12, 3, 3),
-	(13, 3, 4),
-	(14, 3, 5),
-	(15, 3, 6),
-	(16, 3, 7),
-	(17, 3, 8),
-	(18, 3, 9),
-	(19, 3, 10),
-	(20, 3, 11),
-	(21, 3, 12),
+	(11, 3, 3),
+	(12, 3, 5),
+	(13, 3, 7),
+	(14, 3, 9),
+	(15, 3, 11),
+	(16, 3,13),
+	(17, 3,15),
+	(18, 3,17),
+	(19, 3, 19),
+	(20, 3, 21),
+	(21, 3, 23),
 	--adding extra for timers
-	(22, 1, 1),
-	(23, 1, 2),
-	(24, 1, 3),
-	(25, 1, 4),
-	(26, 1, 5),
-	(27, 2, 1),
-	(28, 2, 2),
-	(29, 2, 3),
-	(30, 2, 4),
-	(31, 3, 1),
-	(32, 3, 2),
-	(33, 3, 3),
-	(34, 3, 4),
-	(35, 3, 5),
-	(36, 3, 6),
-	(37, 3, 7),
-	(38, 3, 8),
-	(39, 3, 9),
-	(40, 3, 10),
-	(41, 3, 11),
-	(42, 3, 12);
+	(22, 1, 2),
+	(23, 1, 4),
+	(24, 1, 6),
+	(25, 1, 8),
+	(26, 1, 10),
+	(27, 2, 2),
+	(28, 2, 4),
+	(29, 2, 6),
+	(30, 2, 8),
+	(31, 3, 2),
+	(32, 3, 4),
+	(33, 3, 6),
+	(34, 3, 8),
+	(35, 3, 10),
+	(36, 3, 12),
+	(37, 3, 14),
+	(38, 3, 16),
+	(39, 3, 18),
+	(40, 3, 20),
+	(41, 3, 22),
+	(42, 3, 24);
 ALTER SEQUENCE workout_components_id_seq RESTART WITH 43;
 
 INSERT INTO measurements (id, name) VALUES
