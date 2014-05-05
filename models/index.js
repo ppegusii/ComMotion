@@ -123,7 +123,7 @@ exports.Workout = function(id, name, difficulty, creatorId, description, photos,
   //ordered Array of WorkoutComponent objects;
   this.sequence = sequence;
 }
-exports.WorkoutComponent = function(id, workoutId, order) {
+function WorkoutComponent(id, workoutId, order) {
   //number;
   this.id = id;
   //number;

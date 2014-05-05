@@ -21,6 +21,9 @@ process.env['DATA_PHOTO'] = path.join(dataDir,'./Photo.js');
 process.env['DATA_USER'] = path.join(dataDir,'./User.js');
 process.env['DATA_ACTIVITY'] = path.join(dataDir,'./Activity.js');
 process.env['DATA_POST'] = path.join(dataDir,'./Post.js');
+process.env['DATA_MEASUREMENT'] = path.join(dataDir,'./Measurement.js');
+process.env['DATA_TIMER'] = path.join(dataDir,'./Timer.js');
+process.env['DATA_EXERCISEINSTANCE'] = path.join(dataDir,'./ExerciseInstance.js');
 
 //validation layer
 var validateDir = path.join(appDir,'./validate');
