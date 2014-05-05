@@ -3,11 +3,12 @@
   <head>
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <title>Workout entry for <%= name %></title>
+    <title>Workout entry for <%= workout.name %></title>
 
     <!-- Bootstrap core CSS -->
     <link rel = "stylesheet" type ="text/css" href = "stylesheets/bootstrap/css/bootstrap.css" >
     <script src="../javascripts/jquery-1.11.0.min.js"></script>
+    <script src="../javascripts/workoutEntry.js"></script>
     <!-- Custom styles for this template -->
     <link href="stylesheets/blog.css" rel="stylesheet">
   </head>
@@ -17,12 +18,13 @@
 
     <% include ../fragments/header %>
 
+    <div style="display:none" id="workout"><%= JSON.stringify(workout) %></div>
     <div class="container">
 	
       <div class="blog-header">
-        <h1 class="blog-title"><%= name %> (with id <%= id %>)</h1>
+        <h1 class="blog-title"><%= workout.name %></h1>
         <p>
-          <a id="editButton" class="btn btn-sm btn-default" href="/encyclopedia/workout_entry/edit?wid=<%= id %>">Edit this entry</a>
+          <a id="editButton" class="btn btn-sm btn-default" href="/encyclopedia/workout_entry/edit?wid=<%= workout.id %>">Edit this entry</a>
 		  <a id="faveButton" class="btn btn-sm btn-default">Add to favorites</a>
         </p>
       </div>
@@ -40,27 +42,27 @@
                 <!-- Display workout here -->
             </div>
 
-            <h3>Difficulty: <%= difficulty.name %></h3>
+            <h3>Difficulty: <%= workout.difficulty.name %></h3>
 
             <h3>Description</h3>
-            <p><%= description %></p>
+            <p><%= workout.description %></p>
 
             <h3>Media</h3>
             <div id="medias" style="max-height: 300px; overflow-x:auto">
               <table style="border-collapse: separate; border-spacing: 10px">
                 <tr>
-                  <% for (var i=0; i < photos.length; i++) { %>
+                  <% for (var i=0; i < workout.photos.length; i++) { %>
                     <td>
 					<!--TODO: Adjust Sizes -->
-					<img src=<%=photos[i].url %> width="252px" height="252px">
+					<img src=<%= workout.photos[i].url %> width="252px" height="252px">
 
                     </td>
                   <% } %>
-                  <% for (var i=0; i < videos.length; i++) { %>
+                  <% for (var i=0; i < workout.videos.length; i++) { %>
                   <td>
 					<!--TODO: Adjust Sizes -->
 					  <iframe id="videoInsert" width="448" height="252" frameborder="0"
-                              src="<%- toEmbedURL(videos[i].url) %>" allowfullscreen></iframe>
+                              src="<%- toEmbedURL(workout.videos[i].url) %>" allowfullscreen></iframe>
                   </td>
                   <% } %>
                 </tr>
