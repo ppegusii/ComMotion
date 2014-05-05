@@ -6,8 +6,11 @@ var exerciseInstance = require(process.env.DATA_EXERCISEINSTANCE);
 var timer = require(process.env.DATA_TIMER);
 var video = require(process.env.DATA_VIDEO);
 var photo = require(process.env.DATA_PHOTO);
+var exercise = require(process.env.DATA_EXERCISE);
 
 exports.getById = getById;
+exports.searchByNameDescriptionFilterByDifficultyId = searchByNameDescriptionFilterByDifficultyId;
+exports.searchForExercisesAndWorkoutsByNameDescriptionFilterByDifficultyId = searchForExercisesAndWorkoutsByNameDescriptionFilterByDifficultyId;
 
 function getById(query,cb){
   var id = parseInt(query.id,10);
@@ -19,6 +22,38 @@ function getById(query,cb){
       return cb(err,undefined);
     }
     resultToWorkouts(result,cb);
+  });
+}
+function searchByNameDescriptionFilterByDifficultyId(query,cb){
+  if(!query.search){
+    return cb(Error.create('query.search undefined'),undefined);
+  }
+  var did = parseInt(query.difficultyId);
+  if(isNaN(did) || did <= 0){
+    return cb(Error.create('query.difficultyId undefined or invalid'),undefined);
+  }
+  query.search = '%'+query.search+'%';
+  conn.query('SELECT w.id,w.name,w.description,w.difficulty_id,w.creator_id,w.created,d.name AS d_name FROM workouts AS w,difficulties AS d WHERE w.difficulty_id=d.id AND w.difficulty_id=$1 AND (w.name LIKE $2 OR w.description LIKE $2)',[did,query.search],function(err,result){
+    if(err){
+      return cb(err,undefined);
+    }
+    resultToWorkouts(result,cb);
+  });
+}
+function searchForExercisesAndWorkoutsByNameDescriptionFilterByDifficultyId(query,cb){
+  async.parallel({
+    exercises: function(callback){
+      exercise.searchByNameDescriptionFilterByDifficultyId(query,callback);
+    },
+    workouts: function(callback){
+      searchByNameDescriptionFilterByDifficultyId(query,callback);
+    }
+  },
+  function(err,results){
+    if(err){
+      return cb(err,undefined);
+    }
+    cb(undefined,{exercises: results.exercises,workouts: results.workouts});
   });
 }
 function resultToWorkouts(result,cb){

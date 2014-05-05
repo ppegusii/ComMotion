@@ -8,6 +8,7 @@ queries['exerciseGetById'] = data.exerciseGetById;
 queries['exerciseInit'] = data.exerciseInit;
 queries['exercisesGetByUserFav'] = data.exercisesGetByUserFav;
 queries['exercisesSearchByNameDescriptionMusclegroup'] = data.exercisesSearchByNameDescriptionMusclegroup;
+queries['exerciseWorkoutsSearchByNameDescriptionFilterByDifficultyId'] = data.exerciseWorkoutsSearchByNameDescriptionFilterByDifficultyId;
 queries['difficultyGetById'] = data.difficultyGetById;
 queries['musclegroupGetById'] = data.musclegroupGetById;
 queries['namesGetByEidWid'] = data.namesGetByEidWid;

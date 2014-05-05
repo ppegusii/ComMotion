@@ -15,6 +15,7 @@ exports.getById = getById;
 exports.init = init;
 exports.getByUserFav = getByUserFav;
 exports.searchByNameDescriptionMusclegroup = searchByNameDescriptionMusclegroup;
+exports.searchByNameDescriptionFilterByDifficultyId = searchByNameDescriptionFilterByDifficultyId;
 
 function getLimitN(query,cb){
   var n = parseInt(query.n,10);
@@ -43,6 +44,7 @@ function getById(query,cb){
     return resultToExercises(result,cb);
   });
 }
+//Musclegroup not included in search
 function searchByNameDescriptionMusclegroup(query,cb){
   if(!query.search){
     cb(Error.create('query.search undefined'),undefined);
@@ -51,14 +53,14 @@ function searchByNameDescriptionMusclegroup(query,cb){
   query.search = '%'+query.search+'%';
   //TODO update with regex
   //http://www.postgresql.org/docs/9.1/static/functions-matching.html#FUNCTIONS-POSIX-REGEXP
-  conn.query('SELECT DISTINCT e.id,e.description,e.difficulty_id,e.musclegroup_id,e.created,d.name AS d_name,m.name AS m_name FROM exercises AS e,difficulties AS d,musclegroups AS m,names AS n WHERE e.difficulty_id=d.id AND e.musclegroup_id=m.id AND (e.description LIKE $1 OR (n.name LIKE $1 AND n.exercise_id=e.id) OR m.name LIKE $1)',[query.search],function(err,result){
+  conn.query('SELECT DISTINCT e.id,e.description,e.difficulty_id,e.musclegroup_id,e.created,d.name AS d_name,m.name AS m_name FROM exercises AS e,difficulties AS d,musclegroups AS m,names AS n WHERE e.difficulty_id=d.id AND e.musclegroup_id=m.id AND (e.description LIKE $1 OR (n.name LIKE $1 AND n.exercise_id=e.id))',[query.search],function(err,result){
     if(err){
       return cb(err,undefined);
     }
     resultToExercises(result,cb);
   });
 }
-function searchForExercisesByNameDescriptionFilterByDifficultyId(query,cb){
+function searchByNameDescriptionFilterByDifficultyId(query,cb){
   if(!query.search){
     return cb(Error.create('query.search undefined'),undefined);
   }
@@ -69,22 +71,7 @@ function searchForExercisesByNameDescriptionFilterByDifficultyId(query,cb){
   query.search = '%'+query.search+'%';
   //TODO update with regex
   //http://www.postgresql.org/docs/9.1/static/functions-matching.html#FUNCTIONS-POSIX-REGEXP
-  conn.query('SELECT DISTINCT e.id,e.description,e.difficulty_id,e.musclegroup_id,e.created,d.name AS d_name,m.name AS m_name FROM exercises AS e,difficulties AS d,musclegroups AS m,names AS n WHERE e.difficulty_id=d.id AND e.difficulty_id=$1 AND e.musclegroup_id=m.id AND (e.description LIKE $2 OR (n.name LIKE $2 AND n.exercise_id=e.id) OR m.name LIKE $2)',[query.search],function(err,result){
-    if(err){
-      return cb(err,undefined);
-    }
-    resultToExercises(result,cb);
-  });
-}
-function searchForExercisesAndWorkoutsByNameDescriptionFilterByDifficultyId(query,cb){
-  if(!query.search){
-    cb(Error.create('query.search undefined'),undefined);
-    return;
-  }
-  query.search = '%'+query.search+'%';
-  //TODO update with regex
-  //http://www.postgresql.org/docs/9.1/static/functions-matching.html#FUNCTIONS-POSIX-REGEXP
-  conn.query('SELECT DISTINCT e.id,e.description,e.difficulty_id,e.musclegroup_id,e.created,d.name AS d_name,m.name AS m_name FROM exercises AS e,difficulties AS d,musclegroups AS m,names AS n WHERE e.difficulty_id=d.id AND e.musclegroup_id=m.id AND (e.description LIKE $1 OR (n.name LIKE $1 AND n.exercise_id=e.id) OR m.name LIKE $1)',[query.search],function(err,result){
+  conn.query('SELECT DISTINCT e.id,e.description,e.difficulty_id,e.musclegroup_id,e.created,d.name AS d_name,m.name AS m_name FROM exercises AS e,difficulties AS d,musclegroups AS m,names AS n WHERE e.difficulty_id=d.id AND e.difficulty_id=$1 AND e.musclegroup_id=m.id AND (e.description LIKE $2 OR (n.name LIKE $2 AND n.exercise_id=e.id))',[did,query.search],function(err,result){
     if(err){
       return cb(err,undefined);
     }
