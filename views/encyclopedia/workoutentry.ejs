@@ -49,10 +49,6 @@
             <div id="medias" style="max-height: 300px; overflow-x:auto">
               <table style="border-collapse: separate; border-spacing: 10px">
                 <tr>
-                  <td>
-                      <img src=<%= photo %> width="252px" height="252px">
-                  </td>
-                  <% /* %>
                   <% for (var i=0; i < photos.length; i++) { %>
                     <td>
 					<!--TODO: Adjust Sizes -->
@@ -67,7 +63,6 @@
                               src="<%- toEmbedURL(videos[i].url) %>" allowfullscreen></iframe>
                   </td>
                   <% } %>
-                  <% */ %>
                 </tr>
               </table>
             </div>

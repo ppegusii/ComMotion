@@ -124,7 +124,7 @@ revert: false
 
    
 </script>
-
+<script src="/javascripts/workoutcreator.js"></script>
 
 </head>
 
@@ -132,7 +132,7 @@ revert: false
 
 		<% include ../fragments/header %>
 		
-
+<div id="workoutObj" style="display:none"><% if(workout) { %><%= JSON.stringify(workout) %><% } %></div>
 	<div class="container">
 
 <center><h3>Create a new workout</h3></center>
@@ -196,9 +196,9 @@ revert: false
 			<div style="margin-bottom: 15px" class="input-group">
    					<h5>Difficulty:</h5>
 					<select id="difficulty" class="form-control" name="difficulty">
-						<option> Beginner</option>
-						<option> Intermediate</option>
-						<option> Advanced</option>
+						<option>Beginner</option>
+						<option>Intermediate</option>
+						<option>Advanced</option>
 					</select>
 				
                 </div>
@@ -273,13 +273,13 @@ $(function(){
 	console.log("save button clicked");
 
 	//console.log($("#accordion2 .group:nth-child(2) h3").text());
-	
+
 		$("#accordion2 .test").each((function(){
 
 		$(this > h3).append("HELLO");
 
 		}));
-	
+
 	//$('#trash > p').append("HELLO");
 
 
@@ -331,86 +331,6 @@ $(function(){
 
         });				
     });
-</script>
-
-<script>
-
-$(function() {
-
-var workoutObj = {
-   id: null,
-   description: null,
-   difficulty: null,
-   musclegroup: null,
-   created: null,
-   names: new Array(),
-   photos: new Array(),
-   videos: new Array()
-};
-
-initAddMediaButton();
-
-function initAddMediaButton() {
-   var addMediaButton = $('#addMediaButton');
-   addMediaButton.click(function(event) {
-      var url = prompt('URL of media:').trim();
-      if(isPhotoURL(url) || isVideoURL(url)) {
-         console.log('Entered url ' + url);
-         // add url to workoutObj
-         if(isPhotoURL(url)) {
-            workoutObj.photos.push({
-               id: null,
-               url: url
-            });
-         }
-         else {
-            workoutObj.videos.push({
-               id: null,
-               url: url
-            });
-         }
-         // add url to view
-         var html = '<a class="btn btn-sm btn-primary">' + url + '</a>';
-         $('#enteredMedia').append(html);
-      }
-      else
-         console.log('Not photo or video!');
-   });
-}
-
-function isPhotoURL(url) {
-   // check spaces
-   if(url === null || url.indexOf(' ') >= 0)
-      return false;
-   // check ending in .jpg, .jpeg, or .png
-   var fourCharEnd = url.substring(url.length-4);
-   var fiveCharEnd = url.substring(url.length-5);
-   if(fourCharEnd !== '.jpg' && fourCharEnd !== '.png' && fiveCharEnd !== '.jpeg')
-      return false;
-   return true;
-}
-
-// hash part has 11 chars
-function isVideoURL(url) {
-   if(url === null || url.indexOf(' ') >= 0)
-      return false;
-   if(url.indexOf('www.youtube.com') >= 0) {
-      // check embed format
-      var embedPart = 'www.youtube.com/embed/';
-      if(url.indexOf(embedPart) >= 0) {
-         console.log('Video embed format');
-         console.log(url.substring(url.indexOf(embedPart)+embedPart.length));
-         return (url.substring(url.indexOf(embedPart)+embedPart.length).length === 11);
-      }
-      else {
-         return url.indexOf('www.youtube.com/watch?v=') >= 0;
-      }
-   }
-   return false;
-}
-
-});
-
 </script>
 
 <% include ../fragments/footer %>

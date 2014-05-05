@@ -135,9 +135,9 @@ CREATE TABLE followers(
 -- load tables
 
 INSERT INTO difficulties (id,name) VALUES
-	(1,'beginner'),
-	(2,'intermediate'),
-	(3,'advanced');
+	(1,'Beginner'),
+	(2,'Intermediate'),
+	(3,'Advanced');
 ALTER SEQUENCE difficulties_id_seq RESTART WITH 4;
 
 INSERT INTO musclegroups (id,name) VALUES

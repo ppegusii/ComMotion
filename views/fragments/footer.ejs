@@ -6,11 +6,41 @@
   <link rel="stylesheet" href="../stylesheets/bootstrap/css/bootstrap.css">
   <link rel="stylesheet" href="../stylesheets/header.css">
 </head>
+<style>
+html {
+  position: relative;
+  min-height: 100%;
+}
+body {
+  /* Margin bottom by footer height */
+  margin-bottom:100px;
+}
+#footer {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  /* Set the fixed height of the footer here */
+  height: 40px;
+  background-color: #ffffff;
+}
+
+.container .text-muted {
+  margin: 20px 0;
+}
+
+
+
+
+</style>
+
 <body>
 
-<footer>
-<div style="margin-top:50px; background-color:white; height:40px" class="jumbotron">
+<div id="footer">
+    <div class="container">
+        <hr>
+        <p class="text-muted credit">Need help? <a href="https://github.com/r3d3y3/ComMotion/blob/master/README.md" target="_blank">Read our readme on GitHub!</a></p>
+    </div>
 </div>
 
-</footer>
-
+</body>
+</html>
