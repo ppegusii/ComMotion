@@ -114,50 +114,50 @@ exports.Activity = function(id,name){
   this.name = name;
 }
 exports.Workout = function(id, name, difficulty, creatorId, description, photos, videos, sequence){
-//   id = number;
-   this.id = id;
-//   name = string;
-   this.name = name;
-//   difficulty = Difficulty;
-   this.difficulty = difficulty;
-//   creatorId = null or number;
-   this.creatorId = creatorId;
-//   description = string;
-   this.description = description;
-//   photos = Array of Photo;
-   this.photos = photos;
-//   videos = Array of Video;
-   this.videos = videos;
-//   sequence = ordered Array of WorkoutComponents; where a WorkoutComponent is the supertype of an ExerciseInstance or a Timer
-   this.sequence = sequence;
+  //number;
+  this.id = id;
+  //string;
+  this.name = name;
+  //Difficulty object;
+  this.difficulty = difficulty;
+  //number; maybe null
+  this.creatorId = creatorId;
+  //string;
+  this.description = description;
+  //Array of Photo objects;
+  this.photos = photos;
+  //Array of Video objects;
+  this.videos = videos;
+  //ordered Array of WorkoutComponent objects;
+  this.sequence = sequence;
 }
 exports.WorkoutComponent = function(id, workoutId, order) {
-//   id = number;
-   this.id = id;
-//   workoutId = number;
-   this.workoutId = workoutId;
-//   order = number;
-   this.order = order;
+  //number;
+  this.id = id;
+  //number;
+  this.workoutId = workoutId;
+  //number;
+  this.order = order;
 }
-exports.ExerciseInstance = function(id, workoutId, order, exerciseId, measurement, measurementValue, weight) {
-   WorkoutComponent.call(this, id, workoutId, order);
-//   exerciseId = number; (unless you want the entire Exercise object)
-   this.exerciseId = exerciseId;
-//   measurement = Measurement;
-   this.measurement = measurement;
-//   measurementValue = string;
-   this.measurementValue = measurementValue;
-//   weight = undefined or number;
-   this.weight = weight;
+exports.ExerciseInstance = function(id, workoutId, order, exercise, measurement, measurementValue, weight) {
+  WorkoutComponent.call(this, id, workoutId, order);
+  //Exercise object;
+  this.exercise = exercise;
+  // Measurement object;
+  this.measurement = measurement;
+  //string;
+  this.measurementValue = measurementValue;
+  //number; maybe undefined
+  this.weight = weight;
 }
 exports.Timer = function(id, workoutId, order, seconds){
-   WorkoutComponent.call(this, id, workoutId, order);
-//   seconds = number;
-   this.seconds = seconds;
+  WorkoutComponent.call(this, id, workoutId, order);
+  //number;
+  this.seconds = seconds;
 }
 exports.Measurement = function(id, name){
-//   id = number;
-   this.id = id;
-//   name = string;
-   this.name = name;
+  //number;
+  this.id = id;
+  //string;
+  this.name = name;
 }
