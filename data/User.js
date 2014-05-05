@@ -260,11 +260,12 @@ function updateProfile(query,cb){
       if(err){
         return cb(err,undefined);
       }
-      var statement = 'UPDATE users SET difficulty_id=$1,avatar_url=$2,bio=$3';
+      var statement = 'UPDATE users SET difficulty_id=$1,avatar_url=$2,bio=$3 WHERE id=$4';
       var params = [
         user.difficulty.id,
         user.avatar_url,
-        user.bio
+        user.bio,
+        user.id
       ];
       conn.query(statement,params,function afterQuery(err,result){
         if(err){
