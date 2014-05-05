@@ -11,6 +11,7 @@ var post = require(process.env.DATA_POST);
 var measurement = require(process.env.DATA_MEASUREMENT);
 var timer = require(process.env.DATA_TIMER);
 var exerciseInstance = require(process.env.DATA_EXERCISEINSTANCE);
+var workout = require(process.env.DATA_WORKOUT);
 
 //Comment format
 //expected object
@@ -89,3 +90,5 @@ exports.timersGetByWorkoutId = timer.getByWorkoutId;
 exports.exerciseInstanceGetById = exerciseInstance.getById;
 //{workoutId: number}
 exports.exerciseInstancesGetByWorkoutId = exerciseInstance.getByWorkoutId;
+//{id: number}
+exports.workoutGetById = workout.getById;
