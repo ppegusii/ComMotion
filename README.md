@@ -54,9 +54,10 @@ can enter it into the text box, then click on *Search*.
 
 If you want to follow another member, go to the *Find Users* page and use the *Search for User* feature as described above.
 Once you find them, click on their picture and you'll be taken to their *Profile* page. You can also click on the picture of 
-any member who appears on your own *Profile* page when you click on *Followers* or *Following*.   Look for a red *Follow User*button in the lower left corner.  Click on this, and you become a follower of this member. If you are already a follower and 
-don't want to be, the red button will say "*Unfollow User*."  Click on this and you will no longer be a follower of this
-member.  
+any member who appears on your own *Profile* page when you click on *Followers* or *Following*.   Look for a red
+ *Follow User* button in the lower left corner.  Click on this, and you become a follower of this member. If you are already
+a follower and don't want to be, the red button will say "*Unfollow User*."  Click on this and you will no longer be a
+follower of this member.  
 
 **How do I find an exercise or workout?**
 
