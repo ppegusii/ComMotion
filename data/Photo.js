@@ -1,4 +1,5 @@
 var conn = require(process.env.DATA_CONN);
+var common = require(process.env.DATA_COMMON);
 var model = require(process.env.MODELS);
 var validate = require(process.env.VALIDATE);
 
@@ -7,6 +8,7 @@ exports.init = init;
 
 //internal only
 exports.initNoValidate = initNoValidate;
+exports.deleteByExerciseIdAndIdNotInSet = deleteByExerciseIdAndIdNotInSet;
 
 function getByEidWid(query,cb){
   var eid = parseInt(query.eid,10);
@@ -72,4 +74,8 @@ function initNoValidate(photo,cb){
       photo.id = result.rows[0].id.toString();
       cb(undefined,photo);
     });
+}
+function deleteByExerciseIdAndIdNotInSet(query,cb){
+  var table = 'photos';
+  common.deleteByExerciseIdAndIdNotInSet(query,table,cb);
 }

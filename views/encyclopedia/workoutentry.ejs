@@ -3,7 +3,7 @@
   <head>
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <title><%= title %></title>
+    <title>Workout entry for <%= name %></title>
 
     <!-- Bootstrap core CSS -->
     <link rel = "stylesheet" type ="text/css" href = "stylesheets/bootstrap/css/bootstrap.css" >
@@ -14,15 +14,16 @@
 
   <body>
 
+
     <% include ../fragments/header %>
 
     <div class="container">
-
+	
       <div class="blog-header">
-        <h1 class="blog-title"><%= entryName %></h1>
+        <h1 class="blog-title"><%= name %> (with id <%= id %>)</h1>
         <p>
-          <button id="edit" class="btn btn-sm btn-default">Edit this entry</button>
-          <button id="fave" class="btn btn-sm btn-default">Add to favorites</button>
+          <a id="editButton" class="btn btn-sm btn-default" href="/encyclopedia/workout_entry/edit?wid=<%= id %>">Edit this entry</a>
+		  <a id="faveButton" class="btn btn-sm btn-default">Add to favorites</a>
         </p>
       </div>
 
@@ -31,36 +32,100 @@
         <div class="col-sm-8 blog-main">
 
           <div class="blog-post">
-            <h3>Difficulty: <%= difficulty %></h3>
+
+            <h3>Workout</h3>
+
+            <div id="workoutDisplay">
+                <img src="http://placehold.it/500x800">
+                <!-- Display workout here -->
+            </div>
+
+            <h3>Difficulty: <%= difficulty.name %></h3>
 
             <h3>Description</h3>
             <p><%= description %></p>
 
-            <h3>The workout:</h3>
-            <p><%= workout %></p>
-
             <h3>Media</h3>
-            <div id="medias" style="max-height: 300px; overflow-x:scroll">
+            <div id="medias" style="max-height: 300px; overflow-x:auto">
               <table style="border-collapse: separate; border-spacing: 10px">
                 <tr>
-                  <% for (var i=0; i < media.length; i++) { %>
+                  <td>
+                      <img src=<%= photo %> width="252px" height="252px">
+                  </td>
+                  <% /* %>
+                  <% for (var i=0; i < photos.length; i++) { %>
                     <td>
-                      <img src="<%= media[i] %>" height="200px" />
+					<!--TODO: Adjust Sizes -->
+					<img src=<%=photos[i].url %> width="252px" height="252px">
+
                     </td>
                   <% } %>
+                  <% for (var i=0; i < videos.length; i++) { %>
+                  <td>
+					<!--TODO: Adjust Sizes -->
+					  <iframe id="videoInsert" width="448" height="252" frameborder="0"
+                              src="<%- toEmbedURL(videos[i].url) %>" allowfullscreen></iframe>
+                  </td>
+                  <% } %>
+                  <% */ %>
                 </tr>
               </table>
             </div>
             
           </div><!-- /.blog-post -->
 
+
         </div><!-- /.blog-main -->
 
       </div><!-- /.row -->
 
+
     </div><!-- /.container -->
-  
+
   <% include ../fragments/footer %>
-  <script src = "javascripts/bootstrap.js"></script>
+
+<!-- Script for favoriting exercises -->
+<% /* %>
+<script>
+    $(function(){				
+        $('#faveButton').click(function(e){
+            e.preventDefault();
+            console.log('Exercise Favorited clicked');
+
+            // Get user's favorite exercises
+            var data = { query: 'exercisesGetByUserFav', userId: <%= userId %> };
+            $.ajax({
+                type: 'POST',
+                data: JSON.stringify(data),
+                contentType: 'application/json',
+                url: '/query'
+            })
+            .done(function(exercises) {
+                  // Check if exercise is already favorited
+                  for(var i=0; i < exercises.length; i++) {
+                      if(parseInt(exercises[i].id) === parseInt(<%= id %>)) {
+                         alert('Exercise is already in favorites!');
+                         return;
+                      }
+                  }
+                  // Exercise wasn't found, so add to favorites
+                  data.query = 'userCreateFavExercise';
+                  data.userId = <%= userId %>;
+                  data.exerciseId = <%= id %>;
+                  $.ajax({
+                      type: 'POST',
+                      data: JSON.stringify(data),
+                      contentType: 'application/json',
+                      url: '/query'
+                  })
+                  .done(function() {
+                      console.log('Exercise has been saved as favorite');
+                      document.location = '/myfavorites';
+                  });
+            });
+        });				
+    });
+</script>
+<% */ %>
   </body>
 </html>

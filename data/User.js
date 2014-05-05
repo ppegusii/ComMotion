@@ -16,9 +16,14 @@ exports.getIdByUsername = getIdByUsername;
 exports.getFollowedUserIdsByFollowingUserId = getFollowedUserIdsByFollowingUserId;
 exports.getFollowingUserIdsByFollowedUserId = getFollowingUserIdsByFollowedUserId;
 exports.create = create;
+exports.updateProfile = updateProfile;
 exports.createFavExercise = createFavExercise;
 exports.getFollowersUsernameAndAvatars = getFollowersUsernameAndAvatars;
 exports.getFollowingUsernameAndAvatars = getFollowingUsernameAndAvatars;
+exports.createFollowByUserIdFollowerId = createFollowByUserIdFollowerId;
+exports.deleteFollowByUserIdFollowerId = deleteFollowByUserIdFollowerId;
+exports.getUsernameAndAvatarsOfPosts = getUsernameAndAvatarsOfPosts;
+exports.favExerciseDeleteByUserIdExerciseId = favExerciseDeleteByUserIdExerciseId;
 
 function getLimitN(query,cb){
   var n = parseInt(query.n,10);
@@ -108,6 +113,44 @@ function getFollowingUserIdsByFollowedUserId(query,cb){
     return cb(err,result.rows);
   });
 }
+function createFollowByUserIdFollowerId(query,cb){
+  var uid = parseInt(query.userId,10);
+  if(uid<=0){
+    return cb(Error.create('query.userId invalid'),undefined);
+  }
+  var fid = parseInt(query.followerId,10);
+  if(fid<=0){
+    return cb(Error.create('query.followerId invalid'),undefined);
+  }
+  if(uid===fid){
+    return cb(Error.create('user cannot follow itself'),undefined);
+  }
+  conn.query('INSERT INTO followers (user_id,follower_id) VALUES($1,$2)',[uid,fid],function afterQuery(err,result){
+    if(err){
+      return cb(err,undefined);
+    }
+    return cb(err,{rowCount: result.rowCount});
+  });
+}
+function deleteFollowByUserIdFollowerId(query,cb){
+  var uid = parseInt(query.userId,10);
+  if(uid<=0){
+    return cb(Error.create('query.userId invalid'),undefined);
+  }
+  var fid = parseInt(query.followerId,10);
+  if(fid<=0){
+    return cb(Error.create('query.followerId invalid'),undefined);
+  }
+  if(uid===fid){
+    return cb(Error.create('user does not follow itself'),undefined);
+  }
+  conn.query('DELETE FROM followers WHERE user_id=$1 AND follower_id=$2',[uid,fid],function afterQuery(err,result){
+    if(err){
+      return cb(err,undefined);
+    }
+    return cb(err,{rowCount: result.rowCount});
+  });
+}
 function createFavExercise(query,cb){
   uid = parseInt(query.userId,10);
   eid = parseInt(query.exerciseId,10);
@@ -122,7 +165,22 @@ function createFavExercise(query,cb){
       return cb(err,undefined);
     }
     return cb(undefined,result.rows);
-    //return getById({id: uid},cb);
+  });
+}
+function favExerciseDeleteByUserIdExerciseId(query,cb){
+  uid = parseInt(query.userId,10);
+  eid = parseInt(query.exerciseId,10);
+  if(isNaN(eid) || eid<=0){
+    return cb(Error.create('query.exerciseId invalid'),undefined);
+  }
+  if(isNaN(uid) || uid<=0){
+    return cb(Error.create('query.userId invalid'),undefined);
+  }
+  conn.query('DELETE FROM fav_exercises WHERE user_id=$1 AND exercise_id=$2;',[uid,eid],function afterQuery(err,result){
+    if(err){
+      return cb(err,undefined);
+    }
+    return cb(undefined,{rowCount: result.rowCount});
   });
 }
 function resultToUsers(result,cb){
@@ -172,7 +230,7 @@ function create(query,cb){
     if(err){
       return cb(err,undefined);
     }
-    var statement = 'INSERT INTO users (username,password) VALUES ($1,$2) RETURNING id';
+    var statement = 'INSERT INTO users (username,password,difficulty_id) VALUES ($1,$2,1) RETURNING id';
     var params = [
       query.user.username,
       query.user.password
@@ -184,6 +242,44 @@ function create(query,cb){
       user.id = result.rows[0].id.toString();
       user.password = undefined;
       return cb(undefined,user);
+    });
+  });
+}
+function updateProfile(query,cb){
+  if(!query.user){
+    return cb(Error.create('query.user undefined'),undefined);
+  }
+  if(!query.user.id){
+    return cb(Error.create('query.user.id undefined'),undefined);
+  }
+  validate.user(query.user,function afterValidation(err,user){
+    if(err){
+      return cb(err,undefined);
+    }
+    activity.deleteUserActivityByUserId({userId: user.id},function afterActivityDeletion(err,rowCount){
+      if(err){
+        return cb(err,undefined);
+      }
+      var statement = 'UPDATE users SET difficulty_id=$1,avatar_url=$2,bio=$3';
+      var params = [
+        user.difficulty.id,
+        user.avatar_url,
+        user.bio
+      ];
+      conn.query(statement,params,function afterQuery(err,result){
+        if(err){
+          return cb(err,undefined);
+        }
+        var uidAids = user.activities.map(function(activity,index,activities){
+          return {userId: user.id,activityId: activity.id};
+        });
+        async.map(uidAids,activity.createUserActivityByUserIdActivityId,function afterActivityCreation(err,userActivityIds){
+          if(err){
+            return cb(err,undefined);
+          }
+          return cb(undefined,user);
+        });
+      });
     });
   });
 }
@@ -213,7 +309,6 @@ function getFollowingUsernameAndAvatars(query,cb){
     return cb(Error.create('query.userId invalid'),undefined);
   }
 	conn.query('SELECT id, username, avatar_url FROM users WHERE id IN (SELECT user_id FROM followers WHERE follower_id=$1)',[uid], function afterQuery(err, result){
-	console.log(result.rows);
     if(err){
       return cb(err,undefined);
     }
@@ -221,3 +316,23 @@ function getFollowingUsernameAndAvatars(query,cb){
     return cb(undefined, result.rows);
   });
 }
+
+
+function getUsernameAndAvatarsOfPosts(query,cb){
+	var userId = query.userId;
+
+  if(userId<=0){
+    return cb(Error.create('query.userId invalid'),undefined);
+  }
+
+	conn.query('SELECT u.id,u.username, u.avatar_url FROM users AS u WHERE id in (SELECT p.user_id FROM posts AS p,followers AS f WHERE f.follower_id=$1 AND f.user_id=p.user_id ORDER BY created DESC)', [userId], function afterQuery(err,result){
+
+    if(err){
+      return cb(err,undefined);
+    }
+    return resultToUsers(result,cb);
+  });
+
+}
+
+

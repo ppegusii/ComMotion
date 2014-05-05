@@ -19,14 +19,14 @@ function index(req, res){
 
 function documentation(req,res){
   async.parallel({
-    index: function(callback){
-      fs.readFile('./views/index.ejs','utf8',callback);
-    },
     models: function(callback){
       fs.readFile(process.env.MODELS_INDEX,'utf8',callback);
     },
     datalayer: function(callback){
       fs.readFile(process.env.DATA_INDEX,'utf8',callback);
+    },
+    sql: function(callback){
+      fs.readFile('./sql/CreateDb.sql','utf8',callback);
     }
   },
   function afterReadingFiles(err,results){
@@ -37,7 +37,8 @@ function documentation(req,res){
     res.render('documentation',{
       title: 'Documentation',
       models: results.models,
-      datalayer: results.datalayer
+      datalayer: results.datalayer,
+      sql: results.sql
     });
   });
 }

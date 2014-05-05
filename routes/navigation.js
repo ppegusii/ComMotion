@@ -3,8 +3,42 @@ var models = require('../models/index.js');
 var data = require(process.env.DATA);
 
 exports.home = function(req, res){
-   console.log("HOME ID: " + req.session.user.id);
-   res.render('home', { user:req.session.user });
+	userId = req.session.user.id;
+
+	data.postsOfFollowedUsersGetByFollowingUserId( {userId: userId}, function(err, posts){
+      if(err) {
+         console.log(err);
+      }
+      else {
+         data.userGetUsernameAndAvatarsOfPosts({userId: userId}, function(err2, users) {
+            if(err) {
+               console.log(err2);
+            }
+            else {
+               console.log(users);
+               res.render('home', {
+                  posts: posts,
+                  user: req.session.user,
+                  users: users
+               });
+            }
+
+         });
+      }
+//		data.userGetUsernameAndAvatarsOfPosts({userId: userId}, function afterGet2(err, users){
+//
+//		res.render('home',
+//		  {
+//		    title: 'Locker',
+//			posts: posts,
+//			user: req.session.user,
+//			users: users,
+//		    err: err
+//		  });
+//
+//	  });
+
+	});
 }
 
 exports.checkUser = function(req, res, next) {
@@ -61,6 +95,21 @@ exports.logout = function(req, res) {
    });
 }
 
+exports.post = function(req, res) {
+   var uid = req.session.user.id;
+   var text = req.body.text;
+   console.log(uid + '/////' + text);
+   var myPost = new models.Post(undefined, uid, text, undefined);
+   data.postInit({post: myPost}, function(err, post) {
+      if(err) {
+         res.send(500, err.message);
+      }
+      else {
+         res.send(200, JSON.stringify(post));
+      }
+   });
+}
+
 exports.create = function(req, res){
    res.render('create', {title: 'Create'});
 };
@@ -100,6 +149,23 @@ exports.myfavorites = function(req, res){
 
 };
 
+/*
+//{userId: number, exerciseId: number}
+exports.userCreateFavExercise = user.createFavExercise;
+
+
+exports.saveFavoriteExercise = function(req, res){
+
+	userId = req.session.user.id;
+	exerciseId = req.query.exerciseId;
+	
+	data.userCreateFavExercise( {userId: userId, exerciseId:  
+
+
+};
+*/
+
+
 exports.findusers = function(req, res){
 
     //data.searchByNameDescriptionMusclegroup()
@@ -107,10 +173,62 @@ exports.findusers = function(req, res){
 };
 
 exports.workoutcreator = function(req, res){
-     res.render('create/workoutcreator', {title: 'Workout Creator'});
+   console.log('Executing workoutcreator');
+   var flash = req.flash('editWorkout');
+   if(flash.length !== 0)
+      console.log(JSON.parse(flash));
+   res.render('create/workoutcreator', {title: 'Workout Creator'});
+
 };
 
+
 exports.encyclopedia_workout_entry = function(req, res) {
-     var data = getWorkoutEntry('Get workout id');
-     res.render('encyclopedia/workoutentry', data);
+   var wid = req.query.wid;
+   // fake workout object
+   if(parseInt(wid) === 5)
+      res.render('encyclopedia/workoutentry', fakeWorkout);
+   else
+      res.send(500, 'Couldnt find workout');
 }
+
+exports.editWorkout = function(req, res) {
+   console.log('Executing editWorkout');
+   var wid = req.query.wid;
+   console.log('Found eid ' + wid);
+   /*
+   data.exerciseGetById({id: eid}, function(err, exercise) {
+      if(err) {
+         console.log(err.message);
+         res.send(500, err.message);
+      }
+      else {
+         //console.log('Sending exercise ' + JSON.stringify(exercise[0]));
+         req.flash('editExercise', JSON.stringify(exercise[0]));
+         res.redirect('/create/exercise');
+      }
+   });
+   */
+   req.flash('editWorkout', JSON.stringify(fakeWorkout));
+   res.redirect('/create/workoutcreator');
+
+}
+
+var fakeWorkout = new models.Workout(5, 'My workout', undefined, 'Description', {name: 'Advanced'}, 'http://i.imgur.com/VSxZ1KI.jpg');
+
+//exports.encyclopedia_exercise_entry = function(req, res) {
+//   var eid = req.query.eid;
+//   data.exerciseGetById({id: eid}, function(err, exercise) {
+//      if(err) {
+//         console.log(err.message);
+//         res.send(500, err.message);
+//      }
+//      else if(exercise.length === 0) {
+//         console.log('Empty results');
+//         res.send(500, 'No exercise found for id ' + eid);
+//      }
+//      else {
+//         console.log(exercise);
+//         res.render('encyclopedia/exerciseentry', exercise[0]);
+//      }
+//   });
+//}

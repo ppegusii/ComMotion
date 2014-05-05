@@ -33,16 +33,15 @@
 		<div style="margin-top:20px">
 		  <a id="btn-my_posts" href="/profile/myposts" class="btn btn-default">Posts</a>
 		</div>
-		<!--
+		
 		<div style="margin-top:20px">
 		  <a id="btn-my_creations" href="/profile/mycreations" class="btn btn-default">Creations</a>
 		</div>
-		-->
-<% if(user[0].id === myId) { %>
+
 		<div style="margin-top:20px">
-		  <a id="btn-edit_profile" data-toggle="modal" data-target="#editprofile" class="btn btn-default">Edit Profile</a>
+			<a id="switchButton"></a>
 		</div>
-<% } %>
+
 		</center>
 
 		<div class="modal fade" id="editprofile" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
@@ -64,39 +63,39 @@
 				<span class="input-group">
 					<table>
 					<tr style="font-size:15px">
-        			<td><input type="checkbox" name="activity" value="hiking">  Hiking  </td>
-					<td><input type="checkbox" name="activity" value="cycling">  Cycling  </td>
-					<td><input type="checkbox" name="activity" value="mountain_biking">  Mountain Biking  </td>
-					<td><input type="checkbox" name="activity" value="swimming">  Swimming  </td>
+        			<td><input id = "hiking" type="checkbox" name="activity" value="hiking">  Hiking  </td>
+					<td><input id = "cycling"type="checkbox" name="activity" value="cycling">  Cycling  </td>
+					<td><input id = "mountainbiking" type="checkbox" name="activity" value="mountain_biking">  Mountain Biking  </td>
+					<td><input id = "swimming" type="checkbox" name="activity" value="swimming">  Swimming  </td>
 					</tr>
 					<tr style="font-size:15px">
-        			<td><input type="checkbox" name="activity" value="surfing">  Surfing  </td>
-					<td><input type="checkbox" name="activity" value="downhill_skiing">  Downhill Skiing  </td>
-					<td><input type="checkbox" name="activity" value="snowboarding">  Snowboarding  </td>
-					<td><input type="checkbox" name="activity" value="cross_country_skiing">  XC Skiing  </td>
+        			<td><input id = "surfing" type="checkbox" name="activity" value="surfing">  Surfing  </td>
+					<td><input id = "downhillskiing" type="checkbox" name="activity" value="downhill_skiing">  Downhill Skiing  </td>
+					<td><input id = "snowboarding" type="checkbox" name="activity" value="snowboarding">  Snowboarding  </td>
+					<td><input id = "crosscountryskiing" type="checkbox" name="activity" value="cross_country_skiing">  XC Skiing  </td>
 					</tr>
 					<tr style="font-size:15px">
-        			<td><input type="checkbox" name="activity" value="martial_arts">  Martial Arts </td>
-					<td><input type="checkbox" name="activity" value="bodybuilding">  Bodybuilding </td>
-					<td><input type="checkbox" name="activity" value="powerlifting">  Powerlifting  </td>
-					<td><input type="checkbox" name="activity" value="olympic_lifting">  Olympic Lifting  </td>
+        			<td><input id = "martial arts" type="checkbox" name="activity" value="martial_arts">  Martial Arts </td>
+					<td><input id = "bodybuilding" type="checkbox" name="activity" value="bodybuilding">  Bodybuilding </td>
+					<td><input id = "powerlifting" type="checkbox" name="activity" value="powerlifting">  Powerlifting  </td>
+					<td><input id = "olympiclifting" type="checkbox" name="activity" value="olympic_lifting">  Olympic Lifting  </td>
 					</tr>
 					<tr style="font-size:15px">
-        			<td><input type="checkbox" name="activity" value="yoga">  Yoga </td>
-					<td><input type="checkbox" name="activity" value="snowshoeing">  Snowshoeing </td>
-					<td><input type="checkbox" name="activity" value="parkour">  Parkour  </td>
-					<td><input type="checkbox" name="activity" value="running">  Running  </td>
+        			<td><input id = "yoga" type="checkbox" name="activity" value="yoga">  Yoga </td>
+					<td><input id = "snowshoeing" type="checkbox" name="activity" value="snowshoeing">  Snowshoeing </td>
+					<td><input id = "parkour" type="checkbox" name="activity" value="parkour">  Parkour  </td>
+					<td><input id = "running" type="checkbox" name="activity" value="running">  Running  </td>
 					</tr>
 					</table>
       			</span>
 
 				<div style="margin-bottom: 0px" class="input-group">
 					<h5><strong>Bio:</strong> (optional)</h5>
-					<textarea class="form-control" id="exercise-bio" style="resize:none" rows="4" cols="50" value="" resize="none" name="description"></textarea> 	
+					<textarea class="form-control" id="profile-bio" style="resize:none" rows="4" cols="50" value="" resize="none" name="description"></textarea> 	
 
 					<div style="margin-bottom: 15px" class="input-group">
 						<h5><strong>Profile Picture URL</strong> (optional)</h5>
-						<input id="media" type="text" class="form-control" name="media" style="resize:none" maxlength="1023">     
+						<input id="profile-pic" type="text" class="form-control" name="media" style="resize:none; width:450px" maxlength="1023">     
 
                		</div>
 
@@ -109,5 +108,138 @@
     </div>
   </div>
 </div>
+<%=JSON.stringify(user[0].activities.length)%>
+<script>
+
+
+	var buttonType;
+
+    $(function(){			
+	
+
+		$('#profile-bio').text('<%=user[0].bio%>');
+		$('#profile-pic').val('<%=user[0].avatar_url%>');
+		$('input[name=skill_level][value=' + '<%=user[0].difficulty.name%>' + ']').attr('checked',true);
+	
+
+			var activities = JSON.parse('<%-JSON.stringify(user[0].activities)%>');
+			
+			for(var a = 0; a< activities.length; a++){
+				activities[a].name = activities[a].name.replace(/\s+/g, '');
+	    	   $('#'+ activities[a].name + '').prop('checked',true);
+		
+			}
+	
+
+
+		//Follow user on click	
+        $('#switchButton').click(function(e){
+		
+			if(buttonType===1){
+
+            e.preventDefault();
+            console.log('Follow User clicked');
+
+           var data = { query: 'followCreateByUserIdFollowerId',   userId: <%=user[0].id%>, followerId: <%=myId%>};
+
+            $.ajax({
+                type: 'POST',
+                data: JSON.stringify(data),
+                contentType: 'application/json',
+                url: '/query'
+            })
+            .done(function(data) {
+				console.log('Now following user');
+				location.reload();
+        });				
+		
+		}
+
+		if(buttonType===2){
+
+		//Unfollow user on click
+            e.preventDefault();
+            console.log('Unfollow User clicked');
+
+           var data = { query: 'followDeleteByUserIdFollowerId',   userId: <%=user[0].id%>, followerId: <%=myId%>};
+
+            $.ajax({
+                type: 'POST',
+                data: JSON.stringify(data),
+                contentType: 'application/json',
+                url: '/query'
+            })
+            .done(function(data) {
+				console.log('Now Unfollowing user');
+				location.reload();
+        });				
+		
+		}
+	
+	    });
+
+
+		function isFollower(){
+
+					var followers = JSON.parse('<%-JSON.stringify(user[0].followers)%>');
+
+			
+			console.log(JSON.stringify(followers));			
+
+			for(i=0; i < <%=user[0].followers.length%>; i++){
+
+				console.log(i);
+
+					if(followers[i].follower_id === <%=myId%>){
+					
+						return true;
+					}
+
+
+			}
+
+		
+			return false;
+
+		}
+
+		function init(){
+
+		  if(<%=user[0].id%> === <%=myId%>){
+
+		  $('#switchButton').html('Edit Profile');
+		  $('#switchButton').attr('class', 'btn btn-default');
+		  $('#switchButton').attr('data-toggle', 'modal');
+		  $('#switchButton').attr('data-target', '#editprofile');
+
+			buttonType =0;
+		  
+		  }
+		  else{
+
+			if(isFollower()){
+			  $('#switchButton').html('Unfollow User');
+			  $('#switchButton').attr('class', 'btn btn-danger');
+
+			 buttonType = 2;
+
+			}
+			else{
+			
+			  $('#switchButton').html('Follow User');
+			  $('#switchButton').attr('class', 'btn btn-danger');
+
+		     buttonType = 1;
+				}
+
+			}
+
+		}
+
+		init();
+	});
+
+
+</script>
 
 </profilesidepanel>

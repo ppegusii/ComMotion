@@ -52,13 +52,14 @@ app.get('^[^.]+$', nav.checkUser);
 app.get('/profile/about', prof.profile_about);
 app.get('/profile/about_you', prof.profile_about_reset);
 app.get('/profile/myposts', prof.profile_posts);
-//app.get('/profile/mycreations', prof.profile_creations);
+app.get('/profile/mycreations', prof.profile_creations);
 app.get('/profile/followers', prof.profile_followers);
 app.get('/profile/following', prof.profile_following);
 app.get('/profile/user', prof.other_user_profile_about);
 
 app.get('/home', nav.home);
 app.post('/home', nav.home);
+app.post('/home/post', nav.post);
 
 app.post('/authenticate', nav.authenticate);
 
@@ -79,6 +80,7 @@ app.get('/encyclopedia/results', results.encyclopedia_results);
 app.get('/encyclopedia/exercise_entry', exer.encyclopedia_exercise_entry);
 app.get('/encyclopedia/exercise_entry/edit', exer.editExercise);
 app.get('/encyclopedia/workout_entry', nav.encyclopedia_workout_entry);
+app.get('/encyclopedia/workout_entry/edit', nav.editWorkout);
 
 app.get('/create/exercise', exer.createExercise);
 app.get('/create/workoutcreator', nav.workoutcreator);

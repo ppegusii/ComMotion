@@ -7,6 +7,7 @@ var video = require(process.env.DATA_VIDEO);
 var photo = require(process.env.DATA_PHOTO);
 var user = require(process.env.DATA_USER);
 var activity = require(process.env.DATA_ACTIVITY);
+var post = require(process.env.DATA_POST);
 
 //Comment format
 //expected object
@@ -43,12 +44,20 @@ exports.userGetByUsernamePassword = user.getByUsernamePassword;
 exports.userIdGetByUsername = user.getIdByUsername;
 //{user: User}
 exports.userCreate = user.create;
+//{user: User}
+exports.userUpdateProfile = user.updateProfile;
 //{userId: number, exerciseId: number}
 exports.userCreateFavExercise = user.createFavExercise;
 //{userId: number}
-exports.followedUserIdsGetByFollowingUserId;
+exports.followedUserIdsGetByFollowingUserId = user.getFollowedUserIdsByFollowingUserId;
 //{userId: number}
-exports.followingUserIdsGetByFollowedUserId;
+exports.followingUserIdsGetByFollowedUserId = user.getFollowingUserIdsByFollowedUserId;
+//{userId: number, followerId: number}
+exports.followCreateByUserIdFollowerId = user.createFollowByUserIdFollowerId;
+//{userId: number, followerId: number}
+exports.followDeleteByUserIdFollowerId = user.deleteFollowByUserIdFollowerId;
+//{userId: number, exerciseId: number}
+exports.favExerciseDeleteByUserIdExerciseId = user.favExerciseDeleteByUserIdExerciseId;
 //undefined
 exports.activitiesGetAll = activity.getAll;
 //{userId: number}
@@ -57,3 +66,11 @@ exports.activitiesGetByUserId = activity.getByUserId;
 exports.usergetFollowersUsernameAndAvatars = user.getFollowersUsernameAndAvatars;
 //{userId: number}
 exports.usergetFollowingUsernameAndAvatars = user.getFollowingUsernameAndAvatars;
+//{userId: number}
+exports.postsGetByUserId = post.getByUserId;
+//{userId: number}
+exports.postsOfFollowedUsersGetByFollowingUserId = post.getPostsOfFollowedUsersByFollowingUserId;
+//{post: Post}
+exports.postInit = post.init;
+//{userId: number}
+exports.userGetUsernameAndAvatarsOfPosts = user.getUsernameAndAvatarsOfPosts;

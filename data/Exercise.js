@@ -111,65 +111,90 @@ function init(query,cb){
   }
   validate.exercise(query.exercise,function afterValidation(err,exercise){
     if(err){
-      cb(err,undefined);
-      return;
+      return cb(err,undefined);
     }
-    if(exercise.id){
-      var statement = 'UPDATE exercises SET description=$1,difficulty_id=$2,musclegroup_id=$3 WHERE id=$4 RETURNING id,created';
-      var params = [
-        exercise.description,
-        exercise.difficulty.id,
-        exercise.musclegroup.id,
-        exercise.id
-      ];
-    }else{
-      var statement = 'INSERT INTO exercises (description,difficulty_id,musclegroup_id) VALUES($1,$2,$3) RETURNING id,created';
-      var params = [
-        exercise.description,
-        exercise.difficulty.id,
-        exercise.musclegroup.id
-      ];
-    }
-    conn.query(statement,params,function afterUpdateOrInsert(err,result){
+    deleteMissingChildObjects(exercise,function afterChildDeletion(err,exercise){
       if(err){
-        cb(err,undefined);
-        return;
+        return cb(err,undefined);
       }
-      exercise.id = result.rows[0].id.toString();
-      exercise.created = result.rows[0].created;
-      async.parallel({
-        names: function(callback){
-          var names = exercise.names.map(function(name,index,names){
-            name.exerciseId = exercise.id;
-            return name;
-          });
-         async.map(names,name.initNoValidate,callback);
-        },
-        videos: function(callback){
-          var videos = exercise.videos.map(function(video,index,videos){
-            video.exerciseId = exercise.id;
-            return video;
-          });
-         async.map(videos,video.initNoValidate,callback);
-        },
-        photos: function(callback){
-          var photos = exercise.photos.map(function(photo,index,photos){
-            photo.exerciseId = exercise.id;
-            return photo;
-          });
-         async.map(photos,photo.initNoValidate,callback);
-        }
-      },
-      function afterChildObjectInit(err,results){
+      if(exercise.id){
+        var statement = 'UPDATE exercises SET description=$1,difficulty_id=$2,musclegroup_id=$3 WHERE id=$4 RETURNING id,created';
+        var params = [
+          exercise.description,
+          exercise.difficulty.id,
+          exercise.musclegroup.id,
+          exercise.id
+        ];
+      }else{
+        var statement = 'INSERT INTO exercises (description,difficulty_id,musclegroup_id) VALUES($1,$2,$3) RETURNING id,created';
+        var params = [
+          exercise.description,
+          exercise.difficulty.id,
+          exercise.musclegroup.id
+        ];
+      }
+      conn.query(statement,params,function afterUpdateOrInsert(err,result){
         if(err){
           cb(err,undefined);
           return;
         }
-        exercise.names = results.names;
-        exercise.videos = results.videos;
-        exercise.photos = results.photos;
-        cb(undefined,exercise);
+        exercise.id = result.rows[0].id.toString();
+        exercise.created = result.rows[0].created;
+        async.parallel({
+          names: function(callback){
+            var names = exercise.names.map(function(name,index,names){
+              name.exerciseId = exercise.id;
+              return name;
+            });
+           async.map(names,name.initNoValidate,callback);
+          },
+          videos: function(callback){
+            var videos = exercise.videos.map(function(video,index,videos){
+              video.exerciseId = exercise.id;
+              return video;
+            });
+           async.map(videos,video.initNoValidate,callback);
+          },
+          photos: function(callback){
+            var photos = exercise.photos.map(function(photo,index,photos){
+              photo.exerciseId = exercise.id;
+              return photo;
+            });
+           async.map(photos,photo.initNoValidate,callback);
+          }
+        },
+        function afterChildObjectInit(err,results){
+          if(err){
+            return cb(err,undefined);
+          }
+          exercise.names = results.names;
+          exercise.videos = results.videos;
+          exercise.photos = results.photos;
+          cb(undefined,exercise);
+        });
       });
     });
+  });
+}
+function deleteMissingChildObjects(exercise,cb){
+  if(!exercise.id){
+    return cb(undefined,exercise);
+  }
+  async.parallel({
+    names: function(callback){
+      name.deleteByExerciseIdAndIdNotInSet({exerciseId: exercise.id,set: exercise.names},callback);
+    },
+    photos: function(callback){
+      photo.deleteByExerciseIdAndIdNotInSet({exerciseId: exercise.id,set: exercise.photos},callback);
+    },
+    videos: function(callback){
+      video.deleteByExerciseIdAndIdNotInSet({exerciseId: exercise.id,set: exercise.videos},callback);
+    }
+  },
+  function afterDeletion(err,results){
+    if(err){
+      return cb(err,undefined);
+    }
+    cb(undefined,exercise);
   });
 }

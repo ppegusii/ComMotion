@@ -1,4 +1,5 @@
 var conn = require(process.env.DATA_CONN);
+var common = require(process.env.DATA_COMMON);
 var model = require(process.env.MODELS);
 var validate = require(process.env.VALIDATE);
 
@@ -7,6 +8,7 @@ exports.init = init;
 
 //internal only
 exports.initNoValidate = initNoValidate;
+exports.deleteByExerciseIdAndIdNotInSet = deleteByExerciseIdAndIdNotInSet;
 
 function getByEidWid(query,cb){
   var eid = parseInt(query.eid,10);
@@ -36,13 +38,11 @@ function resultToVideos(result,cb){
 }
 function init(query,cb){
   if(!query.video){
-    cb(Error.create('query.video undefined'),undefined);
-    return;
+    return cb(Error.create('query.video undefined'),undefined);
   }
   validate.video(query.video,function afterValidation(err,video){
     if(err){
-      cb(err,undefined);
-      return;
+      return cb(err,undefined);
     }
     initNoValidate(video,cb);
   });
@@ -66,10 +66,13 @@ function initNoValidate(video,cb){
   }
   conn.query(statement,params,function afterUpdateOrInsert(err,result){
     if(err){
-      cb(err,undefined);
-      return;
+      return cb(err,undefined);
     }
     video.id = result.rows[0].id.toString();
     cb(undefined,video);
   });
+}
+function deleteByExerciseIdAndIdNotInSet(query,cb){
+  var table = 'videos';
+  common.deleteByExerciseIdAndIdNotInSet(query,table,cb);
 }

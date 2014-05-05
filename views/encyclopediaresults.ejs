@@ -35,22 +35,11 @@
 		<div class="col-md-8 col-sm-8 col-xs-8">
 
 		<div class="well">
-
-
+		<center>
+		<button id="currentPage" style="display: none"value=<%=pageN%> class="btn btn-default"></button>
+		</center>
 		<ul id="resultsList" class="list-group" >
 
-		
-
-		<li class="list-group-item" style="height:60px">
-
-		<center>
-		<div class="btn-group">
-            <button id="PrevButton" class="btn btn-default" onclick="<pageN=Math.max(<%=pageN%>-1,0)">Previous</button>
-			<button id="PageNumber" class="btn btn-default"><%=pageN%></button>
-            <button id="NextButton" class="btn btn-default" onclick="<pageN=Math.min(<%=pageN%>+1,Math.floor(exercises.length/5))">Next</button>
-		</div>
-		</center>
-		</li>
 		</ul>
 			</div>
 

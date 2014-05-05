@@ -1,4 +1,5 @@
 var conn = require(process.env.DATA_CONN);
+var common = require(process.env.DATA_COMMON);
 var model = require(process.env.MODELS);
 var validate = require(process.env.VALIDATE);
 
@@ -7,13 +8,13 @@ exports.init = init;
 
 //internal only
 exports.initNoValidate = initNoValidate;
+exports.deleteByExerciseIdAndIdNotInSet = deleteByExerciseIdAndIdNotInSet;
 
 function getByEidWid(query,cb){
   var eid = parseInt(query.eid,10);
   var wid = parseInt(query.wid,10);
   if((eid>0 && wid>0) || (eid<=0 && wid<=0)){
-    cb(Error.create('define query.eid xor query.wid'),undefined);
-    return;
+    return cb(Error.create('define query.eid xor query.wid'),undefined);
   }
   if(eid){
     var statement = 'SELECT * FROM names WHERE exercise_id=$1 ORDER BY votes DESC';
@@ -22,11 +23,9 @@ function getByEidWid(query,cb){
   }
   conn.query(statement,[eid],function(err,result){
     if(err){
-      cb(err,undefined);
+      return cb(err,undefined);
     }
-    else{
-      resultToNames(result,cb);
-    }
+    resultToNames(result,cb);
   });
 }
 function resultToNames(result,cb){
@@ -75,4 +74,8 @@ function initNoValidate(name,cb){
 }
 function vote(query,cb){
   //changing votes should be done separately
+}
+function deleteByExerciseIdAndIdNotInSet(query,cb){
+  var table = 'names';
+  common.deleteByExerciseIdAndIdNotInSet(query,table,cb);
 }

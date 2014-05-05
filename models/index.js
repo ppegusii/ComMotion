@@ -75,9 +75,9 @@ exports.Musclegroup = function(id,name){
 exports.User = function(id,username,password,difficulty,avatar_url,bio,activities,fav_exercises,fav_workouts,follows,followers){
   //number; parseInt(id,10) isNaN or > 0
   this.id = id;
-  //string; name != falsey, name !== ''
+  //string; username != falsey, username !== ''
   this.username = username;
-  //string; name != falsey, name !== ''
+  //string; if id == falsey, password != falsey, password !== ''
   this.password = password;
   //Difficulty object; if difficulty defined it must validate
   this.difficulty = difficulty;
@@ -97,6 +97,16 @@ exports.User = function(id,username,password,difficulty,avatar_url,bio,activitie
   //Array of number; follows = falsey or each number > 0
   this.followers = followers;
 };
+exports.Post = function(id,userId,text,created){
+  //number; parseInt(id,10) > 0
+  this.id = id;
+  //number; parseInt(userId,10) > 0
+  this.userId = userId;
+  //string; text != falsey, text !== ''
+  this.text = text;
+  //Date;
+  this.created = created;
+}
 exports.Activity = function(id,name){
   //number; parseInt(id,10) > 0
   this.id = id;

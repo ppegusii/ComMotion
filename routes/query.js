@@ -19,11 +19,18 @@ queries['usersSearchByUsername'] = data.usersSearchByUsername;
 queries['userGetByUsernamePassword'] = data.userGetByUsernamePassword;
 queries['userIdGetByUsername'] = data.userIdGetByUsername;
 queries['userCreate'] = data.userCreate;
+queries['userUpdateProfile'] = data.userUpdateProfile;
 queries['userCreateFavExercise'] = data.userCreateFavExercise;
 queries['followedUserIdsGetByFollowingUserId'] = data.followedUserIdsGetByFollowingUserId;
 queries['followingUserIdsGetByFollowedUserId'] = data.followingUserIdsGetByFollowedUserId;
+queries['followCreateByUserIdFollowerId'] = data.followCreateByUserIdFollowerId;
+queries['followDeleteByUserIdFollowerId'] = data.followDeleteByUserIdFollowerId;
+queries['favExerciseDeleteByUserIdExerciseId'] = data.favExerciseDeleteByUserIdExerciseId;
 queries['activitiesGetAll'] = data.activitiesGetAll;
 queries['activitiesGetByUserId'] = data.activitiesGetByUserId;
+queries['postsGetByUserId'] = data.postsGetByUserId;
+queries['postsOfFollowedUsersGetByFollowingUserId'] = data.postsOfFollowedUsersGetByFollowingUserId;
+queries['postInit'] = data.postInit;
 
 function query(req,res){
 //console.log('body = '+JSON.stringify(req.body));

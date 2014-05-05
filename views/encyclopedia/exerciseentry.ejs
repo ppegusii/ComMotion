@@ -23,7 +23,8 @@
         <h1 class="blog-title"><%= names[0].name %></h1>
         <p>
           <a id="editButton" class="btn btn-sm btn-default" href="/encyclopedia/exercise_entry/edit?eid=<%= id %>">Edit this entry</a>
-          <a id="faveButton" class="btn btn-sm btn-default" href="/myfavorites?type=exercise,id=<%= id %>">Add to favorites</a>
+          <!--<a id="faveButton" class="btn btn-sm btn-default" href="/myfavorites?type=exercise,id=<%= id %>">Add to favorites</a>-->
+		  <a id="faveButton" class="btn btn-sm btn-default">Add to favorites</a>
         </p>
       </div>
 
@@ -84,5 +85,47 @@
     </div><!-- /.container -->
 
   <% include ../fragments/footer %>
+
+<!-- Script for favoriting exercises -->
+<script>
+    $(function(){				
+        $('#faveButton').click(function(e){
+            e.preventDefault();
+            console.log('Exercise Favorited clicked');
+
+            // Get user's favorite exercises
+            var data = { query: 'exercisesGetByUserFav', userId: <%= userId %> };
+            $.ajax({
+                type: 'POST',
+                data: JSON.stringify(data),
+                contentType: 'application/json',
+                url: '/query'
+            })
+            .done(function(exercises) {
+                  // Check if exercise is already favorited
+                  for(var i=0; i < exercises.length; i++) {
+                      if(parseInt(exercises[i].id) === parseInt(<%= id %>)) {
+                         alert('Exercise is already in favorites!');
+                         return;
+                      }
+                  }
+                  // Exercise wasn't found, so add to favorites
+                  data.query = 'userCreateFavExercise';
+                  data.userId = <%= userId %>;
+                  data.exerciseId = <%= id %>;
+                  $.ajax({
+                      type: 'POST',
+                      data: JSON.stringify(data),
+                      contentType: 'application/json',
+                      url: '/query'
+                  })
+                  .done(function() {
+                      console.log('Exercise has been saved as favorite');
+                      document.location = '/myfavorites';
+                  });
+            });
+        });				
+    });
+</script>
   </body>
 </html>

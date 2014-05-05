@@ -49,10 +49,10 @@ exports.profile_about = function(req, res){
 
 
 exports.other_user_profile_about = function(req, res){
-	myId = req.session.user.id;
+	userId = req.session.user.id;
 	req.session.userContextID = req.param("currentUser");
 	userContextId = req.session.userContextID;
-	userId = req.param("currentUser");
+
     var activities;
 	data.activitiesGetByUserId({id: userContextId}, function aftergetActivities(err, retActivities){
 	activities = retActivities;
@@ -66,7 +66,7 @@ exports.other_user_profile_about = function(req, res){
         title: 'Profile About',
         user: user,
 		activities: activities,
-		myId: myId,
+		myId: userId,
         err: err
       });
   });
@@ -76,21 +76,40 @@ exports.profile_posts = function(req, res){
 	userId = req.session.user.id;
 	userContextId = req.session.userContextID;
 
-	data.userGetById( {id: userContextId},function afterGet(err, user){
+   console.log("USER CONTEXT ID: "+ userContextId);
+
+	data.postsGetByUserId( {userId: userContextId}, function afterGet(err, posts){
+
+	data.userGetById( {id: userContextId},function afterGet2(err, user){
     res.render('profile/myposts',
       {
         title: 'Profile Posts',
         user: user,
 		myId: userId,
+		posts: posts,
         err: err
       });
   });
+
+	});
 };
-/*
+
 exports.profile_creations = function(req, res){
-     res.render('profile/mycreations', {title: 'Profile Creations'});
+	userId = req.session.user.id;
+	userContextId = req.session.userContextID;
+
+	data.userGetById( {id: userContextId},function afterGet(err, user){
+    res.render('profile/mycreations',
+      {
+        title: 'Profile Creations',
+        user: user,
+		myId: userId,
+        err: err
+      });
+  });
+     
 };
-*/
+
 exports.profile_followers = function(req, res){
 
 	userContextId = req.session.userContextID;
