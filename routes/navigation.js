@@ -194,11 +194,18 @@ exports.workoutcreator = function(req, res){
 
 exports.encyclopedia_workout_entry = function(req, res) {
    var wid = req.query.wid;
-   // fake workout object
-   if(parseInt(wid) === 5)
-      res.render('encyclopedia/workoutentry', { workout: fakeWorkout });
-   else
-      res.send(500, 'Couldnt find workout');
+   data.workoutGetById({id: wid}, function(err, workout) {
+      if(err)
+         res.send(500, err.message);
+      else if(workout.length === 0) {
+         console.log('Empty results');
+         res.send(500, 'No workout found for id ' + wid);
+      }
+      else {
+         console.log(workout);
+         res.render('encyclopedia/workoutentry', { workout: workout[0] });
+      }
+   })
 }
 
 exports.editWorkout = function(req, res) {
