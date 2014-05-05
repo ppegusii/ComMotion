@@ -8,6 +8,9 @@ var photo = require(process.env.DATA_PHOTO);
 var user = require(process.env.DATA_USER);
 var activity = require(process.env.DATA_ACTIVITY);
 var post = require(process.env.DATA_POST);
+var measurement = require(process.env.DATA_MEASUREMENT);
+var timer = require(process.env.DATA_TIMER);
+var exerciseInstance = require(process.env.DATA_EXERCISEINSTANCE);
 
 //Comment format
 //expected object
@@ -74,3 +77,15 @@ exports.postsOfFollowedUsersGetByFollowingUserId = post.getPostsOfFollowedUsersB
 exports.postInit = post.init;
 //{userId: number}
 exports.userGetUsernameAndAvatarsOfPosts = user.getUsernameAndAvatarsOfPosts;
+//undefined
+exports.measurementsGetAll = measurement.getAll;
+//{id: number}
+exports.measurementGetById = measurement.getById;
+//{id: number}
+exports.timerGetById = timer.getById;
+//{workoutId: number}
+exports.timersGetByWorkoutId = timer.getByWorkoutId;
+//{id: number}
+exports.exerciseInstanceGetById = exerciseInstance.getById;
+//{workoutId: number}
+exports.exerciseInstancesGetByWorkoutId = exerciseInstance.getByWorkoutId;

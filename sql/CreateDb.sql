@@ -354,6 +354,12 @@ INSERT INTO photos (id,url,workout_id) VALUES
 	(42,'http://www.criticalbench.com/images/bodyweight-workouts1.jpg',2),
 	(43,'http://www.lift.net/wp-content/uploads/2013/09/Jeremy-Hoornstra-close-grip.jpg',3);
 ALTER SEQUENCE photos_id_seq RESTART WITH 44;
+
+INSERT INTO videos (id, url, workout_id) VALUES
+	(41,'www.youtube.com/watch?v=cFg9kGYF400', 1),
+	(42,'www.youtube.com/watch?v=475aEW2KV_8', 2),
+	(43,'www.youtube.com/watch?v=oVGJInBJoh0', 3);
+ALTER SEQUENCE videos_id_seq RESTART WITH 44;
 /*
 INSERT INTO workout_sequence (workout_id, exercise_id, exercise_order) VALUES
 	(1, 1, 1),
