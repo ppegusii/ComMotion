@@ -394,8 +394,30 @@ INSERT INTO workout_components (id,workout_id,seq_order) VALUES
 	(18, 3, 9),
 	(19, 3, 10),
 	(20, 3, 11),
-	(21, 3, 12);
-ALTER SEQUENCE workout_components_id_seq RESTART WITH 22;
+	(21, 3, 12),
+	--adding extra for timers
+	(22, 1, 1),
+	(23, 1, 2),
+	(24, 1, 3),
+	(25, 1, 4),
+	(26, 1, 5),
+	(27, 2, 1),
+	(28, 2, 2),
+	(29, 2, 3),
+	(30, 2, 4),
+	(31, 3, 1),
+	(32, 3, 2),
+	(33, 3, 3),
+	(34, 3, 4),
+	(35, 3, 5),
+	(36, 3, 6),
+	(37, 3, 7),
+	(38, 3, 8),
+	(39, 3, 9),
+	(40, 3, 10),
+	(41, 3, 11),
+	(42, 3, 12);
+ALTER SEQUENCE workout_components_id_seq RESTART WITH 43;
 
 INSERT INTO measurements (id, name) VALUES
 	(1, 'reps'),
@@ -433,27 +455,27 @@ INSERT INTO exercise_instances (id, exercise_id, measurement_id, measurement_val
 --did not need to alter sequence since id references workout_components(id)
 
 INSERT INTO timers (id,seconds) VALUES
-	(1, 120),
-	(2, 90),
-	(3, 90),
-	(4, 30),
-	(5, 15),
-	(6, 120),
-	(7, 120),
-	(8, 30),
-	(9, 300),
-	(10, 90),
-	(11, 90),
-	(12, 90),
-	(13, 90),
-	(14, 120),
-	(15, 120),
-	(16, 90),
-	(17, 90),
-	(18, 90),
-	(19, 60), 
-	(20, 60),
-	(21, 60);
+	(22, 120),
+	(23, 90),
+	(24, 90),
+	(25, 30),
+	(26, 15),
+	(27, 120),
+	(28, 120),
+	(29, 30),
+	(30, 300),
+	(31, 90),
+	(32, 90),
+	(33, 90),
+	(34, 90),
+	(35, 120),
+	(36, 120),
+	(37, 90),
+	(38, 90),
+	(39, 90),
+	(40, 60), 
+	(41, 60),
+	(42, 60);
 --no alter sequence added since id's reference workout_components(id)
 
 INSERT INTO posts (user_id, text) VALUES
