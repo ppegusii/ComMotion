@@ -196,7 +196,7 @@ exports.encyclopedia_workout_entry = function(req, res) {
    var wid = req.query.wid;
    // fake workout object
    if(parseInt(wid) === 5)
-      res.render('encyclopedia/workoutentry', fakeWorkout);
+      res.render('encyclopedia/workoutentry', { workout: fakeWorkout });
    else
       res.send(500, 'Couldnt find workout');
 }
