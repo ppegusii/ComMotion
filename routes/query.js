@@ -31,6 +31,12 @@ queries['activitiesGetByUserId'] = data.activitiesGetByUserId;
 queries['postsGetByUserId'] = data.postsGetByUserId;
 queries['postsOfFollowedUsersGetByFollowingUserId'] = data.postsOfFollowedUsersGetByFollowingUserId;
 queries['postInit'] = data.postInit;
+queries['measurementsGetAll'] = data.measurementsGetAll;
+queries['measurementGetById'] = data.measurementGetById;
+queries['timerGetById'] = data.timerGetById;
+queries['timersGetByWorkoutId'] = data.timersGetByWorkoutId;
+queries['exerciseInstanceGetById'] = data.exerciseInstanceGetById;
+queries['exerciseInstancesGetByWorkoutId'] = data.exerciseInstancesGetByWorkoutId;
 
 function query(req,res){
 //console.log('body = '+JSON.stringify(req.body));

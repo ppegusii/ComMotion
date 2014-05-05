@@ -441,6 +441,101 @@ asyncTest('postInit',function(){
     start();
   });
 });
+asyncTest('measurementsGetAll',function(){
+  expect(1);
+	$.ajax({
+		type: 'POST',
+		url: '/query',
+		data: {
+      query: 'measurementsGetAll',
+    }
+	}).done(function(measurements){
+    console.log('measurementsGetAll');
+    console.log(measurements);
+    equal(measurements.length,7,'got correct number of measurements');
+    start();
+  });
+});
+asyncTest('measurementGetById',function(){
+  expect(1);
+	$.ajax({
+		type: 'POST',
+		url: '/query',
+		data: {
+      query: 'measurementGetById',
+      id: 1
+    }
+	}).done(function(measurements){
+    console.log('measurementGetById');
+    console.log(measurements);
+    equal(measurements[0].name,'reps','got correct measurement');
+    start();
+  });
+});
+asyncTest('timerGetById',function(){
+  expect(1);
+	$.ajax({
+		type: 'POST',
+		url: '/query',
+		data: {
+      query: 'timerGetById',
+      id: 1
+    }
+	}).done(function(timers){
+    console.log('timerGetById');
+    console.log(timers);
+    equal(timers[0].seconds,120,'got correct timer');
+    start();
+  });
+});
+asyncTest('timersGetByWorkoutId',function(){
+  expect(1);
+	$.ajax({
+		type: 'POST',
+		url: '/query',
+		data: {
+      query: 'timersGetByWorkoutId',
+      workoutId: 1
+    }
+	}).done(function(timers){
+    console.log('timersGetByWorkoutId');
+    console.log(timers);
+    equal(timers.length,5,'got correct number of timers');
+    start();
+  });
+});
+asyncTest('exerciseInstanceGetById',function(){
+  expect(1);
+	$.ajax({
+		type: 'POST',
+		url: '/query',
+		data: {
+      query: 'exerciseInstanceGetById',
+      id: 2
+    }
+	}).done(function(exerciseInstances){
+    console.log('exerciseInstanceGetById');
+    console.log(exerciseInstances);
+    equal(exerciseInstances[0].measurementValue,10,'got correct exerciseInstance');
+    start();
+  });
+});
+asyncTest('exerciseInstancesGetByWorkoutId',function(){
+  expect(1);
+	$.ajax({
+		type: 'POST',
+		url: '/query',
+		data: {
+      query: 'exerciseInstancesGetByWorkoutId',
+      workoutId: 1
+    }
+	}).done(function(exerciseInstances){
+    console.log('exerciseInstancesGetByWorkoutId');
+    console.log(exerciseInstances);
+    equal(exerciseInstances.length,5,'got correct number of exerciseInstances');
+    start();
+  });
+});
 
 //copied from
 //http://stackoverflow.com/questions/105034/how-to-create-a-guid-uuid-in-javascript

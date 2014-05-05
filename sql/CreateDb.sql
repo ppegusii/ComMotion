@@ -354,6 +354,12 @@ INSERT INTO photos (id,url,workout_id) VALUES
 	(42,'http://www.criticalbench.com/images/bodyweight-workouts1.jpg',2),
 	(43,'http://www.lift.net/wp-content/uploads/2013/09/Jeremy-Hoornstra-close-grip.jpg',3);
 ALTER SEQUENCE photos_id_seq RESTART WITH 44;
+
+INSERT INTO videos (id, url, workout_id) VALUES
+	(41,'www.youtube.com/watch?v=cFg9kGYF400', 1),
+	(42,'www.youtube.com/watch?v=475aEW2KV_8', 2),
+	(43,'www.youtube.com/watch?v=oVGJInBJoh0', 3);
+ALTER SEQUENCE videos_id_seq RESTART WITH 44;
 /*
 INSERT INTO workout_sequence (workout_id, exercise_id, exercise_order) VALUES
 	(1, 1, 1),
@@ -456,7 +462,10 @@ INSERT INTO posts (user_id, text) VALUES
 	(17, 'I love squats so much, I want to start a squat club.  And the first rule of squat club is, you don''t talk about squat club.'),
 	(20, 'If anyone else is unhappy with their core, Turkish get-ups were a magic potion for my abs.'),
 	(18, 'Everyone!  I just joined this life-changing club for people who love squats.  Only I''m not supposed to talk about it...'),
-	(7, 'I do believe that heavy Olympic lifts keep me young.  It has nothing to do with that picture in my attic.');	
+	(7, 'I love this app!'),
+	(2, 'This is a great app!'),
+    (5, 'Hey guys! Can you hear me?'),
+    (14, 'Good luck on the marathon guys!');
 INSERT INTO activities (id, name) VALUES
 	(1, 'hiking'),
 	(2, 'cycling'),
