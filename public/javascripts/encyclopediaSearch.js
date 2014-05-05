@@ -5,7 +5,11 @@ function initExerciseSearchButton() {
     var searchButton = $('#encyclopediaSearchButton');
     searchButton.click(function(event) {
         event.preventDefault();
-        document.location='/encyclopedia/results?query='+$('#itemsearch').val();
+        var query = $('#itemsearch').val();
+        if(query === '')
+            alert('Please enter a query into the textbox');
+        else
+            document.location='/encyclopedia/results?query='+query;
 
     });
 }
