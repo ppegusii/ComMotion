@@ -456,7 +456,10 @@ INSERT INTO posts (user_id, text) VALUES
 	(17, 'I love squats so much, I want to start a squat club.  And the first rule of squat club is, you don''t talk about squat club.'),
 	(20, 'If anyone else is unhappy with their core, Turkish get-ups were a magic potion for my abs.'),
 	(18, 'Everyone!  I just joined this life-changing club for people who love squats.  Only I''m not supposed to talk about it...'),
-	(7, 'I do believe that heavy Olympic lifts keep me young.  It has nothing to do with that picture in my attic.');	
+	(7, 'I love this app!'),
+	(2, 'This is a great app!'),
+    (5, 'Hey guys! Can you hear me?'),
+    (14, 'Good luck on the marathon guys!');
 INSERT INTO activities (id, name) VALUES
 	(1, 'hiking'),
 	(2, 'cycling'),
