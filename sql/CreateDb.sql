@@ -73,6 +73,7 @@ CREATE TABLE names(
 	workout_id integer references workouts(id) ON DELETE CASCADE
 );
 /*
+TODO Delete this
 CREATE TABLE workout_sequence(
 	id SERIAL PRIMARY KEY,
 	workout_id integer NOT NULL references workouts(id) ON DELETE CASCADE, 
