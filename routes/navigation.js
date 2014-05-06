@@ -245,6 +245,28 @@ exports.editWorkout = function(req, res) {
    });
 }
 
+exports.saveWorkout = function(req, res) {
+
+   console.log('Executing saveWorkout');
+   var queWorkout = req.body;
+   console.log(queWorkout);
+//   data.workoutInit({workout: queWorkout}, function(err, resWorkout) {
+   fakeDataSend({workout: queWorkout}, function(err, resWorkout) {
+      if(err)
+         res.send(500, err.message);
+      else {
+         var goTo = '/encyclopedia/workout_entry?wid=' + resWorkout.id;
+         res.send(200, goTo);
+      }
+   });
+};
+
+function fakeDataSend(query, cb) {
+   data.workoutGetById({id: query.workout.id}, function(err, workout) {
+      cb(err, workout[0]);
+   });
+}
+
 var pURL = 'http://i.imgur.com/gxtji6F.jpg';
 var vURL = 'https://www.youtube.com/watch?v=JOCtdw9FG-s';
 var fakeWorkout = new models.Workout(5, 'My workout', {name: 'Intermediate'}, 1, 'Description',
