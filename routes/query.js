@@ -40,6 +40,7 @@ queries['exerciseInstanceGetById'] = data.exerciseInstanceGetById;
 queries['exerciseInstancesGetByWorkoutId'] = data.exerciseInstancesGetByWorkoutId;
 queries['workoutGetById'] = data.workoutGetById;
 queries['workoutsGetLimitN'] = data.workoutsGetLimitN;
+queries['workoutInit'] = data.workoutInit;
 
 function query(req,res){
 //console.log('body = '+JSON.stringify(req.body));

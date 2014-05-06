@@ -570,6 +570,36 @@ asyncTest('workoutsGetLimitN',function(){
     start();
   });
 });
+asyncTest('workoutInit',function(){
+  expect(1);
+  var workout = {
+    id: 2,
+    description: 'done workout!',
+    difficulty: {id: 1},
+    name: 'nap time',
+    videos: [{url: 'http://vid.com/myvid.ogg'}],
+    photos: [{url: 'http://photo.com/myphoto.png'}]
+  }
+	$.ajax({
+		type: 'POST',
+		url: '/query',
+		data: {
+      query:'workoutInit',
+      workout: workout
+    }
+	}).done(function(w){
+    console.log('workoutInit');
+    console.log(w);
+    workout.id = w.id;
+    workout.created = w.created;
+    workout.photos[0].id = w.photos[0].id;
+    workout.photos[0].workoutId = w.id;
+    workout.videos[0].id = w.videos[0].id;
+    workout.videos[0].workoutId = w.id;
+    deepEqual(w,workout,'workout inserted successfully');
+    start();
+  });
+});
 
 module('search');
 asyncTest('exerciseWorkoutsSearchByNameDescriptionFilterByDifficultyId',function(){

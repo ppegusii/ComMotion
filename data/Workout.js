@@ -1,7 +1,9 @@
 var async = require('async');
 
-var conn = require(process.env.DATA_CONN);
 var model = require(process.env.MODELS);
+var validate = require(process.env.VALIDATE);
+
+var conn = require(process.env.DATA_CONN);
 var exerciseInstance = require(process.env.DATA_EXERCISEINSTANCE);
 var timer = require(process.env.DATA_TIMER);
 var video = require(process.env.DATA_VIDEO);
@@ -12,6 +14,7 @@ exports.getById = getById;
 exports.getLimitN = getLimitN;
 exports.searchByNameDescriptionFilterByDifficultyId = searchByNameDescriptionFilterByDifficultyId;
 exports.searchForExercisesAndWorkoutsByNameDescriptionFilterByDifficultyId = searchForExercisesAndWorkoutsByNameDescriptionFilterByDifficultyId;
+exports.init = init;
 
 function getById(query,cb){
   var id = parseInt(query.id,10);
@@ -71,6 +74,58 @@ function searchForExercisesAndWorkoutsByNameDescriptionFilterByDifficultyId(quer
       return cb(err,undefined);
     }
     cb(undefined,{exercises: results.exercises,workouts: results.workouts});
+  });
+}
+function init(query,cb){
+  if(!query.workout){
+    return cb(Error.create('query.workout undefined'),undefined);
+  }
+  validate.workout(query.workout,function afterValidation(err,workout){
+    if(err){
+      return cb(err,undefined);
+    }
+    if(workout.id){
+      var statement = 'UPDATE workouts SET name=$1,description=$2,difficulty_id=$3 WHERE id=$4 RETURNING id,created';
+      var params = [
+        workout.name,
+        workout.description,
+        workout.difficulty.id,
+        workout.id
+      ];
+    }else{
+      return cb(Error.create('workout insertion not implemented'),undefined);
+    }
+    conn.query(statement,params,function afterUpdateOrInsert(err,result){
+      if(err){
+        return cb(err,undefined);
+      }
+      workout.id = result.rows[0].id.toString();
+      workout.created = result.rows[0].created;
+      async.parallel({
+        videos: function(callback){
+          var videos = workout.videos.map(function(video,index,videos){
+            video.workoutId = workout.id;
+            return video;
+          });
+         async.map(videos,video.initNoValidate,callback);
+        },
+        photos: function(callback){
+          var photos = workout.photos.map(function(photo,index,photos){
+            photo.workoutId = workout.id;
+            return photo;
+          });
+         async.map(photos,photo.initNoValidate,callback);
+        }
+      },
+      function afterChildObjectInit(err,results){
+        if(err){
+          return cb(err,undefined);
+        }
+        workout.videos = results.videos;
+        workout.photos = results.photos;
+        cb(undefined,workout);
+      });
+    });
   });
 }
 function resultToWorkouts(result,cb){

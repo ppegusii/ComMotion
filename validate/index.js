@@ -6,6 +6,7 @@ var video = require(process.env.VALIDATE_VIDEO);
 var photo = require(process.env.VALIDATE_PHOTO);
 var user = require(process.env.VALIDATE_USER);
 var post = require(process.env.VALIDATE_POST);
+var workout = require(process.env.VALIDATE_WORKOUT);
 
 exports.exercise = exercise.validate;
 exports.difficulty = difficulty.validate;
@@ -15,3 +16,4 @@ exports.video = video.validate;
 exports.photo = photo.validate;
 exports.user = user.validate;
 exports.post = post.validate;
+exports.workout = workout.validate;
