@@ -64,14 +64,18 @@ function searchByNameDescriptionFilterByDifficultyId(query,cb){
   if(!query.search){
     return cb(Error.create('query.search undefined'),undefined);
   }
-  var did = parseInt(query.difficultyId);
-  if(isNaN(did) || did <= 0){
-    return cb(Error.create('query.difficultyId undefined or invalid'),undefined);
-  }
   query.search = '%'+query.search+'%';
   //TODO update with regex
   //http://www.postgresql.org/docs/9.1/static/functions-matching.html#FUNCTIONS-POSIX-REGEXP
-  conn.query('SELECT DISTINCT e.id,e.description,e.difficulty_id,e.musclegroup_id,e.created,d.name AS d_name,m.name AS m_name FROM exercises AS e,difficulties AS d,musclegroups AS m,names AS n WHERE e.difficulty_id=d.id AND e.difficulty_id=$1 AND e.musclegroup_id=m.id AND (e.description LIKE $2 OR (n.name LIKE $2 AND n.exercise_id=e.id))',[did,query.search],function(err,result){
+  var did = parseInt(query.difficultyId);
+  if(isNaN(did) || did <= 0){
+    var statement = 'SELECT DISTINCT e.id,e.description,e.difficulty_id,e.musclegroup_id,e.created,d.name AS d_name,m.name AS m_name FROM exercises AS e,difficulties AS d,musclegroups AS m,names AS n WHERE e.difficulty_id=d.id AND e.musclegroup_id=m.id AND (e.description LIKE $1 OR (n.name LIKE $1 AND n.exercise_id=e.id))';
+    var params = [query.search];
+  }else{
+    var statement = 'SELECT DISTINCT e.id,e.description,e.difficulty_id,e.musclegroup_id,e.created,d.name AS d_name,m.name AS m_name FROM exercises AS e,difficulties AS d,musclegroups AS m,names AS n WHERE e.difficulty_id=d.id AND e.difficulty_id=$1 AND e.musclegroup_id=m.id AND (e.description LIKE $2 OR (n.name LIKE $2 AND n.exercise_id=e.id))';
+    var params = [did,query.search];
+  }
+  conn.query(statement,params,function(err,result){
     if(err){
       return cb(err,undefined);
     }

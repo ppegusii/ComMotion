@@ -41,12 +41,16 @@ function searchByNameDescriptionFilterByDifficultyId(query,cb){
   if(!query.search){
     return cb(Error.create('query.search undefined'),undefined);
   }
+  query.search = '%'+query.search+'%';
   var did = parseInt(query.difficultyId);
   if(isNaN(did) || did <= 0){
-    return cb(Error.create('query.difficultyId undefined or invalid'),undefined);
+    var statement = 'SELECT w.id,w.name,w.description,w.difficulty_id,w.creator_id,w.created,d.name AS d_name FROM workouts AS w,difficulties AS d WHERE w.difficulty_id=d.id AND (w.name LIKE $1 OR w.description LIKE $1)';
+    var params = [query.search];
+  }else{
+    var statement = 'SELECT w.id,w.name,w.description,w.difficulty_id,w.creator_id,w.created,d.name AS d_name FROM workouts AS w,difficulties AS d WHERE w.difficulty_id=d.id AND w.difficulty_id=$1 AND (w.name LIKE $2 OR w.description LIKE $2)';
+    var params = [did,query.search];
   }
-  query.search = '%'+query.search+'%';
-  conn.query('SELECT w.id,w.name,w.description,w.difficulty_id,w.creator_id,w.created,d.name AS d_name FROM workouts AS w,difficulties AS d WHERE w.difficulty_id=d.id AND w.difficulty_id=$1 AND (w.name LIKE $2 OR w.description LIKE $2)',[did,query.search],function(err,result){
+  conn.query(statement,params,function(err,result){
     if(err){
       return cb(err,undefined);
     }
