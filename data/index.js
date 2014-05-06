@@ -94,3 +94,5 @@ exports.exerciseInstanceGetById = exerciseInstance.getById;
 exports.exerciseInstancesGetByWorkoutId = exerciseInstance.getByWorkoutId;
 //{id: number}
 exports.workoutGetById = workout.getById;
+//{n: number}
+exports.workoutsGetLimitN = workout.getLimitN;
