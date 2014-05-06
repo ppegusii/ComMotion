@@ -147,12 +147,26 @@ exports.encyclopedia = function(req, res){
 
 exports.encyclopediaindex = function(req, res){
     data.exercisesGetLimitN({n:100},function afterGet(err,exercises){
-    res.render('encyclopediaindex',
-      {
-        title: 'Encyclopedia Index',
-        exercises: exercises,
-        err: err
-      });
+       if(err) {
+          res.send(500, err.message);
+       }
+       else {
+          data.workoutsGetLimitN({n:100}, function(err2, workouts) {
+             if(err2) {
+                res.send(500, err2.message);
+             }
+             else {
+                res.render('encyclopediaindex',
+                   {
+                      title: 'Encyclopedia Index',
+                      exercises: exercises,
+                      workouts: workouts,
+                      err: err
+                   });
+             }
+          })
+       }
+
   });
 };
 

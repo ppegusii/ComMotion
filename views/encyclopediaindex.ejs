@@ -105,9 +105,9 @@ $( "#tabs" ).tabs();
             </row>
             <div class="col-md-3 col-sm-3 col-xs-3">
                 <ul>
-                    <li><h4><a href="/encyclopedia/workout_entry?wid=1">Leg Blaster!</a></h4></li>
-                    <li><h4><a href="/encyclopedia/workout_entry?wid=2">Workout anywhere...</a></h4></li>
-                    <li><h4><a href="/encyclopedia/workout_entry?wid=3">Bench Press Bonanza</a></h4></li>
+                    <% for (var k = 0; k < workouts.length; k++) { %>
+                    <li><h4><a href="/encyclopedia/workout_entry?wid=<%=workouts[k].id%>"><%=workouts[k].name%></a></h4></li>
+                    <% } %>
                 </ul>
             </div>
         </div>
