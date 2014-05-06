@@ -37,7 +37,6 @@ function initWorkoutObj() {
          addPhoto(temp.photos[i].url, temp.photos[i].id);
       for(var i=0; i < temp.videos.length; i++)
          addVideo(temp.videos[i].url, temp.videos[i].id);
-      // how to handle sequence?
    }
    console.log('Workout obj is:');
    console.log(workoutObj);
@@ -169,12 +168,11 @@ function initSaveButton() {
 
       workoutObj.difficulty = toDifficulty($('#difficulty').val());
       workoutObj.description = $('#description').val();
-      workoutObj.musclegroup = toMusclegroup($('#musclegroup').val());
-      alert(JSON.stringify(workoutObj));
-/*
+      workoutObj.sequence = null; // remove sequence info
+
       $.ajax({
          type: "POST",
-         url: '/create/exercise/save',
+         url: '/create/editWorkout/save',
          contentType: 'application/json',
          data: JSON.stringify(workoutObj)
       })
@@ -190,7 +188,7 @@ function initSaveButton() {
                '<p class="error">' + res.responseText + '</p></div>';
             $('#errorSection').html(html);
          });
-         */
+
    });
 }
 

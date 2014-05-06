@@ -85,6 +85,7 @@ app.get('/encyclopedia/workout_entry/edit', nav.editWorkout);
 app.get('/create/exercise', exer.createExercise);
 app.get('/create/workoutcreator', nav.workoutcreator);
 app.get('/create/editWorkout', nav.editWorkout);
+app.post('/create/editWorkout/save', nav.saveWorkout);
 
 app.post('/create/exercise/save', exer.saveexercise);
 app.get('/create/exercise/cancel', exer.cancelexercise);
