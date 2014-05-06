@@ -63,38 +63,6 @@
         </div>
 	<% } %>
 
-
-
-	<!--Populates a 5x2 grid of new workouts -->
-
-	<h3>New Workouts</h3>
-	<hr>
-        <!-- TODO: Change to workouts -->
-        <% for (var i=0; i<Math.ceil(exercises.length/5); i++){ %>
-        <div class="row">
-            <% for(var j=0; j<Math.min(5, exercises.length-5*i); j++) {
-                var exercise = exercises[i*5+j];
-                var thumb = "images/generic_exercise.jpeg";
-                if(exercise.photos.length > 0)
-                    thumb = exercise.photos[0].url;
-            %>
-            <div class="col-md-2 col-sm-2 col-xs">
-                <center>
-                    <a href="encyclopedia/exercise_entry?eid=<%=exercise.id%>">
-                        <img src=<%=thumb%> style="width:80px; height:80px">
-                    </a>
-                    <h4><%= exercise.names[0].name %></h4>
-                </center>
-            </div>
-            <% } %>
-        </div>
-        <% } %>
-	
-		<!-- end column -->
-		</div>
-		
-	<!--end row -->
-	</div>
 <!--end container -->
 </div>
 
