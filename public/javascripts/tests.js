@@ -554,6 +554,22 @@ asyncTest('workoutGetById',function(){
     start();
   });
 });
+asyncTest('workoutsGetLimitN',function(){
+  expect(1);
+	$.ajax({
+		type: 'POST',
+		url: '/query',
+		data: {
+      query: 'workoutsGetLimitN',
+      n: 5
+    }
+	}).done(function(workouts){
+    console.log('workoutsGetLimitN');
+    console.log(workouts);
+    equal(workouts.length,3,'got correct number of workouts');
+    start();
+  });
+});
 
 module('search');
 asyncTest('exerciseWorkoutsSearchByNameDescriptionFilterByDifficultyId',function(){

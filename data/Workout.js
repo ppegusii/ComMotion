@@ -9,6 +9,7 @@ var photo = require(process.env.DATA_PHOTO);
 var exercise = require(process.env.DATA_EXERCISE);
 
 exports.getById = getById;
+exports.getLimitN = getLimitN;
 exports.searchByNameDescriptionFilterByDifficultyId = searchByNameDescriptionFilterByDifficultyId;
 exports.searchForExercisesAndWorkoutsByNameDescriptionFilterByDifficultyId = searchForExercisesAndWorkoutsByNameDescriptionFilterByDifficultyId;
 
@@ -18,6 +19,18 @@ function getById(query,cb){
     return cb(Error.create('query.id invalid'),undefined);
   }
   conn.query('SELECT w.id,w.name,w.description,w.difficulty_id,w.creator_id,w.created,d.name AS d_name FROM workouts AS w,difficulties AS d WHERE w.difficulty_id=d.id AND w.id=$1',[id],function(err,result){
+    if(err){
+      return cb(err,undefined);
+    }
+    resultToWorkouts(result,cb);
+  });
+}
+function getLimitN(query,cb){
+  var n = parseInt(query.n,10);
+  if(isNaN(n) || n<0){
+    return cb(Error.create('query.n invalid'),undefined);
+  }
+  conn.query('SELECT w.id,w.name,w.description,w.difficulty_id,w.creator_id,w.created,d.name AS d_name FROM workouts AS w,difficulties AS d WHERE w.difficulty_id=d.id LIMIT $1',[n],function(err,result){
     if(err){
       return cb(err,undefined);
     }
