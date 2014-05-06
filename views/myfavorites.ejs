@@ -95,10 +95,11 @@
                     <div class="col-md-9 col-sm-9 col-xs-9">
                         <h4><strong><a href="/encyclopedia/workout_entry?wid=<%=workouts[i].id%>"><%=workouts[i].names[0].name %></a></strong> - <%= workouts[i].description %></h4>
                     </div>
+                    <% /* %>
                     <div class="col-md-1 col-sm-1 col-xs-1">
-                        <button id="<%=workouts[i].id%>" type="button" class="btn-remove btn btn-default" style="padding-left:5px; padding-right:5px; padding-top:0px; padding-bottom:0px" > <span class="glyphicon glyphicon-remove"></span></button>
+                        <button id="<%=workouts[i].id%>" type="button" class="btn-remove2 btn btn-default" style="padding-left:5px; padding-right:5px; padding-top:0px; padding-bottom:0px" > <span class="glyphicon glyphicon-remove"></span></button>
                     </div>
-
+                    <% */ %>
                 </li>
 
                 <% } %>
@@ -129,9 +130,25 @@
             .done(function(exercises) {
 				console.log('success');
 				location.reload();
-        });				
+            });
+        });
+        $('.btn-remove2').click(function(e){
+            e.preventDefault();
+            console.log('Remove favorite workout clicked');
 
-    });
+            var data = { query: 'favWorkoutDeleteByUserIdWorkoutId', userId: <%=userId%>, workoutId: this.id};
+
+            $.ajax({
+                type: 'POST',
+                data: JSON.stringify(data),
+                contentType: 'application/json',
+                url: '/query'
+            })
+                    .done(function(exercises) {
+                        console.log('success');
+                        location.reload();
+                    });
+        });
 	
 });
 
