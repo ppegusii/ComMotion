@@ -41,7 +41,7 @@
 				<li class="list-group-item">
 					<div class="col-md-2 col-sm-2 col-xs-2">
 							<media>
-							<a href="http://localhost:8080/encyclopedia/exercise_entry?eid=<%=exercises[i].id%>">
+							<a href="/encyclopedia/exercise_entry?eid=<%=exercises[i].id%>">
 								<% if (exercises[i].photos[0] === undefined) { %>
 
 								<img src= "/images/generic_exercise.jpeg" width="65" height="65"></img></a>
@@ -55,7 +55,7 @@
 							</media>
 					</div>
 					<div class="col-md-9 col-sm-9 col-xs-9">
-						<h4><strong><a href="http://localhost:8080/encyclopedia/exercise_entry?eid=<%=exercises[i].id%>"><%=exercises[i].names[0].name %></a></strong> - <%= exercises[i].description %></h4>	
+						<h4><strong><a href="/encyclopedia/exercise_entry?eid=<%=exercises[i].id%>"><%=exercises[i].names[0].name %></a></strong> - <%= exercises[i].description %></h4>
 					</div>
 					<div class="col-md-1 col-sm-1 col-xs-1">
 						<button id="<%=exercises[i].id%>" type="button" class="btn-remove btn btn-default" style="padding-left:5px; padding-right:5px; padding-top:0px; padding-bottom:0px" > <span class="glyphicon glyphicon-remove"></span></button>
@@ -73,29 +73,37 @@
 			
 			<h3>Favorite Workouts</h3>
 
-			<!--
-
 			<ul id="resultsList2" class="list-group">
+                <% for (var i = 0; i<workouts.length; i++){ %>
 
-				<% for (var i = 0; i<5; i++){ %>
+                <li class="list-group-item">
+                    <div class="col-md-2 col-sm-2 col-xs-2">
+                        <media>
+                            <a href="/encyclopedia/workout_entry?wid=<%=workouts[i].id%>">
+                                <% if (workouts[i].photos[0] === undefined) { %>
 
-				<li class="list-group-item">
-					<div class="col-md-2 col-sm-2 col-xs-2">
-							<media>
-								<img src="images/generic_exercise.jpeg" width="65" height="65"></img>
-							</media>
-					</div>
-					<div class="col-md-10 col-sm-10 col-xs-10">
-						<h4>Workout <%= i+1 %> - description of item will look something like this...description of item will look something like this...</h4>	
-					</div>
-	
-				</li>
+                                <img src= "/images/generic_exercise.jpeg" width="65" height="65"></img></a>
 
-				<% } %>
+                            <% } else { %>
 
+                            <img src= <%=workouts[i].photos[0].url %> width="65" height="65"></img></a>
+
+                            <% } %>
+                            </a>
+                        </media>
+                    </div>
+                    <div class="col-md-9 col-sm-9 col-xs-9">
+                        <h4><strong><a href="/encyclopedia/workout_entry?wid=<%=workouts[i].id%>"><%=workouts[i].names[0].name %></a></strong> - <%= workouts[i].description %></h4>
+                    </div>
+                    <% /* %>
+                    <div class="col-md-1 col-sm-1 col-xs-1">
+                        <button id="<%=workouts[i].id%>" type="button" class="btn-remove2 btn btn-default" style="padding-left:5px; padding-right:5px; padding-top:0px; padding-bottom:0px" > <span class="glyphicon glyphicon-remove"></span></button>
+                    </div>
+                    <% */ %>
+                </li>
+
+                <% } %>
 			</ul>
-
-			-->
 
 		</div>
 
@@ -122,9 +130,25 @@
             .done(function(exercises) {
 				console.log('success');
 				location.reload();
-        });				
+            });
+        });
+        $('.btn-remove2').click(function(e){
+            e.preventDefault();
+            console.log('Remove favorite workout clicked');
 
-    });
+            var data = { query: 'favWorkoutDeleteByUserIdWorkoutId', userId: <%=userId%>, workoutId: this.id};
+
+            $.ajax({
+                type: 'POST',
+                data: JSON.stringify(data),
+                contentType: 'application/json',
+                url: '/query'
+            })
+                    .done(function(exercises) {
+                        console.log('success');
+                        location.reload();
+                    });
+        });
 	
 });
 

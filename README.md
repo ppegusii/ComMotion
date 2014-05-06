@@ -114,6 +114,8 @@ button, and you've officially contributed a new exercise to the ComMotion encycl
 
 **How do I create a workout?**
 
+_Note: The ability to save new workouts was removed due to time constraints. But the interface sure is pretty!_
+
 Go to the *Create* page and click on the *Workout* button.  This will bring you to our *Create a new workout* page.  The
 central design area will enable you to add any exercises you want to, in any order.  For example, suppose you want your 
 first exercise to be the bench press for one set of 8 reps, with a 60 second rest after the set.  In the *Search for 

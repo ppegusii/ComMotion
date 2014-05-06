@@ -47,7 +47,8 @@ function populateUIFields() {
    if(workoutObj.difficulty !== null)
       $('#difficulty').val(workoutObj.difficulty.name);
    $('#description').html(workoutObj.description);
-   $('#workoutDisplay').append(htmlForWorkout(workoutObj));
+   if(workoutObj.sequence !== null)
+      $('#workoutDisplay').append(htmlForWorkout(workoutObj));
 }
 
 function removePhotoFn(selector, uiId) {
