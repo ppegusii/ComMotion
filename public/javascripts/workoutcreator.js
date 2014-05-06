@@ -26,16 +26,17 @@ function initWorkoutObj() {
    var jsonString = $('#workoutObj').html();
    if(jsonString !== '') {
       var temp = JSON.parse(jsonString);
+      console.log(temp);
       workoutObj.id = temp.id;
       workoutObj.name = temp.name;
       workoutObj.description = temp.description;
       workoutObj.difficulty = temp.difficulty;
       workoutObj.creatorId = temp.creatorId;
+      workoutObj.sequence = temp.sequence;
       for(var i=0; i < temp.photos.length; i++)
          addPhoto(temp.photos[i].url, temp.photos[i].id);
       for(var i=0; i < temp.videos.length; i++)
          addVideo(temp.videos[i].url, temp.videos[i].id);
-      // how to handle sequence?
    }
    console.log('Workout obj is:');
    console.log(workoutObj);
@@ -46,6 +47,7 @@ function populateUIFields() {
    if(workoutObj.difficulty !== null)
       $('#difficulty').val(workoutObj.difficulty.name);
    $('#description').html(workoutObj.description);
+   $('#workoutDisplay').append(htmlForWorkout(workoutObj));
 }
 
 function removePhotoFn(selector, uiId) {
@@ -166,12 +168,11 @@ function initSaveButton() {
 
       workoutObj.difficulty = toDifficulty($('#difficulty').val());
       workoutObj.description = $('#description').val();
-      workoutObj.musclegroup = toMusclegroup($('#musclegroup').val());
-      alert(JSON.stringify(workoutObj));
-/*
+      workoutObj.sequence = null; // remove sequence info
+
       $.ajax({
          type: "POST",
-         url: '/create/exercise/save',
+         url: '/create/editWorkout/save',
          contentType: 'application/json',
          data: JSON.stringify(workoutObj)
       })
@@ -187,7 +188,7 @@ function initSaveButton() {
                '<p class="error">' + res.responseText + '</p></div>';
             $('#errorSection').html(html);
          });
-         */
+
    });
 }
 

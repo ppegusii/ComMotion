@@ -71,6 +71,26 @@ exports.authenticate = function(req, res) {
 //    res.redirect('home');
 }
 
+exports.authenticate_signup = function(req, res) {
+   console.log(req.body.username);
+   console.log(req.body.password);
+   var username = req.body.username;
+   var password = req.body.password;
+   setSessionForUser(username, password, req, function(err, user) {
+      if(err) {
+         req.flash('login', err.message);
+         res.redirect('/');
+      }
+      else {
+         //console.log(req.session.user);
+         res.redirect('home');
+      }
+   });
+//   var user = new models.User(1,'username','password',undefined,'www',undefined,undefined,undefined,undefined,undefined,undefined);
+//    req.session.user = user;
+//    res.redirect('home');
+}
+
 function setSessionForUser(username, pass, req, cb) {
    data.userGetByUsernamePassword({username: username, password: pass}, function (err, users){
       if(err) {
@@ -194,33 +214,57 @@ exports.workoutcreator = function(req, res){
 
 exports.encyclopedia_workout_entry = function(req, res) {
    var wid = req.query.wid;
-   // fake workout object
-   if(parseInt(wid) === 5)
-      res.render('encyclopedia/workoutentry', { workout: fakeWorkout });
-   else
-      res.send(500, 'Couldnt find workout');
+   data.workoutGetById({id: wid}, function(err, workout) {
+      if(err)
+         res.send(500, err.message);
+      else if(workout.length === 0) {
+         console.log('Empty results');
+         res.send(500, 'No workout found for id ' + wid);
+      }
+      else {
+         console.log(workout);
+         res.render('encyclopedia/workoutentry', { workout: workout[0] });
+      }
+   })
 }
 
 exports.editWorkout = function(req, res) {
    console.log('Executing editWorkout');
    var wid = req.query.wid;
    console.log('Found eid ' + wid);
-   /*
-   data.exerciseGetById({id: eid}, function(err, exercise) {
+   data.workoutGetById({id: wid}, function(err, workout) {
       if(err) {
-         console.log(err.message);
-         res.send(500, err.message);
+         console.log('err');
+      }
+      else if(workout.length === 0) {
+         console.log('length 0');
       }
       else {
-         //console.log('Sending exercise ' + JSON.stringify(exercise[0]));
-         req.flash('editExercise', JSON.stringify(exercise[0]));
-         res.redirect('/create/exercise');
+         res.render('create/editWorkout', {workout: workout[0]});
       }
    });
-   */
-   req.flash('editWorkout', JSON.stringify(fakeWorkout));
-   res.redirect('/create/workoutcreator');
+}
 
+exports.saveWorkout = function(req, res) {
+
+   console.log('Executing saveWorkout');
+   var queWorkout = req.body;
+   console.log(queWorkout);
+//   data.workoutInit({workout: queWorkout}, function(err, resWorkout) {
+   fakeDataSend({workout: queWorkout}, function(err, resWorkout) {
+      if(err)
+         res.send(500, err.message);
+      else {
+         var goTo = '/encyclopedia/workout_entry?wid=' + resWorkout.id;
+         res.send(200, goTo);
+      }
+   });
+};
+
+function fakeDataSend(query, cb) {
+   data.workoutGetById({id: query.workout.id}, function(err, workout) {
+      cb(err, workout[0]);
+   });
 }
 
 var pURL = 'http://i.imgur.com/gxtji6F.jpg';
