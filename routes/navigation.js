@@ -277,8 +277,8 @@ exports.saveWorkout = function(req, res) {
    console.log('Executing saveWorkout');
    var queWorkout = req.body;
    console.log(queWorkout);
-//   data.workoutInit({workout: queWorkout}, function(err, resWorkout) {
-   fakeDataSend({workout: queWorkout}, function(err, resWorkout) {
+   data.workoutInit({workout: queWorkout}, function(err, resWorkout) {
+//   fakeDataSend({workout: queWorkout}, function(err, resWorkout) {
       if(err)
          res.send(500, err.message);
       else {

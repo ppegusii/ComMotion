@@ -167,6 +167,7 @@ function initSaveButton() {
    saveButton.click(function(event) {
       event.preventDefault();
 
+      workoutObj.name = $('#workout_name').val();
       workoutObj.difficulty = toDifficulty($('#difficulty').val());
       workoutObj.description = $('#description').val();
       workoutObj.sequence = null; // remove sequence info
