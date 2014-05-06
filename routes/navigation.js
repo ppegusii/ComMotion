@@ -159,15 +159,36 @@ exports.encyclopediaindex = function(req, res){
 exports.myfavorites = function(req, res){
 	userId = req.session.user.id;
 	data.exercisesGetByUserFav( {userId: userId},function afterGet(err, exercises){
-    res.render('myfavorites',
-      {
-        title: 'My Favorites',
-        exercises: exercises,
-        err: err
-      });
-  });
+      if(err) {
+         res.send(500, err.message);
+      }
+      else {
+         res.render('myfavorites',
+            {
+               title: 'My Favorites',
+               exercises: exercises,
+               workouts: [],
+               err: err
+            });
+//         data.workoutsGetByUserFav( {userId: userId},function(err2, workouts){
+//            if(err2) {
+//               res.send(500, err2.message);
+//            }
+//            else {
+//               res.render('myfavorites',
+//                  {
+//                     title: 'My Favorites',
+//                     exercises: exercises,
+//                     workouts: workouts,
+//                     err: err
+//                  });
+//            }
+//         });
+      }
 
-};
+   });
+
+}
 
 /*
 //{userId: number, exerciseId: number}

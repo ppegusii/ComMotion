@@ -539,6 +539,10 @@ INSERT INTO fav_exercises (user_id, exercise_id) VALUES
 	(15, 17),
 	(7, 16),
 	(4, 2);
+INSERT INTO fav_workouts (user_id, workout_id) VALUES
+   	(1, 1),
+   	(1, 2),
+   	(1, 3);
 INSERT INTO followers (user_id, follower_id) VALUES
 	(1, 20),
 	(1, 7),
