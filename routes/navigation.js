@@ -209,8 +209,14 @@ exports.saveFavoriteExercise = function(req, res){
 
 exports.findusers = function(req, res){
 
-    //data.searchByNameDescriptionMusclegroup()
-     res.render('findusers', {title: 'Find Users'});
+    data.usersGetLimitN({n: 10}, function(err, users) {
+       if(err) {
+          res.send(500, err.message);
+       }
+       else {
+          res.render('findusers', {title: 'Find Users', users: users});
+       }
+    });
 };
 
 exports.workoutcreator = function(req, res){
