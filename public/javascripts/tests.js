@@ -417,7 +417,7 @@ asyncTest('postsOfFollowedUsersGetByFollowingUserId',function(){
 	}).done(function(posts){
     //console.log('postsOfFollowedUsersGetByFollowingUserId');
     //console.log(posts);
-    equal(posts.length,1,'received correct number of posts');
+    equal(posts.length,4,'received correct number of posts');
     equal(posts[0].text,'I love squats so much, I want to start a squat club.  And the first rule of squat club is, you don\'t talk about squat club.','received correct post');
     start();
   });
@@ -479,7 +479,7 @@ asyncTest('timerGetById',function(){
 		url: '/query',
 		data: {
       query: 'timerGetById',
-      id: 1
+      id: 22
     }
 	}).done(function(timers){
     console.log('timerGetById');
@@ -536,6 +536,8 @@ asyncTest('exerciseInstancesGetByWorkoutId',function(){
     start();
   });
 });
+
+module('workout');
 asyncTest('workoutGetById',function(){
   expect(1);
 	$.ajax({
@@ -549,6 +551,25 @@ asyncTest('workoutGetById',function(){
     console.log('workoutGetById');
     console.log(workouts);
     equal(workouts[0].name,'Leg Blaster!','got correct workout');
+    start();
+  });
+});
+
+module('search');
+asyncTest('exerciseWorkoutsSearchByNameDescriptionFilterByDifficultyId',function(){
+  expect(1);
+	$.ajax({
+		type: 'POST',
+		url: '/query',
+		data: {
+      query:'exerciseWorkoutsSearchByNameDescriptionFilterByDifficultyId',
+      search: 'press',
+      difficultyId: 3
+    }
+	}).done(function(o){
+    console.log('exerciseWorkoutsSearchByNameDescriptionFilterByDifficultyId');
+    console.log(o);
+    equal(o.workouts.length,1,'got 1');
     start();
   });
 });

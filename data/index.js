@@ -26,6 +26,8 @@ exports.exerciseInit = exercise.init;
 exports.exercisesGetByUserFav = exercise.getByUserFav;
 //{search: string}
 exports.exercisesSearchByNameDescriptionMusclegroup = exercise.searchByNameDescriptionMusclegroup;
+//{search: string, difficultyId: number}
+exports.exerciseWorkoutsSearchByNameDescriptionFilterByDifficultyId = workout.searchForExercisesAndWorkoutsByNameDescriptionFilterByDifficultyId;
 //{id: number}
 exports.difficultyGetById = difficulty.getById;
 //{id: number}
