@@ -3,16 +3,14 @@ var models = require('../models/index.js');
 var data = require(process.env.DATA);
 
 exports.encyclopedia_results = function(req, res){
-
-    data.searchForExercisesAndWorkoutsByNameDescriptionFilterByDifficultyId({search:req.query.query}, function(err, exercises) {
+console.log(JSON.stringify(req.query));
+    data.exerciseWorkoutsSearchByNameDescriptionFilterByDifficultyId({search:req.query.query, difficultyId:req.query.difficultyId}, function(err, results) {
         if(err) {
             console.log(err.message);
             res.send(500, err.message);
         }
         else {
-		for (var i=0;i<exercises.length;i++){
-		console.log(exercises[i]);}
-            res.render('encyclopediaresults', {title: 'Encyclopedia Results', exercises: exercises, workouts:workouts, pageN:0});
+            res.render('encyclopediaresults', {title: 'Encyclopedia Results', exercises: results.exercises, workouts:results.workouts, pageN:0});
         }
     });
 };
