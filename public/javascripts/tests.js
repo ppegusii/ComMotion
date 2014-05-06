@@ -589,6 +589,22 @@ asyncTest('exerciseWorkoutsSearchByNameDescriptionFilterByDifficultyId',function
     start();
   });
 });
+asyncTest('exerciseWorkoutsSearchByNameDescriptionFilterByDifficultyId no difficultyId',function(){
+  expect(1);
+	$.ajax({
+		type: 'POST',
+		url: '/query',
+		data: {
+      query:'exerciseWorkoutsSearchByNameDescriptionFilterByDifficultyId',
+      search: 'press'
+    }
+	}).done(function(o){
+    console.log('exerciseWorkoutsSearchByNameDescriptionFilterByDifficultyId');
+    console.log(o);
+    equal(o.workouts.length,1,'got 1');
+    start();
+  });
+});
 
 //copied from
 //http://stackoverflow.com/questions/105034/how-to-create-a-guid-uuid-in-javascript
