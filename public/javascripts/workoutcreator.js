@@ -26,11 +26,13 @@ function initWorkoutObj() {
    var jsonString = $('#workoutObj').html();
    if(jsonString !== '') {
       var temp = JSON.parse(jsonString);
+      console.log(temp);
       workoutObj.id = temp.id;
       workoutObj.name = temp.name;
       workoutObj.description = temp.description;
       workoutObj.difficulty = temp.difficulty;
       workoutObj.creatorId = temp.creatorId;
+      workoutObj.sequence = temp.sequence;
       for(var i=0; i < temp.photos.length; i++)
          addPhoto(temp.photos[i].url, temp.photos[i].id);
       for(var i=0; i < temp.videos.length; i++)
@@ -46,6 +48,7 @@ function populateUIFields() {
    if(workoutObj.difficulty !== null)
       $('#difficulty').val(workoutObj.difficulty.name);
    $('#description').html(workoutObj.description);
+   $('#workoutDisplay').append(htmlForWorkout(workoutObj));
 }
 
 function removePhotoFn(selector, uiId) {

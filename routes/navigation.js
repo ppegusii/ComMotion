@@ -212,22 +212,17 @@ exports.editWorkout = function(req, res) {
    console.log('Executing editWorkout');
    var wid = req.query.wid;
    console.log('Found eid ' + wid);
-   /*
-   data.exerciseGetById({id: eid}, function(err, exercise) {
+   data.workoutGetById({id: wid}, function(err, workout) {
       if(err) {
-         console.log(err.message);
-         res.send(500, err.message);
+         console.log('err');
+      }
+      else if(workout.length === 0) {
+         console.log('length 0');
       }
       else {
-         //console.log('Sending exercise ' + JSON.stringify(exercise[0]));
-         req.flash('editExercise', JSON.stringify(exercise[0]));
-         res.redirect('/create/exercise');
+         res.render('create/editWorkout', {workout: workout[0]});
       }
    });
-   */
-   req.flash('editWorkout', JSON.stringify(fakeWorkout));
-   res.redirect('/create/workoutcreator');
-
 }
 
 var pURL = 'http://i.imgur.com/gxtji6F.jpg';
