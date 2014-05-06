@@ -37,12 +37,6 @@
                                  <input id="signup-password" type="password" class="form-control" name="password">
                             </div>
 
-							<div style="margin-bottom: 0px" class="input-group col-md-offset-2">
-								 <h5>Confirm Password:</h5>
-                                 <input id="signup-confirmpassword" type="password" class="form-control" name="confirmpassword">
-                            </div>                            
-
-
                   </form>   
       </div>
       <div class="modal-footer">
@@ -54,6 +48,10 @@
 </div>
 
 <script>
+
+var new_username;
+var new_id;
+
     $(function(){				
         $('#sign-up').click(function(e){
             e.preventDefault();
@@ -73,7 +71,9 @@
 		        contentType: 'application/json',
 				 url: 'http://localhost:8080/query',						
                 success: function(data) {
-                    console.log('User has signed up');
+					new_username = $('#signup-username').val();
+					console.log(JSON.stringify(parseInt(data.id)));
+					new_id = parseInt(data.id);
                 }
             });
 

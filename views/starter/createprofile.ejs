@@ -12,69 +12,7 @@
 
 
 <body>
-<!--
-<div class="container">
 
-	<div class="col-md-5 col-md-offset-3">
-
-		<div style="margin-top:30px;background-color:#99CCCC" class="well">
-
-			<div style="margin-bottom:20px"><center><h4><strong>Create your profile</strong></h4></center></div>
-			<h5><strong>Skill Level:</strong></h5>
-				<span class="input-group">
-        			<input type="radio" name="skill_level" value="beginner"> Beginner
-					<input type="radio" name="skill_level" value="intermediate"> Intermediate
-					<input type="radio" name="skill_level" value="advanced"> Advanced
-      			</span>
-			<h5><strong>Activities:</strong></h5>
-				<span class="input-group">
-					<table>
-					<tr>
-        			<td><input type="checkbox" name="activity" value="swimming">  Swimming  </td>
-					<td><input type="checkbox" name="activity" value="weightlifting">  Weight Lifting  </td>
-					<td><input type="checkbox" name="activity" value="kickboxing">  Kick Boxing  </td>
-					</tr>
-					<tr>
-        			<td><input type="checkbox" name="activity" value="cycling">  Cycling </td>
-					<td><input type="checkbox" name="activity" value="">  Running  </td>
-					<td><input type="checkbox" name="activity" value="kickboxing">  Fill In  </td>
-					</tr>
-					<tr>
-        			<td><input type="checkbox" name="activity" value="cycling">  Fill In </td>
-					<td><input type="checkbox" name="activity" value="">  Fill In </td>
-					</tr>
-					</table>
-      			</span>
-
-				<div style="margin-bottom: 0px" class="input-group">
-					<h5><strong>Bio:</strong></h5>
-					<textarea class="form-control" id="exercise-bio" style="resize:none" rows="4" cols="50" value="" resize="none" name="description"></textarea> 	
-
-					<div style="margin-bottom: 15px" class="input-group">
-						<h5><strong>Profile Picture URL</strong> (optional)</h5>
-						<input id="media" type="text" class="form-control" name="media" style="resize:none" maxlength="1023">     
-
-               		</div>
-	
-						<a id="btn-search" href="home" style="margin-top:20px" class="btn btn-danger pull-right">Save profile</a>
-                </div>   
-
-				
-   
-		</div>
-	</div>
-</div>
-
-
-<script src = "../javascripts/bootstrap.js"></script>
-
-
-
-</body>
-
-
-</html>
--->
 <createprofile>
 
 
@@ -83,43 +21,43 @@
     <div class="modal-content col-md-11 col-md-offset-1"  style="background-color:#99CCCC">
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-        <h4 class="modal-title" id="myModalLabel">Create Your Profile</h4>
+        <h4 class="modal-title" id="myModalLabel"><div id="your_name"></div>Create Your Profile</h4>
       </div>
       <div class="modal-body">
 			<form id="createprofileform" class="form-horizontal" role="form">
         		<h5><strong>Skill Level:</strong></h5>
 				<span class="input-group">
-        			<input type="radio" name="skill_level" value="beginner"> Beginner
-					<input type="radio" name="skill_level" value="intermediate"> Intermediate
-					<input type="radio" name="skill_level" value="advanced"> Advanced
+        			<input type="radio" name="skill_level" value="1"> Beginner
+					<input type="radio" name="skill_level" value="2"> Intermediate
+					<input type="radio" name="skill_level" value="3"> Advanced
       			</span>
 
 				<h5><strong>Activities:</strong></h5>
 				<span class="input-group">
 					<table>
 					<tr style="font-size:15px">
-        			<td><input type="checkbox" name="activity" value="hiking">  Hiking  </td>
-					<td><input type="checkbox" name="activity" value="cycling">  Cycling  </td>
-					<td><input type="checkbox" name="activity" value="mountain_biking">  Mountain Biking  </td>
-					<td><input type="checkbox" name="activity" value="swimming">  Swimming  </td>
+        			<td><input type="checkbox" name="activity" value="1">  Hiking  </td>
+					<td><input type="checkbox" name="activity" value="2">  Cycling  </td>
+					<td><input type="checkbox" name="activity" value="3">  Mountain Biking  </td>
+					<td><input type="checkbox" name="activity" value="4">  Swimming  </td>
 					</tr>
 					<tr style="font-size:15px">
-        			<td><input type="checkbox" name="activity" value="surfing">  Surfing  </td>
-					<td><input type="checkbox" name="activity" value="downhill_skiing">  Downhill Skiing  </td>
-					<td><input type="checkbox" name="activity" value="snowboarding">  Snowboarding  </td>
-					<td><input type="checkbox" name="activity" value="cross_country_skiing">  XC Skiing  </td>
+        			<td><input type="checkbox" name="activity" value="5">  Surfing  </td>
+					<td><input type="checkbox" name="activity" value="6">  Downhill Skiing  </td>
+					<td><input type="checkbox" name="activity" value="7">  Snowboarding  </td>
+					<td><input type="checkbox" name="activity" value="8">  XC Skiing  </td>
 					</tr>
 					<tr style="font-size:15px">
-        			<td><input type="checkbox" name="activity" value="martial_arts">  Martial Arts </td>
-					<td><input type="checkbox" name="activity" value="bodybuilding">  Bodybuilding </td>
-					<td><input type="checkbox" name="activity" value="powerlifting">  Powerlifting  </td>
-					<td><input type="checkbox" name="activity" value="olympic_lifting">  Olympic Lifting  </td>
+        			<td><input type="checkbox" name="activity" value="9">  Martial Arts </td>
+					<td><input type="checkbox" name="activity" value="10">  Bodybuilding </td>
+					<td><input type="checkbox" name="activity" value="11">  Powerlifting  </td>
+					<td><input type="checkbox" name="activity" value="12">  Olympic Lifting  </td>
 					</tr>
 					<tr style="font-size:15px">
-        			<td><input type="checkbox" name="activity" value="yoga">  Yoga </td>
-					<td><input type="checkbox" name="activity" value="snowshoeing">  Snowshoeing </td>
-					<td><input type="checkbox" name="activity" value="parkour">  Parkour  </td>
-					<td><input type="checkbox" name="activity" value="running">  Running  </td>
+        			<td><input type="checkbox" name="activity" value="13">  Yoga </td>
+					<td><input type="checkbox" name="activity" value="14">  Snowshoeing </td>
+					<td><input type="checkbox" name="activity" value="15">  Parkour  </td>
+					<td><input type="checkbox" name="activity" value="16">  Running  </td>
 					</tr>
 					</table>
       			</span>
@@ -130,7 +68,7 @@
 
 					<div style="margin-bottom: 0px" class="input-group">
 						<h5><strong>Profile Picture URL</strong> (optional)</h5>
-						<input id="media" type="text" class="form-control" name="media" style="resize:none" maxlength="1023">     
+						<input id="avatar_url" type="text" class="form-control" name="media" style="resize:none" maxlength="1023">     
 
                		</div>
 
@@ -139,10 +77,65 @@
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-danger pull-left" data-dismiss="modal">Close</button>
-        <a type="button" class="btn btn-primary" data-dismiss="modal" href="home">Save changes</a>
+        <a id ="create_profile" type="button" class="btn btn-primary" data-dismiss="modal" href="home">Save changes</a>
       </div>
     </div>
   </div>
 </div>
+<script>
+    $(function(){		
+		
+        $('#create_profile').click(function(e){
+		
+            e.preventDefault();
+            console.log('Create Profile Clicked');
 
+			var data = {};
+
+			  var activitiesArray = [];
+       	   $(':checkbox:checked').each(function(i){
+        	  activitiesArray[i] = parseInt($(this).val());
+			  console.log($(this).val());
+      	   });
+
+			var ids = Array();
+
+			for (var i = 0; i < activitiesArray.length; i++) {
+	
+				ids.push({
+					id: activitiesArray[i]
+				});
+
+
+			}
+
+			var val = parseInt($('input[name=skill_level]:checked').val());
+	
+			var check = $('input[name=skill_level]:checked').val();
+
+			data.query = 'userUpdateProfile';
+			data.user = {
+			id: new_id,
+			username: new_username,
+			bio: $('#user-bio').val(),
+			avatar_url: $('#avatar_url').val(),
+			difficulty: {id: val},
+ 			activities: ids
+			};
+
+
+			$.ajax({
+				type: 'POST',
+				data: JSON.stringify(data),
+		        contentType: 'application/json',
+				 url: 'http://localhost:8080/query',						
+                success: function(data) {
+					$('#message').val("TEST");
+                }
+            });
+
+
+        });				
+    });
+</script>
 </createprofile>

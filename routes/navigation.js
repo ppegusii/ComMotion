@@ -71,6 +71,26 @@ exports.authenticate = function(req, res) {
 //    res.redirect('home');
 }
 
+exports.authenticate_signup = function(req, res) {
+   console.log(req.body.username);
+   console.log(req.body.password);
+   var username = req.body.username;
+   var password = req.body.password;
+   setSessionForUser(username, password, req, function(err, user) {
+      if(err) {
+         req.flash('login', err.message);
+         res.redirect('/');
+      }
+      else {
+         //console.log(req.session.user);
+         res.redirect('home');
+      }
+   });
+//   var user = new models.User(1,'username','password',undefined,'www',undefined,undefined,undefined,undefined,undefined,undefined);
+//    req.session.user = user;
+//    res.redirect('home');
+}
+
 function setSessionForUser(username, pass, req, cb) {
    data.userGetByUsernamePassword({username: username, password: pass}, function (err, users){
       if(err) {

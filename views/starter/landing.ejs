@@ -39,7 +39,7 @@
 				     <form id="loginform" class="form-horizontal" role="form" method="post" action="authenticate">
 
                          <% if(err.length !== 0) { %>
-                         <div class="alert alert-danger" role="alert" style="margin-bottom: 15px">
+                         <div id="message" class="alert alert-danger" role="alert" style="margin-bottom: 15px">
                              <p class="error"><%= err %></p>
                          </div>
                          <% } %>
