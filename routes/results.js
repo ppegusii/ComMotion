@@ -4,7 +4,7 @@ var data = require(process.env.DATA);
 
 exports.encyclopedia_results = function(req, res){
 
-    data.exercisesSearchByNameDescriptionMusclegroup({search:req.query.query}, function(err, exercises) {
+    data.searchForExercisesAndWorkoutsByNameDescriptionFilterByDifficultyId({search:req.query.query}, function(err, exercises) {
         if(err) {
             console.log(err.message);
             res.send(500, err.message);
@@ -12,7 +12,7 @@ exports.encyclopedia_results = function(req, res){
         else {
 		for (var i=0;i<exercises.length;i++){
 		console.log(exercises[i]);}
-            res.render('encyclopediaresults', {title: 'Encyclopedia Results', exercises: exercises,pageN:0});
+            res.render('encyclopediaresults', {title: 'Encyclopedia Results', exercises: exercises, workouts:workouts, pageN:0});
         }
     });
 };

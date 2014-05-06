@@ -6,6 +6,7 @@ function initExerciseSearchButton() {
     searchButton.click(function(event) {
         event.preventDefault();
         var query = $('#itemsearch').val();
+        query.difficultyId=$("input[@name=difficulty]:checked").val();
         if(query === '')
             alert('Please enter a query into the textbox');
         else
