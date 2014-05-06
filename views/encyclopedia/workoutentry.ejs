@@ -8,7 +8,14 @@
     <!-- Bootstrap core CSS -->
     <link rel = "stylesheet" type ="text/css" href = "stylesheets/bootstrap/css/bootstrap.css" >
     <script src="../javascripts/jquery-1.11.0.min.js"></script>
-    <script src="../javascripts/workoutEntry.js"></script>
+    <script src="../javascripts/htmlForWorkout.js"></script>
+    <script>
+        $(function() {
+            var workout = JSON.parse($('#workout').html());
+            console.log(htmlForWorkout(workout));
+            $('#workoutDisplay').prepend(htmlForWorkout(workout));
+        })
+    </script>
     <!-- Custom styles for this template -->
     <link href="stylesheets/blog.css" rel="stylesheet">
   </head>
@@ -37,10 +44,7 @@
 
             <h3>Workout</h3>
 
-            <div id="workoutDisplay">
-                <img src="http://placehold.it/500x800">
-                <!-- Display workout here -->
-            </div>
+            <div id="workoutDisplay"></div>
 
             <h3>Difficulty: <%= workout.difficulty.name %></h3>
 
